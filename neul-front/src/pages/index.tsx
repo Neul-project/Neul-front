@@ -1,4 +1,4 @@
-import MainPage from "@/features/MainPage";
+import MainPage from "@/features/MainPage/Main";
 
 const Main = () => {
   return <MainPage />;
