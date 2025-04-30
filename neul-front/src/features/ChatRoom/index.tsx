@@ -6,13 +6,13 @@ import arrow_back from "@/assets/images/arrow_back.svg";
 import io from "socket.io-client";
 import Image from "next/image";
 import clsx from "clsx";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 //Chatting 인터페이스 정의
 interface Chatting {
   id: number;
   name: string;
-  chatting: string;
+  message: string;
   time: string;
   date: string;
   isMe: boolean;
@@ -21,50 +21,52 @@ interface Chatting {
 // 채팅 전체 화면
 const ChatRoom = () => {
   const [inputValue, setInputValue] = useState("");
-  const [chattings, setChattings] = useState<Chatting[]>([
-    {
-      id: 1,
-      name: "보호자",
-      chatting: `혹시 그때 가능한가요?`,
-      time: "17:06",
-      date: "2025년 4월 28일",
-      isMe: true,
-    },
-    {
-      id: 2,
-      name: "도우미",
-      chatting: `내 가능합니다`,
-      time: "17:07",
-      date: "2025년 4월 28일",
-      isMe: false,
-    },
-    {
-      id: 3,
-      name: "보호자",
-      chatting: `그럼 그때로 할게요`,
-      time: "17:08",
-      date: "2025년 4월 28일",
-      isMe: true,
-    },
-    {
-      id: 4,
-      name: "도우미",
-      chatting: `네^^`,
-      time: "17:09",
-      date: "2025년 4월 29일",
-      isMe: false,
-    },
-  ]);
+  const [chattings, setChattings] = useState<Chatting[]>([]);
+  //   [
+  //   {
+  //     id: 1,
+  //     name: "보호자",
+  //     message: `혹시 그때 가능한가요?`,
+  //     time: "17:06",
+  //     date: "2025년 4월 28일",
+  //     isMe: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "도우미",
+  //     message: `내 가능합니다`,
+  //     time: "17:07",
+  //     date: "2025년 4월 28일",
+  //     isMe: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "보호자",
+  //     message: `그럼 그때로 할게요`,
+  //     time: "17:08",
+  //     date: "2025년 4월 28일",
+  //     isMe: true,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "도우미",
+  //     message: `네^^`,
+  //     time: "17:09",
+  //     date: "2025년 4월 29일",
+  //     isMe: false,
+  //   },
+  // ]
 
   const socketRef = useRef<any>(null);
 
-  const userId = 1;
+  const userId = 1; //아직 로그인한 사용자 정보 없어서 임의로 정해놓음
+
   // 채팅 목록 가져오기 요청
   const fetchChatMessages = async () => {
     try {
       // userId를 보냄
-      const res = await axios.get(`/chat/${userId}`);
-      // [{채팅 고유 id(id), 채팅 작성한 사람 이름(name), 채팅 내용(chatting),
+      const res = await axiosInstance.get(`/chat/${userId}`);
+      // [{채팅 고유 id(id), 채팅 작성한 사람 이름(name), 채팅 내용(message),
       //  채팅 작성 시간(time), 채팅 작성 날짜(date), 사용자 본인이 작성한지 여부(isMe)}] 보내주기
       setChattings(res.data);
     } catch (e) {
@@ -77,7 +79,7 @@ const ChatRoom = () => {
     fetchChatMessages();
 
     // 소켓 연결
-    socketRef.current = io("http://localhost:5000", {
+    socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
       withCredentials: true,
     });
 
@@ -113,7 +115,7 @@ const ChatRoom = () => {
 
     try {
       // 서버에 메시지 저장 요청
-      await axios.post("/chat", messageToSend);
+      await axiosInstance.post("/chat", messageToSend);
 
       // 소켓 실시간 메시지 전송
       socketRef.current.emit("send_message", messageToSend);
@@ -149,7 +151,7 @@ const ChatRoom = () => {
                 <ChatMessage
                   key={chat.id}
                   name={chat.name}
-                  chatting={chat.chatting}
+                  message={chat.message}
                   time={chat.time}
                   isMe={chat.isMe}
                 />
