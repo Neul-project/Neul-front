@@ -19,6 +19,50 @@ const JoinPage = () => {
     { value: "admin", label: "관리자" },
   ];
 
+  // email, phone 중복 검사
+  const handleDuplicationCheck = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
+
+    const target = e.currentTarget.previousElementSibling as HTMLInputElement;
+    const fieldName = target?.name;
+    const fieldValue = target?.value;
+
+    if (!fieldName || !fieldValue) {
+      alert("값을 입력해주세요.");
+      return;
+    }
+
+    try {
+      let response;
+
+      if (fieldName === "email") {
+        response = await axios.get(
+          `http://localhost:5000/auth/check_email?email=${fieldValue}`
+        );
+        if (response.data.isDuplicate) {
+          alert("이미 사용 중인 이메일입니다.");
+        } else {
+          alert("사용 가능한 이메일입니다.");
+        }
+      } else if (fieldName === "phone") {
+        response = await axios.get(
+          `http://localhost:5000/auth/check_phone?phone=${fieldValue}`
+        );
+        if (response.data.isDuplicate) {
+          alert("이미 등록된 전화번호입니다.");
+        } else {
+          alert("사용 가능한 전화번호입니다.");
+        }
+      }
+    } catch (error) {
+      console.error("중복 확인 오류", error);
+      alert("중복 확인 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 회원가입 api요청
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -88,6 +132,12 @@ const JoinPage = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
               />
+              <button
+                className="Join_duplication"
+                onClick={handleDuplicationCheck}
+              >
+                중복 확인
+              </button>
             </div>
             <div className="Join_inputWrap Join_password">
               <input
@@ -159,6 +209,12 @@ const JoinPage = () => {
                 value={formik.values.phone}
                 maxLength={11}
               />
+              <button
+                className="Join_duplication"
+                onClick={handleDuplicationCheck}
+              >
+                중복 확인
+              </button>
             </div>
           </div>
 
