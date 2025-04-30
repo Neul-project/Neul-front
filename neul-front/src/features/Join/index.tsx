@@ -6,10 +6,10 @@ import Logo from "@/assets/images/logo_small.png";
 
 import { Select } from "antd";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 
 // 회원가입 유효성 검사 yup
 import { joinValidationSchema } from "@/utils/joinValidation";
+import axios from "axios";
 
 // 회원가입 페이지
 const JoinPage = () => {
@@ -32,9 +32,26 @@ const JoinPage = () => {
       userType: "user",
     },
     validationSchema: joinValidationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log("회원가입 데이터:", values);
-      // 여기에 API 요청 등 연결
+
+      try {
+        const response = await axios.post("http://localhost:5000/auth/signup", {
+          email: values.email,
+          password: values.password,
+          name: values.name,
+          wardName: values.wardName,
+          phone: values.phone,
+          userType: values.userType,
+        });
+
+        console.log("회원가입 성공!", response.data);
+        // 예: 회원가입 성공 후 로그인 페이지로 이동
+        // Router.push("/login");
+      } catch (error) {
+        console.error("회원가입 실패", error);
+        alert("회원가입 중 오류가 발생했습니다.");
+      }
     },
   });
 
