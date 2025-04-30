@@ -33,14 +33,12 @@ const columns: TableProps<DataType>["columns"] = [
   },
 ];
 
-/* **백엔드에서 요청 받아서 표시하기
-axiosInstance.post("/activity/list").then((res) => {
-  console.log("data res", res.data);
-});
-*/
+// **백엔드에서 요청 받아서 표시하기
+// axiosInstance.post(`/activity/list/${userid}`).then((res) => {
+//   console.log("data res", res.data);
+// });
 
 /*
-
 activities table에서 받아야하는 리스트 형식
 {
     key: id,
