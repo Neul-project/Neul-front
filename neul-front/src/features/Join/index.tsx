@@ -16,10 +16,8 @@ const JoinPage = () => {
   // antd 일반, 관리자 사용자 구분
   const option = [
     { value: "user", label: "일반사용자" },
-    { value: "manager", label: "관리자" },
+    { value: "admin", label: "관리자" },
   ];
-
-  const [value, setValue] = useState<string>("user");
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +27,7 @@ const JoinPage = () => {
       name: "",
       wardName: "",
       phone: "",
-      userType: "user",
+      role: "user",
     },
     validationSchema: joinValidationSchema,
     onSubmit: async (values) => {
@@ -42,7 +40,7 @@ const JoinPage = () => {
           name: values.name,
           wardName: values.wardName,
           phone: values.phone,
-          userType: values.userType,
+          role: values.role,
         });
 
         console.log("회원가입 성공!", response.data);
@@ -70,10 +68,10 @@ const JoinPage = () => {
           {/* 사용자 구분 */}
           <div className="Join_selectBox">
             <Select
-              value={formik.values.userType}
+              value={formik.values.role}
               options={option}
               onChange={(val) => {
-                formik.setFieldValue("userType", val);
+                formik.setFieldValue("role", val);
               }}
             />
           </div>
