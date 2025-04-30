@@ -5,6 +5,7 @@ declare module "styled-components" {
     colors: {
       pointBeige: "#fef6d4";
       pointGreen: "#5DA487";
+      softGreen: "#79b79d";
     };
   }
 }

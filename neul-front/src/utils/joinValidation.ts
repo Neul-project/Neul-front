@@ -1,0 +1,19 @@
+import * as Yup from "yup";
+
+export const joinValidationSchema = Yup.object({
+  email: Yup.string()
+    .email("이메일 형식이 올바르지 않습니다.")
+    .required("이메일은 필수입니다."),
+  password: Yup.string()
+    .min(6, "6자리 이상 입력해주세요.")
+    .required("비밀번호는 필수입니다."),
+  passwordCheck: Yup.string()
+    .oneOf([Yup.ref("password")], "비밀번호가 일치하지 않습니다.")
+    .required("비밀번호 확인은 필수입니다."),
+  name: Yup.string().required("이름은 필수입니다."),
+  wardName: Yup.string().required("피보호자 이름은 필수입니다."),
+  phone: Yup.string()
+    .matches(/^01[016789]\d{7,8}$/, "휴대전화번호가 정확한지 확인해 주세요.")
+    .required("전화번호는 필수입니다."),
+  userType: Yup.string().required("사용자 유형을 선택해주세요."),
+});

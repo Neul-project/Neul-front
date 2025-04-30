@@ -4,7 +4,7 @@ const theme: DefaultTheme = {
   colors: {
     pointBeige: "#fef6d4", // 포인트 베이지색
     pointGreen: "#5DA487", // 포인트 초록색
-    // 베이지 #fef6d4  초록 #5DA487
+    softGreen: "#79b79d",
 
     // 사용법 : background-color: ${(props) => props.theme.colors.pointBeige};
     // 색상 연하게 & 진하게 추가해도됨
