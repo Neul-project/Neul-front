@@ -199,4 +199,9 @@ export const JoinStyled = styled.div`
       width: 320px;
     }
   }
+
+  .Join_duplication {
+    cursor: pointer;
+    /* border: none; */
+  }
 `;
