@@ -1,5 +1,6 @@
 import { JoinStyled } from "./styled";
 import { useState } from "react";
+import axiosInstance from "@/lib/axios";
 // 이미지 최적화
 import Image from "next/image";
 import Logo from "@/assets/images/logo_small.png";
@@ -13,7 +14,6 @@ import axios from "axios";
 
 // 회원가입 페이지
 const JoinPage = () => {
-  // antd 일반, 관리자 사용자 구분
   const option = [
     { value: "user", label: "일반사용자" },
     { value: "admin", label: "관리자" },

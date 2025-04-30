@@ -6,7 +6,6 @@ export const LoginPageStyled = styled.div`
   margin: 0 auto;
   margin-top: 100px;
   color: rgb(136, 136, 136);
-  padding: 15px;
 
   li {
     list-style: none;
@@ -17,6 +16,10 @@ export const LoginPageStyled = styled.div`
     padding: 20px;
     border: 1px solid #bdbdbd;
     border-radius: 8px;
+
+    @media (max-width: 632px) {
+      border: none;
+    }
   }
 
   .Login_logoCont {
@@ -53,6 +56,24 @@ export const LoginPageStyled = styled.div`
     }
   }
 
+  .Login_validation {
+    position: relative;
+    padding-left: 8px;
+    color: red;
+    font-size: 13px;
+
+    &::before {
+      position: absolute;
+      top: 9px;
+      left: 0;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: red;
+      content: "";
+    }
+  }
+
   .Login_btn {
     button {
       cursor: pointer;
@@ -86,7 +107,7 @@ export const LoginPageStyled = styled.div`
     }
 
     span {
-      height: 20px;
+      height: 17px;
       border: 1px solid #ddd;
     }
   }
