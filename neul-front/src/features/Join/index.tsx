@@ -6,20 +6,18 @@ import Logo from "@/assets/images/logo_small.png";
 
 import { Select } from "antd";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 
 // 회원가입 유효성 검사 yup
 import { joinValidationSchema } from "@/utils/joinValidation";
+import axios from "axios";
 
 // 회원가입 페이지
 const JoinPage = () => {
   // antd 일반, 관리자 사용자 구분
   const option = [
     { value: "user", label: "일반사용자" },
-    { value: "manager", label: "관리자" },
+    { value: "admin", label: "관리자" },
   ];
-
-  const [value, setValue] = useState<string>("user");
 
   const formik = useFormik({
     initialValues: {
@@ -29,12 +27,29 @@ const JoinPage = () => {
       name: "",
       wardName: "",
       phone: "",
-      userType: "user",
+      role: "user",
     },
     validationSchema: joinValidationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log("회원가입 데이터:", values);
-      // 여기에 API 요청 등 연결
+
+      try {
+        const response = await axios.post("http://localhost:5000/auth/signup", {
+          email: values.email,
+          password: values.password,
+          name: values.name,
+          wardName: values.wardName,
+          phone: values.phone,
+          role: values.role,
+        });
+
+        console.log("회원가입 성공!", response.data);
+        // 예: 회원가입 성공 후 로그인 페이지로 이동
+        // Router.push("/login");
+      } catch (error) {
+        console.error("회원가입 실패", error);
+        alert("회원가입 중 오류가 발생했습니다.");
+      }
     },
   });
 
@@ -53,10 +68,10 @@ const JoinPage = () => {
           {/* 사용자 구분 */}
           <div className="Join_selectBox">
             <Select
-              value={formik.values.userType}
+              value={formik.values.role}
               options={option}
               onChange={(val) => {
-                formik.setFieldValue("userType", val);
+                formik.setFieldValue("role", val);
               }}
             />
           </div>
