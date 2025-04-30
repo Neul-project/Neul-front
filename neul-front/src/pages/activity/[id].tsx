@@ -1,3 +1,4 @@
+import ActivityContent from "@/components/ActivityContent/Main";
 import { useRouter } from "next/router";
 
 const ActivityDetail = () => {
@@ -7,7 +8,7 @@ const ActivityDetail = () => {
 
   //console.log("id", id);
 
-  return <></>;
+  return <ActivityContent />;
 };
 
 export default ActivityDetail;
