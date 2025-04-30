@@ -1,7 +1,8 @@
 import MainPage from "@/features/MainPage/Main";
+import StatusCheck from "@/features/StatusCheck";
 
 const Main = () => {
-  return <MainPage />;
+  return <StatusCheck />;
 };
 
 export default Main;
