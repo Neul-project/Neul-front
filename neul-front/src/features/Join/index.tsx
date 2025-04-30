@@ -39,7 +39,7 @@ const JoinPage = () => {
 
       if (fieldName === "email") {
         response = await axios.get(
-          `http://localhost:5000/auth/check_email?email=${fieldValue}`
+          `http://localhost:5000/auth/check?email=${fieldValue}`
         );
         if (response.data.isDuplicate) {
           alert("이미 사용 중인 이메일입니다.");
@@ -48,7 +48,7 @@ const JoinPage = () => {
         }
       } else if (fieldName === "phone") {
         response = await axios.get(
-          `http://localhost:5000/auth/check_phone?phone=${fieldValue}`
+          `http://localhost:5000/auth/check?phone=${fieldValue}`
         );
         if (response.data.isDuplicate) {
           alert("이미 등록된 전화번호입니다.");
@@ -88,6 +88,7 @@ const JoinPage = () => {
         });
 
         console.log("회원가입 성공!", response.data);
+        console.log("회원가입 성공2!", response.status);
         // 예: 회원가입 성공 후 로그인 페이지로 이동
         // Router.push("/login");
       } catch (error) {
