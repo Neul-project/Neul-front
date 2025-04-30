@@ -8,8 +8,6 @@ import Image from "next/image";
 import clsx from "clsx";
 import axiosInstance from "@/lib/axios";
 
-/* 백엔드와 연결할거 -> 72번째(채팅목록), 86번째(소켓연결), 122번째(서버에 메시지 저장 요청) */
-
 //Chatting 인터페이스 정의
 interface Chatting {
   id: number;
