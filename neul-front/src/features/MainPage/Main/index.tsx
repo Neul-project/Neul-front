@@ -22,9 +22,9 @@ const MainPage = () => {
         Cookies.set("access_token", snsAccess);
         Cookies.set("refresh_token", snsRefresh);
         setIsTokenProcessed(true);
-        router.replace("/").then(() => {
-          window.location.reload();
-        });
+
+        // URL에서 쿼리스트링 제거
+        router.replace("/", undefined, { shallow: true });
       }
     }
   }, [router.isReady, router.query, isTokenProcessed]);

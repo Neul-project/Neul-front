@@ -15,61 +15,28 @@ function isPublicFile(pathname: string) {
   );
 }
 
+//PUBLIC_PATHS 내 경로를 제외한 모든 경로에 로그인 시 발급되는 토큰의 유무를 검사
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // 정적파일, api요청은 검사 건너뛰기
   if (isPublicFile(pathname)) {
-    return NextResponse.next(); // 건너뛰기
+    return NextResponse.next();
   }
 
   const access_token = req.cookies.get("access_token")?.value;
 
-  // 메인, 로그인, 회원가입 페이지는 토큰 없어도 접근 허용
+  // 토큰 없어도 접근 허용
   const isPublic = PUBLIC_PATHS.some((path) => pathname === path);
 
+  // 토큰 없으면 로그인 페이지로 리다이렉트
   if (!isPublic && !access_token) {
     const loginUrl = new URL("/login", req.url);
 
-    // 리다이렉트할 URL에 쿼리 문자열을 붙임 / pages -> login에서 처리
+    // 리다이렉트할 URL에 쿼리 문자열을 붙임 / pages > login에서 처리
     loginUrl.searchParams.set("reason", "auth");
     return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
 }
-
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-// // 로그인 보호가 필요한 경로 리스트
-// const protectedRoutes = [
-//   "/mywrite",
-//   "/myfavorite",
-//   "/alert",
-//   "/cashhistory",
-//   "/mypage",
-//   "/mycomment",
-//   "/newwrite",
-// ];
-
-// export const middleware = (req: NextRequest) => {
-//   const { pathname } = req.nextUrl;
-//   const token = req.cookies.get("accessToken");
-
-//   // 보호된 페이지에 접근 중인데, 토큰이 없으면 로그인으로 리디렉트
-//   const needsAuth = protectedRoutes.some((path) => pathname.startsWith(path));
-//   if (needsAuth && !token) {
-//     return NextResponse.redirect(new URL("/login", req.url));
-//   }
-//   return NextResponse.next();
-// };
-
-// export const config = {
-//   matcher: [
-//     "/mywrite",
-//     "/myfavorite",
-//     "/alert",
-//     "/cashhistory",
-//     "/mypage",
-//     "/mycomment",
-//     "/newwrite",
-//   ],
-// };
