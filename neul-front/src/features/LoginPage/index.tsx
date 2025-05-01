@@ -40,7 +40,7 @@ const LoginPage = () => {
         router.push("/");
       } catch (error) {
         console.error("로그인 실패:", error);
-        alert("로그인 실패");
+        alert("로그인 정보가 일치하지 않습니다.");
       }
     },
   });
@@ -100,7 +100,13 @@ const LoginPage = () => {
         </form>
 
         <ul className="Login_middle">
-          <li>회원가입</li>
+          <li
+            onClick={() => {
+              router.push("/join");
+            }}
+          >
+            회원가입
+          </li>
           <span></span>
           <li>이메일 찾기</li>
         </ul>
