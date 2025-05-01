@@ -9,7 +9,7 @@ const NavigationElement = () => {
 
   //상태확인 페이지 이동
   const stateCheck = () => {
-    router.push("/");
+    router.push("/statuscheck");
   };
 
   //활동기록 페이지 이동
