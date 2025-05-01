@@ -1,10 +1,15 @@
 import { LoginPageStyled } from "./styled";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 // 로그인 유효성 검사 yup
 import { loginSchema } from "@/utils/joinValidation";
 
 const LoginPage = () => {
+  const router = useRouter();
+
   // 로그인 유효성 검사
   const formik = useFormik({
     initialValues: {
@@ -12,11 +17,39 @@ const LoginPage = () => {
       password: "",
     },
     validationSchema: loginSchema,
-    onSubmit: (values) => {
+
+    onSubmit: async (values) => {
       console.log("로그인 요청 데이터:", values);
-      // 로그인 API 호출 처리
+
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/local`,
+          values,
+          {
+            withCredentials: true,
+          }
+        );
+
+        console.log("로그인 응답 데이터", res.data);
+
+        const { user, token } = res.data;
+
+        // access_token 쿠키 저장
+        Cookies.set("access_token", token);
+
+        router.push("/");
+      } catch (error) {
+        console.error("로그인 실패:", error);
+        alert("로그인 실패");
+      }
     },
   });
+
+  // 소셜 로그인
+  const handleSocialLogin = (provider: "naver" | "kakao") => {
+    const api = process.env.NEXT_PUBLIC_API_URL;
+    window.location.href = `${api}/auth/${provider}`;
+  };
 
   return (
     <LoginPageStyled>
@@ -81,10 +114,16 @@ const LoginPage = () => {
           </div>
 
           <div className="Login_socialLogin">
-            <div className="Login_naver">
+            <div
+              className="Login_naver"
+              onClick={() => handleSocialLogin("naver")}
+            >
               <img src="/btnG_아이콘원형.png" alt="naver_login" />
             </div>
-            <div className="Login_kakao">
+            <div
+              className="Login_kakao"
+              onClick={() => handleSocialLogin("kakao")}
+            >
               <img src="/sns_kakao.svg" alt="kakao_login" />
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { JoinStyled } from "./styled";
 import { useState } from "react";
-import axiosInstance from "@/lib/axios";
+
 // 이미지 최적화
 import Image from "next/image";
 import Logo from "@/assets/images/logo_small.png";
@@ -39,7 +39,7 @@ const JoinPage = () => {
 
       if (fieldName === "email") {
         response = await axios.get(
-          `http://localhost:5000/auth/check?email=${fieldValue}`
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/check?email=${fieldValue}`
         );
         if (response.data.isDuplicate) {
           alert("이미 사용 중인 이메일입니다.");
@@ -48,7 +48,7 @@ const JoinPage = () => {
         }
       } else if (fieldName === "phone") {
         response = await axios.get(
-          `http://localhost:5000/auth/check?phone=${fieldValue}`
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/check?phone=${fieldValue}`
         );
         if (response.data.isDuplicate) {
           alert("이미 등록된 전화번호입니다.");
@@ -78,16 +78,19 @@ const JoinPage = () => {
       console.log("회원가입 데이터:", values);
 
       try {
-        const response = await axios.post("http://localhost:5000/auth/signup", {
-          email: values.email,
-          password: values.password,
-          name: values.name,
-          wardName: values.wardName,
-          phone: values.phone,
-          role: values.role,
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+          {
+            email: values.email,
+            password: values.password,
+            name: values.name,
+            wardName: values.wardName,
+            phone: values.phone,
+            role: values.role,
+          }
+        );
 
-        console.log("회원가입 성공!", response.data);
+        console.log("회원가입 성공!", response.data); // 데이터 안옴
         console.log("회원가입 성공2!", response.status);
         // 예: 회원가입 성공 후 로그인 페이지로 이동
         // Router.push("/login");
