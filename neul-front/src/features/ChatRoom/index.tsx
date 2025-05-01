@@ -23,40 +23,41 @@ interface Chatting {
 // 채팅 전체 화면
 const ChatRoom = () => {
   const [inputValue, setInputValue] = useState("");
-  const [chattings, setChattings] = useState<Chatting[]>([
-    {
-      id: 1,
-      name: "보호자",
-      message: `혹시 그때 가능한가요?`,
-      time: "17:06",
-      date: "2025년 4월 28일",
-      isMe: true,
-    },
-    {
-      id: 2,
-      name: "도우미",
-      message: `내 가능합니다`,
-      time: "17:07",
-      date: "2025년 4월 28일",
-      isMe: false,
-    },
-    {
-      id: 3,
-      name: "보호자",
-      message: `그럼 그때로 할게요`,
-      time: "17:08",
-      date: "2025년 4월 28일",
-      isMe: true,
-    },
-    {
-      id: 4,
-      name: "도우미",
-      message: `네^^`,
-      time: "17:09",
-      date: "2025년 4월 29일",
-      isMe: false,
-    },
-  ]);
+  const [chattings, setChattings] = useState<Chatting[]>([]);
+  // [
+  //   {
+  //     id: 1,
+  //     name: "보호자",
+  //     message: `혹시 그때 가능한가요?`,
+  //     time: "17:06",
+  //     date: "2025년 4월 28일",
+  //     isMe: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "도우미",
+  //     message: `내 가능합니다`,
+  //     time: "17:07",
+  //     date: "2025년 4월 28일",
+  //     isMe: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "보호자",
+  //     message: `그럼 그때로 할게요`,
+  //     time: "17:08",
+  //     date: "2025년 4월 28일",
+  //     isMe: true,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "도우미",
+  //     message: `네^^`,
+  //     time: "17:09",
+  //     date: "2025년 4월 29일",
+  //     isMe: false,
+  //   },
+  // ]
 
   const socketRef = useRef<any>(null);
 

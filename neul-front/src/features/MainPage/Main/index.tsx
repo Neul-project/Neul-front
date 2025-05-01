@@ -8,12 +8,9 @@ import IntroSection from "../IntroSection";
 //main page component
 const MainPage = () => {
   return (
-    <>
-      <Header />
-      <MainPageStyled className={clsx("MainPage_main_wrap")}>
-        <IntroSection /> {/* banner + navigator */}
-      </MainPageStyled>
-    </>
+    <MainPageStyled className={clsx("MainPage_main_wrap")}>
+      <IntroSection /> {/* banner + navigator */}
+    </MainPageStyled>
   );
 };
 
