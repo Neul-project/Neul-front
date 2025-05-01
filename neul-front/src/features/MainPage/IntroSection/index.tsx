@@ -2,14 +2,19 @@ import { IntroSectionStyled } from "./styled";
 
 //component
 import Banner from "../banner";
-import NavigationElement from "@/components/NavigationElement";
+import NavigationElement from "@/features/MainPage/NavigationElement";
+import clsx from "clsx";
 
 //메인 페이지 > 상위 탭 구성 (프로그램 신청 배너, 네비게이션)
 const IntroSection = () => {
   return (
-    <IntroSectionStyled className="IntroSection_main_wrap">
-      <Banner />
-      <NavigationElement />
+    <IntroSectionStyled className={clsx("IntroSection_main_wrap")}>
+      <div className="IntroSection_banner">
+        <Banner />
+      </div>
+      <div className="IntroSection_Navigation">
+        <NavigationElement />
+      </div>
     </IntroSectionStyled>
   );
 };
