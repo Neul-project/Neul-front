@@ -1,0 +1,40 @@
+import styled from "styled-components";
+
+export const NavigationElementStyled = styled.div`
+  &.NavigationElement_main_wrap {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    //align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 0px 15px;
+
+    .NavigationElement_ele {
+      display: flex;
+      flex-direction: column;
+      width: 120px;
+      height: 120px;
+      //border: 1px solid black;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-8px);
+      }
+
+      .NavigationElement_img {
+        width: 50px;
+      }
+      .NavigationElement_imgstyle {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+`;
