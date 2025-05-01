@@ -12,6 +12,8 @@ import { useFormik } from "formik";
 import { joinValidationSchema } from "@/utils/joinValidation";
 import axios from "axios";
 
+import TermsOfUse from "@/components/TermsOfUse";
+
 // 회원가입 페이지
 const JoinPage = () => {
   const option = [
@@ -100,6 +102,11 @@ const JoinPage = () => {
       }
     },
   });
+
+  // 약관 컴포넌트 동의
+  const handleTermsChange = (agreements: { [key: string]: boolean }) => {
+    console.log("약관 동의 상태:", agreements);
+  };
 
   return (
     <JoinStyled>
@@ -232,6 +239,8 @@ const JoinPage = () => {
           {formik.touched.phone && formik.errors.phone && (
             <div className="Join_validation">{formik.errors.phone}</div>
           )}
+
+          <TermsOfUse onChange={handleTermsChange} />
 
           {/* 회원가입 버튼 */}
           <div className="Join_submit_btn">
