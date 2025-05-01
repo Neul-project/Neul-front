@@ -19,13 +19,21 @@ const Header = () => {
   const MoveMain = () => {
     router.push("/");
   };
+
+  // 헤더 제외할 페이지
+  const notPage = ["/join", "/login", "/chat"];
+
+  const isHiddenStyle = notPage.includes(router.pathname);
+
   return (
-    <HeaderStyled className={clsx("Header_main_wrap")}>
-      <div className="Header_logo_img" onClick={MoveMain}>
-        <img className="Header_imgstyle" src={logo.src} alt="main-logo" />
-      </div>
-      <div className="Header_menu" onClick={Menu}>
-        <img className="Header_imgstyle" src={menu.src} alt="menu-img" />
+    <HeaderStyled className={clsx(`Header_main_wrap`)}>
+      <div className={isHiddenStyle ? "headerOff" : "header"}>
+        <div className="Header_logo_img" onClick={MoveMain}>
+          <img className="Header_imgstyle" src={logo.src} alt="main-logo" />
+        </div>
+        <div className="Header_menu" onClick={Menu}>
+          <img className="Header_imgstyle" src={menu.src} alt="menu-img" />
+        </div>
       </div>
     </HeaderStyled>
   );

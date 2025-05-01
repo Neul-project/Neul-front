@@ -10,6 +10,10 @@ export const HeaderStyled = styled.div`
     align-items: center;
     margin: 0px auto;
 
+    .headerOff {
+      display: none;
+    }
+
     .Header_logo_img {
       width: 100px;
       height: 100%;
