@@ -6,13 +6,10 @@ import ActivityTable from "../ActivityTable";
 //활동 기록 컴포넌트
 const ActivityList = () => {
   return (
-    <>
-      <Header />
-      <ActivityListStyled className={clsx("ActivityList_main_wrap")}>
-        <h1>활동 기록 열람하기</h1>
-        <ActivityTable />
-      </ActivityListStyled>
-    </>
+    <ActivityListStyled className={clsx("ActivityList_main_wrap")}>
+      <h1>활동 기록 열람하기</h1>
+      <ActivityTable />
+    </ActivityListStyled>
   );
 };
 
