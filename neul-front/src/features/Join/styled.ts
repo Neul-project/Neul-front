@@ -148,6 +148,7 @@ export const JoinStyled = styled.div`
 
     @media (max-width: 506px) {
       width: 320px;
+      margin-bottom: 65px;
     }
 
     button {
@@ -202,6 +203,12 @@ export const JoinStyled = styled.div`
 
   .Join_duplication {
     cursor: pointer;
-    /* border: none; */
+    background-color: #79b79d;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    width: 26%;
+    font-weight: 700;
+    color: #fff;
   }
 `;
