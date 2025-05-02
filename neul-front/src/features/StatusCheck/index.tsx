@@ -9,16 +9,11 @@ import clsx from "clsx";
 /* 백엔드랑 연결할거 -> 61번째줄(해당하는 날짜와 
 사용자에 해당하는 상태 불러오기), 84번째줄(피보호자이름불러오기) */
 
-interface MealType {
-  breakfast: string;
-  lunch: string;
-  dinner: string;
-}
-
+// 상태 타입
 interface StatusType {
   id: number;
   condition: string;
-  meal: MealType;
+  meal: string[];
   medication: string;
   sleep: string;
   pain: string;
@@ -30,11 +25,7 @@ interface StatusType {
 const dummyData = {
   id: 1,
   condition: "아주 좋음",
-  meal: {
-    breakfast: "완식",
-    lunch: "대부분 섭취",
-    dinner: "식사 거부",
-  },
+  meal: ["완식", "대부분 섭취", "식사 거부"],
   medication: "예",
   sleep: "23:00에 잠들어서 7:00에 기상함",
   pain: "오늘은 특별히 아픈 곳이 없다고 함",
@@ -121,9 +112,9 @@ const StatusCheck = () => {
             <div className="statuscheck_info">
               {[
                 { title: "컨디션", value: status.condition },
-                { title: "아침 식사량", value: status.meal.breakfast },
-                { title: "점심 식사량", value: status.meal.lunch },
-                { title: "저녁 식사량", value: status.meal.dinner },
+                { title: "아침 식사량", value: status.meal[0] },
+                { title: "점심 식사량", value: status.meal[1] },
+                { title: "저녁 식사량", value: status.meal[2] },
                 { title: "약 복용 여부", value: status.medication },
                 { title: "수면 시간", value: status.sleep },
                 { title: "통증 여부", value: status.pain },
