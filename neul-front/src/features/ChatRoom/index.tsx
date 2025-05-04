@@ -160,7 +160,7 @@ const ChatRoom = () => {
               <div className="chatroom_date">{date}</div>
               {messages.map((chat) => (
                 <ChatMessage
-                  key={chat.userId}
+                  key={chat.id}
                   name={chat.name}
                   message={chat.message}
                   time={chat.time}
@@ -177,6 +177,9 @@ const ChatRoom = () => {
               type="text"
               placeholder="메시지 입력"
               value={inputValue}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") sendMessage();
+              }}
               onChange={(e) => {
                 setInputValue(e.target.value);
               }}
