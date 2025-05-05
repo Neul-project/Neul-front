@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import axiosInstance from "@/lib/axios";
+import { useEffect } from "react";
 
 interface DataType {
   key: string;
@@ -33,23 +34,6 @@ const columns: TableProps<DataType>["columns"] = [
   },
 ];
 
-// **백엔드에서 요청 받아서 표시하기
-// axiosInstance.post(`/activity/list/${userid}`).then((res) => {
-//   console.log("data res", res.data);
-// });
-
-/*
-activities table에서 받아야하는 리스트 형식
-{
-    key: id,
-    number: id,
-    title: title,
-    data: recorded_at,
-  },
-
-
-*/
-
 const data: DataType[] = [
   {
     key: "1",
@@ -61,7 +45,23 @@ const data: DataType[] = [
 
 //활동 기록 테이블 컴포넌트
 const ActivityTable = () => {
+  //변수 선언
   const router = useRouter();
+
+  //useEffect
+  //화면 로드 시 테이블 내용 요청
+  useEffect(() => {
+    const userId = 1;
+    axiosInstance
+      .get(`/activity/list/${userId}`)
+      .then((res) => {
+        console.log("data res", res.data);
+      })
+      .catch((error) => {
+        console.log("activity list error", error);
+      });
+  }, []);
+
   return (
     <ActivityTableStyled className={clsx("ActivityList_main_wrap")}>
       <Table<DataType>
