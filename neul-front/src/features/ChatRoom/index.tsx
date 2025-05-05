@@ -13,7 +13,8 @@ import axiosInstance from "@/lib/axios";
 //Chatting 인터페이스 정의
 interface Chatting {
   id: number;
-  userId: number;
+  userId?: number;
+  adminId?: number;
   name: string;
   message: string;
   time: string;
@@ -37,7 +38,7 @@ const ChatRoom = () => {
   //   },
   //   {
   //     id: 2,
-  //userId:2,
+  //adminId:2,
   //     name: "도우미",
   //     message: `내 가능합니다`,
   //     time: "17:07",
@@ -55,7 +56,7 @@ const ChatRoom = () => {
   //   },
   //   {
   //     id: 4,
-  //userId:4
+  //adminId:4
   //     name: "도우미",
   //     message: `네^^`,
   //     time: "17:09",
@@ -75,7 +76,7 @@ const ChatRoom = () => {
       const res = await axiosInstance.get(`/chat/list`, {
         params: { userId },
       });
-      // [{채팅 고유 id(id), 채팅 작성한 사람 이름(name), 채팅 내용(message),
+      // [{채팅 고유 id(id), userId 또는 adminId(작성한 사람 id), 채팅 작성한 사람 이름(name), 채팅 내용(message),
       //  채팅 작성 시간(time), 채팅 작성 날짜(date), 사용자 본인이 작성한지 여부(isMe)}] 보내주기
       setChattings(res.data);
     } catch (e) {
