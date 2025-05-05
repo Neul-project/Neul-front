@@ -6,68 +6,62 @@ import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 
-/* 백엔드랑 연결할거 -> 61번째줄(해당하는 날짜와 
-사용자에 해당하는 상태 불러오기), 84번째줄(피보호자이름불러오기) */
-
 // 상태 타입
 interface StatusType {
   id: number;
   condition: string;
-  meal: string[];
+  meal: string;
   medication: string;
   sleep: string;
   pain: string;
   note: string;
-  recordedAt: string;
+  recorded_at: string;
 }
-
-// 더미 데이터(백엔드에서 받아올거)
-const dummyData = {
-  id: 1,
-  condition: "아주 좋음",
-  meal: ["완식", "대부분 섭취", "식사 거부"],
-  medication: "예",
-  sleep: "23:00에 잠들어서 7:00에 기상함",
-  pain: "오늘은 특별히 아픈 곳이 없다고 함",
-  note: "특이사항 없음",
-  recordedAt: "2025-04-30 10:15",
-};
 
 // 상태 체크 페이지(처음 입장했을때는 오늘 날짜로 초기화)
 const StatusCheck = () => {
-  const [status, setStatus] = useState<StatusType | null>(null);
+  const [status, setStatus] = useState<StatusType[] | null>(null);
   const [name, setName] = useState<string>(""); // 피보호자 이름
 
   const userId = 1; //임의로 사용자 id설정
   const today = dayjs(); // 오늘 날짜
 
-  // 날짜 선택
+  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(today);
+
+  // 선택된 날짜로 상태 기록 받기
   const SelectDate = (date: dayjs.Dayjs | null) => {
     if (!date) return;
 
     const selectedDate = date.format("YYYY-MM-DD");
-
+    console.log(selectedDate);
     // userId와 날짜(2025-04-30)를 보내면 상태 기록 받기
     axiosInstance
-      .get("/status", {
+      .get("/status/day", {
         params: {
           userId,
-          date: selectedDate,
+          date: String(selectedDate),
         },
       })
       .then((res) => {
         console.log("상태", res.data);
-        if (res.data && res.data.id) {
-          setStatus(res.data);
-        } else {
-          setStatus(null); // 등록된 상태가 없는 경우
-        }
+        setStatus(res.data);
       })
       .catch((e) => {
         console.error("상태 불러오기 실패:", e);
         setStatus(null);
       });
   };
+
+  // 날짜 선택시
+  const handleDateChange = (date: dayjs.Dayjs | null) => {
+    if (!date) return;
+    setSelectedDate(date);
+  };
+
+  useEffect(() => {
+    // 선택된 날짜로 상태 불러오기
+    SelectDate(selectedDate);
+  }, [selectedDate]);
 
   useEffect(() => {
     // 피보호자 이름은 1번만 불러옴
@@ -76,18 +70,14 @@ const StatusCheck = () => {
         params: { userId },
       })
       .then((res) => {
-        if (res.data?.name) {
-          setName(res.data.name);
-        }
+        setName(res.data);
       })
       .catch((e) => {
         console.error("피보호자 이름 불러오기 실패:", e);
       });
 
     // 오늘 날짜 상태 요청
-    // SelectDate(today);
-    setName("홍길동");
-    setStatus(dummyData);
+    SelectDate(today);
   }, []);
 
   return (
@@ -102,23 +92,34 @@ const StatusCheck = () => {
           <div className="statuscheck_date">
             <DatePicker
               size="large"
-              onChange={SelectDate}
-              defaultValue={today}
+              value={selectedDate}
+              onChange={handleDateChange}
             />
           </div>
 
           {/* 상태 */}
-          {status ? (
+          {status && status.length > 0 ? (
             <div className="statuscheck_info">
               {[
-                { title: "컨디션", value: status.condition },
-                { title: "아침 식사량", value: status.meal[0] },
-                { title: "점심 식사량", value: status.meal[1] },
-                { title: "저녁 식사량", value: status.meal[2] },
-                { title: "약 복용 여부", value: status.medication },
-                { title: "수면 시간", value: status.sleep },
-                { title: "통증 여부", value: status.pain },
-                { title: "특이사항", value: status.note },
+                { title: "컨디션", value: status[0].condition },
+                { title: "아침 식사량", value: status[0].meal?.split(",")[0] },
+                { title: "점심 식사량", value: status[0].meal?.split(",")[1] },
+                { title: "저녁 식사량", value: status[0].meal?.split(",")[2] },
+                {
+                  title: "약 복용 여부",
+                  value:
+                    status[0].medication === "yes"
+                      ? "예"
+                      : status[0].medication === "no"
+                      ? "아니요"
+                      : "없음",
+                },
+                { title: "수면 시간", value: status[0].sleep },
+                { title: "통증 여부", value: status[0].pain },
+                {
+                  title: "특이사항",
+                  value: status[0].note ? status[0].note : "없음",
+                },
               ].map((item, index) => (
                 <div key={index} className="statuscheck_row">
                   <span className="statuscheck_title">{item.title}</span>
