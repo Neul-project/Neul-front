@@ -6,9 +6,9 @@ const ActivityDetail = () => {
 
   const { id } = router.query;
 
-  //console.log("id", id);
+  //console.log("id", typeof id);
 
-  return <ActivityContent />;
+  return <ActivityContent id={id as string} />;
 };
 
 export default ActivityDetail;

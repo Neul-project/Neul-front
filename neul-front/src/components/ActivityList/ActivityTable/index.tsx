@@ -6,12 +6,13 @@ import { useRouter } from "next/router";
 import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import axiosInstance from "@/lib/axios";
+import { useEffect, useState } from "react";
 
 interface DataType {
   key: string;
   number: number;
   title: string;
-  data: string;
+  date: string;
 }
 
 //테이블 열
@@ -28,52 +29,53 @@ const columns: TableProps<DataType>["columns"] = [
   },
   {
     title: "날짜",
-    dataIndex: "data",
-    key: "data",
-  },
-];
-
-// **백엔드에서 요청 받아서 표시하기
-// axiosInstance.post(`/activity/list/${userid}`).then((res) => {
-//   console.log("data res", res.data);
-// });
-
-/*
-activities table에서 받아야하는 리스트 형식
-{
-    key: id,
-    number: id,
-    title: title,
-    data: recorded_at,
-  },
-
-
-*/
-
-const data: DataType[] = [
-  {
-    key: "1",
-    number: 1,
-    title: "활동기록 1",
-    data: "2025년 12월 02일",
+    dataIndex: "date",
+    key: "date",
   },
 ];
 
 //활동 기록 테이블 컴포넌트
 const ActivityTable = () => {
+  //변수 선언
   const router = useRouter();
+
+  //useState
+  const [datalist, setDataList] = useState<DataType[]>();
+
+  //useEffect
+  useEffect(() => {
+    const userId = 1;
+    //화면 로드 시 테이블 내용 요청
+    axiosInstance
+      .get(`/activity/list/${userId}`)
+      .then((res) => {
+        console.log("data res", res.data);
+
+        const formatdata: DataType[] = res.data.map((item: any) => ({
+          key: String(item.id),
+          number: item.id,
+          title: item.title,
+          date: item.recorded_at,
+        }));
+
+        setDataList(formatdata);
+      })
+      .catch((error) => {
+        //console.log("activity list error", error);
+      });
+  }, []);
+
   return (
     <ActivityTableStyled className={clsx("ActivityList_main_wrap")}>
       <Table<DataType>
         columns={columns}
-        dataSource={data}
+        dataSource={datalist}
         onRow={(record, rowIndex) => {
           //record : 클릭된 행 전체 내용 rowIndex 클릭된 행 위치(0부터 시작)
           return {
             onClick: (event) => {
               //console.log("event", record, rowIndex);
-              //클릭된 페이지 이동 url : /activity/1
-              router.push(`/activity/${record.number}`);
+              router.push(`/activity/${record.number}`); //클릭된 페이지 이동 url : /activity/1
             },
           };
         }}

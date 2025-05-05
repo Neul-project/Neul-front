@@ -22,6 +22,10 @@ const NavigationElement = () => {
   const ActivityList = () => {
     router.push("/activity");
   };
+  //채팅방 이동
+  const ChatRoom = () => {
+    router.push("/chat");
+  };
 
   return (
     <NavigationElementStyled className={clsx("NavigationElement_main_wrap")}>
@@ -45,6 +49,26 @@ const NavigationElement = () => {
         </div>
         활동기록
       </div>
+      <div className="NavigationElement_ele" onClick={ChatRoom}>
+        <div className="NavigationElement_img">
+          <img
+            className="NavigationElement_imgstyle"
+            src={chat.src}
+            alt="puls"
+          />
+        </div>
+        채팅
+      </div>
+      <div className="NavigationElement_ele">
+        <div className="NavigationElement_img">
+          <img
+            className="NavigationElement_imgstyle"
+            src={chat.src}
+            alt="puls"
+          />
+        </div>
+        프로그램
+      </div>
       <div className="NavigationElement_ele">
         <div className="NavigationElement_img">
           <img
@@ -54,6 +78,16 @@ const NavigationElement = () => {
           />
         </div>
         채팅
+      </div>
+      <div className="NavigationElement_ele">
+        <div className="NavigationElement_img">
+          <img
+            className="NavigationElement_imgstyle"
+            src={chat.src}
+            alt="puls"
+          />
+        </div>
+        개인정보
       </div>
     </NavigationElementStyled>
   );
