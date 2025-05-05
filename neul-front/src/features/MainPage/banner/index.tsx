@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 //image
-import banner from "@/assets/images/banner.jpg";
 import main01 from "@/assets/images/main01_deco.gif";
 import main02 from "@/assets/images/main02_deco.gif";
 import main03 from "@/assets/images/main03_deco.gif";
