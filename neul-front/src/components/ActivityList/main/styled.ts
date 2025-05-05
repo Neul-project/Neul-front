@@ -9,5 +9,10 @@ export const ActivityListStyled = styled.div`
     flex-direction: column;
     //align-items: center;
     margin: 0px auto;
+
+    .ActivityList_h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
   }
 `;

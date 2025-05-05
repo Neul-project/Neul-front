@@ -6,13 +6,13 @@ import { useRouter } from "next/router";
 import { Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import axiosInstance from "@/lib/axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface DataType {
   key: string;
   number: number;
   title: string;
-  data: string;
+  date: string;
 }
 
 //테이블 열
@@ -29,17 +29,8 @@ const columns: TableProps<DataType>["columns"] = [
   },
   {
     title: "날짜",
-    dataIndex: "data",
-    key: "data",
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: "1",
-    number: 1,
-    title: "활동기록 1",
-    data: "2025년 12월 02일",
+    dataIndex: "date",
+    key: "date",
   },
 ];
 
@@ -48,17 +39,29 @@ const ActivityTable = () => {
   //변수 선언
   const router = useRouter();
 
+  //useState
+  const [datalist, setDataList] = useState<DataType[]>();
+
   //useEffect
-  //화면 로드 시 테이블 내용 요청
   useEffect(() => {
     const userId = 1;
+    //화면 로드 시 테이블 내용 요청
     axiosInstance
       .get(`/activity/list/${userId}`)
       .then((res) => {
         console.log("data res", res.data);
+
+        const formatdata: DataType[] = res.data.map((item: any) => ({
+          key: String(item.id),
+          number: item.id,
+          title: item.title,
+          date: item.recorded_at,
+        }));
+
+        setDataList(formatdata);
       })
       .catch((error) => {
-        console.log("activity list error", error);
+        //console.log("activity list error", error);
       });
   }, []);
 
@@ -66,14 +69,13 @@ const ActivityTable = () => {
     <ActivityTableStyled className={clsx("ActivityList_main_wrap")}>
       <Table<DataType>
         columns={columns}
-        dataSource={data}
+        dataSource={datalist}
         onRow={(record, rowIndex) => {
           //record : 클릭된 행 전체 내용 rowIndex 클릭된 행 위치(0부터 시작)
           return {
             onClick: (event) => {
               //console.log("event", record, rowIndex);
-              //클릭된 페이지 이동 url : /activity/1
-              router.push(`/activity/${record.number}`);
+              router.push(`/activity/${record.number}`); //클릭된 페이지 이동 url : /activity/1
             },
           };
         }}
