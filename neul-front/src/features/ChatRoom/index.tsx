@@ -13,6 +13,7 @@ import axiosInstance from "@/lib/axios";
 //Chatting 인터페이스 정의
 interface Chatting {
   id: number;
+  userId: number;
   name: string;
   message: string;
   time: string;
@@ -27,6 +28,7 @@ const ChatRoom = () => {
   // [
   //   {
   //     id: 1,
+  //userId:1,
   //     name: "보호자",
   //     message: `혹시 그때 가능한가요?`,
   //     time: "17:06",
@@ -35,6 +37,7 @@ const ChatRoom = () => {
   //   },
   //   {
   //     id: 2,
+  //userId:2,
   //     name: "도우미",
   //     message: `내 가능합니다`,
   //     time: "17:07",
@@ -43,6 +46,7 @@ const ChatRoom = () => {
   //   },
   //   {
   //     id: 3,
+  //userId:3,
   //     name: "보호자",
   //     message: `그럼 그때로 할게요`,
   //     time: "17:08",
@@ -51,6 +55,7 @@ const ChatRoom = () => {
   //   },
   //   {
   //     id: 4,
+  //userId:4
   //     name: "도우미",
   //     message: `네^^`,
   //     time: "17:09",
@@ -67,7 +72,9 @@ const ChatRoom = () => {
   const fetchChatMessages = async () => {
     try {
       // userId를 보냄
-      const res = await axiosInstance.get(`/chat/${userId}`);
+      const res = await axiosInstance.get(`/chat/list`, {
+        params: { userId },
+      });
       // [{채팅 고유 id(id), 채팅 작성한 사람 이름(name), 채팅 내용(message),
       //  채팅 작성 시간(time), 채팅 작성 날짜(date), 사용자 본인이 작성한지 여부(isMe)}] 보내주기
       setChattings(res.data);
@@ -85,6 +92,7 @@ const ChatRoom = () => {
       withCredentials: true,
     });
 
+    socketRef.current.off("receive_message"); // 기존 리스너 제거
     socketRef.current.on("receive_message", (message: Chatting) => {
       // 새 메시지 수신 -> 채팅 상태 업데이트
       setChattings((prev) => [...prev, message]);
@@ -113,11 +121,12 @@ const ChatRoom = () => {
     const messageToSend = {
       userId: userId, // 로그인한 사용자 ID
       chatting: inputValue, // 보낼 메시지 내용
+      sender: "user", //보내는 쪽
     };
 
     try {
       // 서버에 메시지 저장 요청
-      await axiosInstance.post("/chat", messageToSend);
+      await axiosInstance.post("/chat/write", messageToSend);
 
       // 소켓 실시간 메시지 전송
       socketRef.current.emit("send_message", messageToSend);
@@ -168,6 +177,9 @@ const ChatRoom = () => {
               type="text"
               placeholder="메시지 입력"
               value={inputValue}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") sendMessage();
+              }}
               onChange={(e) => {
                 setInputValue(e.target.value);
               }}
