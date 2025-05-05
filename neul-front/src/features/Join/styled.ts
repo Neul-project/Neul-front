@@ -145,10 +145,10 @@ export const JoinStyled = styled.div`
   .Join_submit_btn {
     width: 460px;
     margin-top: 1.5rem;
+    margin-bottom: 65px;
 
     @media (max-width: 506px) {
       width: 320px;
-      margin-bottom: 65px;
     }
 
     button {
