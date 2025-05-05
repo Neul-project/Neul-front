@@ -1,24 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TermsOfUseStyled } from "./styled";
 import { useRouter } from "next/router";
 import axios from "axios";
 
+interface Agreements {
+  terms: boolean;
+  privacy: boolean;
+  location: boolean;
+  marketing: boolean;
+}
+
+interface Props {
+  onChange: (agreements: Agreements) => void;
+}
+
 // 이용약관 컴포넌트
-const TermsOfUse = () => {
+const TermsOfUse = ({ onChange }: Props) => {
   const router = useRouter();
 
-  // 약관 동의했는지 체크
-  // useEffect(() => {
-  //   const agreed = localStorage.getItem("agreedTerms");
-
-  //   if (agreed !== "true") {
-  //     alert("약관에 동의해야 회원가입을 진행할 수 있습니다.");
-  //     router.replace("/terms"); // or "/terms-of-use"
-  //   }
-  // }, []);
-
   // 사용자 동의여부 관리
-  const [agreements, setAgreements] = useState({
+  const [agreements, setAgreements] = useState<Agreements>({
     terms: false,
     privacy: false,
     location: false,
@@ -27,6 +28,11 @@ const TermsOfUse = () => {
 
   // 전체 동의 여부
   const allChecked = Object.values(agreements).every(Boolean);
+
+  // 상태가 변경될 때마다 상위로 전달
+  useEffect(() => {
+    onChange(agreements);
+  }, [agreements, onChange]);
 
   // 필수 항목 확인
   const isRequiredChecked = agreements.terms && agreements.privacy;
@@ -51,32 +57,6 @@ const TermsOfUse = () => {
     };
     setAgreements(updated);
     // onChange(updated);
-  };
-
-  // 약관 동의 목록 api 요청
-  const handleNextClick = async () => {
-    if (!isRequiredChecked) return;
-
-    const agreedTerms = Object.entries(agreements)
-      .filter(([_, value]) => value)
-      .map(([key]) => key); // ["terms", "privacy", ...]
-
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/agreements`,
-        {
-          term: agreedTerms,
-        }
-      );
-
-      if (res.data?.ok) {
-        // localStorage.setItem("agreedTerms", "true");
-        router.push("/join");
-      }
-    } catch (error) {
-      console.error("약관 동의 전송 실패:", error);
-      alert("약관 동의 전송 중 오류가 발생했습니다.");
-    }
   };
 
   return (
@@ -165,11 +145,11 @@ const TermsOfUse = () => {
       </div>
 
       {/* 다음 버튼 */}
-      <div className="TermsOfUse_nextBtn">
+      {/* <div className="TermsOfUse_nextBtn">
         <button disabled={!isRequiredChecked} onClick={handleNextClick}>
           다음
         </button>
-      </div>
+      </div> */}
     </TermsOfUseStyled>
   );
 };

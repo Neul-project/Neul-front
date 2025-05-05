@@ -1,5 +1,6 @@
 import { JoinStyled } from "./styled";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 // 이미지 최적화
 import Image from "next/image";
@@ -12,8 +13,20 @@ import { useFormik } from "formik";
 import { joinValidationSchema } from "@/utils/joinValidation";
 import axios from "axios";
 
+import TermsOfUse from "@/components/TermsOfUse";
+
 // 회원가입 페이지
 const JoinPage = () => {
+  const router = useRouter();
+
+  // 약관 동의 상태
+  const [agreements, setAgreements] = useState({
+    terms: false,
+    privacy: false,
+    location: false,
+    marketing: false,
+  });
+
   const option = [
     { value: "user", label: "일반사용자" },
     { value: "admin", label: "관리자" },
@@ -77,8 +90,15 @@ const JoinPage = () => {
     onSubmit: async (values) => {
       console.log("회원가입 데이터:", values);
 
+      // 필수 동의 항목 검사
+      if (!agreements.terms || !agreements.privacy) {
+        alert("필수 약관에 모두 동의해주세요.");
+        return;
+      }
+
       try {
-        const response = await axios.post(
+        // 1. 회원가입 요청
+        const signupRes = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
           {
             email: values.email,
@@ -90,10 +110,32 @@ const JoinPage = () => {
           }
         );
 
-        console.log("회원가입 성공!", response.data); // 데이터 안옴
-        console.log("회원가입 성공2!", response.status);
-        // 예: 회원가입 성공 후 로그인 페이지로 이동
-        // Router.push("/login");
+        const userId = signupRes.data?.userId;
+        if (!userId) {
+          alert("회원가입 후 사용자 ID를 받아올 수 없습니다.");
+          return;
+        }
+
+        // 2. 약관 동의 항목 추출
+        const agreedTerms = Object.entries(agreements)
+          .filter(([_, value]) => value)
+          .map(([key]) => key); // ["terms", "privacy", ...]
+
+        // 3. 약관 동의 전송
+        const agreementsRes = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/agreements`,
+          {
+            userId, // 백엔드가 userId를 요구한다면 포함
+            term: agreedTerms,
+          }
+        );
+
+        if (agreementsRes.data?.ok) {
+          alert("회원가입이 완료되었습니다!");
+          router.push("/moreinfo"); // 추가정보 입력
+        } else {
+          alert("약관 동의 처리 중 문제가 발생했습니다.");
+        }
       } catch (error) {
         console.error("회원가입 실패", error);
         alert("회원가입 중 오류가 발생했습니다.");
@@ -232,6 +274,9 @@ const JoinPage = () => {
           {formik.touched.phone && formik.errors.phone && (
             <div className="Join_validation">{formik.errors.phone}</div>
           )}
+
+          {/* 이용약관 동의 */}
+          <TermsOfUse onChange={(updated) => setAgreements(updated)} />
 
           {/* 회원가입 버튼 */}
           <div className="Join_submit_btn">
