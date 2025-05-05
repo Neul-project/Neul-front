@@ -3,9 +3,10 @@ import styled from "styled-components";
 export const StatusCheckStyled = styled.div`
   &.statuscheck_wrap {
     max-width: 700px;
-    margin: 40px auto;
+    margin: 0px auto;
     padding: 0 10px;
     .statuscheck_box {
+      min-height: 809.15px;
       padding: 32px;
       background-color: #fff;
       border-radius: 16px;
@@ -45,7 +46,7 @@ export const StatusCheckStyled = styled.div`
       }
 
       .statuscheck_none {
-        margin-top: 24px;
+        margin-top: 60px;
         text-align: center;
         font-size: 16px;
         color: #999;
