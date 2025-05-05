@@ -16,7 +16,8 @@ body {
   overflow-x: hidden;
 }
 
-body {
+body,
+textarea {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;

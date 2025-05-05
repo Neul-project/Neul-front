@@ -28,3 +28,19 @@ export const loginSchema = Yup.object({
     .min(6, "비밀번호는 최소 6자 이상이어야 합니다.")
     .required("비밀번호는 필수입니다."),
 });
+
+// 추가정보 입력 유효성 검사
+export const moreInfoValidation = Yup.object({
+  guardianName: Yup.string().required("보호자 이름은 필수입니다."),
+  guardianPhone: Yup.string()
+    .required("휴대폰 번호를 입력해주세요.")
+    .matches(/^\d{10,11}$/, "전화번호는 숫자 10~11자리여야 합니다."),
+  wardName: Yup.string().required("피보호자 이름은 필수입니다."),
+  gender: Yup.string().required("성별을 선택해주세요."),
+  birthYear: Yup.string().required("생년 입력").length(4, "4자리 연도"),
+  birthMonth: Yup.string().required("월 입력").length(2, "2자리 월"),
+  birthDay: Yup.string().required("일 입력").length(2, "2자리 일"),
+  address: Yup.string().required("주소를 입력해주세요."),
+  addressDetail: Yup.string().required("상세주소를 입력해주세요."),
+  note: Yup.string(), // 선택 항목
+});

@@ -7,6 +7,16 @@ import axios from "axios";
 const TermsOfUse = () => {
   const router = useRouter();
 
+  // 약관 동의했는지 체크
+  // useEffect(() => {
+  //   const agreed = localStorage.getItem("agreedTerms");
+
+  //   if (agreed !== "true") {
+  //     alert("약관에 동의해야 회원가입을 진행할 수 있습니다.");
+  //     router.replace("/terms"); // or "/terms-of-use"
+  //   }
+  // }, []);
+
   // 사용자 동의여부 관리
   const [agreements, setAgreements] = useState({
     terms: false,
@@ -60,6 +70,7 @@ const TermsOfUse = () => {
       );
 
       if (res.data?.ok) {
+        // localStorage.setItem("agreedTerms", "true");
         router.push("/join");
       }
     } catch (error) {
