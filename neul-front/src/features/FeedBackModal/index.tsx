@@ -21,7 +21,9 @@ const FeedBackModal = (props: { activityid: string }) => {
     const userId = 1;
 
     axiosInstance.post(`/activity/feedback`, {
-      params: { message: content, activityid: activityid, userId: userId },
+      message: content,
+      activityid: Number(activityid),
+      userId: userId,
     });
   };
 
