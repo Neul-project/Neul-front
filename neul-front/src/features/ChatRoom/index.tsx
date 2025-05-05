@@ -121,8 +121,8 @@ const ChatRoom = () => {
     // 채팅 객체
     const messageToSend = {
       userId: userId, // 로그인한 사용자 ID
+      adminId: null, // 관리자가 보낸 채팅이 아니라는 것을 알기 위해 null로 표시
       chatting: inputValue, // 보낼 메시지 내용
-      sender: "user", //보내는 쪽
     };
 
     try {
