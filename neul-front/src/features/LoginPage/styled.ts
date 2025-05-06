@@ -136,6 +136,10 @@ export const LoginPageStyled = styled.div`
     gap: 20px;
   }
 
+  .Login_socialWrapper:hover .speech {
+    display: block;
+  }
+
   .Login_naver,
   .Login_kakao {
     cursor: pointer;
@@ -146,8 +150,13 @@ export const LoginPageStyled = styled.div`
   }
 
   .Login_guide {
-    margin-top: 10px;
+    display: none;
+    margin-top: 12px;
     font-size: 12px;
+
+    @media (max-width: 632px) {
+      display: block;
+    }
 
     li {
       position: relative;
@@ -170,12 +179,17 @@ export const LoginPageStyled = styled.div`
       font-weight: 700;
     }
   }
+
+  .hover {
+    &:hover {
+    }
+  }
 `;
 
 export const SpeechBubble = styled.div`
   display: none;
   position: absolute;
-  top: -20px;
+  top: -57px;
   left: 75px;
   background: #fff;
   border-radius: 10px;
@@ -188,6 +202,7 @@ export const SpeechBubble = styled.div`
   max-width: 300px;
   line-height: 1.5;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.2s;
 
   /* &::after {
     content: "";

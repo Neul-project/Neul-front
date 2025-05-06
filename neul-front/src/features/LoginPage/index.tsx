@@ -120,24 +120,34 @@ const LoginPage = () => {
           </div>
 
           <div className="Login_socialLogin">
-            <div
-              className="Login_naver hover"
-              onClick={() => handleSocialLogin("naver")}
-            >
-              <img src="/btnG_아이콘원형.png" alt="naver_login" />
+            <div className="Login_socialWrapper">
+              <div
+                className="Login_naver hover"
+                onClick={() => handleSocialLogin("naver")}
+              >
+                <img src="/btnG_아이콘원형.png" alt="naver_login" />
+              </div>
+
+              <SpeechBubble className="speech">
+                소셜로그인은 '<span>일반회원</span>'만 가능합니다.
+                <br />
+                <p>기업회원은 회원가입을 이용해 주세요.</p>
+              </SpeechBubble>
             </div>
 
-            <SpeechBubble>
-              소셜로그인은 '<span>일반회원</span>'만 가능합니다.
-              <br />
-              <p>기업회원은 회원가입을 이용해 주세요.</p>
-            </SpeechBubble>
+            <div className="Login_socialWrapper">
+              <div
+                className="Login_kakao hover"
+                onClick={() => handleSocialLogin("kakao")}
+              >
+                <img src="/sns_kakao.svg" alt="kakao_login" />
+              </div>
 
-            <div
-              className="Login_kakao hover"
-              onClick={() => handleSocialLogin("kakao")}
-            >
-              <img src="/sns_kakao.svg" alt="kakao_login" />
+              <SpeechBubble className="speech">
+                소셜로그인은 '<span>일반회원</span>'만 가능합니다.
+                <br />
+                <p>기업회원은 회원가입을 이용해 주세요.</p>
+              </SpeechBubble>
             </div>
           </div>
 
