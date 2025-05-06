@@ -34,9 +34,6 @@ const TermsOfUse = ({ onChange }: Props) => {
     onChange(agreements);
   }, [agreements, onChange]);
 
-  // 필수 항목 확인
-  const isRequiredChecked = agreements.terms && agreements.privacy;
-
   const handleAllToggle = () => {
     const newValue = !allChecked;
     const updated = {
@@ -46,7 +43,6 @@ const TermsOfUse = ({ onChange }: Props) => {
       marketing: newValue,
     };
     setAgreements(updated);
-    // onChange(updated);
   };
 
   // 개별 동의 여부
@@ -56,100 +52,101 @@ const TermsOfUse = ({ onChange }: Props) => {
       [key]: !agreements[key as keyof typeof agreements],
     };
     setAgreements(updated);
-    // onChange(updated);
   };
 
   return (
     <TermsOfUseStyled>
-      <div>
-        <h3 className="TermsOfUse_title">이용약관 동의</h3>
-        <i className="fa-solid fa-check"></i>
+      <div className="TermsOfUse_container">
+        <div className="TermsOfUse_title">
+          <label className="MoreInfo_label">
+            이용약관 동의<span className="MoreInfo_essential">*</span>
+          </label>
+          <i className="fa-solid fa-check"></i>
+        </div>
 
         {/* 전체 동의 */}
-        <div className="TermsOfUse_checkOne">
-          <label className="TermsOfUse_FullAgreement TermsOfUse_label">
-            <input
-              type="checkbox"
-              checked={allChecked}
-              onChange={handleAllToggle}
-              className="TermsOfUse_input"
-            />
-            전체 동의
-          </label>
-          <div className="TermsOfUse_content">
-            실명 인증된 아이디로 가입, 위치기반서비스 이용약관(선택),
-            이벤트・혜택 정보 수신(선택) 동의를 포함합니다.
+        <div className="TermsOfUse_agreements">
+          <div className="TermsOfUse_checkOne">
+            <label className="TermsOfUse_FullAgreement TermsOfUse_label">
+              <input
+                type="checkbox"
+                checked={allChecked}
+                onChange={handleAllToggle}
+                className="TermsOfUse_input"
+              />
+              전체 동의
+            </label>
+            <div className="TermsOfUse_content">
+              실명 인증된 아이디로 가입, 위치기반서비스 이용약관(선택),
+              이벤트・혜택 정보 수신(선택) 동의를 포함합니다.
+            </div>
+          </div>
+
+          {/* 개별 항목 */}
+          <div className="TermsOfUse_checkOne">
+            <label className="TermsOfUse_label">
+              <input
+                type="checkbox"
+                checked={agreements.terms}
+                onChange={() => handleToggle("terms")}
+                className="TermsOfUse_input"
+              />
+              <span className="TermsOfUse_span required">[필수]</span> 이용약관
+              동의
+            </label>
+            <p className="TermsOfUse_content">
+              서비스 이용에 필요한 기본적인 권리 및 의무가 정의되어 있습니다.
+            </p>
+          </div>
+
+          <div className="TermsOfUse_checkOne">
+            <label className="TermsOfUse_label">
+              <input
+                type="checkbox"
+                checked={agreements.privacy}
+                onChange={() => handleToggle("privacy")}
+                className="TermsOfUse_input"
+              />
+              <span className="TermsOfUse_span required">[필수]</span> 개인정보
+              수집∙이용 동의
+            </label>
+            <p className="TermsOfUse_content">
+              회원 식별, 문의 대응 등을 위해 이메일 등 정보를 수집·이용합니다.
+            </p>
+          </div>
+
+          <div className="TermsOfUse_checkOne">
+            <label className="TermsOfUse_label">
+              <input
+                type="checkbox"
+                checked={agreements.location}
+                onChange={() => handleToggle("location")}
+                className="TermsOfUse_input"
+              />
+              <span className="TermsOfUse_span">[선택]</span> 위치정보 이용 동의
+            </label>
+            <p className="TermsOfUse_content">
+              위치 기반 추천, 주변 정보 제공 등 기능에 활용됩니다.
+            </p>
+          </div>
+
+          <div className="TermsOfUse_checkOne">
+            <label className="TermsOfUse_label">
+              <input
+                type="checkbox"
+                checked={agreements.marketing}
+                onChange={() => handleToggle("marketing")}
+                className="TermsOfUse_input"
+              />
+              <span className="TermsOfUse_span">[선택]</span> 마케팅 정보 수신
+              동의
+            </label>
+            <p className="TermsOfUse_content">
+              이벤트, 할인 정보 등을 이메일이나 문자로 받아볼 수 있습니다.
+            </p>
           </div>
         </div>
-
-        {/* 개별 항목 */}
-        <div className="TermsOfUse_checkOne">
-          <label className="TermsOfUse_label">
-            <input
-              type="checkbox"
-              checked={agreements.terms}
-              onChange={() => handleToggle("terms")}
-              className="TermsOfUse_input"
-            />
-            [필수] 이용약관에 동의합니다.
-          </label>
-          <p className="TermsOfUse_content">
-            서비스 이용에 필요한 기본적인 권리 및 의무가 정의되어 있습니다.
-          </p>
-        </div>
-
-        <div className="TermsOfUse_checkOne">
-          <label className="TermsOfUse_label">
-            <input
-              type="checkbox"
-              checked={agreements.privacy}
-              onChange={() => handleToggle("privacy")}
-              className="TermsOfUse_input"
-            />
-            [필수] 개인정보 수집 및 이용에 동의합니다.
-          </label>
-          <p className="TermsOfUse_content">
-            회원 식별, 문의 대응 등을 위해 이메일 등 정보를 수집·이용합니다.
-          </p>
-        </div>
-
-        <div className="TermsOfUse_checkOne">
-          <label className="TermsOfUse_label">
-            <input
-              type="checkbox"
-              checked={agreements.location}
-              onChange={() => handleToggle("location")}
-              className="TermsOfUse_input"
-            />
-            [선택] 위치정보 이용에 동의합니다.
-          </label>
-          <p className="TermsOfUse_content">
-            위치 기반 추천, 주변 정보 제공 등 기능에 활용됩니다.
-          </p>
-        </div>
-
-        <div className="TermsOfUse_checkOne">
-          <label className="TermsOfUse_label">
-            <input
-              type="checkbox"
-              checked={agreements.marketing}
-              onChange={() => handleToggle("marketing")}
-              className="TermsOfUse_input"
-            />
-            [선택] 마케팅 정보 수신에 동의합니다.
-          </label>
-          <p className="TermsOfUse_content">
-            이벤트, 할인 정보 등을 이메일이나 문자로 받아볼 수 있습니다.
-          </p>
-        </div>
       </div>
-
-      {/* 다음 버튼 */}
-      {/* <div className="TermsOfUse_nextBtn">
-        <button disabled={!isRequiredChecked} onClick={handleNextClick}>
-          다음
-        </button>
-      </div> */}
     </TermsOfUseStyled>
   );
 };

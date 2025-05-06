@@ -155,6 +155,7 @@ export const MoreInfoStyled = styled.div`
     margin-left: 8px;
 
     button {
+      width: 120px;
       height: 44px;
       padding: 10px 16px;
       background-color: #fff;

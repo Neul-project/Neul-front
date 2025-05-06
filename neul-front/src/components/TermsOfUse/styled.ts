@@ -1,11 +1,38 @@
 import styled from "styled-components";
 
 export const TermsOfUseStyled = styled.div`
-  width: 500px;
+  width: 640px;
   margin: 0 auto;
 
+  .TermsOfUse_container {
+    display: flex;
+    padding: 10px 20px;
+  }
+
   .TermsOfUse_title {
-    margin-bottom: 10px;
+    width: 139px;
+    padding-top: 12px;
+    display: block;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #333;
+
+    label {
+      font-weight: 500;
+      color: rgb(51, 51, 51);
+      line-height: 20px;
+    }
+  }
+
+  .TermsOfUse_agreements {
+    width: 100%;
+    padding-top: 12px;
+  }
+
+  .TermsOfUse_span {
+    font-size: 14px;
+    vertical-align: top;
+    color: green;
   }
 
   .TermsOfUse_checkOne {
@@ -14,15 +41,20 @@ export const TermsOfUseStyled = styled.div`
 
   .TermsOfUse_label {
     cursor: pointer;
+    font-size: 14px;
+  }
+
+  .TermsOfUse_input {
+    margin-right: 7px;
   }
 
   .TermsOfUse_FullAgreement {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .TermsOfUse_content {
-    margin: 9px 0 0 32px;
+    margin: 9px 0 0 21px;
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;

@@ -60,4 +60,9 @@ export const JoinStyled = styled.div`
   .Join_width {
     width: 330px;
   }
+
+  .joinBtn {
+    padding-top: 40px;
+    border-top: 1px solid rgb(247, 247, 247);
+  }
 `;

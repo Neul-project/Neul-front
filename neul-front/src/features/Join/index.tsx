@@ -460,7 +460,7 @@ const JoinPage = () => {
             <TermsOfUse onChange={(updated) => setAgreements(updated)} />
 
             {/* 회원가입 버튼 */}
-            <div className="MoreInfo_subBtn">
+            <div className="MoreInfo_subBtn joinBtn">
               <button
                 type="submit"
                 onClick={() => {
