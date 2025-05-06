@@ -16,6 +16,9 @@ export const joinValidationSchema = Yup.object({
   phone: Yup.string()
     .matches(/^01[016789]\d{7,8}$/, "휴대전화번호가 정확한지 확인해 주세요.")
     .required("전화번호는 필수입니다."),
+  birthYear: Yup.string().required("생년 입력").length(4, "4자리 연도"),
+  birthMonth: Yup.string().required("월 입력").length(2, "2자리 월"),
+  birthDay: Yup.string().required("일 입력").length(2, "2자리 일"),
   role: Yup.string().required("사용자 유형을 선택해주세요."),
 });
 

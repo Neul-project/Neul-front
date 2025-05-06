@@ -1,5 +1,6 @@
 import { JoinStyled } from "./styled";
-import { useState } from "react";
+import { MoreInfoStyled } from "../MoreInfo/styled";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 // 이미지 최적화
@@ -19,6 +20,10 @@ import TermsOfUse from "@/components/TermsOfUse";
 const JoinPage = () => {
   const router = useRouter();
 
+  // 중복 확인 여부
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
+  const [isPhoneChecked, setIsPhoneChecked] = useState(false);
+
   // 약관 동의 상태
   const [agreements, setAgreements] = useState({
     terms: false,
@@ -34,14 +39,9 @@ const JoinPage = () => {
 
   // email, phone 중복 검사
   const handleDuplicationCheck = async (
-    e: React.MouseEvent<HTMLButtonElement>
+    fieldName: string,
+    fieldValue: string
   ) => {
-    e.preventDefault();
-
-    const target = e.currentTarget.previousElementSibling as HTMLInputElement;
-    const fieldName = target?.name;
-    const fieldValue = target?.value;
-
     if (!fieldName || !fieldValue) {
       alert("값을 입력해주세요.");
       return;
@@ -58,6 +58,7 @@ const JoinPage = () => {
           alert("이미 사용 중인 이메일입니다.");
         } else {
           alert("사용 가능한 이메일입니다.");
+          setIsEmailChecked(true);
         }
       } else if (fieldName === "phone") {
         response = await axios.get(
@@ -67,6 +68,7 @@ const JoinPage = () => {
           alert("이미 등록된 전화번호입니다.");
         } else {
           alert("사용 가능한 전화번호입니다.");
+          setIsPhoneChecked(true);
         }
       }
     } catch (error) {
@@ -82,17 +84,33 @@ const JoinPage = () => {
       password: "",
       passwordCheck: "",
       name: "",
-      wardName: "",
       phone: "",
+      wardName: "",
+      birthYear: "",
+      birthMonth: "",
+      birthDay: "",
+      gender: "male",
+      note: "",
       role: "user",
     },
     validationSchema: joinValidationSchema,
     onSubmit: async (values) => {
       console.log("회원가입 데이터:", values);
 
-      // 필수 동의 항목 검사
+      // 이용약관 필수 동의 항목 검사
       if (!agreements.terms || !agreements.privacy) {
         alert("필수 약관에 모두 동의해주세요.");
+        return;
+      }
+
+      // 중복 검사 여부 체크
+      if (!isEmailChecked) {
+        alert("이메일 중복 확인을 완료해주세요.");
+        return;
+      }
+
+      if (!isPhoneChecked) {
+        alert("전화번호 중복 확인을 완료해주세요.");
         return;
       }
 
@@ -104,7 +122,6 @@ const JoinPage = () => {
             email: values.email,
             password: values.password,
             name: values.name,
-            wardName: values.wardName,
             phone: values.phone,
             role: values.role,
           }
@@ -116,7 +133,20 @@ const JoinPage = () => {
           return;
         }
 
-        // 2. 약관 동의 항목 추출
+        // 2. 피보호자 정보 저장
+        const wardRes = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/patient/info`,
+          {
+            userId,
+            name: values.wardName,
+            gender: values.gender,
+            birth: `${values.birthYear}-${values.birthMonth}-${values.birthDay}`,
+            note: values.note,
+          }
+        );
+        console.log("피보호자 정보 저장여부 확인", wardRes.data);
+
+        // 약관 동의 항목 추출
         const agreedTerms = Object.entries(agreements)
           .filter(([_, value]) => value)
           .map(([key]) => key); // ["terms", "privacy", ...]
@@ -143,154 +173,306 @@ const JoinPage = () => {
     },
   });
 
+  // 이메일,전화번호 값이 변경되면 중복 확인 상태 리셋
+  useEffect(() => {
+    setIsEmailChecked(false);
+  }, [formik.values.email]);
+
+  useEffect(() => {
+    setIsPhoneChecked(false);
+  }, [formik.values.phone]);
+
   return (
     <JoinStyled>
-      {/* 로고 */}
-      <div className="Join_logoWrap">
-        <a href="/">
-          <Image src={Logo} alt="logo" width={150} height={65} priority />
-        </a>
-      </div>
-
-      <div>
-        {/* 회원가입 input */}
-        <form className="Join_container" onSubmit={formik.handleSubmit}>
-          {/* 사용자 구분 */}
-          <div className="Join_selectBox">
-            <Select
-              value={formik.values.role}
-              options={option}
-              onChange={(val) => {
-                formik.setFieldValue("role", val);
-              }}
-            />
+      <MoreInfoStyled>
+        <div className="MoreInfo_container">
+          <div className="MoreInfo_title">
+            <div>회원가입</div>
+          </div>
+          <div className="MoreInfo_midTitle">
+            <span className="MoreInfo_essential">*</span> 필수입력사항
           </div>
 
-          {/* 이메일, 비번, 비번확인 */}
-          <div className="Join_firstInputWrap">
-            <div className="Join_inputWrap Join_email">
-              <input
-                type="email"
-                name="email"
-                placeholder="이메일"
-                className="Join_input"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
+          <form onSubmit={formik.handleSubmit}>
+            {/* 사용자 구분 */}
+            <div className="Join_selectBox">
+              <Select
+                value={formik.values.role}
+                options={option}
+                onChange={(val) => {
+                  formik.setFieldValue("role", val);
+                }}
               />
+            </div>
+
+            {/* 보호자 정보 */}
+            <div className="MoreInfo_section">
+              <h4 className="MoreInfo_sectionTitle">보호자 정보</h4>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  아이디<span className="MoreInfo_essential">*</span>
+                </label>
+                <div className="Join_width">
+                  <input
+                    type="email"
+                    name="email"
+                    className="MoreInfo_input"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                    placeholder="이메일을 입력해 주세요"
+                  />
+                  {formik.touched.email && formik.errors.email && (
+                    <div className="Join_validation">{formik.errors.email}</div>
+                  )}
+                </div>
+
+                <div className="MoreInfo_addressBtn">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleDuplicationCheck("email", formik.values.email);
+                    }}
+                  >
+                    중복 확인
+                  </button>
+                </div>
+              </div>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  비밀번호<span className="MoreInfo_essential">*</span>
+                </label>
+                <div className="Join_width">
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="비밀번호를 입력해 주세요"
+                    className="MoreInfo_input"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                  />
+                  {formik.touched.password && formik.errors.password && (
+                    <div className="Join_validation">
+                      {formik.errors.password}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  비밀번호 확인<span className="MoreInfo_essential">*</span>
+                </label>
+                <div className="Join_width">
+                  <input
+                    type="password"
+                    name="passwordCheck"
+                    placeholder="비밀번호를 한번 더 입력해주세요"
+                    className="MoreInfo_input"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.passwordCheck}
+                  />
+                  {formik.touched.passwordCheck &&
+                    formik.errors.passwordCheck && (
+                      <div className="Join_validation">
+                        {formik.errors.passwordCheck}
+                      </div>
+                    )}
+                </div>
+              </div>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  이름<span className="MoreInfo_essential">*</span>
+                </label>
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="이름을 입력해 주세요"
+                    className="MoreInfo_input"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
+                  />
+                  {formik.touched.name && formik.errors.name && (
+                    <div className="Join_validation">{formik.errors.name}</div>
+                  )}
+                </div>
+              </div>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  전화번호<span className="MoreInfo_essential">*</span>
+                </label>
+                <div className="Join_width">
+                  <input
+                    type="text"
+                    name="phone"
+                    className="MoreInfo_input"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phone}
+                    placeholder="숫자만 입력해주세요"
+                    maxLength={11}
+                  />
+                  {formik.touched.phone && formik.errors.phone && (
+                    <div className="Join_validation">{formik.errors.phone}</div>
+                  )}
+                </div>
+                <div className="MoreInfo_addressBtn">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleDuplicationCheck("phone", formik.values.phone);
+                    }}
+                  >
+                    중복 확인
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <hr />
+
+            {/* 피보호자 정보 */}
+            <div className="MoreInfo_section">
+              <h4 className="MoreInfo_sectionTitle border">피보호자 정보</h4>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  피보호자 이름<span className="MoreInfo_essential">*</span>
+                </label>
+                <div>
+                  <input
+                    type="text"
+                    name="wardName"
+                    className="MoreInfo_input"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.wardName}
+                    placeholder="피보호자명을 입력해 주세요"
+                  />
+                  {formik.touched.wardName && formik.errors.wardName && (
+                    <div className="Join_validation">
+                      {formik.errors.wardName}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  생년월일<span className="MoreInfo_essential">*</span>
+                </label>
+                <div className="MoreInfo_birthInput">
+                  <div className="Join_width">
+                    <div className="MoreInfo_birth">
+                      <input
+                        type="text"
+                        name="birthYear"
+                        placeholder="YYYY"
+                        className="MoreInfo_inputSmall"
+                        value={formik.values.birthYear}
+                        onChange={formik.handleChange}
+                        maxLength={4}
+                      />
+                      <span>/</span>
+                      <input
+                        type="text"
+                        name="birthMonth"
+                        placeholder="MM"
+                        className="MoreInfo_inputSmall"
+                        value={formik.values.birthMonth}
+                        onChange={formik.handleChange}
+                        maxLength={2}
+                      />
+                      <span>/</span>
+                      <input
+                        type="text"
+                        name="birthDay"
+                        placeholder="DD"
+                        className="MoreInfo_inputSmall"
+                        value={formik.values.birthDay}
+                        onChange={formik.handleChange}
+                        maxLength={2}
+                      />
+                    </div>
+                    {(formik.errors.birthYear ||
+                      formik.errors.birthMonth ||
+                      formik.errors.birthDay) && (
+                      <div className="Join_validation">
+                        생년월일을 올바르게 입력하세요
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">
+                  성별<span className="MoreInfo_essential">*</span>
+                </label>
+                <div className="MoreInfo_radioGroup">
+                  <label>
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="male"
+                      checked={formik.values.gender === "male"}
+                      onChange={formik.handleChange}
+                    />{" "}
+                    남자
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="female"
+                      checked={formik.values.gender === "female"}
+                      onChange={formik.handleChange}
+                    />{" "}
+                    여자
+                  </label>
+                </div>
+              </div>
+
+              <div className="MoreInfo_inputGroup">
+                <label className="MoreInfo_label">특이사항</label>
+                <textarea
+                  name="note"
+                  className="MoreInfo_textarea"
+                  placeholder="특이사항이 있다면 작성해주세요"
+                  value={formik.values.note}
+                  onChange={formik.handleChange}
+                  rows={4}
+                />
+              </div>
+            </div>
+
+            <hr />
+
+            {/* 이용약관 동의 */}
+            <TermsOfUse onChange={(updated) => setAgreements(updated)} />
+
+            {/* 회원가입 버튼 */}
+            <div className="MoreInfo_subBtn">
               <button
-                className="Join_duplication"
-                onClick={handleDuplicationCheck}
+                type="submit"
+                onClick={() => {
+                  console.log("formik.errors:", formik.errors);
+                }}
               >
-                중복 확인
+                회원가입
               </button>
             </div>
-            <div className="Join_inputWrap Join_password">
-              <input
-                type="password"
-                name="password"
-                placeholder="비밀번호"
-                className="Join_input"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-              />
-            </div>
-            <div className="Join_inputWrap Join_passCheck">
-              <input
-                type="password"
-                name="passwordCheck"
-                placeholder="비밀번호 확인"
-                className="Join_input"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.passwordCheck}
-              />
-            </div>
-          </div>
-
-          {/* 유효성 검사 */}
-          {formik.touched.email && formik.errors.email && (
-            <div className="Join_validation">{formik.errors.email}</div>
-          )}
-          {formik.touched.password && formik.errors.password && (
-            <div className="Join_validation">{formik.errors.password}</div>
-          )}
-          {formik.touched.passwordCheck && formik.errors.passwordCheck && (
-            <div className="Join_validation">{formik.errors.passwordCheck}</div>
-          )}
-
-          {/* 이름, 피보호자 이름, 전화번호 */}
-          <div className="Join_secondInputWrap">
-            <div className="Join_inputWrap Join_name">
-              <input
-                type="text"
-                name="name"
-                placeholder="이름"
-                className="Join_input"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-              />
-            </div>
-            <div className="Join_inputWrap Join_wardName">
-              <input
-                type="text"
-                name="wardName"
-                placeholder="피보호자 이름"
-                className="Join_input"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.wardName}
-              />
-            </div>
-            <div className="Join_inputWrap Join_phone">
-              <input
-                type="text"
-                name="phone"
-                placeholder="휴대전화번호 ('-'제외)"
-                className="Join_input"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.phone}
-                maxLength={11}
-              />
-              <button
-                className="Join_duplication"
-                onClick={handleDuplicationCheck}
-              >
-                중복 확인
-              </button>
-            </div>
-          </div>
-
-          {/* 유효성 검사 */}
-          {formik.touched.name && formik.errors.name && (
-            <div className="Join_validation">{formik.errors.name}</div>
-          )}
-          {formik.touched.wardName && formik.errors.wardName && (
-            <div className="Join_validation">{formik.errors.wardName}</div>
-          )}
-          {formik.touched.phone && formik.errors.phone && (
-            <div className="Join_validation">{formik.errors.phone}</div>
-          )}
-
-          {/* 이용약관 동의 */}
-          <TermsOfUse onChange={(updated) => setAgreements(updated)} />
-
-          {/* 회원가입 버튼 */}
-          <div className="Join_submit_btn">
-            <button
-              type="submit"
-              onClick={() => {
-                console.log("formik.errors:", formik.errors);
-              }}
-            >
-              회원가입
-            </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </MoreInfoStyled>
     </JoinStyled>
   );
 };
