@@ -1,27 +1,13 @@
 import { MoreInfoStyled } from "./styled";
 
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { moreInfoValidation } from "@/utils/joinValidation";
 
-import axios from "axios";
-import { useEffect } from "react";
-
-declare global {
-  interface Window {
-    daum: any;
-  }
-}
+import axiosInstance from "@/lib/axios";
+import { useRouter } from "next/router";
 
 const MoreInfoCompo = () => {
-  // 카카오 주소 API 스크립트 load
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
+  const router = useRouter();
 
   // 추가 정보 유효성 검사 및 요청
   const formik = useFormik({
@@ -33,18 +19,14 @@ const MoreInfoCompo = () => {
       birthYear: "",
       birthMonth: "",
       birthDay: "",
-      address: "",
-      addressDetail: "",
       note: "",
     },
     validationSchema: moreInfoValidation,
     onSubmit: async (values) => {
-      const fullAddress = `${values.address} ${values.addressDetail}`;
       // 보호자 정보
       const guardian = {
         name: values.guardianName,
         phone: values.guardianPhone,
-        address: fullAddress,
       };
 
       // 피보호자 정보
@@ -60,12 +42,13 @@ const MoreInfoCompo = () => {
 
       try {
         const [guardianRes, wardRes] = await Promise.all([
-          axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, guardian),
-          axios.post(`${process.env.NEXT_PUBLIC_API_URL}/patient/info`, ward),
+          axiosInstance.post("/user/info", guardian),
+          axiosInstance.post("/patient/info", ward),
         ]);
 
         if (guardianRes.data?.ok === true && wardRes.data?.ok === true) {
           alert("등록이 완료되었습니다.");
+          router.push("/");
         } else {
           alert("등록에 실패했습니다. 다시 시도해주세요.");
         }
@@ -75,16 +58,6 @@ const MoreInfoCompo = () => {
       }
     },
   });
-
-  // 주소 검색 핸들러
-  const handleAddressSearch = () => {
-    new window.daum.Postcode({
-      oncomplete: (data: any) => {
-        const fullAddress = data.address;
-        formik.setFieldValue("address", fullAddress);
-      },
-    }).open();
-  };
 
   return (
     <MoreInfoStyled>
@@ -121,58 +94,6 @@ const MoreInfoCompo = () => {
                     {formik.errors.guardianName}
                   </div>
                 )}
-              </div>
-            </div>
-
-            <div className="MoreInfo_inputGroup">
-              <label className="MoreInfo_label">
-                주소<span className="MoreInfo_essential">*</span>
-              </label>
-              <div className="MoreInfo_address">
-                <div>
-                  <div>
-                    <div style={{ marginBottom: 12 }}>
-                      <input
-                        type="text"
-                        name="address"
-                        className="MoreInfo_input"
-                        value={formik.values.address}
-                        onChange={formik.handleChange}
-                        placeholder="주소를 입력해 주세요"
-                        readOnly
-                      />
-                    </div>
-
-                    {/* 상세 주소 입력란 */}
-                    <div>
-                      <input
-                        type="text"
-                        name="addressDetail"
-                        className="MoreInfo_input"
-                        value={formik.values.addressDetail}
-                        onChange={formik.handleChange}
-                        placeholder="나머지 주소를 입력해주세요"
-                      />
-                    </div>
-
-                    {formik.touched.address && formik.errors.address && (
-                      <div className="MoreInfo_error">
-                        {formik.errors.address}
-                      </div>
-                    )}
-                    {formik.touched.addressDetail &&
-                      formik.errors.addressDetail && (
-                        <div className="MoreInfo_error">
-                          {formik.errors.addressDetail}
-                        </div>
-                      )}
-                  </div>
-                </div>
-              </div>
-              <div className="MoreInfo_addressBtn">
-                <button type="button" onClick={handleAddressSearch}>
-                  주소 검색
-                </button>
               </div>
             </div>
 

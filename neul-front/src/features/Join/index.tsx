@@ -125,14 +125,14 @@ const JoinPage = () => {
         const agreementsRes = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/agreements`,
           {
-            userId, // 백엔드가 userId를 요구한다면 포함
+            userId,
             term: agreedTerms,
           }
         );
 
         if (agreementsRes.data?.ok) {
           alert("회원가입이 완료되었습니다!");
-          router.push("/moreinfo"); // 추가정보 입력
+          router.push("/login");
         } else {
           alert("약관 동의 처리 중 문제가 발생했습니다.");
         }

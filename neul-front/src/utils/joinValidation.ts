@@ -40,7 +40,5 @@ export const moreInfoValidation = Yup.object({
   birthYear: Yup.string().required("생년 입력").length(4, "4자리 연도"),
   birthMonth: Yup.string().required("월 입력").length(2, "2자리 월"),
   birthDay: Yup.string().required("일 입력").length(2, "2자리 일"),
-  address: Yup.string().required("주소를 입력해주세요."),
-  addressDetail: Yup.string().required("상세주소를 입력해주세요."),
   note: Yup.string(), // 선택 항목
 });
