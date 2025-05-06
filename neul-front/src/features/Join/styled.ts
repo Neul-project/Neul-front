@@ -17,6 +17,7 @@ export const JoinStyled = styled.div`
     max-width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
+    padding-right: 24px;
     display: flex;
     justify-content: flex-end;
 
