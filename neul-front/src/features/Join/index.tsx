@@ -115,7 +115,7 @@ const JoinPage = () => {
       }
 
       try {
-        // 1. 회원가입 요청
+        // 1. 회원가입 유저 정보 저장
         const signupRes = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
           {
