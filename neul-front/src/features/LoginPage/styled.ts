@@ -5,6 +5,7 @@ export const LoginPageStyled = styled.div`
   justify-content: center;
   margin: 0 auto;
   margin-top: 100px;
+  margin-bottom: 60px;
   color: rgb(136, 136, 136);
 
   li {
@@ -31,6 +32,10 @@ export const LoginPageStyled = styled.div`
     img {
       width: 100%;
     }
+  }
+
+  .Login_socialContainer {
+    position: relative;
   }
 
   .Login_easy_container {
@@ -126,6 +131,7 @@ export const LoginPageStyled = styled.div`
 
   .Login_socialLogin {
     display: flex;
+    position: relative;
     justify-content: center;
     gap: 20px;
   }
@@ -137,5 +143,82 @@ export const LoginPageStyled = styled.div`
     img {
       width: 48px;
     }
+  }
+
+  .Login_guide {
+    margin-top: 10px;
+    font-size: 12px;
+
+    li {
+      position: relative;
+      padding-left: 8px;
+
+      &::before {
+        position: absolute;
+        top: 9px;
+        left: 0;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: rgb(136, 136, 136);
+        content: "";
+      }
+    }
+
+    span {
+      color: ${(props) => props.theme.colors.pointGreen};
+      font-weight: 700;
+    }
+  }
+`;
+
+export const SpeechBubble = styled.div`
+  display: none;
+  position: absolute;
+  top: -20px;
+  left: 75px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1.5px solid rgb(221, 221, 221);
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: gray;
+  width: fit-content;
+  max-width: 300px;
+  line-height: 1.5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+  /* &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 7px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221) transparent transparent transparent;
+    z-index: 0;
+  } */
+
+  span {
+    color: ${(props) => props.theme.colors.pointGreen};
+  }
+
+  p {
+    font-size: 11px;
+    text-align: center;
+    line-height: 12px;
   }
 `;

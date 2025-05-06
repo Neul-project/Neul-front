@@ -135,7 +135,7 @@ const JoinPage = () => {
 
         // 2. 피보호자 정보 저장
         const wardRes = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/patient/info`,
+          `${process.env.NEXT_PUBLIC_API_URL}/patient/signup`,
           {
             userId,
             name: values.wardName,

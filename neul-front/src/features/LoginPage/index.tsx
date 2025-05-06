@@ -1,4 +1,4 @@
-import { LoginPageStyled } from "./styled";
+import { LoginPageStyled, SpeechBubble } from "./styled";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -112,7 +112,7 @@ const LoginPage = () => {
         </ul>
 
         {/* 소셜 로그인 */}
-        <div>
+        <div className="Login_socialContainer">
           <div className="Login_easy_container">
             <span className="Login_easy_span"></span>
             <span className="Login_easyLogin_title">간편 로그인</span>
@@ -121,18 +121,32 @@ const LoginPage = () => {
 
           <div className="Login_socialLogin">
             <div
-              className="Login_naver"
+              className="Login_naver hover"
               onClick={() => handleSocialLogin("naver")}
             >
               <img src="/btnG_아이콘원형.png" alt="naver_login" />
             </div>
+
+            <SpeechBubble>
+              소셜로그인은 '<span>일반회원</span>'만 가능합니다.
+              <br />
+              <p>기업회원은 회원가입을 이용해 주세요.</p>
+            </SpeechBubble>
+
             <div
-              className="Login_kakao"
+              className="Login_kakao hover"
               onClick={() => handleSocialLogin("kakao")}
             >
               <img src="/sns_kakao.svg" alt="kakao_login" />
             </div>
           </div>
+
+          <ul className="Login_guide">
+            <li>
+              소셜로그인은 '<span>일반회원</span>'만 가능합니다.
+            </li>
+            <li>기업회원은 회원가입을 이용해 주세요.</li>
+          </ul>
         </div>
       </div>
     </LoginPageStyled>
