@@ -14,7 +14,7 @@ export const NavigationElementStyled = styled.div`
     .NavigationElement_ele {
       display: flex;
       flex-direction: column;
-      width: 120px;
+      width: 100%;
       height: 120px;
       //border: 1px solid black;
       align-items: center;
@@ -34,6 +34,86 @@ export const NavigationElementStyled = styled.div`
       .NavigationElement_imgstyle {
         width: 100%;
         height: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    &.NavigationElement_main_wrap {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      //align-items: center;
+      text-align: center;
+      gap: 10px;
+      padding: 0px 15px;
+
+      .NavigationElement_ele {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 120px;
+        //border: 1px solid black;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: translateY(-8px);
+        }
+
+        .NavigationElement_img {
+          width: 50px;
+        }
+        .NavigationElement_imgstyle {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 486px) {
+    &.NavigationElement_main_wrap {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      //align-items: center;
+      text-align: center;
+      padding: 0px 10px;
+
+      .NavigationElement_ele {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 80px;
+        //border: 1px solid black;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: translateY(-8px);
+        }
+
+        .NavigationElement_img {
+          width: 35px;
+        }
+        .NavigationElement_imgstyle {
+          width: 100%;
+          height: 100%;
+        }
+        .NavigationElement_text {
+          font-size: 13px;
+        }
       }
     }
   }

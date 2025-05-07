@@ -37,7 +37,7 @@ const NavigationElement = () => {
             alt="search"
           />
         </div>
-        상태확인
+        <div className="NavigationElement_text">상태확인</div>
       </div>
       <div className="NavigationElement_ele" onClick={ActivityList}>
         <div className="NavigationElement_img">
@@ -47,7 +47,7 @@ const NavigationElement = () => {
             alt="puls"
           />
         </div>
-        활동기록
+        <div className="NavigationElement_text">활동기록</div>
       </div>
       <div className="NavigationElement_ele" onClick={ChatRoom}>
         <div className="NavigationElement_img">
@@ -57,7 +57,7 @@ const NavigationElement = () => {
             alt="puls"
           />
         </div>
-        채팅
+        <div className="NavigationElement_text">채팅</div>
       </div>
       <div className="NavigationElement_ele">
         <div className="NavigationElement_img">
@@ -67,7 +67,7 @@ const NavigationElement = () => {
             alt="puls"
           />
         </div>
-        프로그램
+        <div className="NavigationElement_text">프로그램</div>
       </div>
       <div className="NavigationElement_ele">
         <div className="NavigationElement_img">
@@ -77,7 +77,7 @@ const NavigationElement = () => {
             alt="puls"
           />
         </div>
-        채팅
+        <div className="NavigationElement_text">채팅</div>
       </div>
       <div className="NavigationElement_ele">
         <div className="NavigationElement_img">
@@ -87,7 +87,7 @@ const NavigationElement = () => {
             alt="puls"
           />
         </div>
-        개인정보
+        <div className="NavigationElement_text">개인정보</div>
       </div>
     </NavigationElementStyled>
   );
