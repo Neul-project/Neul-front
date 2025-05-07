@@ -17,35 +17,37 @@ const SidebarMenu = ({
   onLogout,
 }: SidebarMenuProps) => {
   return (
-    <div className="MyPage_leftContainer">
-      <div
-        className={clsx("SideBarMenu_item", {
-          active: currentTab === "myinfo",
-        })}
-        onClick={() => onTabChange("myinfo")}
-      >
-        내 프로필 관리
+    <SideBarMenuStyled>
+      <div className="SideBar_wrap">
+        <div
+          className={clsx("SideBarMenu_item", {
+            active: currentTab === "myinfo",
+          })}
+          onClick={() => onTabChange("myinfo")}
+        >
+          내 정보관리
+        </div>
+        <div
+          className={clsx("SideBarMenu_item", {
+            active: currentTab === "wardinfo",
+          })}
+          onClick={() => onTabChange("wardinfo")}
+        >
+          피보호자 정보관리
+        </div>
+        <div
+          className={clsx("SideBarMenu_item", {
+            active: currentTab === "program",
+          })}
+          onClick={() => onTabChange("program")}
+        >
+          프로그램 신청내역
+        </div>
       </div>
-      <div
-        className={clsx("SideBarMenu_item", {
-          active: currentTab === "wardinfo",
-        })}
-        onClick={() => onTabChange("wardinfo")}
-      >
-        피보호자 정보 관리
-      </div>
-      <div
-        className={clsx("SideBarMenu_item", {
-          active: currentTab === "program",
-        })}
-        onClick={() => onTabChange("program")}
-      >
-        프로그램 신청 내역 관리
-      </div>
-      <div>
+      <div className="SideBarMenu_logout">
         <button onClick={onLogout}>로그아웃</button>
       </div>
-    </div>
+    </SideBarMenuStyled>
   );
 };
 
