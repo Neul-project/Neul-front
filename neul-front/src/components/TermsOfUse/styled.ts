@@ -82,8 +82,25 @@ export const TermsOfUseStyled = styled.div`
 
       &:disabled {
         cursor: default;
-        background-color: #bbb;
+        background-color: #ccc;
       }
+    }
+  }
+
+  .aaa {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid #bbb;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      position: absolute;
+      top: 4px;
+      color: #ccc;
     }
   }
 `;
