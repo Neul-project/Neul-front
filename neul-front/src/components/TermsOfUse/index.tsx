@@ -61,7 +61,10 @@ const TermsOfUse = ({ onChange }: Props) => {
           <label className="MoreInfo_label">
             이용약관 동의<span className="MoreInfo_essential">*</span>
           </label>
-          <i className="fa-solid fa-check"></i>
+
+          <div className="aaa">
+            <i className="fa-solid fa-check"></i>
+          </div>
         </div>
 
         {/* 전체 동의 */}
