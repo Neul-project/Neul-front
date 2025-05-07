@@ -5,7 +5,7 @@ export const AdvertisingStyled = styled.div`
     display: flex;
     padding: 0px 20px;
     width: 100%;
-    height: 300px;
+    height: 100%;
     gap: 20px;
     margin-top: 70px;
   }
