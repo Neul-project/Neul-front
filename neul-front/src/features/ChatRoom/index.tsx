@@ -7,15 +7,18 @@ import io from "socket.io-client";
 import Image from "next/image";
 import clsx from "clsx";
 import axiosInstance from "@/lib/axios";
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
+import "dayjs/locale/ko"; // 한국어 로케일 불러오기
+import { useAuthStore } from "@/stores/useAuthStore";
 
-/* 백엔드와 연결할거 -> 72번째(채팅목록), 86번째(소켓연결), 122번째(서버에 메시지 저장 요청) */
+dayjs.locale("ko"); // 로케일 설정
 
 //Chatting 인터페이스 정의
 interface Chatting {
   id: number;
-  userId?: number;
-  adminId?: number;
-  name: string;
+  user: any;
+  admin: any;
   message: string;
   time: string;
   date: string;
@@ -26,48 +29,21 @@ interface Chatting {
 const ChatRoom = () => {
   const [inputValue, setInputValue] = useState("");
   const [chattings, setChattings] = useState<Chatting[]>([]);
-  // [
-  //   {
-  //     id: 1,
-  //userId:1,
-  //     name: "보호자",
-  //     message: `혹시 그때 가능한가요?`,
-  //     time: "17:06",
-  //     date: "2025년 4월 28일",
-  //     isMe: true,
-  //   },
-  //   {
-  //     id: 2,
-  //adminId:2,
-  //     name: "도우미",
-  //     message: `내 가능합니다`,
-  //     time: "17:07",
-  //     date: "2025년 4월 28일",
-  //     isMe: false,
-  //   },
-  //   {
-  //     id: 3,
-  //userId:3,
-  //     name: "보호자",
-  //     message: `그럼 그때로 할게요`,
-  //     time: "17:08",
-  //     date: "2025년 4월 28일",
-  //     isMe: true,
-  //   },
-  //   {
-  //     id: 4,
-  //adminId:4
-  //     name: "도우미",
-  //     message: `네^^`,
-  //     time: "17:09",
-  //     date: "2025년 4월 29일",
-  //     isMe: false,
-  //   },
-  // ]
 
   const socketRef = useRef<any>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
-  const userId = 1; //아직 로그인한 사용자 정보 없어서 임의로 정해놓음
+  const router = useRouter();
+
+  // const userId = useAuthStore((state) => state.user?.id);
+  // console.log(userId);
+
+  const userId = 1;
+
+  // 무조건 아래에서 시작하도록
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: "auto" });
+  };
 
   // 채팅 목록 가져오기 요청
   const fetchChatMessages = async () => {
@@ -76,9 +52,25 @@ const ChatRoom = () => {
       const res = await axiosInstance.get(`/chat/list`, {
         params: { userId },
       });
-      // [{채팅 고유 id(id), userId 또는 adminId(작성한 사람 id), 채팅 작성한 사람 이름(name), 채팅 내용(message),
-      //  채팅 작성 시간(time), 채팅 작성 날짜(date), 사용자 본인이 작성한지 여부(isMe)}] 보내주기
-      setChattings(res.data);
+
+      // 데이터 가공
+      const parsedChats: Chatting[] = res.data.map((chat: any) => {
+        // 본인이 작성한 채팅인지 확인
+        const isMe = chat.user.id === userId;
+
+        // 시간, 날짜
+        const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
+        const time = dayjs(chat.created_at).format("A h:mm");
+
+        return {
+          ...chat,
+          isMe,
+          date,
+          time,
+        };
+      });
+
+      setChattings(parsedChats);
     } catch (e) {
       console.error("챗팅 목록 가져오기 실패: ", e);
     }
@@ -94,9 +86,21 @@ const ChatRoom = () => {
     });
 
     socketRef.current.off("receive_message"); // 기존 리스너 제거
-    socketRef.current.on("receive_message", (message: Chatting) => {
+    socketRef.current.on("receive_message", (message: any) => {
+      const isMe = message.user?.id === userId;
+
+      const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
+      const time = dayjs(message.created_at).format("A h:mm");
+
+      const parsedMessage: Chatting = {
+        ...message,
+        isMe,
+        date,
+        time,
+      };
+
       // 새 메시지 수신 -> 채팅 상태 업데이트
-      setChattings((prev) => [...prev, message]);
+      setChattings((prev) => [...prev, parsedMessage]);
     });
 
     return () => {
@@ -104,6 +108,11 @@ const ChatRoom = () => {
       socketRef.current.disconnect();
     };
   }, []);
+
+  // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
+  useEffect(() => {
+    scrollToBottom();
+  }, [chattings]);
 
   // 날짜별로 그룹화
   const groupDate = useMemo(() => {
@@ -142,6 +151,9 @@ const ChatRoom = () => {
       <div className="chatroom_header">
         <div className="chatroom_backicon_box">
           <Image
+            onClick={() => {
+              router.push("/");
+            }}
             className="chatroom_backicon"
             src={arrow_back}
             alt="뒤로가기"
@@ -156,17 +168,23 @@ const ChatRoom = () => {
           {Object.entries(groupDate).map(([date, messages]) => (
             <div key={date}>
               <div className="chatroom_date">{date}</div>
-              {messages.map((chat) => (
-                <ChatMessage
-                  key={chat.id}
-                  name={chat.name}
-                  message={chat.message}
-                  time={chat.time}
-                  isMe={chat.isMe}
-                />
-              ))}
+              {messages.map((chat, i) => {
+                const currentTime = chat.time;
+                const nextTime = messages[i + 1]?.time;
+                const shouldShowTime = currentTime !== nextTime;
+                return (
+                  <ChatMessage
+                    key={chat.id}
+                    name={chat.admin.name}
+                    message={chat.message}
+                    time={shouldShowTime ? chat.time : ""}
+                    isMe={chat.isMe}
+                  />
+                );
+              })}
             </div>
           ))}
+          <div ref={bottomRef} />
         </div>
         {/* 보내는 메시지 */}
         <div className="chatroom_message_box">
