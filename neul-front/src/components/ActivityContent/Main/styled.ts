@@ -9,14 +9,19 @@ export const ActivityContentStyled = styled.div`
     flex-direction: column;
     //align-items: center;
     margin: 0px auto;
+    //padding: 0px 20px;
+    gap: 20px;
 
-    .title {
+    .ActivityContent_title {
+      font-size: 24px;
+    }
+    .ActivityContent_subtitle {
       display: flex;
       gap: 10px;
     }
 
     .ActivityContent_swiper {
-      width: 100%;
+      width: 80%;
       height: 500px;
 
       .ActivityContent_swperimg {
@@ -28,6 +33,15 @@ export const ActivityContentStyled = styled.div`
     .ActivityContent_type {
       display: flex;
       width: 100%;
+      gap: 30px;
+    }
+
+    .ActivityContent_feedback {
+      display: flex;
+      justify-content: center;
+      .ActivityContent_feedback_btn {
+        width: 150px;
+      }
     }
   }
 `;

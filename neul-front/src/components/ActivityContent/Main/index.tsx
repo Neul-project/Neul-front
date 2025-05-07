@@ -59,10 +59,12 @@ const ActivityContent = (props: { id: string }) => {
 
   return (
     <ActivityContentStyled className={clsx("ActivityContent_main_wrap")}>
-      <h1>{id}활동기록 열람</h1>
+      <h1 className="ActivityContent_title">
+        <span>{id}</span> 활동기록 열람
+      </h1>
 
       {/* 제목 */}
-      <div className="title">
+      <div className="ActivityContent_subtitle">
         제목 <div>제목내용</div>
       </div>
 
@@ -108,25 +110,31 @@ const ActivityContent = (props: { id: string }) => {
       <div className="ActivityContent_type">
         <div>
           <div className="ActivityContent_text">활동 종류</div>
-          <Select defaultValue="놀이" style={{ width: 120 }} disabled />
+          <Select defaultValue="놀이" style={{ width: 200 }} disabled />
         </div>
-        <div className="ActivityContent_text">재활 치료</div>
-        <Radio.Group
-          options={optionsWithDisabled}
-          value={rehabilitation}
-          optionType="button"
-          buttonStyle="solid"
-        />
+        <div>
+          <div className="ActivityContent_text">재활 치료</div>
+          <Radio.Group
+            options={optionsWithDisabled}
+            value={rehabilitation}
+            optionType="button"
+            buttonStyle="solid"
+          />
+        </div>
       </div>
 
       {/* 특이사항 */}
-      <div>
+      <div className="ActivityContent_option">
         <div>특이사항</div>
         <TextArea rows={6} disabled />
       </div>
 
       {/* 피드백 작성 */}
-      <Button onClick={feedback}>피그백 작성</Button>
+      <div className="ActivityContent_feedback">
+        <Button className="ActivityContent_feedback_btn" onClick={feedback}>
+          피그백 작성
+        </Button>
+      </div>
       <Modal
         title="피드백 내용"
         open={isModalOpen}
