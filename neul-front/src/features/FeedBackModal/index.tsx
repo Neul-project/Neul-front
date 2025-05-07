@@ -7,6 +7,11 @@ import { Button, Input } from "antd";
 import axiosInstance from "@/lib/axios";
 const { TextArea } = Input;
 
+//image
+import mic from "@/assets/images/mic.png";
+import pause from "@/assets/images/pause.png";
+import clsx from "clsx";
+
 //활동 페이지 > 피드백 내용 모달
 const FeedBackModal = (props: { activityid: string }) => {
   //변수 선언
@@ -14,6 +19,7 @@ const FeedBackModal = (props: { activityid: string }) => {
 
   //useState
   const [content, setContent] = useState(""); //text area 내용
+  const [isRecording, setIsRecording] = useState(false); //음성 녹음 버튼 클릭 확인용
 
   //textarea 내용 변환
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -36,6 +42,17 @@ const FeedBackModal = (props: { activityid: string }) => {
   const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({ audio: true });
 
+  //음성 녹음 시작 버튼
+  const handleStartRecording = () => {
+    setIsRecording(true);
+    startRecording();
+  };
+
+  //음성 녹음 중단 버튼
+  const handleStopRecording = () => {
+    setIsRecording(false);
+    stopRecording();
+  };
   const uploadRecording = async () => {
     if (!mediaBlobUrl) {
       console.error("mediaBlobUrl이 없습니다. 먼저 녹음을 해주세요");
@@ -58,6 +75,8 @@ const FeedBackModal = (props: { activityid: string }) => {
     formData.append("file", blob, fileName);
 
     const userId = 1;
+
+    //**백엔드 저장 요청
     axiosInstance
       .post(
         `/activity/feedback`,
@@ -81,16 +100,43 @@ const FeedBackModal = (props: { activityid: string }) => {
   ``;
 
   return (
-    <FeedBackModalStyled>
-      <TextArea rows={8} onChange={onChange} />
-      <div>
+    <FeedBackModalStyled className={clsx("FeedbackModal_main_wrap")}>
+      <TextArea
+        rows={8}
+        onChange={onChange}
+        className="FeedbackModal_textarea"
+      />
+
+      <div className="FeedbackModal_recording">
         <p>{status}</p>
-        <Button onClick={startRecording}>음성녹음 시작</Button>
-        <Button onClick={stopRecording}>음성녹음 중단</Button>
-        <audio src={mediaBlobUrl} controls></audio>
-        <Button onClick={uploadRecording}>음성 보내기</Button>
+        {!isRecording ? (
+          <div className="FeedbackModal_mic" onClick={handleStartRecording}>
+            <img src={mic.src} alt="mic" />
+          </div>
+        ) : (
+          <div className="FeedbackModal_pause" onClick={handleStopRecording}>
+            <img src={pause.src} alt="pause" />
+          </div>
+        )}
       </div>
-      <Button onClick={feedbacksend}>피드백 보내기</Button>
+      <div className="FeedbackModal_controler">
+        <audio
+          className="FeedbackModal_audio"
+          src={mediaBlobUrl}
+          controls
+        ></audio>
+      </div>
+      <div className="FeedbackModal_footer">
+        <Button onClick={uploadRecording} className="FeedbackModal_footer_send">
+          음성 보내기
+        </Button>
+        <Button
+          onClick={feedbacksend}
+          className="FeedbackModal_footer_feeedback"
+        >
+          피드백 보내기
+        </Button>
+      </div>
     </FeedBackModalStyled>
   );
 };

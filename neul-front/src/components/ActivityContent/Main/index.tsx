@@ -1,10 +1,11 @@
-import { ActivityContentStyled } from "./styled";
+import { ActivityContentStyled, theme } from "./styled";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
+import dynamic from "next/dynamic";
 
 //antd
-import { Select, Radio, Input, Button, Modal } from "antd";
+import { Select, Radio, Input, Button, Modal, ConfigProvider } from "antd";
 import type { CheckboxGroupProps } from "antd/es/checkbox";
 
 const { TextArea } = Input;
@@ -19,24 +20,41 @@ import { Pagination, Autoplay } from "swiper/modules";
 import img1 from "@/assets/images/main01_deco.gif";
 import img2 from "@/assets/images/main02_deco.gif";
 import img3 from "@/assets/images/main03_deco.gif";
-import FeedBackModal from "@/features/FeedBackModal";
+
+const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
+  ssr: false,
+});
 
 //활동 기록 컴포넌트
 const ActivityContent = (props: { id: string }) => {
   //변수 선언
   const { id } = props;
   const imgarr = [img1, img2, img3];
-  const [rehabilitation, setRehabilitation] = useState("yes");
-
+  const [rehabilitation, setRehabilitation] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [title, setTitle] = useState(""); //제목
+  const [img, setImg] = useState([""]); //이미지 배열
+  //const [re, setRe] = useState(""); //활동종류
+  const [type, setType] = useState(""); //재활치료
+  const [note, setNote] = useState("");
 
   //useEffect
   useEffect(() => {
     const userId = 1;
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
-    // axiosInstance.get(`/activity/detail`, {
-    //   params: { userId: userId, id: id },
-    // });
+    axiosInstance
+      .get(`/activity/detail`, {
+        params: { userId: userId, id: id },
+      })
+      .then((res) => {
+        //console.log("res", res.data);
+        const data = res.data;
+        setTitle(data.title);
+        setImg(data.img);
+        setRehabilitation(data.rehabilitation);
+        setType(data.type);
+        setNote(data.note);
+      });
   }, []);
 
   const optionsWithDisabled: CheckboxGroupProps<string>["options"] = [
@@ -59,13 +77,13 @@ const ActivityContent = (props: { id: string }) => {
 
   return (
     <ActivityContentStyled className={clsx("ActivityContent_main_wrap")}>
-      <h1 className="ActivityContent_title">
-        <span>{id}</span> 활동기록 열람
-      </h1>
+      <div className="ActivityContent_title">
+        <div>{title}</div> 활동기록 열람
+      </div>
 
       {/* 제목 */}
       <div className="ActivityContent_subtitle">
-        제목 <div>제목내용</div>
+        제목 <div>{title}</div>
       </div>
 
       {/* 스와이퍼 이미지 */}
@@ -110,29 +128,35 @@ const ActivityContent = (props: { id: string }) => {
       <div className="ActivityContent_type">
         <div>
           <div className="ActivityContent_text">활동 종류</div>
-          <Select defaultValue="놀이" style={{ width: 200 }} disabled />
+          <ConfigProvider theme={theme}>
+            <Select defaultValue={type} style={{ width: 200 }} disabled />
+          </ConfigProvider>
         </div>
         <div>
           <div className="ActivityContent_text">재활 치료</div>
-          <Radio.Group
-            options={optionsWithDisabled}
-            value={rehabilitation}
-            optionType="button"
-            buttonStyle="solid"
-          />
+          <ConfigProvider theme={theme}>
+            <Radio.Group
+              options={optionsWithDisabled}
+              value={rehabilitation}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </ConfigProvider>
         </div>
       </div>
 
       {/* 특이사항 */}
       <div className="ActivityContent_option">
-        <div>특이사항</div>
-        <TextArea rows={6} disabled />
+        <div className="ActivityContent_text">특이사항</div>
+        <ConfigProvider theme={theme}>
+          <TextArea rows={6} disabled value={note} />
+        </ConfigProvider>
       </div>
 
       {/* 피드백 작성 */}
       <div className="ActivityContent_feedback">
         <Button className="ActivityContent_feedback_btn" onClick={feedback}>
-          피그백 작성
+          피드백 작성
         </Button>
       </div>
       <Modal

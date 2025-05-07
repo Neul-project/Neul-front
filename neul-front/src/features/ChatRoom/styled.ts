@@ -44,7 +44,13 @@ export const ChatRoomStyled = styled.div`
       border-right: 1.5px solid #ccc;
       .chatroom_content {
         flex: 1;
-        overflow-y: auto;
+        overflow-y: scroll;
+
+        /* Firefox */
+        scrollbar-width: none;
+        /* IE 10+ */
+        -ms-overflow-style: none;
+
         padding: 10px;
         box-sizing: border-box;
         .chatroom_date {
@@ -52,6 +58,11 @@ export const ChatRoomStyled = styled.div`
           color: #ccc;
           margin-top: 20px;
         }
+      }
+
+      .chatroom_content::-webkit-scrollbar {
+        /* Chrome, Safari, Edge */
+        display: none;
       }
 
       /* 메시지 보내는 부분 */

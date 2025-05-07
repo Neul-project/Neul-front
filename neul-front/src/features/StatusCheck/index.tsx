@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 // 상태 타입
 interface StatusType {
@@ -23,7 +24,8 @@ const StatusCheck = () => {
   const [status, setStatus] = useState<StatusType[] | null>(null);
   const [name, setName] = useState<string>(""); // 피보호자 이름
 
-  const userId = 1; //임의로 사용자 id설정
+  const userId = useAuthStore((state) => state.user?.id);
+  console.log("dsaf", userId);
   const today = dayjs(); // 오늘 날짜
 
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(today);
@@ -64,12 +66,15 @@ const StatusCheck = () => {
   }, [selectedDate]);
 
   useEffect(() => {
+    if (!userId) return;
+
     // 피보호자 이름은 1번만 불러옴
     axiosInstance
       .get("/status/name", {
         params: { userId },
       })
       .then((res) => {
+        console.log("피보호자 이름", res.data);
         setName(res.data);
       })
       .catch((e) => {
@@ -78,7 +83,7 @@ const StatusCheck = () => {
 
     // 오늘 날짜 상태 요청
     SelectDate(today);
-  }, []);
+  }, [userId]);
 
   return (
     // 달력 한글로

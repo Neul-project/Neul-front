@@ -44,7 +44,7 @@ const ActivityTable = () => {
 
   //useEffect
   useEffect(() => {
-    const userId = 1;
+    const userId = 5;
     //화면 로드 시 테이블 내용 요청
     axiosInstance
       .get(`/activity/list/${userId}`)

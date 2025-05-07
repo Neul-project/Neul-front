@@ -31,9 +31,9 @@ const Header = () => {
         <div className="Header_logo_img" onClick={MoveMain}>
           <img className="Header_imgstyle" src={logo.src} alt="main-logo" />
         </div>
-        <div className="Header_menu" onClick={Menu}>
+        {/* <div className="Header_menu" onClick={Menu}>
           <img className="Header_imgstyle" src={menu.src} alt="menu-img" />
-        </div>
+        </div> */}
       </div>
     </HeaderStyled>
   );
