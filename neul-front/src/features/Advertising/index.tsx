@@ -15,10 +15,11 @@ const Advertising = () => {
 
   //광고 이미지 요청
   useEffect(() => {
-    // axiosInstance.get("/banner/list").then((res) => {
-    //   const data = res.data;
-    //   setArr(data);
-    // });
+    axiosInstance.get("/banner/list").then((res) => {
+      console.log("banner Res", res.data);
+      const data = res.data;
+      //setArr(data);
+    });
   }, []);
 
   return (
