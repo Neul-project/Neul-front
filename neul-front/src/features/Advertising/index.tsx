@@ -23,7 +23,7 @@ const Advertising = () => {
   }, []);
 
   return (
-    <AdvertisingStyled className="Advertising_main_wrap">
+    <AdvertisingStyled className={clsx("Advertising_main_wrap")}>
       {arr.map((element, index: number) => {
         return <AdElement key={index} el={element} />;
       })}

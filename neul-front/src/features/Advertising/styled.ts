@@ -6,7 +6,31 @@ export const AdvertisingStyled = styled.div`
     padding: 0px 20px;
     width: 100%;
     height: 300px;
-    gap: 50px;
+    gap: 20px;
     margin-top: 70px;
+  }
+
+  @media (max-width: 768px) {
+    &.Advertising_main_wrap {
+      display: flex;
+      //flex-direction: column;
+      padding: 0px 20px;
+      width: 100%;
+      height: 100%;
+      gap: 10px;
+      margin-top: 70px;
+    }
+  }
+
+  @media (max-width: 486px) {
+    &.Advertising_main_wrap {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 20px;
+      width: 100%;
+      height: 100%;
+      gap: 10px;
+      margin-top: 70px;
+    }
   }
 `;

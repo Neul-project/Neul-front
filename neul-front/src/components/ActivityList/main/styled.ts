@@ -12,7 +12,7 @@ export const ActivityListStyled = styled.div`
 
     .ActivityList_h1 {
       font-size: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
   }
 `;

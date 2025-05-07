@@ -120,7 +120,11 @@ const FeedBackModal = (props: { activityid: string }) => {
         )}
       </div>
       <div className="FeedbackModal_controler">
-        <audio src={mediaBlobUrl} controls></audio>
+        <audio
+          className="FeedbackModal_audio"
+          src={mediaBlobUrl}
+          controls
+        ></audio>
       </div>
       <div className="FeedbackModal_footer">
         <Button onClick={uploadRecording} className="FeedbackModal_footer_send">

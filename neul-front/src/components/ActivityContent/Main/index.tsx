@@ -1,10 +1,11 @@
-import { ActivityContentStyled } from "./styled";
+import { ActivityContentStyled, theme } from "./styled";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
+import dynamic from "next/dynamic";
 
 //antd
-import { Select, Radio, Input, Button, Modal } from "antd";
+import { Select, Radio, Input, Button, Modal, ConfigProvider } from "antd";
 import type { CheckboxGroupProps } from "antd/es/checkbox";
 
 const { TextArea } = Input;
@@ -19,7 +20,10 @@ import { Pagination, Autoplay } from "swiper/modules";
 import img1 from "@/assets/images/main01_deco.gif";
 import img2 from "@/assets/images/main02_deco.gif";
 import img3 from "@/assets/images/main03_deco.gif";
-import FeedBackModal from "@/features/FeedBackModal";
+
+const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
+  ssr: false,
+});
 
 //활동 기록 컴포넌트
 const ActivityContent = (props: { id: string }) => {
@@ -73,9 +77,9 @@ const ActivityContent = (props: { id: string }) => {
 
   return (
     <ActivityContentStyled className={clsx("ActivityContent_main_wrap")}>
-      <h1 className="ActivityContent_title">
-        <span>{title}</span> 활동기록 열람
-      </h1>
+      <div className="ActivityContent_title">
+        <div>{title}</div> 활동기록 열람
+      </div>
 
       {/* 제목 */}
       <div className="ActivityContent_subtitle">
@@ -124,23 +128,29 @@ const ActivityContent = (props: { id: string }) => {
       <div className="ActivityContent_type">
         <div>
           <div className="ActivityContent_text">활동 종류</div>
-          <Select defaultValue={type} style={{ width: 200 }} disabled />
+          <ConfigProvider theme={theme}>
+            <Select defaultValue={type} style={{ width: 200 }} disabled />
+          </ConfigProvider>
         </div>
         <div>
           <div className="ActivityContent_text">재활 치료</div>
-          <Radio.Group
-            options={optionsWithDisabled}
-            value={rehabilitation}
-            optionType="button"
-            buttonStyle="solid"
-          />
+          <ConfigProvider theme={theme}>
+            <Radio.Group
+              options={optionsWithDisabled}
+              value={rehabilitation}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </ConfigProvider>
         </div>
       </div>
 
       {/* 특이사항 */}
       <div className="ActivityContent_option">
-        <div>특이사항</div>
-        <TextArea rows={6} disabled value={note} />
+        <div className="ActivityContent_text">특이사항</div>
+        <ConfigProvider theme={theme}>
+          <TextArea rows={6} disabled value={note} />
+        </ConfigProvider>
       </div>
 
       {/* 피드백 작성 */}

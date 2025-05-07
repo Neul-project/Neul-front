@@ -56,6 +56,9 @@ export const FeedBackModalStyled = styled.div`
       }
       .FeedbackModal_controler {
         display: block;
+        .FeedbackModal_audio {
+          width: 100%;
+        }
       }
       .FeedbackModal_footer {
         width: 100%;

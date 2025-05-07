@@ -43,5 +43,56 @@ export const ActivityContentStyled = styled.div`
         width: 150px;
       }
     }
+
+    .ActivityContent_text {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ActivityContent_title {
+      font-size: 20px;
+    }
+    .ActivityContent_swiper {
+      height: 300px;
+    }
+    .ActivityContent_subtitle {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ActivityContent_title {
+      font-size: 18px;
+    }
+    .ActivityContent_swiper {
+      height: 200px;
+    }
+
+    .ActivityContent_type {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 30px;
+    }
+
+    .ActivityContent_feedback_btn {
+      width: 100%;
+    }
   }
 `;
+
+export const theme = {
+  components: {
+    Select: {
+      /* here is your component tokens */
+      colorBgContainerDisabled: "#ffffff",
+    },
+    Radio: {
+      colorBgContainerDisabled: "#ffffff",
+    },
+    Input: {
+      colorBgContainerDisabled: "#ffffff", // TextArea 비활성화 배경색
+    },
+  },
+};
