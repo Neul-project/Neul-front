@@ -1,11 +1,17 @@
 import { MyInfoStyled } from "./styled";
+import ModalCompo from "../ModalCompo";
+import Address from "../Address";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axiosInstance from "@/lib/axios";
+import { useState } from "react";
 
 const MyInfo = () => {
   const router = useRouter();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [pwOpen, setPwOpen] = useState(false);
 
   // 회원탈퇴 요청
   const handleWithdraw = async () => {
@@ -35,7 +41,45 @@ const MyInfo = () => {
 
   return (
     <MyInfoStyled>
-      <div>내정보 관리임</div>
+      <div className="MyInfo_container">
+        <div className="MyInfo_flex">
+          <div className="MyInfo_cont">
+            <div className="MyInfo_name">
+              <span>홍길동</span>님
+            </div>
+            <div className="MyInfo_email">abcd@abcd.com</div>
+          </div>
+
+          <div className="MyInfo_changePw">
+            <button type="button" onClick={() => setPwOpen(true)}>
+              비밀번호 변경
+            </button>
+          </div>
+        </div>
+
+        {pwOpen && (
+          <ModalCompo onClose={() => setPwOpen(false)}>
+            <div>테스트</div>
+          </ModalCompo>
+        )}
+
+        <div className="MyInfo_phone">
+          <div className="title">휴대전화번호</div>
+          <div className="phone">010-1111-1111</div>
+        </div>
+
+        <div className="MyInfo_flex MyInfo_address">
+          <div>주소 관리</div>
+          <div className="MyInfo_changePw">
+            <button type="button" onClick={() => setIsOpen(true)}>
+              주소 등록
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 주소 등록 버튼 */}
+      {isOpen && <Address onClose={() => setIsOpen(false)} />}
 
       <div>
         <button

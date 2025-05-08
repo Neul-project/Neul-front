@@ -1,14 +1,12 @@
 import styled from "styled-components";
 
 export const SideBarMenuStyled = styled.div`
+  width: 290px;
   height: 100vh;
   position: relative;
   background-color: #fff;
   padding: 20px 39px;
-  box-shadow: 5px 1px 8px 0 rgba(0, 0, 0, 0.06);
-  border-left: 1px solid rgba(0, 0, 0, 0.08);
-  vertical-align: top;
-  z-index: 1;
+  border-right: 1.5px solid #ddd;
 
   .SideBar_wrap {
     border-bottom: 1px solid rgba(146, 146, 148, 0.3);
