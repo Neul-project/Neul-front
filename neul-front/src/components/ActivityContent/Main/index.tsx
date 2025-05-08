@@ -40,7 +40,7 @@ const ActivityContent = (props: { id: string }) => {
 
   //useEffect
   useEffect(() => {
-    const userId = 1;
+    const userId = 2;
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
     axiosInstance
       .get(`/activity/detail`, {

@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import search from "@/assets/images/search.png";
 import plus from "@/assets/images/plus.png";
 import chat from "@/assets/images/ic-event-survey.png";
+import test from "@/assets/images/ic-event-test.png";
+import relay from "@/assets/images/ic-event-relay.png";
 
 //네비게이션 컴포넌트
 const NavigationElement = () => {
@@ -63,7 +65,7 @@ const NavigationElement = () => {
         <div className="NavigationElement_img">
           <img
             className="NavigationElement_imgstyle"
-            src={chat.src}
+            src={relay.src}
             alt="puls"
           />
         </div>
@@ -83,7 +85,7 @@ const NavigationElement = () => {
         <div className="NavigationElement_img">
           <img
             className="NavigationElement_imgstyle"
-            src={chat.src}
+            src={test.src}
             alt="puls"
           />
         </div>

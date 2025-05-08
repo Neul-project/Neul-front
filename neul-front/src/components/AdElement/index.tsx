@@ -9,7 +9,11 @@ const AdElement = (props: { el: any }) => {
   return (
     <AdElementStyled className="AdElement_main_wrap">
       <div className="AdElement_img">
-        <img className="AdElement_imgstyle" src={el.src} alt="img" />
+        <img
+          className="AdElement_imgstyle"
+          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + el}
+          alt="img"
+        />
       </div>
     </AdElementStyled>
   );
