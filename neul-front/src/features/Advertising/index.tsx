@@ -17,8 +17,9 @@ const Advertising = () => {
   useEffect(() => {
     axiosInstance.get("/banner/list").then((res) => {
       console.log("banner Res", res.data);
-      const data = res.data;
-      //setArr(data);
+      const data = res.data[0].img.split(",");
+      //console.log(data.split(","));
+      setArr(data);
     });
   }, []);
 
