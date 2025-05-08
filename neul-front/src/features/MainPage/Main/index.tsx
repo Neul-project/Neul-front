@@ -36,6 +36,7 @@ const MainPage = () => {
 
         // 3. 유저 정보 요청 후 zustand에 저장
         axiosInstance.get("/auth/me").then((res) => {
+          console.log("소셜로그인 zustand", res.data);
           login(res.data); // <- zustand에 유저 저장
           setIsTokenProcessed(true);
 
