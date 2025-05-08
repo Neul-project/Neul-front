@@ -27,7 +27,7 @@ export const NavigationElementStyled = styled.div`
       align-items: center;
       justify-content: center;
       border-radius: 15px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 20px -9px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: transform 0.2s ease;
 
