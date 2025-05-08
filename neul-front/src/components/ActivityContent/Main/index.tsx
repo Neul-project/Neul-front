@@ -16,11 +16,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 
-//image
-import img1 from "@/assets/images/main01_deco.gif";
-import img2 from "@/assets/images/main02_deco.gif";
-import img3 from "@/assets/images/main03_deco.gif";
-
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
 });
@@ -29,31 +24,32 @@ const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
 const ActivityContent = (props: { id: string }) => {
   //변수 선언
   const { id } = props;
-  const imgarr = [img1, img2, img3];
   const [rehabilitation, setRehabilitation] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState(""); //제목
   const [img, setImg] = useState([""]); //이미지 배열
-  //const [re, setRe] = useState(""); //활동종류
   const [type, setType] = useState(""); //재활치료
   const [note, setNote] = useState("");
+  const [imgarr, setImgArr] = useState([]);
 
   //useEffect
   useEffect(() => {
-    const userId = 2;
+    const userId = 2; // **추후 변경
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
     axiosInstance
       .get(`/activity/detail`, {
         params: { userId: userId, id: id },
       })
       .then((res) => {
-        //console.log("res", res.data);
+        console.log("res", res.data);
+
         const data = res.data;
         setTitle(data.title);
         setImg(data.img);
         setRehabilitation(data.rehabilitation);
         setType(data.type);
         setNote(data.note);
+        setImgArr(data.img);
       });
   }, []);
 
@@ -62,10 +58,6 @@ const ActivityContent = (props: { id: string }) => {
     { label: "미참여", value: "no", disabled: rehabilitation !== "no" },
     { label: "비대상", value: "none", disabled: rehabilitation !== "none" },
   ];
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -102,22 +94,8 @@ const ActivityContent = (props: { id: string }) => {
         >
           <SwiperSlide>
             <img
-              src={imgarr[0].src}
+              src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + imgarr}
               alt={`preview-0`}
-              className="ActivityContent_swperimg"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={imgarr[1].src}
-              alt={`preview-1`}
-              className="ActivityContent_swperimg"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src={imgarr[2].src}
-              alt={`preview-2`}
               className="ActivityContent_swperimg"
             />
           </SwiperSlide>

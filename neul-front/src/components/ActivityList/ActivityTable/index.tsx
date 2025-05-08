@@ -7,6 +7,7 @@ import { ConfigProvider, Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 interface DataType {
   key: string;
@@ -38,31 +39,28 @@ const columns: TableProps<DataType>["columns"] = [
 const ActivityTable = () => {
   //변수 선언
   const router = useRouter();
+  const { user, isLoggedIn, login, logout } = useAuthStore();
 
   //useState
   const [datalist, setDataList] = useState<DataType[]>();
 
   //useEffect
   useEffect(() => {
-    const userId = 5;
+    //console.log("user", user.id);
+    const userId = user?.id;
     //화면 로드 시 테이블 내용 요청
-    axiosInstance
-      .get(`/activity/list/${userId}`)
-      .then((res) => {
-        console.log("data res", res.data);
+    axiosInstance.get(`/activity/list/${userId}`).then((res) => {
+      console.log("data res", res.data);
 
-        const formatdata: DataType[] = res.data.map((item: any) => ({
-          key: String(item.id),
-          number: item.id,
-          title: item.title,
-          date: item.recorded_at,
-        }));
+      const formatdata: DataType[] = res.data.map((item: any) => ({
+        key: String(item.id),
+        number: item.id,
+        title: item.title,
+        date: item.recorded_at,
+      }));
 
-        setDataList(formatdata);
-      })
-      .catch((error) => {
-        //console.log("activity list error", error);
-      });
+      setDataList(formatdata);
+    });
   }, []);
 
   return (
