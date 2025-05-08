@@ -7,7 +7,7 @@ const WardInfo = () => {
         <div className="MyInfo_flex">
           <div className="MyInfo_cont">
             <div className="MyInfo_name">
-              <span>홍길동</span>님
+              <span>피보호자 이름</span>님
             </div>
             <div className="MyInfo_email">abcd@abcd.com</div>
           </div>
