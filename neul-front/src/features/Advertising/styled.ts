@@ -8,6 +8,15 @@ export const AdvertisingStyled = styled.div`
     height: 100%;
     gap: 20px;
     margin-top: 70px;
+
+    .Advertising_text {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+
+      font-size: 20px;
+    }
   }
 
   @media (max-width: 768px) {

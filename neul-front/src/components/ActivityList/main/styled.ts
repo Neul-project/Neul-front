@@ -10,6 +10,7 @@ export const ActivityListStyled = styled.div`
     //align-items: center;
     margin: 0px auto;
     padding: 0px 20px;
+    background-color: #edeff2;
 
     .ActivityList_h1 {
       padding-top: 20px;
