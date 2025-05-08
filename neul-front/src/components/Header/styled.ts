@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const HeaderStyled = styled.div`
   &.Header_main_wrap {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+
     .header {
       max-width: 1280px;
       width: 100%;
