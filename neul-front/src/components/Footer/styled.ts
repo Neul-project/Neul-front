@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const FooterStyled = styled.div`
   &.Footer_main_wrap {
     border-top: 1px solid #ccc;
-    margin-top: 50px;
     .footer {
       max-width: 1280px;
       width: 100%;
