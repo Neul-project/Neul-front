@@ -31,20 +31,18 @@ const MainPage = () => {
         Cookies.set("refresh_token", snsRefresh);
         setIsTokenProcessed(true);
 
-        // URL에서 쿼리스트링 제거
-        router.replace("/", undefined, { shallow: true });
+        // 2. axiosInstance에 토큰 헤더 반영 (선택적 수동 세팅)
+        axiosInstance.defaults.headers.Authorization = `Bearer ${snsAccess}`;
 
-        // // 2. axiosInstance에 토큰 헤더 반영 (선택적 수동 세팅)
-        // axiosInstance.defaults.headers.Authorization = `Bearer ${snsAccess}`;
+        // 3. 유저 정보 요청 후 zustand에 저장
+        axiosInstance.get("/auth/me").then((res) => {
+          console.log("소셜로그인 zustand", res.data);
+          login(res.data); // <- zustand에 유저 저장
+          setIsTokenProcessed(true);
 
-        // // 3. 유저 정보 요청 후 zustand에 저장
-        // axiosInstance.get("/auth/me").then((res) => {
-        //   login(res.data); // <- zustand에 유저 저장
-        //   setIsTokenProcessed(true);
-
-        //   // URL에서 쿼리스트링 제거
-        //   router.replace("/", undefined, { shallow: true });
-        // });
+          // URL에서 쿼리스트링 제거
+          router.replace("/", undefined, { shallow: true });
+        });
       }
     }
   }, [router.isReady, router.query, isTokenProcessed]);
