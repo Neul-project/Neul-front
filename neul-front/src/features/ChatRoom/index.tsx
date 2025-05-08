@@ -35,8 +35,8 @@ const ChatRoom = () => {
 
   const router = useRouter();
 
-  const userId = useAuthStore((state) => state.user?.id);
-
+  // const userId = useAuthStore((state) => state.user?.id);
+  const userId = 1;
   // 무조건 아래에서 시작하도록
   const scrollToBottom = () => {
     bottomRef.current?.scrollIntoView({ behavior: "auto" });
