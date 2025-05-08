@@ -1,4 +1,5 @@
 import { MyInfoStyled } from "./styled";
+import ModalCompo from "../ModalCompo";
 import Address from "../Address";
 
 import Cookies from "js-cookie";
@@ -10,6 +11,7 @@ const MyInfo = () => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [pwOpen, setPwOpen] = useState(false);
 
   // 회원탈퇴 요청
   const handleWithdraw = async () => {
@@ -49,9 +51,17 @@ const MyInfo = () => {
           </div>
 
           <div className="MyInfo_changePw">
-            <button type="button">비밀번호 변경</button>
+            <button type="button" onClick={() => setPwOpen(true)}>
+              비밀번호 변경
+            </button>
           </div>
         </div>
+
+        {pwOpen && (
+          <ModalCompo onClose={() => setPwOpen(false)}>
+            <div>테스트</div>
+          </ModalCompo>
+        )}
 
         <div className="MyInfo_phone">
           <div className="title">휴대전화번호</div>
@@ -68,6 +78,7 @@ const MyInfo = () => {
         </div>
       </div>
 
+      {/* 주소 등록 버튼 */}
       {isOpen && <Address onClose={() => setIsOpen(false)} />}
 
       <div>

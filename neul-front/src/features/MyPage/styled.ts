@@ -13,6 +13,7 @@ export const MyPageStyled = styled.div`
   }
 
   .MyPage_rightContainer {
+    width: 100%;
     padding: 37px 46px;
   }
 `;
