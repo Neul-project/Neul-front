@@ -6,7 +6,7 @@ import ActivityTable from "../ActivityTable";
 const ActivityList = () => {
   return (
     <ActivityListStyled className={clsx("ActivityList_main_wrap")}>
-      <div className="ActivityList_h1">활동 기록 열람하기</div>
+      <h3 className="ActivityList_h1">활동 기록 열람하기</h3>
       <ActivityTable />
     </ActivityListStyled>
   );

@@ -1,9 +1,9 @@
-import { ActivityTableStyled } from "./styled";
+import { ActivityTableStyled, theme } from "./styled";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 
 //antd
-import { Space, Table, Tag } from "antd";
+import { ConfigProvider, Space, Table, Tag } from "antd";
 import type { TableProps } from "antd";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
@@ -67,19 +67,19 @@ const ActivityTable = () => {
 
   return (
     <ActivityTableStyled className={clsx("ActivityList_main_wrap")}>
-      <Table<DataType>
-        columns={columns}
-        dataSource={datalist}
-        onRow={(record, rowIndex) => {
-          //record : 클릭된 행 전체 내용 rowIndex 클릭된 행 위치(0부터 시작)
-          return {
-            onClick: (event) => {
-              //console.log("event", record, rowIndex);
-              router.push(`/activity/${record.number}`); //클릭된 페이지 이동 url : /activity/1
-            },
-          };
-        }}
-      />
+      <ConfigProvider theme={theme}>
+        <Table<DataType>
+          columns={columns}
+          dataSource={datalist}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                router.push(`/activity/${record.number}`);
+              },
+            };
+          }}
+        />
+      </ConfigProvider>
     </ActivityTableStyled>
   );
 };

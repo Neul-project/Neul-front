@@ -2,16 +2,18 @@ import styled from "styled-components";
 
 export const FooterStyled = styled.div`
   &.Footer_main_wrap {
+    border-top: 1px solid #ccc;
+    margin-top: 50px;
     .footer {
       max-width: 1280px;
       width: 100%;
       height: 70px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin: 0px auto;
-      margin-top: 20px;
-      border-top: 1px solid #ccc;
+      margin: 5px auto;
+      gap: 5px;
 
       .Footer_text {
         font-size: 13px;
@@ -25,8 +27,8 @@ export const FooterStyled = styled.div`
 
   @media (max-width: 486px) {
     &.Footer_main_wrap {
+      border-top: 1px solid #ccc;
       .footer {
-        max-width: 1280px;
         width: 100%;
         height: 70px;
         display: flex;
@@ -34,7 +36,6 @@ export const FooterStyled = styled.div`
         justify-content: center;
         margin: 0px auto;
         margin-top: 20px;
-        border-top: 1px solid #ccc;
 
         .Footer_text {
           font-size: 10px;

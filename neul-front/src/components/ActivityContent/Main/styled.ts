@@ -9,11 +9,16 @@ export const ActivityContentStyled = styled.div`
     flex-direction: column;
     //align-items: center;
     margin: 0px auto;
-    //padding: 0px 20px;
+    padding: 0px 20px;
     gap: 20px;
 
     .ActivityContent_title {
+      display: flex;
+      width: 100%;
+      text-align: center;
+      justify-content: center;
       font-size: 24px;
+      font-weight: bold;
     }
     .ActivityContent_subtitle {
       display: flex;
