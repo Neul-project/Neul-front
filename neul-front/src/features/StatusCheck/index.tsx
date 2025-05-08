@@ -25,7 +25,7 @@ const StatusCheck = () => {
   const [name, setName] = useState<string>(""); // 피보호자 이름
 
   const userId = useAuthStore((state) => state.user?.id);
-  console.log("dsaf", userId);
+  console.log("유저 id", userId);
   const today = dayjs(); // 오늘 날짜
 
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(today);
@@ -35,7 +35,6 @@ const StatusCheck = () => {
     if (!date) return;
 
     const selectedDate = date.format("YYYY-MM-DD");
-    console.log(selectedDate);
     // userId와 날짜(2025-04-30)를 보내면 상태 기록 받기
     axiosInstance
       .get("/status/day", {

@@ -35,7 +35,7 @@ export const ChatRoomStyled = styled.div`
     /* 채팅 내용 */
     .chatroom_content_box {
       max-width: 1028px;
-      height: 100vh;
+      height: 99.9vh;
       margin: 0 auto;
       padding-top: 70px;
       display: flex;

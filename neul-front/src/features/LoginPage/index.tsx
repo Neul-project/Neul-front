@@ -2,13 +2,19 @@ import { LoginPageStyled, SpeechBubble } from "./styled";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import axios from "axios";
+import axiosInstance from "@/lib/axios";
 import Cookies from "js-cookie";
 
 // 로그인 유효성 검사 yup
 import { loginSchema } from "@/utils/joinValidation";
 
+// zustand
+import { useAuthStore } from "@/stores/useAuthStore";
+
 const LoginPage = () => {
   const router = useRouter();
+
+  const { login } = useAuthStore();
 
   // 로그인 유효성 검사
   const formik = useFormik({
@@ -34,9 +40,18 @@ const LoginPage = () => {
 
         const { user, token } = res.data;
 
-        // access_token 쿠키 저장
+        // 1. access_token 쿠키 저장
         Cookies.set("access_token", token);
 
+        // 2. 토큰 기반 유저 정보 요청
+        const meRes = await axiosInstance.get("/auth/me");
+
+        console.log("유저 정보:", meRes.data);
+
+        // 3. zustand에 로그인 상태 저장
+        login(meRes.data); // user: { id }
+
+        // 4. 메인페이지 이동
         router.push("/");
       } catch (error) {
         console.error("로그인 실패:", error);

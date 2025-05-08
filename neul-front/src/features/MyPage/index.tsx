@@ -9,11 +9,19 @@ import MyInfo from "@/components/MyInfo";
 import WardInfo from "@/components/WardInfo";
 import ProgramHistory from "@/components/ProgramHistory";
 
+import { useAuthStore } from "@/stores/useAuthStore";
+
 type TabType = "myinfo" | "wardinfo" | "program";
 
 // 마이페이지 메인 컴포넌트
 // 왼쪽 사이드바에서 메뉴 선택 시 쿼리스트링을 통해 URL 상태 반영
 const MyPageCompo = () => {
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  console.log("isLoggedIn", isLoggedIn);
+  const userId = useAuthStore((state) => state.user?.id);
+
+  console.log("userId", userId);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   // 현재 URL의 tab 값을 읽어 활성화된 메뉴 판단
