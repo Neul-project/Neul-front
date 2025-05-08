@@ -26,12 +26,14 @@ export const ActivityContentStyled = styled.div`
     }
 
     .ActivityContent_swiper {
-      width: 80%;
-      height: 500px;
+      width: 100%;
+      height: 400px;
 
       .ActivityContent_swperimg {
         width: 100%;
         height: 100%;
+        object-fit: contain;
+        min-height: 200px;
       }
     }
 
