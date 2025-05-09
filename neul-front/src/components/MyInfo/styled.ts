@@ -56,6 +56,49 @@ export const MyInfoStyled = styled.div`
     }
   }
 
+  .MyInfo_CngPWContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .MyInfo_CngPWTitle {
+    font-weight: 700;
+    height: auto;
+    margin-bottom: 8px;
+  }
+
+  .MyInfo_CngPWInput {
+    width: 100%;
+
+    input {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+  }
+
+  .MyInfo_CngPWSub {
+    button {
+      cursor: pointer;
+      border-radius: 4px;
+      background-color: ${(props) => props.theme.colors.pointGreen};
+      border: none;
+      padding: 9px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: -1px;
+      color: #fff;
+
+      &:hover {
+        background-color: ${(props) => props.theme.colors.softGreen};
+      }
+    }
+  }
+
   .MyInfo_phone {
     display: flex;
     justify-content: space-between;
@@ -88,5 +131,11 @@ export const MyInfoStyled = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  .error {
+    margin-top: 2px;
+    font-size: 13px;
+    color: red;
   }
 `;

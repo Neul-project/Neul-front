@@ -30,23 +30,23 @@ export const AddressStyled = styled.div`
   .Address_close {
     position: absolute;
     z-index: 1;
-    top: 34%;
-    right: 33%;
-    width: 32px;
+    top: 18px;
+    right: 20px;
+    /* width: 32px;
     height: 32px;
     background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; */
     border-radius: 50%;
-    font-size: 20px;
+    font-size: 28px;
     line-height: 28px;
     text-align: center;
     cursor: pointer;
-    color: #333;
+    color: #fff;
     font-weight: bold;
 
-    &:hover {
+    /* &:hover {
       background-color: #f0f0f0;
-    }
+    } */
   }
 
   .Address_wrap {
@@ -78,7 +78,7 @@ export const AddressStyled = styled.div`
     width: 100%;
     padding: 9px 9px;
     border-radius: 6px;
-    border: 1px solid gray;
+    border: 1px solid #ccc;
   }
 
   .Address_search {

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { AddressStyled } from "./styled";
 
+import axiosInstance from "@/lib/axios";
+
 declare global {
   interface Window {
     daum: any;
@@ -11,6 +13,7 @@ interface AddressProps {
   onClose: () => void;
 }
 
+// 주소등록 모달
 const Address = ({ onClose }: AddressProps) => {
   // 주소 상태 관리
   const [address, setAddress] = useState("");
@@ -35,12 +38,45 @@ const Address = ({ onClose }: AddressProps) => {
     }).open();
   };
 
+  // 주소등록 요청
+  const handleAddressSubmit = async () => {
+    if (!address) {
+      alert("주소를 입력해주세요.");
+      return;
+    }
+
+    if (!addressDetail.trim()) {
+      alert("상세 주소를 입력해주세요.");
+      return;
+    }
+
+    const fullAddress = `${address} ${addressDetail}`.trim();
+
+    console.log("fullAddress:", fullAddress);
+
+    try {
+      const res = await axiosInstance.post("/user/address", {
+        address: fullAddress,
+      });
+
+      if (res.data?.ok) {
+        alert("주소가 성공적으로 등록되었습니다.");
+        onClose(); // 등록 후 닫기
+      } else {
+        alert("주소 등록에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("주소 등록 오류:", error);
+      alert("서버 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <AddressStyled>
       {/* 닫기 버튼 */}
-      <button className="Address_close" onClick={onClose}>
-        ×
-      </button>
+      <div className="Address_close" onClick={onClose}>
+        <i className="fa-solid fa-xmark "></i>
+      </div>
 
       <div className="Address_container">
         <div className="Address_wrap">
@@ -82,7 +118,9 @@ const Address = ({ onClose }: AddressProps) => {
           </div>
 
           <div className="Address_submit margin">
-            <button type="button">등록하기</button>
+            <button type="button" onClick={handleAddressSubmit}>
+              등록하기
+            </button>
           </div>
         </div>
       </div>

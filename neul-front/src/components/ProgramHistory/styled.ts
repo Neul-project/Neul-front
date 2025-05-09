@@ -40,7 +40,7 @@ export const Btn = styled.button`
   border-radius: 4px;
   background-color: #fff;
   border: 1px solid #5da487;
-  padding: 6px 18px;
+  padding: 6px 13px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;

@@ -6,12 +6,43 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axiosInstance from "@/lib/axios";
 import { useState } from "react";
+import { useFormik } from "formik";
+
+import { changePwValidation } from "@/utils/joinValidation";
 
 const MyInfo = () => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
   const [pwOpen, setPwOpen] = useState(false);
+
+  // 비밀번호 변경 요청
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: changePwValidation,
+    onSubmit: async (values) => {
+      console.log("비밀번호 변경요청", values);
+
+      try {
+        const res = await axiosInstance.patch("/auth/password", {
+          newPassword: values.password,
+        });
+
+        if (res.data?.ok) {
+          alert("비밀번호가 성공적으로 변경되었습니다.");
+          setPwOpen(false);
+        } else {
+          alert("비밀번호 변경에 실패했습니다.");
+        }
+      } catch (error) {
+        console.error("비밀번호 변경 오류:", error);
+        alert("서버 오류가 발생했습니다.");
+      }
+    },
+  });
 
   // 회원탈퇴 요청
   const handleWithdraw = async () => {
@@ -57,9 +88,47 @@ const MyInfo = () => {
           </div>
         </div>
 
+        {/* 비밀번호 변경 모달 */}
         {pwOpen && (
           <ModalCompo onClose={() => setPwOpen(false)}>
-            <div>테스트</div>
+            <form
+              onSubmit={formik.handleSubmit}
+              className="MyInfo_CngPWContainer"
+            >
+              <div className="MyInfo_CngPWTitle">비밀번호 변경</div>
+
+              <div className="MyInfo_CngPWInput">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="새로운 비밀번호를 입력해주세요"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <div className="error">{formik.errors.password}</div>
+                )}
+              </div>
+              <div className="MyInfo_CngPWInput">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="비밀번호를 확인해주세요"
+                  value={formik.values.confirmPassword}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword && (
+                    <div className="error">{formik.errors.confirmPassword}</div>
+                  )}
+              </div>
+
+              <div className="MyInfo_CngPWSub">
+                <button type="submit">변경하기</button>
+              </div>
+            </form>
           </ModalCompo>
         )}
 

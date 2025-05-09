@@ -31,17 +31,25 @@ const MainPage = () => {
         Cookies.set("refresh_token", snsRefresh);
         setIsTokenProcessed(true);
 
-        // 2. axiosInstance에 토큰 헤더 반영 (선택적 수동 세팅)
+        // 2. axiosInstance에 토큰 헤더 적용
         axiosInstance.defaults.headers.Authorization = `Bearer ${snsAccess}`;
 
-        // 3. 유저 정보 요청 후 zustand에 저장
+        // 3. 유저 정보 요청
         axiosInstance.get("/auth/me").then((res) => {
           console.log("소셜로그인 zustand", res.data);
-          login(res.data); // <- zustand에 유저 저장
-          setIsTokenProcessed(true);
 
-          // URL에서 쿼리스트링 제거
-          router.replace("/", undefined, { shallow: true });
+          const userData = res.data;
+          login(res.data); // zustand 저장
+
+          // 4. 추가정보 여부 판단
+          if (!userData.name || userData.name.trim() === "") {
+            alert(
+              "소셜로그인 사용자는 추가 정보 등록 후 서비스를 이용하실 수 있습니다. 추가 정보 입력 페이지로 이동합니다."
+            );
+            router.replace("/moreinfo", undefined, { shallow: true }); // 추가 정보 이동
+          } else {
+            router.replace("/", undefined, { shallow: true }); // 메인 이동
+          }
         });
       }
     }
