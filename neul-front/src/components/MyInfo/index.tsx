@@ -12,6 +12,13 @@ import { changePwValidation } from "@/utils/joinValidation";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
+type UserInfoType = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+};
+
 const MyInfo = () => {
   // zustand 로그인 유저 정보 가져오기
   const { user } = useAuthStore();
@@ -22,12 +29,7 @@ const MyInfo = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [pwOpen, setPwOpen] = useState(false);
 
-  const [userInfo, setUserInfo] = useState<{
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-  } | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
   // 내 정보 요청
   useEffect(() => {

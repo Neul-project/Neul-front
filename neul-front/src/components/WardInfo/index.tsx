@@ -23,7 +23,7 @@ const WardInfo = () => {
   useEffect(() => {
     const fetchWardInfo = async () => {
       try {
-        const res = await axiosInstance.get("/user/info");
+        const res = await axiosInstance.get("/patient/info");
 
         console.log("피보호자 정보: ", res.data);
 
@@ -32,10 +32,8 @@ const WardInfo = () => {
         console.error("피보호자 정보 불러오기 실패:", error);
       }
     };
-
     fetchWardInfo();
   }, []);
-
   // {
   //   "name": "홍길동",
   //   "email": "abcd@abcd.com",
