@@ -221,7 +221,9 @@ const JoinPage = () => {
 
             {/* 보호자 정보 */}
             <div className="MoreInfo_section">
-              <h4 className="MoreInfo_sectionTitle">보호자 정보</h4>
+              <h4 className="MoreInfo_sectionTitle">
+                {formik.values.role === "admin" ? "관리자 정보" : "보호자 정보"}
+              </h4>
 
               <div className="MoreInfo_inputGroup">
                 <label className="MoreInfo_label">
@@ -388,119 +390,121 @@ const JoinPage = () => {
             <hr />
 
             {/* 피보호자 정보 */}
-            <div className="MoreInfo_section">
-              <h4 className="MoreInfo_sectionTitle border">피보호자 정보</h4>
+            {formik.values.role === "user" && (
+              <div className="MoreInfo_section">
+                <h4 className="MoreInfo_sectionTitle border">피보호자 정보</h4>
 
-              <div className="MoreInfo_inputGroup">
-                <label className="MoreInfo_label">
-                  피보호자 이름<span className="MoreInfo_essential">*</span>
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    name="wardName"
-                    className="MoreInfo_input"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.wardName}
-                    placeholder="피보호자명을 입력해 주세요"
-                  />
-                  {formik.touched.wardName && formik.errors.wardName && (
-                    <div className="Join_validation">
-                      {formik.errors.wardName}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="MoreInfo_inputGroup">
-                <label className="MoreInfo_label">
-                  생년월일<span className="MoreInfo_essential">*</span>
-                </label>
-                <div className="MoreInfo_birthInput">
-                  <div className="Join_width">
-                    <div className="MoreInfo_birth">
-                      <input
-                        type="text"
-                        name="birthYear"
-                        placeholder="YYYY"
-                        className="MoreInfo_inputSmall"
-                        value={formik.values.birthYear}
-                        onChange={formik.handleChange}
-                        maxLength={4}
-                      />
-                      <span>/</span>
-                      <input
-                        type="text"
-                        name="birthMonth"
-                        placeholder="MM"
-                        className="MoreInfo_inputSmall"
-                        value={formik.values.birthMonth}
-                        onChange={formik.handleChange}
-                        maxLength={2}
-                      />
-                      <span>/</span>
-                      <input
-                        type="text"
-                        name="birthDay"
-                        placeholder="DD"
-                        className="MoreInfo_inputSmall"
-                        value={formik.values.birthDay}
-                        onChange={formik.handleChange}
-                        maxLength={2}
-                      />
-                    </div>
-                    {(formik.errors.birthYear ||
-                      formik.errors.birthMonth ||
-                      formik.errors.birthDay) && (
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    피보호자 이름<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <div>
+                    <input
+                      type="text"
+                      name="wardName"
+                      className="MoreInfo_input"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.wardName}
+                      placeholder="피보호자명을 입력해 주세요"
+                    />
+                    {formik.touched.wardName && formik.errors.wardName && (
                       <div className="Join_validation">
-                        생년월일을 올바르게 입력하세요
+                        {formik.errors.wardName}
                       </div>
                     )}
                   </div>
                 </div>
-              </div>
 
-              <div className="MoreInfo_inputGroup">
-                <label className="MoreInfo_label">
-                  성별<span className="MoreInfo_essential">*</span>
-                </label>
-                <div className="MoreInfo_radioGroup">
-                  <label>
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="male"
-                      checked={formik.values.gender === "male"}
-                      onChange={formik.handleChange}
-                    />{" "}
-                    남자
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    생년월일<span className="MoreInfo_essential">*</span>
                   </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="female"
-                      checked={formik.values.gender === "female"}
-                      onChange={formik.handleChange}
-                    />{" "}
-                    여자
+                  <div className="MoreInfo_birthInput">
+                    <div className="Join_width">
+                      <div className="MoreInfo_birth">
+                        <input
+                          type="text"
+                          name="birthYear"
+                          placeholder="YYYY"
+                          className="MoreInfo_inputSmall"
+                          value={formik.values.birthYear}
+                          onChange={formik.handleChange}
+                          maxLength={4}
+                        />
+                        <span>/</span>
+                        <input
+                          type="text"
+                          name="birthMonth"
+                          placeholder="MM"
+                          className="MoreInfo_inputSmall"
+                          value={formik.values.birthMonth}
+                          onChange={formik.handleChange}
+                          maxLength={2}
+                        />
+                        <span>/</span>
+                        <input
+                          type="text"
+                          name="birthDay"
+                          placeholder="DD"
+                          className="MoreInfo_inputSmall"
+                          value={formik.values.birthDay}
+                          onChange={formik.handleChange}
+                          maxLength={2}
+                        />
+                      </div>
+                      {(formik.errors.birthYear ||
+                        formik.errors.birthMonth ||
+                        formik.errors.birthDay) && (
+                        <div className="Join_validation">
+                          생년월일을 올바르게 입력하세요
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    성별<span className="MoreInfo_essential">*</span>
                   </label>
+                  <div className="MoreInfo_radioGroup">
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="male"
+                        checked={formik.values.gender === "male"}
+                        onChange={formik.handleChange}
+                      />{" "}
+                      남자
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="female"
+                        checked={formik.values.gender === "female"}
+                        onChange={formik.handleChange}
+                      />{" "}
+                      여자
+                    </label>
+                  </div>
+                </div>
+
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">특이사항</label>
+                  <textarea
+                    name="note"
+                    className="MoreInfo_textarea"
+                    placeholder="특이사항이 있다면 작성해주세요"
+                    value={formik.values.note}
+                    onChange={formik.handleChange}
+                    rows={4}
+                  />
                 </div>
               </div>
-
-              <div className="MoreInfo_inputGroup">
-                <label className="MoreInfo_label">특이사항</label>
-                <textarea
-                  name="note"
-                  className="MoreInfo_textarea"
-                  placeholder="특이사항이 있다면 작성해주세요"
-                  value={formik.values.note}
-                  onChange={formik.handleChange}
-                  rows={4}
-                />
-              </div>
-            </div>
+            )}
 
             <hr />
 
