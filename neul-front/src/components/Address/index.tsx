@@ -13,6 +13,7 @@ interface AddressProps {
   onClose: () => void;
 }
 
+// 주소등록 모달
 const Address = ({ onClose }: AddressProps) => {
   // 주소 상태 관리
   const [address, setAddress] = useState("");
@@ -73,9 +74,9 @@ const Address = ({ onClose }: AddressProps) => {
   return (
     <AddressStyled>
       {/* 닫기 버튼 */}
-      <button className="Address_close" onClick={onClose}>
-        ×
-      </button>
+      <div className="Address_close" onClick={onClose}>
+        <i className="fa-solid fa-xmark "></i>
+      </div>
 
       <div className="Address_container">
         <div className="Address_wrap">
