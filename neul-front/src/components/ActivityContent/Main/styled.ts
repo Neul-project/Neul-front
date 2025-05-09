@@ -8,7 +8,7 @@ export const ActivityContentStyled = styled.div`
     display: flex;
     flex-direction: column;
     //align-items: center;
-    margin: 0px auto;
+    margin: 20px auto;
     padding: 0px 20px;
     gap: 20px;
 
@@ -16,6 +16,8 @@ export const ActivityContentStyled = styled.div`
       display: flex;
       width: 100%;
       text-align: center;
+      align-items: flex-end;
+      gap: 10px;
       justify-content: center;
       font-size: 24px;
       font-weight: bold;
@@ -23,6 +25,7 @@ export const ActivityContentStyled = styled.div`
     .ActivityContent_subtitle {
       display: flex;
       gap: 10px;
+      align-items: flex-end;
     }
 
     .ActivityContent_swiper {
@@ -33,7 +36,6 @@ export const ActivityContentStyled = styled.div`
         width: 100%;
         height: 100%;
         object-fit: contain;
-        min-height: 200px;
       }
     }
 

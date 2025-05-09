@@ -30,6 +30,19 @@ export const ChatRoomStyled = styled.div`
         font-size: large;
         font-weight: 700;
       }
+
+      /* 메시지 전체 삭제 */
+      .chatroom_more_btn {
+        width: 50px;
+        padding-right: 20px;
+        .chatroom_moreicon {
+          width: 100%;
+          height: 100%;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
     }
 
     /* 채팅 내용 */

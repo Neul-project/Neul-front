@@ -12,6 +12,12 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 한국어 로케일 불러오기
 import { useAuthStore } from "@/stores/useAuthStore";
 
+import MoreBtn from "@/assets/images/more.svg";
+import Dropdown from "antd/es/dropdown";
+import { MenuProps } from "antd/es/menu";
+import Modal from "antd/es/modal";
+import message from "antd/es/message";
+
 dayjs.locale("ko"); // 로케일 설정
 
 //Chatting 인터페이스 정의
@@ -129,6 +135,7 @@ const ChatRoom = () => {
       userId: userId, // 로그인한 사용자 ID
       adminId: null, // 관리자가 보낸 채팅이 아니라는 것을 알기 위해 null로 표시
       message: inputValue, // 보낼 메시지 내용
+      sender: "user",
     };
 
     try {
@@ -141,6 +148,42 @@ const ChatRoom = () => {
       console.error("채팅 메시지 전송 실패:", e);
     }
   };
+
+  // 삭제하기 요청
+  const deleteComment = async () => {
+    Modal.confirm({
+      title: "모든 채팅 내용을 삭제하시겠습니까?",
+      content: "삭제한 내용은 복구할 수 없습니다.",
+      okText: "삭제",
+      cancelText: "취소",
+      okButtonProps: {
+        style: { backgroundColor: "#5DA487" },
+      },
+      cancelButtonProps: {
+        style: { color: "#5DA487" },
+      },
+      async onOk() {
+        try {
+          // 채팅 전체 삭제 요청
+          await axiosInstance.delete(`/chat/alldelete`, {
+            params: { userId },
+          });
+          message.success("모든 채팅 내용이 삭제되었습니다.");
+          fetchChatMessages();
+        } catch (e) {
+          console.error("모든 채팅 내용 삭제 실패: ", e);
+          message.error("모든 채팅 내용 삭제에 실패했습니다.");
+        }
+      },
+    });
+  };
+
+  const itemDelete: MenuProps["items"] = [
+    {
+      label: <div onClick={deleteComment}>전체 삭제</div>,
+      key: "0",
+    },
+  ];
 
   return (
     <ChatRoomStyled className={clsx("chatroom_wrap")}>
@@ -158,6 +201,19 @@ const ChatRoom = () => {
         </div>
 
         <div className="chatroom_title">1:1 채팅</div>
+
+        <Dropdown
+          menu={{
+            items: itemDelete,
+          }}
+          trigger={["click"]}
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <div className="chatroom_more_btn">
+              <Image className="chatroom_moreicon" src={MoreBtn} alt="더보기" />
+            </div>
+          </a>
+        </Dropdown>
       </div>
       {/* 채팅 내용 */}
       <div className="chatroom_content_box">

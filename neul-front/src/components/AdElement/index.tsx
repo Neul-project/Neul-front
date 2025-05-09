@@ -7,7 +7,7 @@ import { AdElementStyled } from "./styled";
 const AdElement = (props: { el: any }) => {
   const { el } = props;
   return (
-    <AdElementStyled className="AdElement_main_wrap">
+    <AdElementStyled className={clsx("AdElement_main_wrap")}>
       <div className="AdElement_img">
         <img
           className="AdElement_imgstyle"

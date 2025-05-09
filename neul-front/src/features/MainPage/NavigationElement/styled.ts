@@ -4,23 +4,30 @@ export const NavigationElementStyled = styled.div`
   &.NavigationElement_main_wrap {
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    //align-items: center;
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 15px;
+    place-items: center;
     padding: 0px 15px;
+
+    .NavigationElement_row1,
+    .NavigationElement_row2 {
+      display: flex;
+      width: 100%;
+      gap: 15px;
+    }
 
     .NavigationElement_ele {
       display: flex;
       flex-direction: column;
       width: 100%;
       height: 120px;
-      //border: 1px solid black;
       align-items: center;
       justify-content: center;
       border-radius: 15px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 20px -9px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: transform 0.2s ease;
 
@@ -42,19 +49,26 @@ export const NavigationElementStyled = styled.div`
     &.NavigationElement_main_wrap {
       width: 100%;
       height: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      //align-items: center;
+      display: flex;
+      flex-direction: column;
       text-align: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 15px;
+      place-items: center;
       padding: 0px 15px;
+
+      .NavigationElement_row1,
+      .NavigationElement_row2 {
+        display: flex;
+        width: 100%;
+        gap: 15px;
+      }
 
       .NavigationElement_ele {
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 120px;
-        //border: 1px solid black;
         align-items: center;
         justify-content: center;
         border-radius: 15px;
@@ -81,18 +95,26 @@ export const NavigationElementStyled = styled.div`
     &.NavigationElement_main_wrap {
       width: 100%;
       height: 100%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      //align-items: center;
+      display: flex;
+      flex-direction: column;
       text-align: center;
+      justify-content: center;
+      gap: 10px;
+      place-items: center;
       padding: 0px 10px;
+
+      .NavigationElement_row1,
+      .NavigationElement_row2 {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+      }
 
       .NavigationElement_ele {
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 80px;
-        //border: 1px solid black;
         align-items: center;
         justify-content: center;
         border-radius: 15px;
@@ -105,14 +127,15 @@ export const NavigationElementStyled = styled.div`
         }
 
         .NavigationElement_img {
-          width: 35px;
+          width: 40px;
         }
         .NavigationElement_imgstyle {
           width: 100%;
           height: 100%;
         }
+
         .NavigationElement_text {
-          font-size: 13px;
+          font-size: 11px;
         }
       }
     }

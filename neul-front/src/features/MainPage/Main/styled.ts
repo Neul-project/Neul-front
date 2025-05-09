@@ -10,5 +10,6 @@ export const MainPageStyled = styled.div`
     flex-direction: column;
     align-items: center;
     margin: 0px auto;
+    /* background-color: #edeff2; */
   }
 `;

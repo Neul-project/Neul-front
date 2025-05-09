@@ -4,7 +4,7 @@ export const IntroSectionStyled = styled.div`
   &.IntroSection_main_wrap {
     max-width: 1280px;
     width: 100%;
-    height: 350px;
+    height: 100%;
     display: flex;
     padding: 0px 20px;
     gap: 50px;
