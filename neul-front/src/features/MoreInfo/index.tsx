@@ -46,6 +46,9 @@ const MoreInfoCompo = () => {
           axiosInstance.post("/patient/info", ward),
         ]);
 
+        console.log("MoreInfo guardianRes", guardianRes.data);
+        console.log("MoreInfo wardRes", wardRes.data);
+
         if (guardianRes.data?.ok === true && wardRes.data?.ok === true) {
           alert("등록이 완료되었습니다.");
           router.push("/");

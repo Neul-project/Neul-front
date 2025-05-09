@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const WardInfoStyled = styled.div`
-  .MyInfo_container {
-    /* width: 857px; */
+  .WardInfo_container {
     padding: 20px 29px;
     border-radius: 6px;
     box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, 0.08);
@@ -11,17 +10,15 @@ export const WardInfoStyled = styled.div`
     box-sizing: border-box;
   }
 
-  .MyInfo_flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .m-b {
+    margin-bottom: 18px;
   }
 
-  .MyInfo_cont {
+  .WardInfo_cont {
     padding: 12px 0;
   }
 
-  .MyInfo_name {
+  .WardInfo_name {
     font-size: 19px;
     line-height: 29px;
     letter-spacing: -0.63px;
@@ -34,59 +31,73 @@ export const WardInfoStyled = styled.div`
     }
   }
 
-  .MyInfo_email {
+  .WardInfo_email {
     font-size: 14px;
     color: #848896;
   }
 
-  .MyInfo_changePw {
-    padding-right: 10px;
+  .WardInfo_wardContainer {
+    width: 100%;
+  }
+
+  .WardInfo_wardTitle {
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  .WardInfo_wardName {
+  }
+
+  .man {
+    color: #4a4aff;
+  }
+
+  .woman {
+    color: #ff5470;
+  }
+
+  .WardInfo_birth {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .WardInfo_significant {
+    padding: 12px 0;
+  }
+
+  .WardInfo_cont2 {
+    /* padding-bottom: 12px; */
+  }
+
+  .WardInfo_sqare {
+    width: 100%;
+    padding: 10px 8px;
+    /* border: 2px solid rgba(146, 146, 148, 0.3);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
+  }
+
+  .WardInfo_editBtn {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0 0 0;
 
     button {
       cursor: pointer;
       border-radius: 4px;
-      background-color: #f6f6f8;
+      background-color: ${(props) => props.theme.colors.pointGreen};
       border: none;
-      padding: 9px 12px;
+      padding: 9px 18px;
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
       letter-spacing: -1px;
-      color: #747783;
-    }
-  }
+      color: #fff;
 
-  .MyInfo_phone {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(220, 227, 233, 0.8);
-    padding: 12px 0;
-
-    .title {
-      padding: 10px 0;
-    }
-
-    .phone {
-      padding-right: 12px;
-    }
-  }
-
-  .MyInfo_address {
-    padding: 12px 0;
-    border-top: 1px solid rgba(220, 227, 233, 0.8);
-  }
-
-  .MyInfo_withDraw {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    color: #bbb;
-    font-size: 14px;
-    padding: 12px 29px;
-
-    &:hover {
-      text-decoration: underline;
+      &:hover {
+        background-color: ${(props) => props.theme.colors.softGreen};
+      }
     }
   }
 `;
