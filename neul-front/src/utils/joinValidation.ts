@@ -2,9 +2,30 @@ import * as Yup from "yup";
 
 // 회원가입 유효성 검사
 export const joinValidationSchema = Yup.object({
-  email: Yup.string()
-    .email("이메일 형식이 올바르지 않습니다.")
-    .required("이메일은 필수입니다."),
+  // 일반 사용자 이메일
+  email: Yup.string().when("role", {
+    is: "user",
+    then: (schema) =>
+      schema
+        .email("이메일 형식이 올바르지 않습니다.")
+        .required("이메일은 필수입니다."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  // 관리자용 이메일 앞부분
+  adminEmailPrefix: Yup.string().when("role", {
+    is: "admin",
+    then: (schema) =>
+      schema
+        .required("아이디는 필수입니다.")
+        .max(15, "아이디는 15자 이하로 입력해주세요.")
+        .matches(
+          /^(?=[a-zA-Z0-9]*[a-zA-Z])[a-zA-Z0-9]+$/,
+          "영문자와 숫자를 포함한 조합만 입력해주세요 (특수문자 제외)"
+        ),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
   password: Yup.string()
     .min(6, "6자리 이상 입력해주세요.")
     .required("비밀번호는 필수입니다."),

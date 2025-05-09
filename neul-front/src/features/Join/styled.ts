@@ -59,11 +59,19 @@ export const JoinStyled = styled.div`
   }
 
   .Join_width {
+    position: relative;
     width: 330px;
   }
 
   .joinBtn {
     padding-top: 40px;
     border-top: 1px solid rgb(247, 247, 247);
+  }
+
+  .Join_domain {
+    position: absolute;
+    top: 13px;
+    right: 19px;
+    color: gray;
   }
 `;

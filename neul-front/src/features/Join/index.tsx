@@ -37,7 +37,7 @@ const JoinPage = () => {
     { value: "admin", label: "관리자" },
   ];
 
-  // email, phone 중복 검사
+  // 이메일, 전화번호 중복 검사
   const handleDuplicationCheck = async (
     fieldName: string,
     fieldValue: string
@@ -81,6 +81,7 @@ const JoinPage = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
+      adminEmailPrefix: "",
       password: "",
       passwordCheck: "",
       name: "",
@@ -96,6 +97,12 @@ const JoinPage = () => {
     validationSchema: joinValidationSchema,
     onSubmit: async (values) => {
       console.log("회원가입 데이터:", values);
+
+      // 요청 전 관리자 이메일 값 구성
+      const emailToSend =
+        values.role === "admin"
+          ? `${values.adminEmailPrefix}@neul.com`
+          : values.email;
 
       // 이용약관 필수 동의 항목 검사
       if (!agreements.terms || !agreements.privacy) {
@@ -119,7 +126,7 @@ const JoinPage = () => {
         const signupRes = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
           {
-            email: values.email,
+            email: emailToSend,
             password: values.password,
             name: values.name,
             phone: values.phone,
@@ -201,6 +208,13 @@ const JoinPage = () => {
                 options={option}
                 onChange={(val) => {
                   formik.setFieldValue("role", val);
+
+                  // 이메일 관련 필드 초기화
+                  formik.setFieldValue("adminEmailPrefix", "");
+                  formik.setFieldValue("email", "");
+
+                  // 중복 확인 상태 초기화
+                  setIsEmailChecked(false);
                 }}
               />
             </div>
@@ -213,26 +227,60 @@ const JoinPage = () => {
                 <label className="MoreInfo_label">
                   아이디<span className="MoreInfo_essential">*</span>
                 </label>
-                <div className="Join_width">
-                  <input
-                    type="email"
-                    name="email"
-                    className="MoreInfo_input"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.email}
-                    placeholder="이메일을 입력해 주세요"
-                  />
-                  {formik.touched.email && formik.errors.email && (
-                    <div className="Join_validation">{formik.errors.email}</div>
-                  )}
-                </div>
+
+                {/* 관리자용 이메일 입력 */}
+                {formik.values.role === "admin" ? (
+                  <div className="Join_width">
+                    <input
+                      type="text"
+                      name="adminEmailPrefix"
+                      className="MoreInfo_input"
+                      value={formik.values.adminEmailPrefix || ""}
+                      onChange={(e) =>
+                        formik.setFieldValue("adminEmailPrefix", e.target.value)
+                      }
+                      placeholder="아이디를 입력해주세요"
+                    />
+
+                    <span className="Join_domain">@neul.com</span>
+
+                    {formik.touched.adminEmailPrefix &&
+                      formik.errors.adminEmailPrefix && (
+                        <div className="Join_validation">
+                          {formik.errors.adminEmailPrefix}
+                        </div>
+                      )}
+                  </div>
+                ) : (
+                  // 일반 사용자용 이메일 입력
+                  <div className="Join_width">
+                    <input
+                      type="email"
+                      name="email"
+                      className="MoreInfo_input"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                      placeholder="이메일을 입력해 주세요"
+                    />
+                    {formik.touched.email && formik.errors.email && (
+                      <div className="Join_validation">
+                        {formik.errors.email}
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div className="MoreInfo_addressBtn">
                   <button
                     type="button"
                     onClick={() => {
-                      handleDuplicationCheck("email", formik.values.email);
+                      const checkEmailValue =
+                        formik.values.role === "admin"
+                          ? `${formik.values.adminEmailPrefix}@neul.com`
+                          : formik.values.email;
+
+                      handleDuplicationCheck("email", checkEmailValue);
                     }}
                   >
                     중복 확인
