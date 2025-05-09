@@ -44,17 +44,25 @@ const Address = ({ onClose }: AddressProps) => {
       return;
     }
 
+    if (!addressDetail.trim()) {
+      alert("상세 주소를 입력해주세요.");
+      return;
+    }
+
+    const fullAddress = `${address} ${addressDetail}`.trim();
+
+    console.log("fullAddress:", fullAddress);
+
     try {
-      const res = await axiosInstance.patch("/user/address", {
-        address,
-        addressDetail,
+      const res = await axiosInstance.post("/user/address", {
+        address: fullAddress,
       });
 
       if (res.data?.ok) {
         alert("주소가 성공적으로 등록되었습니다.");
         onClose(); // 등록 후 닫기
       } else {
-        alert(res.data?.message || "주소 등록에 실패했습니다.");
+        alert("주소 등록에 실패했습니다.");
       }
     } catch (error) {
       console.error("주소 등록 오류:", error);
