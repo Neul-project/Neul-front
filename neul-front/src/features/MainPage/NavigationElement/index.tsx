@@ -93,7 +93,7 @@ const NavigationElement = () => {
               alt="puls"
             />
           </div>
-          <div className="NavigationElement_text">개인정보</div>
+          <div className="NavigationElement_text">마이페이지</div>
         </div>
       </div>
     </NavigationElementStyled>
