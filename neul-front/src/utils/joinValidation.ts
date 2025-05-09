@@ -26,6 +26,7 @@ export const joinValidationSchema = Yup.object({
     otherwise: (schema) => schema.notRequired(),
   }),
 
+  role: Yup.string().required("사용자 유형을 선택해주세요."),
   password: Yup.string()
     .min(6, "6자리 이상 입력해주세요.")
     .required("비밀번호는 필수입니다."),
@@ -33,14 +34,32 @@ export const joinValidationSchema = Yup.object({
     .oneOf([Yup.ref("password")], "비밀번호가 일치하지 않습니다.")
     .required("비밀번호 확인은 필수입니다."),
   name: Yup.string().required("이름은 필수입니다."),
-  wardName: Yup.string().required("피보호자 이름은 필수입니다."),
   phone: Yup.string()
     .matches(/^01[016789]\d{7,8}$/, "휴대전화번호가 정확한지 확인해 주세요.")
     .required("전화번호는 필수입니다."),
-  birthYear: Yup.string().required("생년 입력").length(4, "4자리 연도"),
-  birthMonth: Yup.string().required("월 입력").length(2, "2자리 월"),
-  birthDay: Yup.string().required("일 입력").length(2, "2자리 일"),
-  role: Yup.string().required("사용자 유형을 선택해주세요."),
+
+  // 피보호자 정보(일반 사용자만 필수)
+  wardName: Yup.string().when("role", {
+    is: "user",
+    then: (schema) => schema.required("피보호자 이름은 필수입니다."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  birthYear: Yup.string().when("role", {
+    is: "user",
+    then: (schema) => schema.required("생년 입력").length(4, "4자리 연도"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  birthMonth: Yup.string().when("role", {
+    is: "user",
+    then: (schema) => schema.required("월 입력").length(2, "2자리 월"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  birthDay: Yup.string().when("role", {
+    is: "user",
+    then: (schema) => schema.required("일 입력").length(2, "2자리 일"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
 });
 
 // 로그인 유효성 검사
