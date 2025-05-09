@@ -49,7 +49,7 @@ const LoginPage = () => {
         console.log("유저 정보:", meRes.data);
 
         // 3. zustand에 로그인 상태 저장
-        login(meRes.data); // user: { id }
+        login(meRes.data); // user: { id, name, provider }
 
         // 4. 메인페이지 이동
         router.push("/");

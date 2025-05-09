@@ -69,12 +69,11 @@ const StatusCheck = () => {
 
     // 피보호자 이름은 1번만 불러옴
     axiosInstance
-      .get("/status/name", {
+      .get("/patient/name", {
         params: { userId },
       })
       .then((res) => {
-        console.log("피보호자 이름", res.data);
-        setName(res.data);
+        setName(res.data.name);
       })
       .catch((e) => {
         console.error("피보호자 이름 불러오기 실패:", e);

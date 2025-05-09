@@ -2,10 +2,16 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+type User = {
+  id: number;
+  name: string;
+  provider?: string;
+};
+
 type AuthState = {
-  user: { id: number; name: string } | null;
+  user: User | null;
   isLoggedIn: boolean;
-  login: (user: { id: number; name: string }) => void;
+  login: (user: User) => void;
   logout: () => void;
 };
 

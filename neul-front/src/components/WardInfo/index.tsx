@@ -1,6 +1,52 @@
 import { WardInfoStyled } from "./styled";
 
+import { useEffect, useState } from "react";
+import axiosInstance from "@/lib/axios";
+
+type UserInfoType = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  ward: {
+    name: string;
+    gender: "male" | "female";
+    birth: string; // yyyy-mm-dd
+    note?: string;
+  };
+};
+
 const WardInfo = () => {
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+
+  // 보호자 + 피보호자 정보 요청
+  useEffect(() => {
+    const fetchWardInfo = async () => {
+      try {
+        const res = await axiosInstance.get("/patient/info");
+
+        console.log("피보호자 정보: ", res.data);
+
+        setUserInfo(res.data);
+      } catch (error) {
+        console.error("피보호자 정보 불러오기 실패:", error);
+      }
+    };
+    fetchWardInfo();
+  }, []);
+  // {
+  //   "name": "홍길동",
+  //   "email": "abcd@abcd.com",
+  //   "phone": "010-1111-1111",
+  //   "address": "서울시 강남구",
+  //   "ward": {
+  //     "name": "김영희",
+  //     "gender": "female",
+  //     "birth": "1996-01-01",
+  //     "note": "특이사항으로는 무엇이 있습니다."
+  //   }
+  // }
+
   return (
     <WardInfoStyled>
       {/* 보호자 정보 */}
