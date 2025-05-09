@@ -5,7 +5,7 @@ import Address from "../Address";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axiosInstance from "@/lib/axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import { changePwValidation } from "@/utils/joinValidation";
@@ -13,7 +13,7 @@ import { changePwValidation } from "@/utils/joinValidation";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 const MyInfo = () => {
-  // zustand 데이터 가져오기
+  // zustand 로그인 유저 정보 가져오기
   const { user } = useAuthStore();
   console.log(user); // {id, name, provider}
 
@@ -21,6 +21,31 @@ const MyInfo = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [pwOpen, setPwOpen] = useState(false);
+
+  const [userInfo, setUserInfo] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+  } | null>(null);
+
+  // 내 정보 요청
+  useEffect(() => {
+    const fetchMyInfo = async () => {
+      try {
+        const res = await axiosInstance.get("/user/info");
+
+        console.log("내 정보 : ", res.data);
+
+        // const { name, email, phone, address } = res.data;
+        // setUserInfo({ name, email, phone, address });
+      } catch (error) {
+        console.error("내 정보 불러오기 실패:", error);
+      }
+    };
+
+    fetchMyInfo();
+  }, []);
 
   // 비밀번호 변경 요청
   const formik = useFormik({
