@@ -78,7 +78,7 @@ export const AddressStyled = styled.div`
     width: 100%;
     padding: 9px 9px;
     border-radius: 6px;
-    border: 1px solid gray;
+    border: 1px solid #ccc;
   }
 
   .Address_search {

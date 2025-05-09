@@ -132,4 +132,10 @@ export const MyInfoStyled = styled.div`
       text-decoration: underline;
     }
   }
+
+  .error {
+    margin-top: 2px;
+    font-size: 13px;
+    color: red;
+  }
 `;
