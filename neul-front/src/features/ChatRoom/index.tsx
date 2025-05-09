@@ -35,11 +35,15 @@ interface Chatting {
 const ChatRoom = () => {
   const [inputValue, setInputValue] = useState("");
   const [chattings, setChattings] = useState<Chatting[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const socketRef = useRef<any>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
+
+  // 채팅 개수
+  const limit = 12;
 
   // const userId = useAuthStore((state) => state.user?.id);
   const userId = 1;
@@ -53,6 +57,7 @@ const ChatRoom = () => {
     try {
       // userId를 보냄
       const res = await axiosInstance.get(`/chat/list`, {
+        // params: { userId, limit, currentPage },
         params: { userId },
       });
 
@@ -133,7 +138,6 @@ const ChatRoom = () => {
     // 채팅 객체
     const messageToSend = {
       userId: userId, // 로그인한 사용자 ID
-      adminId: null, // 관리자가 보낸 채팅이 아니라는 것을 알기 위해 null로 표시
       message: inputValue, // 보낼 메시지 내용
       sender: "user",
     };
@@ -150,7 +154,7 @@ const ChatRoom = () => {
   };
 
   // 삭제하기 요청
-  const deleteComment = async () => {
+  const deleteAllChat = async () => {
     Modal.confirm({
       title: "모든 채팅 내용을 삭제하시겠습니까?",
       content: "삭제한 내용은 복구할 수 없습니다.",
@@ -180,7 +184,7 @@ const ChatRoom = () => {
 
   const itemDelete: MenuProps["items"] = [
     {
-      label: <div onClick={deleteComment}>전체 삭제</div>,
+      label: <div onClick={deleteAllChat}>전체 삭제</div>,
       key: "0",
     },
   ];
