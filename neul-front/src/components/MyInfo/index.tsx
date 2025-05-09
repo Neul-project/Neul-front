@@ -10,7 +10,13 @@ import { useFormik } from "formik";
 
 import { changePwValidation } from "@/utils/joinValidation";
 
+import { useAuthStore } from "@/stores/useAuthStore";
+
 const MyInfo = () => {
+  // zustand 데이터 가져오기
+  const { user } = useAuthStore();
+  console.log(user); // {id, name, provider}
+
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -81,11 +87,14 @@ const MyInfo = () => {
             <div className="MyInfo_email">abcd@abcd.com</div>
           </div>
 
-          <div className="MyInfo_changePw">
-            <button type="button" onClick={() => setPwOpen(true)}>
-              비밀번호 변경
-            </button>
-          </div>
+          {/* 로컬로그인일 경우만 보임 */}
+          {user?.provider === "local" && (
+            <div className="MyInfo_changePw">
+              <button type="button" onClick={() => setPwOpen(true)}>
+                비밀번호 변경
+              </button>
+            </div>
+          )}
         </div>
 
         {/* 비밀번호 변경 모달 */}
