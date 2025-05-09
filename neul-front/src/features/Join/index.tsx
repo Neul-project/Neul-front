@@ -134,24 +134,28 @@ const JoinPage = () => {
           }
         );
 
+        console.log("signupRes.data", signupRes.data);
+
         const userId = signupRes.data?.userId;
         if (!userId) {
           alert("회원가입 후 사용자 ID를 받아올 수 없습니다.");
           return;
         }
 
-        // 2. 피보호자 정보 저장
-        const wardRes = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/patient/signup`,
-          {
-            userId,
-            name: values.wardName,
-            gender: values.gender,
-            birth: `${values.birthYear}-${values.birthMonth}-${values.birthDay}`,
-            note: values.note,
-          }
-        );
-        console.log("피보호자 정보 저장여부 확인", wardRes.data);
+        // 2. 일반 사용자일 경우에만 피보호자 정보 요청 전송
+        if (values.role === "user") {
+          const wardRes = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/patient/signup`,
+            {
+              userId,
+              name: values.wardName,
+              gender: values.gender,
+              birth: `${values.birthYear}-${values.birthMonth}-${values.birthDay}`,
+              note: values.note,
+            }
+          );
+          console.log("피보호자 정보 저장여부 확인", wardRes.data);
+        }
 
         // 약관 동의 항목 추출
         const agreedTerms = Object.entries(agreements)
@@ -169,7 +173,7 @@ const JoinPage = () => {
 
         if (agreementsRes.data?.ok) {
           alert("회원가입이 완료되었습니다!");
-          router.push("/login");
+          router.push("/");
         } else {
           alert("약관 동의 처리 중 문제가 발생했습니다.");
         }
