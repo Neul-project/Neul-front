@@ -34,6 +34,11 @@ const NavigationElement = () => {
     router.push("/mypage");
   };
 
+  //프로그램 페이지 이동
+  const ProgramPage = () => {
+    router.push("/program");
+  };
+
   return (
     <NavigationElementStyled className={clsx("NavigationElement_main_wrap")}>
       <div className="NavigationElement_row1">
@@ -69,7 +74,7 @@ const NavigationElement = () => {
         </div>
       </div>
       <div className="NavigationElement_row2">
-        <div className="NavigationElement_ele">
+        <div className="NavigationElement_ele" onClick={ProgramPage}>
           <div className="NavigationElement_img">
             <img
               className="NavigationElement_imgstyle"

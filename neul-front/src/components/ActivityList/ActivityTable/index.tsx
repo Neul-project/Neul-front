@@ -39,7 +39,7 @@ const columns: TableProps<DataType>["columns"] = [
 const ActivityTable = () => {
   //변수 선언
   const router = useRouter();
-  const { user, isLoggedIn, login, logout } = useAuthStore();
+  const { user } = useAuthStore();
 
   //useState
   const [datalist, setDataList] = useState<DataType[]>();
