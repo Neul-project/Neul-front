@@ -6,5 +6,6 @@ export const ProgramElementStyled = styled.div`
     min-height: 300px;
     border: 1px solid black;
     border-radius: 15px;
+    cursor: pointer;
   }
 `;
