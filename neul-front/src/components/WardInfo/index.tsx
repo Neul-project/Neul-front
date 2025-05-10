@@ -1,6 +1,8 @@
 import { WardInfoStyled } from "./styled";
+import ModalCompo from "../ModalCompo";
 
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 import axiosInstance from "@/lib/axios";
 
 type UserInfoType = {
@@ -17,6 +19,8 @@ type UserInfoType = {
 };
 
 const WardInfo = () => {
+  const [wardOpen, setwardOpen] = useState(false);
+
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
   // 보호자 + 피보호자 정보 요청
@@ -34,18 +38,36 @@ const WardInfo = () => {
     };
     fetchWardInfo();
   }, []);
-  // {
-  //   "name": "홍길동",
-  //   "email": "abcd@abcd.com",
-  //   "phone": "010-1111-1111",
-  //   "address": "서울시 강남구",
-  //   "ward": {
-  //     "name": "김영희",
-  //     "gender": "female",
-  //     "birth": "1996-01-01",
-  //     "note": "특이사항으로는 무엇이 있습니다."
-  //   }
-  // }
+
+  // 피보호자 정보 수정 요청
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      gender: "female",
+      birth: "",
+      note: "",
+    },
+    // validationSchema: changePwValidation,
+    onSubmit: async (values) => {
+      console.log("피보호자 정보 수정:", values);
+
+      // try {
+      //   const res = await axiosInstance.patch("/auth/password", {
+      //     newPassword: values.password,
+      //   });
+
+      //   if (res.data?.ok) {
+      //     alert("비밀번호가 성공적으로 변경되었습니다.");
+      //     setwardOpen(false);
+      //   } else {
+      //     alert("비밀번호 변경에 실패했습니다.");
+      //   }
+      // } catch (error) {
+      //   console.error("비밀번호 변경 오류:", error);
+      //   alert("서버 오류가 발생했습니다.");
+      // }
+    },
+  });
 
   return (
     <WardInfoStyled>
@@ -88,6 +110,71 @@ const WardInfo = () => {
           </div>
         </div>
       </div>
+
+      {/* 피보호자 정보 수정 모달 */}
+      <ModalCompo onClose={() => setwardOpen(false)}>
+        <form onSubmit={formik.handleSubmit} className="WardInfo_EditForm">
+          <div className="WardInfo_EditTitle">피보호자 정보 수정</div>
+
+          <div className="WardInfo_EditInput">
+            <input
+              type="text"
+              name="name"
+              placeholder="이름"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+
+          <div className="WardInfo_EditInput">
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                checked={formik.values.gender === "male"}
+                onChange={formik.handleChange}
+              />{" "}
+              남성
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                checked={formik.values.gender === "female"}
+                onChange={formik.handleChange}
+              />{" "}
+              여성
+            </label>
+          </div>
+
+          <div className="WardInfo_EditInput">
+            <input
+              type="date"
+              name="birth"
+              value={formik.values.birth}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+
+          <div className="WardInfo_EditInput">
+            <textarea
+              name="note"
+              placeholder="특이사항"
+              value={formik.values.note}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+          </div>
+
+          <div className="MyInfo_CngPWSub">
+            <button type="submit">수정</button>
+          </div>
+        </form>
+      </ModalCompo>
 
       {/* 수정 버튼 */}
       <div className="WardInfo_editBtn">
