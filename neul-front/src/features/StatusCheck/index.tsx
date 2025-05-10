@@ -74,6 +74,7 @@ const StatusCheck = () => {
       })
       .then((res) => {
         setName(res.data.name);
+        console.log("피보호자이름", res.data.name);
       })
       .catch((e) => {
         console.error("피보호자 이름 불러오기 실패:", e);
