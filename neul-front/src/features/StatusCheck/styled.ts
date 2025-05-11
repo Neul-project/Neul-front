@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StatusCheckStyled = styled.div`
   &.statuscheck_wrap {
     max-width: 700px;
-    margin: 0px auto;
+    margin: 20px auto;
     padding: 0 10px;
     .statuscheck_box {
       min-height: 809.15px;
