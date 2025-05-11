@@ -1,5 +1,6 @@
 import { WardInfoStyled } from "./styled";
 import ModalCompo from "../ModalCompo";
+import * as S from "@/components/ModalCompo/ModalContent";
 
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
@@ -43,7 +44,7 @@ const WardInfo = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      gender: "female",
+      gender: "male",
       birth: "",
       note: "",
     },
@@ -52,18 +53,21 @@ const WardInfo = () => {
       console.log("피보호자 정보 수정:", values);
 
       // try {
-      //   const res = await axiosInstance.patch("/auth/password", {
-      //     newPassword: values.password,
+      //   const res = await axiosInstance.patch("/patient/info", {
+      //     name: values.name,
+      //     gender: values.gender,
+      //     birth: values.birth,
+      //     note: values.note,
       //   });
 
       //   if (res.data?.ok) {
-      //     alert("비밀번호가 성공적으로 변경되었습니다.");
+      //     alert("피보호자 정보가 성공적으로 수정되었습니다.");
       //     setwardOpen(false);
       //   } else {
-      //     alert("비밀번호 변경에 실패했습니다.");
+      //     alert("피보호자 정보 수정에 실패했습니다.");
       //   }
       // } catch (error) {
-      //   console.error("비밀번호 변경 오류:", error);
+      //   console.error("피보호자 정보 수정 오류:", error);
       //   alert("서버 오류가 발생했습니다.");
       // }
     },
@@ -112,73 +116,80 @@ const WardInfo = () => {
       </div>
 
       {/* 피보호자 정보 수정 모달 */}
-      <ModalCompo onClose={() => setwardOpen(false)}>
-        <form onSubmit={formik.handleSubmit} className="WardInfo_EditForm">
-          <div className="WardInfo_EditTitle">피보호자 정보 수정</div>
+      {wardOpen && (
+        <ModalCompo onClose={() => setwardOpen(false)}>
+          <S.ModalFormWrap
+            onSubmit={formik.handleSubmit}
+            className="WardInfo_EditForm"
+          >
+            <S.ModalTitle>피보호자 정보 수정</S.ModalTitle>
 
-          <div className="WardInfo_EditInput">
-            <input
-              type="text"
-              name="name"
-              placeholder="이름"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-          </div>
-
-          <div className="WardInfo_EditInput">
-            <label>
-              <input
-                type="radio"
-                name="gender"
-                value="male"
-                checked={formik.values.gender === "male"}
+            <S.ModalInputDiv>
+              <S.ModalInput
+                type="text"
+                name="name"
+                placeholder="이름"
+                value={formik.values.name}
                 onChange={formik.handleChange}
-              />{" "}
-              남성
-            </label>
-            <label>
+                onBlur={formik.handleBlur}
+              />
+            </S.ModalInputDiv>
+
+            <S.ModalInputDiv>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  checked={formik.values.gender === "male"}
+                  onChange={formik.handleChange}
+                />{" "}
+                남성
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="female"
+                  checked={formik.values.gender === "female"}
+                  onChange={formik.handleChange}
+                />{" "}
+                여성
+              </label>
+            </S.ModalInputDiv>
+
+            <div className="WardInfo_EditInput">
               <input
-                type="radio"
-                name="gender"
-                value="female"
-                checked={formik.values.gender === "female"}
+                type="date"
+                name="birth"
+                value={formik.values.birth}
                 onChange={formik.handleChange}
-              />{" "}
-              여성
-            </label>
-          </div>
+                onBlur={formik.handleBlur}
+              />
+            </div>
 
-          <div className="WardInfo_EditInput">
-            <input
-              type="date"
-              name="birth"
-              value={formik.values.birth}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-          </div>
+            <S.ModalInputDiv>
+              <S.ModalTextarea
+                name="note"
+                placeholder="특이사항"
+                value={formik.values.note}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </S.ModalInputDiv>
 
-          <div className="WardInfo_EditInput">
-            <textarea
-              name="note"
-              placeholder="특이사항"
-              value={formik.values.note}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-          </div>
-
-          <div className="MyInfo_CngPWSub">
-            <button type="submit">수정</button>
-          </div>
-        </form>
-      </ModalCompo>
+            <div className="MyInfo_CngPWSub">
+              <S.ModalButton type="submit">수정하기</S.ModalButton>
+            </div>
+          </S.ModalFormWrap>
+        </ModalCompo>
+      )}
 
       {/* 수정 버튼 */}
       <div className="WardInfo_editBtn">
-        <button type="button">수정</button>
+        <button type="button" onClick={() => setwardOpen(true)}>
+          수정
+        </button>
       </div>
     </WardInfoStyled>
   );

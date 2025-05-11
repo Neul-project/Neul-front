@@ -19,14 +19,12 @@ export const ModalStyled = styled.div`
     flex-direction: column;
     width: 100%;
     max-width: 400px;
-    /* line-height: 40px; */
+    line-height: 48px;
     background-color: #f9f9f9;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: 90vh;
     overflow-y: auto;
-
-    padding: 20px;
   }
 
   .Modal_close {
