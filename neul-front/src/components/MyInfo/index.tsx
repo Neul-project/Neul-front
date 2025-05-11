@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import { changePwValidation } from "@/utils/joinValidation";
+import { formatPhoneNumber } from "@/utils/formatter";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -172,7 +173,9 @@ const MyInfo = () => {
 
         <div className="MyInfo_phone">
           <div className="title">휴대전화번호</div>
-          <div className="phone">{userInfo?.phone}</div>
+          <div className="phone">
+            {userInfo?.phone ? formatPhoneNumber(userInfo.phone) : ""}
+          </div>
         </div>
 
         <div className="MyInfo_flex MyInfo_address">
