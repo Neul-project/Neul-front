@@ -2,7 +2,7 @@ import { ProgramHistoryStyled, Cell, Btn } from "./styled";
 import ModalCompo from "../ModalCompo";
 import * as S from "@/components/ModalCompo/ModalContent";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { refundValidation } from "@/utils/userValidation";
 
@@ -10,12 +10,30 @@ import axiosInstance from "@/lib/axios";
 
 // 프로그램 신청내역 컴포넌트
 const ProgramHistory = () => {
+  // 프로그램 목록
+  const [programs, setPrograms] = useState([]);
   // 환불 모달 on/off
   const [refundOpen, setRefundOpen] = useState(false);
   // 환불 프로그램 id
   const [selectedProgramId, setSelectedProgramId] = useState<number | null>(
     null
   );
+
+  console.log("프로그램 목록: ", programs);
+
+  // 프로그램 신청내역 요청
+  // useEffect(() => {
+  //   const fetchPrograms = async () => {
+  //     try {
+  //       const res = await axiosInstance.get("/program/histories");
+  //       setPrograms(res.data); // [{}, {}, {}] 40줄 참조
+  //     } catch (err) {
+  //       console.error("프로그램 신청내역 불러오기 오류:", err);
+  //     }
+  //   };
+
+  //   fetchPrograms();
+  // }, []);
 
   // 데이터(임시)
   const datas = [

@@ -33,7 +33,6 @@ const WardInfo = () => {
     const fetchWardInfo = async () => {
       try {
         const res = await axiosInstance.get("/patient/info");
-        // console.log("피보호자 정보: ", res.data);
         setUserInfo(res.data);
       } catch (error) {
         console.error("피보호자 정보 불러오기 실패:", error);
