@@ -19,8 +19,12 @@ interface StatusType {
   recorded_at: string;
 }
 
+type statusProps = {
+  type?: string;
+};
+
 // 상태 체크 페이지(처음 입장했을때는 오늘 날짜로 초기화)
-const StatusCheck = () => {
+const StatusCheck = ({ type }: statusProps) => {
   const [status, setStatus] = useState<StatusType[] | null>(null);
   const [name, setName] = useState<string>(""); // 피보호자 이름
 
@@ -66,19 +70,20 @@ const StatusCheck = () => {
 
   useEffect(() => {
     if (!userId) return;
-
-    // 피보호자 이름은 1번만 불러옴
-    axiosInstance
-      .get("/patient/name", {
-        params: { userId },
-      })
-      .then((res) => {
-        setName(res.data.name);
-        console.log("피보호자이름", res.data.name);
-      })
-      .catch((e) => {
-        console.error("피보호자 이름 불러오기 실패:", e);
-      });
+    if (type !== "book") {
+      // 피보호자 이름은 1번만 불러옴
+      axiosInstance
+        .get("/patient/name", {
+          params: { userId },
+        })
+        .then((res) => {
+          setName(res.data.name);
+          console.log("피보호자이름", res.data.name);
+        })
+        .catch((e) => {
+          console.error("피보호자 이름 불러오기 실패:", e);
+        });
+    }
 
     // 오늘 날짜 상태 요청
     SelectDate(today);
@@ -87,13 +92,23 @@ const StatusCheck = () => {
   return (
     // 달력 한글로
     <ConfigProvider locale={koKR}>
-      <StatusCheckStyled className={clsx("statuscheck_wrap")}>
-        <div className="statuscheck_box">
+      <StatusCheckStyled
+        className={clsx(
+          `statuscheck_wrap ${type !== "book" ? "notbook_wrap" : ""}`
+        )}
+      >
+        <div
+          className={`statuscheck_box ${type !== "book" ? "notbook_box" : ""}`}
+        >
           {/* 피보호자 이름 */}
           {name && <div className="statuscheck_name">{name}님 상태</div>}
 
           {/* 날짜 선택 */}
-          <div className="statuscheck_date">
+          <div
+            className={`statuscheck_date ${
+              type !== "book" ? "notbook_date" : "book_date"
+            }`}
+          >
             <DatePicker
               size="large"
               value={selectedDate}
@@ -103,7 +118,7 @@ const StatusCheck = () => {
 
           {/* 상태 */}
           {status && status.length > 0 ? (
-            <div className="statuscheck_info">
+            <div className={type !== "book" ? "" : "statuscheck_info"}>
               {[
                 { title: "컨디션", value: status[0].condition },
                 { title: "아침 식사량", value: status[0].meal?.split(",")[0] },
@@ -118,19 +133,36 @@ const StatusCheck = () => {
                       ? "아니요"
                       : "없음",
                 },
-                { title: "수면 시간", value: status[0].sleep },
-                { title: "통증 여부", value: status[0].pain },
+                { title: "수면 시간", value: status[0].sleep, scroll: true },
+                { title: "통증 여부", value: status[0].pain, scroll: true },
                 {
                   title: "특이사항",
                   value: status[0].note ? status[0].note : "없음",
+                  scroll: true,
                 },
               ].map((item, index) => (
                 <div key={index} className="statuscheck_row">
-                  <span className="statuscheck_title">{item.title}</span>
-                  <span className="statuscheck_value">{item.value}</span>
+                  <span
+                    className={`statuscheck_title ${
+                      item.scroll ? "statuscheck_margin" : ""
+                    }`}
+                  >
+                    {item.title}
+                  </span>
+                  <span
+                    className={`statuscheck_value ${
+                      item.scroll ? "scrollable" : ""
+                    }`}
+                  >
+                    {item.value}
+                  </span>
                 </div>
               ))}
-              <div className="statuscheck_explanation">
+              <div
+                className={`statuscheck_explanation ${
+                  type === "book" ? "notbook_explanation" : ""
+                }`}
+              >
                 <p>
                   <strong>컨디션 기준</strong> <br />
                   - 아주 좋음: 피보호자가 매우 건강하고 활동적임. <br />
@@ -152,7 +184,7 @@ const StatusCheck = () => {
             </div>
           ) : (
             // 아직 등록된 상태가 없는 경우
-            <div className="statuscheck_none">오늘 등록된 상태가 없습니다.</div>
+            <div className="statuscheck_none">등록된 상태가 없습니다.</div>
           )}
         </div>
       </StatusCheckStyled>

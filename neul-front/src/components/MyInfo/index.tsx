@@ -131,10 +131,7 @@ const MyInfo = () => {
         {/* 비밀번호 변경 모달 */}
         {pwOpen && (
           <ModalCompo onClose={() => setPwOpen(false)}>
-            <S.ModalFormWrap
-              onSubmit={formik.handleSubmit}
-              className="MyInfo_CngPWContainer"
-            >
+            <S.ModalFormWrap onSubmit={formik.handleSubmit}>
               <S.ModalTitle>비밀번호 변경</S.ModalTitle>
 
               <S.ModalInputDiv>
@@ -165,7 +162,7 @@ const MyInfo = () => {
                   )}
               </S.ModalInputDiv>
 
-              <div className="MyInfo_CngPWSub">
+              <div>
                 <S.ModalButton type="submit">변경하기</S.ModalButton>
               </div>
             </S.ModalFormWrap>

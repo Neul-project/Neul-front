@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
 export const SideBarMenuStyled = styled.div`
-  width: 290px;
+  width: 375px;
   height: 100vh;
   position: relative;
   background-color: #fff;
   padding: 20px 39px;
-  border-right: 1.5px solid #ddd;
+  border: none;
+  border-radius: 16px;
 
   .SideBar_wrap {
-    border-bottom: 1px solid rgba(146, 146, 148, 0.3);
+    border-bottom: 1px solid rgb(238, 238, 238);
 
     .SideBarMenu_item {
       cursor: pointer;

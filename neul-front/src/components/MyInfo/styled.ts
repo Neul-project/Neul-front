@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 export const MyInfoStyled = styled.div`
   .MyInfo_container {
-    /* width: 857px; */
+    width: 650px;
     padding: 20px 29px;
-    border-radius: 6px;
-    box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, 0.08);
-    border: solid 1px #e3e9ed;
+    border-radius: 16px;
+    border: none;
     background-color: #fff;
     box-sizing: border-box;
   }
@@ -103,7 +102,7 @@ export const MyInfoStyled = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(220, 227, 233, 0.8);
+    border-top: 1px solid rgb(238, 238, 238);
     padding: 12px 0;
 
     .title {
@@ -117,7 +116,7 @@ export const MyInfoStyled = styled.div`
 
   .MyInfo_address {
     padding: 12px 0;
-    border-top: 1px solid rgba(220, 227, 233, 0.8);
+    border-top: 1px solid rgb(238, 238, 238);
   }
 
   .MyInfo_address_exist {
