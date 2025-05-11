@@ -5,10 +5,11 @@ import NavigationElement from "@/features/MainPage/NavigationElement";
 import clsx from "clsx";
 
 //image
-import backimg from "@/assets/images/visual-bg.png";
+import heart from "@/assets/images/heart.png";
 import gif from "@/assets/images/main02_deco.gif";
 import star from "@/assets/images/start.png";
 import bluestar from "@/assets/images/bluestar.png";
+import pinkstar from "@/assets/images/pinkstar.png";
 
 //메인 페이지 > 상위 탭 구성 (프로그램 신청 배너, 네비게이션)
 const IntroSection = () => {
@@ -21,7 +22,7 @@ const IntroSection = () => {
         <NavigationElement />
       </div>
       <div className="IntroSection_banner">
-        <div className="IntroSection_star">
+        {/* <div className="IntroSection_star">
           <img className="IntroSection_imgstyle" src={star.src} alt="star" />
         </div>
         <div className="IntroSection_bluestar">
@@ -31,6 +32,16 @@ const IntroSection = () => {
             alt="star"
           />
         </div>
+        <div className="IntroSection_heart">
+          <img className="IntroSection_imgstyle" src={heart.src} alt="star" />
+        </div>
+        <div className="IntroSection_pinkst">
+          <img
+            className="IntroSection_imgstyle"
+            src={pinkstar.src}
+            alt="star"
+          />
+        </div> */}
       </div>
     </IntroSectionStyled>
   );

@@ -42,6 +42,20 @@ const Banner = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
+        breakpoints={{
+          0: {
+            spaceBetween: 0,
+            slidesPerView: 1,
+          },
+          486: {
+            spaceBetween: 20,
+            slidesPerView: 2,
+          },
+          768: {
+            spaceBetween: 30,
+            slidesPerView: 3,
+          },
+        }}
       >
         {list.map((element: any, index: number) => (
           <SwiperSlide>

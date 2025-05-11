@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 //component
-import { MainPageStyled } from "./styled";
+import { MainPageBackground, MainPageStyled } from "./styled";
 import IntroSection from "../IntroSection";
 import Advertising from "@/features/Advertising";
 
@@ -60,14 +60,13 @@ const MainPage = () => {
   }, [router.isReady, router.query, isTokenProcessed]);
 
   return (
-    <MainPageStyled
-      className={clsx("MainPage_main_wrap")}
-      $backimg={backimg.src}
-    >
-      <IntroSection /> {/*  navigator */}
-      <Banner /> {/* banner */}
-      <Advertising /> {/* 광고 */}
-    </MainPageStyled>
+    <MainPageBackground $backimg={backimg.src}>
+      <MainPageStyled className={clsx("MainPage_main_wrap")}>
+        <IntroSection />
+        <Banner />
+        <Advertising />
+      </MainPageStyled>
+    </MainPageBackground>
   );
 };
 
