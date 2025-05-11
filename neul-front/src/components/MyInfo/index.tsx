@@ -202,6 +202,7 @@ const MyInfo = () => {
         <Address
           onClose={() => setIsOpen(false)}
           onAddressSaved={fetchMyInfo}
+          addressProps={userInfo?.address || ""}
         />
       )}
 
