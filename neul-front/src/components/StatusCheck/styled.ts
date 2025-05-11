@@ -2,21 +2,83 @@ import styled from "styled-components";
 
 export const StatusCheckStyled = styled.div`
   &.statuscheck_wrap {
-    position: absolute;
-    z-index: 25;
     max-width: 700px;
     width: 100%;
     &.notbook_wrap {
       margin: 20px auto;
+      padding-bottom: 20px;
+    }
+    &.book_wrap {
+      position: absolute;
+      z-index: 25;
     }
     padding: 0 10px;
+
+    .statuscheck_box {
+      &.notbook_box::before {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 4px;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+        z-index: -1;
+      }
+    }
+    .statuscheck_box {
+      &.notbook_box::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 8px;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        background: white;
+        box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.06);
+        z-index: -2;
+      }
+    }
+
     .statuscheck_box {
       &.notbook_box {
+        position: relative;
+        z-index: 20;
         min-height: 809.15px;
         padding: 32px;
         background-color: #fff;
         border-radius: 16px;
-        border: 1px solid #ccc;
+
+        &::before {
+          /* 위쪽 종이 그림자 */
+          content: "";
+          position: absolute;
+          top: -4px;
+          right: 4px;
+          width: 100%;
+          height: 100%;
+          border-radius: 16px;
+          background: white;
+          box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.06);
+          z-index: -1;
+        }
+
+        &::after {
+          /* 아래쪽 종이 그림자 */
+          content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 8px;
+          width: 100%;
+          height: 100%;
+          border-radius: 16px;
+          background: white;
+          box-shadow: 0 6px 8px rgba(0, 0, 0, 0.06);
+          z-index: -2;
+        }
       }
 
       .statuscheck_name {
