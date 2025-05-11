@@ -10,7 +10,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <Component {...pageProps} />
+      <div style={{ paddingTop: "64px" }}>
+        <Component {...pageProps} />
+      </div>
+
       <Footer />
     </ThemeProvider>
   );
