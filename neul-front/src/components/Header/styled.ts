@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeaderStyled = styled.div`
   &.Header_main_wrap {
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.07);
     position: relative;
     z-index: 100;
 

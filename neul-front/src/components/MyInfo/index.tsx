@@ -1,6 +1,7 @@
 import { MyInfoStyled } from "./styled";
 import ModalCompo from "../ModalCompo";
 import Address from "../Address";
+import * as S from "@/components/ModalCompo/ModalContent";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -9,6 +10,7 @@ import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
 import { changePwValidation } from "@/utils/joinValidation";
+import { formatPhoneNumber } from "@/utils/formatter";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -31,21 +33,23 @@ const MyInfo = () => {
 
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
+  console.log("userInfo", userInfo);
+
   // 내 정보 요청
+  const fetchMyInfo = async () => {
+    try {
+      const res = await axiosInstance.get("/user/info");
+
+      // console.log("내 정보 : ", res.data);
+
+      const { name, email, phone, address } = res.data;
+      setUserInfo({ name, email, phone, address });
+    } catch (error) {
+      console.error("내 정보 불러오기 실패:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchMyInfo = async () => {
-      try {
-        const res = await axiosInstance.get("/user/info");
-
-        console.log("내 정보 : ", res.data);
-
-        // const { name, email, phone, address } = res.data;
-        // setUserInfo({ name, email, phone, address });
-      } catch (error) {
-        console.error("내 정보 불러오기 실패:", error);
-      }
-    };
-
     fetchMyInfo();
   }, []);
 
@@ -109,9 +113,9 @@ const MyInfo = () => {
         <div className="MyInfo_flex">
           <div className="MyInfo_cont">
             <div className="MyInfo_name">
-              <span>홍길동</span>님
+              <span>{userInfo?.name}</span>님
             </div>
-            <div className="MyInfo_email">abcd@abcd.com</div>
+            <div className="MyInfo_email">{userInfo?.email}</div>
           </div>
 
           {/* 로컬로그인일 경우만 보임 */}
@@ -127,14 +131,14 @@ const MyInfo = () => {
         {/* 비밀번호 변경 모달 */}
         {pwOpen && (
           <ModalCompo onClose={() => setPwOpen(false)}>
-            <form
+            <S.ModalFormWrap
               onSubmit={formik.handleSubmit}
               className="MyInfo_CngPWContainer"
             >
-              <div className="MyInfo_CngPWTitle">비밀번호 변경</div>
+              <S.ModalTitle>비밀번호 변경</S.ModalTitle>
 
-              <div className="MyInfo_CngPWInput">
-                <input
+              <S.ModalInputDiv>
+                <S.ModalInput
                   type="password"
                   name="password"
                   placeholder="새로운 비밀번호를 입력해주세요"
@@ -145,9 +149,9 @@ const MyInfo = () => {
                 {formik.touched.password && formik.errors.password && (
                   <div className="error">{formik.errors.password}</div>
                 )}
-              </div>
-              <div className="MyInfo_CngPWInput">
-                <input
+              </S.ModalInputDiv>
+              <S.ModalInputDiv>
+                <S.ModalInput
                   type="password"
                   name="confirmPassword"
                   placeholder="비밀번호를 확인해주세요"
@@ -159,32 +163,49 @@ const MyInfo = () => {
                   formik.errors.confirmPassword && (
                     <div className="error">{formik.errors.confirmPassword}</div>
                   )}
-              </div>
+              </S.ModalInputDiv>
 
               <div className="MyInfo_CngPWSub">
-                <button type="submit">변경하기</button>
+                <S.ModalButton type="submit">변경하기</S.ModalButton>
               </div>
-            </form>
+            </S.ModalFormWrap>
           </ModalCompo>
         )}
 
         <div className="MyInfo_phone">
           <div className="title">휴대전화번호</div>
-          <div className="phone">010-1111-1111</div>
+          <div className="phone">
+            {userInfo?.phone ? formatPhoneNumber(userInfo.phone) : ""}
+          </div>
         </div>
 
         <div className="MyInfo_flex MyInfo_address">
-          <div>주소 관리</div>
+          <div>
+            <div>
+              주소 관리
+              <span className="MyInfo_address_exist">
+                {userInfo?.address
+                  ? userInfo.address
+                  : "등록된 주소가 없습니다"}
+              </span>
+            </div>
+          </div>
           <div className="MyInfo_changePw">
             <button type="button" onClick={() => setIsOpen(true)}>
-              주소 등록
+              {userInfo?.address ? "주소 수정" : "주소 등록"}
             </button>
           </div>
         </div>
       </div>
 
       {/* 주소 등록 버튼 */}
-      {isOpen && <Address onClose={() => setIsOpen(false)} />}
+      {isOpen && (
+        <Address
+          onClose={() => setIsOpen(false)}
+          onAddressSaved={fetchMyInfo}
+          addressProps={userInfo?.address || ""}
+        />
+      )}
 
       <div>
         <button

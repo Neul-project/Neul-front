@@ -11,10 +11,15 @@ declare global {
 
 interface AddressProps {
   onClose: () => void;
+  onAddressSaved: () => void;
+  addressProps: string;
 }
 
 // 주소등록 모달
-const Address = ({ onClose }: AddressProps) => {
+const Address = ({ onClose, onAddressSaved, addressProps }: AddressProps) => {
+  // 상위 컴포넌트에 주소가 등록되어있는지 체크
+  const isEditing = Boolean(addressProps?.trim());
+
   // 주소 상태 관리
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
@@ -61,7 +66,8 @@ const Address = ({ onClose }: AddressProps) => {
 
       if (res.data?.ok) {
         alert("주소가 성공적으로 등록되었습니다.");
-        onClose(); // 등록 후 닫기
+        onAddressSaved(); // 주소 등록 시 정보 갱신
+        onClose();
       } else {
         alert("주소 등록에 실패했습니다.");
       }
@@ -80,7 +86,7 @@ const Address = ({ onClose }: AddressProps) => {
 
       <div className="Address_container">
         <div className="Address_wrap">
-          <label>주소 등록</label>
+          <label>{isEditing ? "주소 수정" : "주소 등록"}</label>
 
           <div className="Address_inputWrap">
             {/* 주소 */}
@@ -119,7 +125,7 @@ const Address = ({ onClose }: AddressProps) => {
 
           <div className="Address_submit margin">
             <button type="button" onClick={handleAddressSubmit}>
-              등록하기
+              {isEditing ? "수정하기" : "등록하기"}
             </button>
           </div>
         </div>

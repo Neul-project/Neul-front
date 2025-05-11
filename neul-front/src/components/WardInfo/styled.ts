@@ -72,7 +72,7 @@ export const WardInfoStyled = styled.div`
 
   .WardInfo_sqare {
     width: 100%;
-    padding: 10px 8px;
+    padding: 10px 0px;
     /* border: 2px solid rgba(146, 146, 148, 0.3);
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */

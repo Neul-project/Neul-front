@@ -120,6 +120,13 @@ export const MyInfoStyled = styled.div`
     border-top: 1px solid rgba(220, 227, 233, 0.8);
   }
 
+  .MyInfo_address_exist {
+    padding-left: 10px;
+    color: gray;
+    font-size: 14px;
+    vertical-align: text-bottom;
+  }
+
   .MyInfo_withDraw {
     cursor: pointer;
     background-color: transparent;
