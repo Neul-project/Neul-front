@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 //component
-import { MainPageStyled } from "./styled";
+import { MainPageBackground, MainPageStyled } from "./styled";
 import IntroSection from "../IntroSection";
 import Advertising from "@/features/Advertising";
 
@@ -12,6 +12,10 @@ import axiosInstance from "@/lib/axios";
 
 // zustand
 import { useAuthStore } from "@/stores/useAuthStore";
+import Banner from "../banner";
+
+//image
+import backimg from "@/assets/images/visual-bg.png";
 
 //main page component
 const MainPage = () => {
@@ -56,10 +60,13 @@ const MainPage = () => {
   }, [router.isReady, router.query, isTokenProcessed]);
 
   return (
-    <MainPageStyled className={clsx("MainPage_main_wrap")}>
-      <IntroSection /> {/* banner + navigator */}
-      <Advertising /> {/* 광고 */}
-    </MainPageStyled>
+    <MainPageBackground $backimg={backimg.src}>
+      <MainPageStyled className={clsx("MainPage_main_wrap")}>
+        <IntroSection />
+        <Banner />
+        <Advertising />
+      </MainPageStyled>
+    </MainPageBackground>
   );
 };
 

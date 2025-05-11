@@ -23,36 +23,38 @@ const ProgramHistory = () => {
     },
   ];
 
-  // 테이블 헤더
-  const headerLabels = ["번호", "프로그램명", "결제 상태", "환불"];
-  const flexValues = [1, 1.5, 1, 1];
-
   return (
     <ProgramHistoryStyled>
-      <div className="ProgramHistory_title">프로그램 신청내역</div>
+      <div className="ProgramHistory_container">
+        <div className="ProgramHistory_title">프로그램 신청내역</div>
 
-      <div className="Table_container">
-        {/* 테이블 헤더 */}
-        <div className="Table_header etc">
-          {headerLabels.map((label, i) => (
-            <Cell key={i} $flex={flexValues[i]}>
-              {label}
-            </Cell>
-          ))}
-        </div>
+        {/* 프로그램 목록 */}
+        <div className="ProgramHistory_item_container">
+          <div className="ProgramHistory_item_box">
+            <div className="ProgramHistory_semicircle"></div>
 
-        {/* 테이블 내용 */}
-        {datas.map((data, rowIdx) => (
-          <div className="Table_header" key={rowIdx}>
-            {[data.id, data.programName, data.paymentStatus, "환불"].map(
-              (cell, colIdx) => (
-                <Cell key={colIdx} $flex={flexValues[colIdx]}>
-                  {colIdx === 3 ? <Btn>{cell}</Btn> : cell}
-                </Cell>
-              )
-            )}
+            <div className="ProgramHistory_content_wrap">
+              {/* <div className="ProgramHistory_number">1</div> */}
+
+              <div className="ProgramHistory_content">
+                <div className="p_name">프로그램명</div>
+                <div className="payment">결제완료</div>
+              </div>
+
+              <div>
+                <div className="manager">강사명</div>
+              </div>
+
+              <div className="ProgramHistory_content">
+                <div className="price">10,000원</div>
+              </div>
+
+              <div className="ProgramHistory_content flex-end">
+                <Btn>환불</Btn>
+              </div>
+            </div>
           </div>
-        ))}
+        </div>
       </div>
     </ProgramHistoryStyled>
   );

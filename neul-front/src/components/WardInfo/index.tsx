@@ -1,7 +1,12 @@
 import { WardInfoStyled } from "./styled";
+import ModalCompo from "../ModalCompo";
+import * as S from "@/components/ModalCompo/ModalContent";
 
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 import axiosInstance from "@/lib/axios";
+
+import { formatAge } from "@/utils/formatter";
 
 type UserInfoType = {
   name: string;
@@ -17,16 +22,18 @@ type UserInfoType = {
 };
 
 const WardInfo = () => {
+  const [wardOpen, setwardOpen] = useState(false);
+
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+
+  console.log("피보호자 정보: ", userInfo);
 
   // 보호자 + 피보호자 정보 요청
   useEffect(() => {
     const fetchWardInfo = async () => {
       try {
         const res = await axiosInstance.get("/patient/info");
-
-        console.log("피보호자 정보: ", res.data);
-
+        // console.log("피보호자 정보: ", res.data);
         setUserInfo(res.data);
       } catch (error) {
         console.error("피보호자 정보 불러오기 실패:", error);
@@ -34,18 +41,52 @@ const WardInfo = () => {
     };
     fetchWardInfo();
   }, []);
-  // {
-  //   "name": "홍길동",
-  //   "email": "abcd@abcd.com",
-  //   "phone": "010-1111-1111",
-  //   "address": "서울시 강남구",
-  //   "ward": {
-  //     "name": "김영희",
-  //     "gender": "female",
-  //     "birth": "1996-01-01",
-  //     "note": "특이사항으로는 무엇이 있습니다."
-  //   }
-  // }
+
+  // 피보호자 정보 수정 요청
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      gender: "male",
+      birth: "",
+      note: "",
+    },
+    // validationSchema: changePwValidation,
+    onSubmit: async (values) => {
+      console.log("피보호자 정보 수정:", values);
+
+      // try {
+      //   const res = await axiosInstance.patch("/patient/info", {
+      //     name: values.name,
+      //     gender: values.gender,
+      //     birth: values.birth,
+      //     note: values.note,
+      //   });
+
+      //   if (res.data?.ok) {
+      //     alert("피보호자 정보가 성공적으로 수정되었습니다.");
+      //     setwardOpen(false);
+      //   } else {
+      //     alert("피보호자 정보 수정에 실패했습니다.");
+      //   }
+      // } catch (error) {
+      //   console.error("피보호자 정보 수정 오류:", error);
+      //   alert("서버 오류가 발생했습니다.");
+      // }
+    },
+  });
+
+  // 모달에 피보호자 정보 주입
+  const handleEditOpen = () => {
+    if (userInfo?.ward) {
+      formik.setValues({
+        name: userInfo.ward.name || "",
+        gender: userInfo.ward.gender || "male",
+        birth: userInfo.ward.birth || "",
+        note: userInfo.ward.note || "",
+      });
+    }
+    setwardOpen(true);
+  };
 
   return (
     <WardInfoStyled>
@@ -53,9 +94,9 @@ const WardInfo = () => {
       <div className="WardInfo_container m-b">
         <div>
           <div className="WardInfo_name">
-            <span>홍길동</span>님
+            <span>{userInfo?.name}</span>님
           </div>
-          <div className="WardInfo_email">abcd@abcd.com</div>
+          <div className="WardInfo_email">{userInfo?.email}</div>
         </div>
       </div>
 
@@ -66,32 +107,105 @@ const WardInfo = () => {
 
           <div className="WardInfo_cont">
             <div className="WardInfo_wardName">
-              피보호자명: <span>김영희 </span>
-              <i className="fa-solid fa-venus woman" />
-              <i className="fa-solid fa-mars man" />
+              피보호자명: <span>{userInfo?.ward.name} </span>
+              {userInfo?.ward.gender === "male" ? (
+                <i className="fa-solid fa-mars man" />
+              ) : (
+                <i className="fa-solid fa-venus woman" />
+              )}
             </div>
-            <div className="WardInfo_email"></div>
           </div>
 
           <div className="WardInfo_birth">
             <div className="title">생년월일:</div>
-            <div>1996-01-01 (만 28세)</div>
+            <div>
+              {userInfo?.ward?.birth} (
+              {userInfo?.ward?.birth ? formatAge(userInfo.ward.birth) : "-"})
+            </div>
           </div>
 
           <div className="WardInfo_flex WardInfo_significant">
             <div className="WardInfo_cont2">특이사항:</div>
-            <div className="WardInfo_sqare">
-              특이사항으로는 무엇이있습니다. 특이사항으로는 무엇이있습니다.
-              특이사항으로는 무엇이있습니다. 특이사항으로는 무엇이있습니다.
-              특이사항으로는 무엇이있습니다.
-            </div>
+            <div className="WardInfo_sqare">{userInfo?.ward?.note}</div>
           </div>
         </div>
       </div>
 
+      {/* 피보호자 정보 수정 모달 */}
+      {wardOpen && (
+        <ModalCompo onClose={() => setwardOpen(false)}>
+          <S.ModalFormWrap
+            onSubmit={formik.handleSubmit}
+            className="WardInfo_EditForm"
+          >
+            <S.ModalTitle>피보호자 정보 수정</S.ModalTitle>
+
+            <S.ModalInputDiv>
+              <S.ModalInput
+                type="text"
+                name="name"
+                placeholder="이름"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </S.ModalInputDiv>
+
+            <S.ModalInputDiv>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  checked={formik.values.gender === "male"}
+                  onChange={formik.handleChange}
+                />{" "}
+                남성
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="female"
+                  checked={formik.values.gender === "female"}
+                  onChange={formik.handleChange}
+                />{" "}
+                여성
+              </label>
+            </S.ModalInputDiv>
+
+            <div className="WardInfo_EditInput">
+              <input
+                type="date"
+                name="birth"
+                value={formik.values.birth}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+
+            <S.ModalInputDiv>
+              <S.ModalTextarea
+                name="note"
+                placeholder="특이사항"
+                value={formik.values.note}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </S.ModalInputDiv>
+
+            <div className="MyInfo_CngPWSub">
+              <S.ModalButton type="submit">수정하기</S.ModalButton>
+            </div>
+          </S.ModalFormWrap>
+        </ModalCompo>
+      )}
+
       {/* 수정 버튼 */}
       <div className="WardInfo_editBtn">
-        <button type="button">수정</button>
+        <button type="button" onClick={handleEditOpen}>
+          수정
+        </button>
       </div>
     </WardInfoStyled>
   );

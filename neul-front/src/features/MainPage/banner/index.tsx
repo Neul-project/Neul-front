@@ -8,40 +8,66 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 //image
-import main01 from "@/assets/images/main01_deco.gif";
-import main02 from "@/assets/images/main02_deco.gif";
-import main03 from "@/assets/images/main03_deco.gif";
+import main01 from "@/assets/images/back1.jpg";
+import main02 from "@/assets/images/back2.jpg";
+import main03 from "@/assets/images/back3.jpg";
+import main04 from "@/assets/images/back1.jpg";
+import main05 from "@/assets/images/back2.jpg";
+import main06 from "@/assets/images/back3.jpg";
 
 //banner
 const Banner = () => {
+  // **백엔드에서 리스트 받기
+  const list = [main01, main02, main03, main04, main05, main06];
+
   return (
     <BannerStyled className={clsx("Banner_main_wrap")}>
+      <ul className="Banner_title_circle">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <h5 className="Banner_text">새로운 프로그램</h5>
+
       <Swiper
         modules={[Pagination, Autoplay]}
-        spaceBetween={50}
-        slidesPerView={1}
-        pagination={{ clickable: true }}
+        spaceBetween={30}
+        slidesPerView={3}
+        //pagination={{ clickable: true }}
         loop={true}
         autoplay={{
-          delay: 3000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
+        breakpoints={{
+          0: {
+            spaceBetween: 0,
+            slidesPerView: 1,
+          },
+          486: {
+            spaceBetween: 20,
+            slidesPerView: 2,
+          },
+          768: {
+            spaceBetween: 30,
+            slidesPerView: 3,
+          },
+        }}
       >
-        <SwiperSlide>
-          <div className="slide">
-            <img className="Banner_imgstyle" src={main01.src} alt="banner-1" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="slide">
-            <img className="Banner_imgstyle" src={main02.src} alt="banner-2" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="slide">
-            <img className="Banner_imgstyle" src={main03.src} alt="banner-3" />
-          </div>
-        </SwiperSlide>
+        {list.map((element: any, index: number) => (
+          <SwiperSlide>
+            <div className="Banner_slide">
+              <img
+                className="Banner_imgstyle"
+                src={element.src}
+                alt={`banner-${index}`}
+              />
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </BannerStyled>
   );

@@ -41,7 +41,7 @@ const ProgramList = () => {
   //변수선언
 
   //useState
-  const [list, setList] = useState<ProgramDataType>(data);
+  const [list, setList] = useState<ProgramDataType[]>([data]);
 
   useEffect(() => {
     //프로그램 전체 요청 리스트
@@ -53,7 +53,9 @@ const ProgramList = () => {
   return (
     <ProgramListStyled className={clsx("ProgramElement_main_wrap")}>
       <div>프로그램 리스트</div>
-      <ProgramElement list={list} />
+      {list.map((element: any, index: number) => (
+        <ProgramElement key={index} list={element} />
+      ))}
     </ProgramListStyled>
   );
 };

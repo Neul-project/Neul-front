@@ -3,9 +3,8 @@ import styled from "styled-components";
 export const WardInfoStyled = styled.div`
   .WardInfo_container {
     padding: 20px 29px;
-    border-radius: 6px;
-    box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, 0.08);
-    border: solid 1px #e3e9ed;
+    border-radius: 16px;
+    border: none;
     background-color: #fff;
     box-sizing: border-box;
   }
@@ -72,7 +71,7 @@ export const WardInfoStyled = styled.div`
 
   .WardInfo_sqare {
     width: 100%;
-    padding: 10px 8px;
+    padding: 10px 0px;
     /* border: 2px solid rgba(146, 146, 148, 0.3);
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
