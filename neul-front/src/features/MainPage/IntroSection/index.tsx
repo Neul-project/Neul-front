@@ -35,7 +35,7 @@ const IntroSection = () => {
         <div className="IntroSection_heart">
           <img className="IntroSection_imgstyle" src={heart.src} alt="star" />
         </div>
-        <div className="IntroSection_pinkst">
+        <div className="IntroSection_pinkstar">
           <img
             className="IntroSection_imgstyle"
             src={pinkstar.src}

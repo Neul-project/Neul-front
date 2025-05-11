@@ -1,10 +1,18 @@
 import clsx from "clsx";
-import { ProgramListStyled } from "./styled";
+import { ProgramBackground, ProgramListStyled } from "./styled";
+import Masonry from "react-masonry-css";
 
 //component
 import ProgramElement from "@/components/ProgramElement";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
+import Circle from "@/components/Circle";
+
+//dummy
+import { data } from "./dummy";
+
+//image
+import backimg from "@/assets/images/visual-bg.png";
 
 //프로그램 데이터 타입
 interface ProgramDataType {
@@ -18,30 +26,15 @@ interface ProgramDataType {
   manager: string; //담당자
   capacity: number; //모집인원
   call: string; //문의전화
-  regostratopm_at: string; //등록된 시각
+  registration_at: string; //등록된 시각
 }
-
-//dummy data
-const data = {
-  key: 1,
-  category: "놀이",
-  name: "박람회 견학",
-  img: "heat.png",
-  progress: "2025.07.12~2025.07.13",
-  recruitment: "2025.05.01~2025.05.31",
-  price: 12000,
-  manager: "어드민",
-  capacity: 15,
-  call: "010-0000-0000",
-  regostratopm_at: "2025년 05월 09일 16시 12분",
-};
 
 //프로그램 리스트 컴포넌트
 const ProgramList = () => {
   //변수선언
 
   //useState
-  const [list, setList] = useState<ProgramDataType[]>([data]);
+  const [list, setList] = useState<ProgramDataType[]>(data);
 
   useEffect(() => {
     //프로그램 전체 요청 리스트
@@ -51,12 +44,29 @@ const ProgramList = () => {
     // });
   }, []);
   return (
-    <ProgramListStyled className={clsx("ProgramElement_main_wrap")}>
-      <div>프로그램 리스트</div>
-      {list.map((element: any, index: number) => (
-        <ProgramElement key={index} list={element} />
-      ))}
-    </ProgramListStyled>
+    <ProgramBackground $backimg={backimg.src}>
+      <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
+        <div className="ProgramList_title">
+          <Circle
+            title={"프로그램 리스트"}
+            width={"67px"}
+            left={"50%"}
+            top={"40%"}
+            titletop={"10%"}
+          />
+        </div>
+
+        <Masonry
+          breakpointCols={3}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {list.map((element: any) => (
+            <ProgramElement key={element.key} list={element} />
+          ))}
+        </Masonry>
+      </ProgramListStyled>
+    </ProgramBackground>
   );
 };
 

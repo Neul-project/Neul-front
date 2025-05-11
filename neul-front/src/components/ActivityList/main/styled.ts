@@ -12,15 +12,15 @@ export const ActivityListStyled = styled.div`
     padding: 0px 20px;
     //background-color: #edeff2;
 
-    .ActivityList_h1 {
-      padding-top: 60px;
+    .ActivityList_title {
+      padding-top: 50px;
       align-items: center;
       text-align: center;
-      //font-weight: 800;
-      font-size: 30px;
+      font-size: 25px;
       margin-bottom: 20px;
     }
   }
+
   @media (max-width: 768px) {
     &.ActivityList_main_wrap {
       max-width: 1280px;
