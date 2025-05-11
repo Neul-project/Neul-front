@@ -29,6 +29,7 @@ export const ProgramHistoryStyled = styled.div`
       border-radius: 16px;
       background-color: #fff;
       padding: 12px 12px 16px 20px;
+      margin-bottom: 10px;
       /* min-height: 111px; */
 
       .ProgramHistory_semicircle {
