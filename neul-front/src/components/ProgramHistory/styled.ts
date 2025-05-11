@@ -29,6 +29,7 @@ export const ProgramHistoryStyled = styled.div`
       border-radius: 16px;
       background-color: #fff;
       padding: 12px 12px 16px 20px;
+      margin-bottom: 10px;
       /* min-height: 111px; */
 
       .ProgramHistory_semicircle {
@@ -95,6 +96,13 @@ export const ProgramHistoryStyled = styled.div`
         }
       }
     }
+  }
+
+  .error {
+    font-size: 13px;
+    color: rgb(240, 63, 64);
+    line-height: 20px;
+    padding-left: 4px;
   }
 `;
 

@@ -22,11 +22,17 @@ const ProgramElement = (props: { list: any }) => {
       className={clsx("ProgramElement_main_wrap")}
       onClick={open_program}
     >
-      <div>{list.name}</div>
-      <div>{list.category}</div>
-      <div>진행기간 {list.progress}</div>
-      <div>모집기간 {list.recruitment}</div>
-      <div>모집인원 {list.capacity}</div>
+      <div className="ProgramElement_title">{list.name}</div>
+      <div className="ProgramElement_category">{list.category}</div>
+      <div className="ProgramElement_img">
+        <img
+          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + list.img}
+          alt="img"
+        />
+      </div>
+      <div className="ProgramElement_progress">진행기간 {list.progress}</div>
+      <div className="ProgramElement_recru">모집기간 {list.recruitment}</div>
+      <div className="ProgramElement_capacity">모집인원 {list.capacity}</div>
     </ProgramElementStyled>
   );
 };

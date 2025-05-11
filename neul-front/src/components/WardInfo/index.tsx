@@ -33,7 +33,6 @@ const WardInfo = () => {
     const fetchWardInfo = async () => {
       try {
         const res = await axiosInstance.get("/patient/info");
-        // console.log("피보호자 정보: ", res.data);
         setUserInfo(res.data);
       } catch (error) {
         console.error("피보호자 정보 불러오기 실패:", error);
@@ -131,6 +130,13 @@ const WardInfo = () => {
         </div>
       </div>
 
+      {/* 수정 버튼 */}
+      <div className="WardInfo_editBtn">
+        <button type="button" onClick={handleEditOpen}>
+          수정
+        </button>
+      </div>
+
       {/* 피보호자 정보 수정 모달 */}
       {wardOpen && (
         <ModalCompo onClose={() => setwardOpen(false)}>
@@ -141,6 +147,9 @@ const WardInfo = () => {
             <S.ModalTitle>피보호자 정보 수정</S.ModalTitle>
 
             <S.ModalInputDiv>
+              <S.ModalCont>
+                피보호자명<span>*</span>
+              </S.ModalCont>
               <S.ModalInput
                 type="text"
                 name="name"
@@ -151,40 +160,49 @@ const WardInfo = () => {
               />
             </S.ModalInputDiv>
 
-            <S.ModalInputDiv>
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="male"
-                  checked={formik.values.gender === "male"}
-                  onChange={formik.handleChange}
-                />{" "}
-                남성
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="female"
-                  checked={formik.values.gender === "female"}
-                  onChange={formik.handleChange}
-                />{" "}
-                여성
-              </label>
-            </S.ModalInputDiv>
+            <div className="flex">
+              <S.ModalInputDiv>
+                <S.ModalCont>
+                  성별<span>*</span>
+                </S.ModalCont>
+                <S.ModalLabel>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    checked={formik.values.gender === "male"}
+                    onChange={formik.handleChange}
+                  />{" "}
+                  남성
+                </S.ModalLabel>
+                <S.ModalLabel>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    checked={formik.values.gender === "female"}
+                    onChange={formik.handleChange}
+                  />{" "}
+                  여성
+                </S.ModalLabel>
+              </S.ModalInputDiv>
 
-            <div className="WardInfo_EditInput">
-              <input
-                type="date"
-                name="birth"
-                value={formik.values.birth}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
+              <S.ModalInputDiv>
+                <S.ModalCont>
+                  생년월일<span>*</span>
+                </S.ModalCont>
+                <S.ModalInput
+                  type="date"
+                  name="birth"
+                  value={formik.values.birth}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+              </S.ModalInputDiv>
             </div>
 
             <S.ModalInputDiv>
+              <S.ModalCont>특이사항</S.ModalCont>
               <S.ModalTextarea
                 name="note"
                 placeholder="특이사항"
@@ -200,13 +218,6 @@ const WardInfo = () => {
           </S.ModalFormWrap>
         </ModalCompo>
       )}
-
-      {/* 수정 버튼 */}
-      <div className="WardInfo_editBtn">
-        <button type="button" onClick={handleEditOpen}>
-          수정
-        </button>
-      </div>
     </WardInfoStyled>
   );
 };
