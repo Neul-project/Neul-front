@@ -8,11 +8,11 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   useEffect(() => {
     //id에 해당하는 프로그램 상세 전체 보기
-    axiosInstance
-      .get(`/program/detail`, { params: { id: detailid } })
-      .then((res) => {
-        console.log("detail res", res.data);
-      });
+    // axiosInstance
+    //   .get(`/program/detail`, { params: { id: detailid } })
+    //   .then((res) => {
+    //     console.log("detail res", res.data);
+    //   });
   }, []);
 
   return <ProgramDetailStyled>{detailid}</ProgramDetailStyled>;

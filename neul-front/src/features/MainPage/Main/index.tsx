@@ -12,6 +12,10 @@ import axiosInstance from "@/lib/axios";
 
 // zustand
 import { useAuthStore } from "@/stores/useAuthStore";
+import Banner from "../banner";
+
+//image
+import backimg from "@/assets/images/visual-bg.png";
 
 //main page component
 const MainPage = () => {
@@ -56,8 +60,12 @@ const MainPage = () => {
   }, [router.isReady, router.query, isTokenProcessed]);
 
   return (
-    <MainPageStyled className={clsx("MainPage_main_wrap")}>
-      <IntroSection /> {/* banner + navigator */}
+    <MainPageStyled
+      className={clsx("MainPage_main_wrap")}
+      $backimg={backimg.src}
+    >
+      <IntroSection /> {/*  navigator */}
+      <Banner /> {/* banner */}
       <Advertising /> {/* 광고 */}
     </MainPageStyled>
   );
