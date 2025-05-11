@@ -11,10 +11,11 @@ declare global {
 
 interface AddressProps {
   onClose: () => void;
+  onAddressSaved: () => void;
 }
 
 // 주소등록 모달
-const Address = ({ onClose }: AddressProps) => {
+const Address = ({ onClose, onAddressSaved }: AddressProps) => {
   // 주소 상태 관리
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
@@ -61,7 +62,8 @@ const Address = ({ onClose }: AddressProps) => {
 
       if (res.data?.ok) {
         alert("주소가 성공적으로 등록되었습니다.");
-        onClose(); // 등록 후 닫기
+        onAddressSaved(); // 주소 등록 시 정보 갱신
+        onClose();
       } else {
         alert("주소 등록에 실패했습니다.");
       }
