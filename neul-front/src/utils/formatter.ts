@@ -23,5 +23,5 @@ export const formatAge = (birth: string): string => {
     age--;
   }
 
-  return `${age}세`;
+  return `만 ${age}세`;
 };
