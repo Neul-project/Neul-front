@@ -52,59 +52,61 @@ const NavigationElement = () => {
         </ul>
         <p>바로가기</p>
       </div>
-      <div className="NavigationElement_row1">
-        <div className="NavigationElement_ele" onClick={stateCheck}>
-          <div className="NavigationElement_img">
-            <img
-              className="NavigationElement_imgstyle"
-              src={search.src}
-              alt="search"
-            />
+      <div className="NavigationElement_rows">
+        <div className="NavigationElement_row1">
+          <div className="NavigationElement_ele" onClick={stateCheck}>
+            <div className="NavigationElement_img">
+              <img
+                className="NavigationElement_imgstyle"
+                src={search.src}
+                alt="search"
+              />
+            </div>
+            <div className="NavigationElement_text">상태확인</div>
           </div>
-          <div className="NavigationElement_text">상태확인</div>
-        </div>
-        <div className="NavigationElement_ele" onClick={ActivityList}>
-          <div className="NavigationElement_img">
-            <img
-              className="NavigationElement_imgstyle"
-              src={plus.src}
-              alt="puls"
-            />
+          <div className="NavigationElement_ele" onClick={ActivityList}>
+            <div className="NavigationElement_img">
+              <img
+                className="NavigationElement_imgstyle"
+                src={plus.src}
+                alt="puls"
+              />
+            </div>
+            <div className="NavigationElement_text">활동기록</div>
           </div>
-          <div className="NavigationElement_text">활동기록</div>
-        </div>
-        <div className="NavigationElement_ele" onClick={ChatRoom}>
-          <div className="NavigationElement_img">
-            <img
-              className="NavigationElement_imgstyle"
-              src={chat.src}
-              alt="puls"
-            />
+          <div className="NavigationElement_ele" onClick={ChatRoom}>
+            <div className="NavigationElement_img">
+              <img
+                className="NavigationElement_imgstyle"
+                src={chat.src}
+                alt="puls"
+              />
+            </div>
+            <div className="NavigationElement_text">채팅</div>
           </div>
-          <div className="NavigationElement_text">채팅</div>
         </div>
-      </div>
-      <div className="NavigationElement_row2">
-        <div className="NavigationElement_ele" onClick={ProgramPage}>
-          <div className="NavigationElement_img">
-            <img
-              className="NavigationElement_imgstyle"
-              src={relay.src}
-              alt="puls"
-            />
+        <div className="NavigationElement_row2">
+          <div className="NavigationElement_ele" onClick={ProgramPage}>
+            <div className="NavigationElement_img">
+              <img
+                className="NavigationElement_imgstyle"
+                src={relay.src}
+                alt="puls"
+              />
+            </div>
+            <div className="NavigationElement_text">프로그램</div>
           </div>
-          <div className="NavigationElement_text">프로그램</div>
-        </div>
 
-        <div className="NavigationElement_ele" onClick={MyPage}>
-          <div className="NavigationElement_img">
-            <img
-              className="NavigationElement_imgstyle"
-              src={test.src}
-              alt="puls"
-            />
+          <div className="NavigationElement_ele" onClick={MyPage}>
+            <div className="NavigationElement_img">
+              <img
+                className="NavigationElement_imgstyle"
+                src={test.src}
+                alt="puls"
+              />
+            </div>
+            <div className="NavigationElement_text">마이페이지</div>
           </div>
-          <div className="NavigationElement_text">마이페이지</div>
         </div>
       </div>
     </NavigationElementStyled>

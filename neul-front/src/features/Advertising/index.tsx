@@ -35,7 +35,7 @@ const Advertising = () => {
       </ul>
       <h5 className="Advertising_title_text">다른 기업 이야기</h5>
 
-      <div>
+      <div className="Advertising_adimg">
         {arr ? (
           arr.map((element, index: number) => {
             return <AdElement key={index} el={element} />;
