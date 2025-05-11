@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 export const MyPageStyled = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
   background-color: rgb(242, 245, 248);
 
   .MyPage_container {
     display: flex;
+    gap: 24px;
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 50px 0 80px;
   }
 
   .MyPage_leftContainer {
@@ -14,6 +16,5 @@ export const MyPageStyled = styled.div`
 
   .MyPage_rightContainer {
     width: 100%;
-    padding: 37px 46px;
   }
 `;
