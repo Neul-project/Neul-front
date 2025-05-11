@@ -1,6 +1,7 @@
 import { MyInfoStyled } from "./styled";
 import ModalCompo from "../ModalCompo";
 import Address from "../Address";
+import * as S from "@/components/ModalCompo/ModalContent";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -130,14 +131,14 @@ const MyInfo = () => {
         {/* 비밀번호 변경 모달 */}
         {pwOpen && (
           <ModalCompo onClose={() => setPwOpen(false)}>
-            <form
+            <S.ModalFormWrap
               onSubmit={formik.handleSubmit}
               className="MyInfo_CngPWContainer"
             >
-              <div className="MyInfo_CngPWTitle">비밀번호 변경</div>
+              <S.ModalTitle>비밀번호 변경</S.ModalTitle>
 
-              <div className="MyInfo_CngPWInput">
-                <input
+              <S.ModalInputDiv>
+                <S.ModalInput
                   type="password"
                   name="password"
                   placeholder="새로운 비밀번호를 입력해주세요"
@@ -148,9 +149,9 @@ const MyInfo = () => {
                 {formik.touched.password && formik.errors.password && (
                   <div className="error">{formik.errors.password}</div>
                 )}
-              </div>
-              <div className="MyInfo_CngPWInput">
-                <input
+              </S.ModalInputDiv>
+              <S.ModalInputDiv>
+                <S.ModalInput
                   type="password"
                   name="confirmPassword"
                   placeholder="비밀번호를 확인해주세요"
@@ -162,12 +163,12 @@ const MyInfo = () => {
                   formik.errors.confirmPassword && (
                     <div className="error">{formik.errors.confirmPassword}</div>
                   )}
-              </div>
+              </S.ModalInputDiv>
 
               <div className="MyInfo_CngPWSub">
-                <button type="submit">변경하기</button>
+                <S.ModalButton type="submit">변경하기</S.ModalButton>
               </div>
-            </form>
+            </S.ModalFormWrap>
           </ModalCompo>
         )}
 
