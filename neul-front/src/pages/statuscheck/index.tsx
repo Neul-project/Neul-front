@@ -1,7 +1,8 @@
+import NoteBook from "@/components/NoteBook";
 import StatusCheck from "@/features/StatusCheck";
 
 const Status = () => {
-  return <StatusCheck />;
+  return <NoteBook />;
 };
 
 export default Status;
