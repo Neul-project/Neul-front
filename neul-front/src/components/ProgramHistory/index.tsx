@@ -1,6 +1,17 @@
 import { ProgramHistoryStyled, Cell, Btn } from "./styled";
+import ModalCompo from "../ModalCompo";
+import * as S from "@/components/ModalCompo/ModalContent";
+
+import { useState } from "react";
 
 const ProgramHistory = () => {
+  const [refundOpen, setRefundOpen] = useState(false);
+
+  const [accountNumber, setAccountNumber] = useState("");
+  const [accountHolder, setAccountHolder] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [refundReason, setRefundReason] = useState("");
+
   // 데이터(임시)
   const datas = [
     {
@@ -23,6 +34,13 @@ const ProgramHistory = () => {
       payment_status: "결제 완료",
       manager: "이서윤",
       price: 15000,
+    },
+    {
+      id: 4,
+      name: "청각장애인을 위한 명상과 호흡법",
+      payment_status: "환불 완료",
+      manager: "최승현",
+      price: 45000,
     },
   ];
 
@@ -54,13 +72,105 @@ const ProgramHistory = () => {
                 </div>
 
                 <div className="ProgramHistory_content flex-end">
-                  <Btn>환불</Btn>
+                  <Btn
+                    onClick={() => {
+                      setRefundOpen(true);
+                    }}
+                  >
+                    환불
+                  </Btn>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* 환불 모달 */}
+      {refundOpen && (
+        <ModalCompo onClose={() => setRefundOpen(false)}>
+          <S.ModalFormWrap
+            onSubmit={(e) => {
+              e.preventDefault();
+              // 여기서 서버 전송 또는 상태 처리
+              console.log({
+                accountNumber,
+                accountHolder,
+                bankName,
+                refundReason,
+              });
+            }}
+          >
+            <S.ModalTitle>환불정보 작성</S.ModalTitle>
+
+            {/* 환불 계좌번호 */}
+            <S.ModalInputDiv>
+              <S.ModalCont>
+                환불 계좌번호<span>*</span>
+              </S.ModalCont>
+              <S.ModalInput
+                type="text"
+                name="accountNumber"
+                placeholder="환불 계좌번호를 입력해주세요"
+                value={accountNumber}
+                onChange={(e) => setAccountNumber(e.target.value)}
+              />
+            </S.ModalInputDiv>
+
+            <div className="flex">
+              {/* 예금자명 */}
+              <S.ModalInputDiv>
+                <S.ModalCont>
+                  예금자명<span>*</span>
+                </S.ModalCont>
+                <S.ModalInput
+                  type="text"
+                  name="accountHolder"
+                  placeholder="예금자명을 입력해주세요"
+                  value={accountHolder}
+                  onChange={(e) => setAccountHolder(e.target.value)}
+                />
+              </S.ModalInputDiv>
+
+              {/* 은행명 */}
+              <S.ModalInputDiv>
+                <S.ModalCont>
+                  은행명<span>*</span>
+                </S.ModalCont>
+                <S.ModalSelect
+                  name="bankName"
+                  value={bankName}
+                  onChange={(e) => setBankName(e.target.value)}
+                >
+                  <option value="">은행을 선택해주세요</option>
+                  <option value="국민은행">국민은행</option>
+                  <option value="신한은행">신한은행</option>
+                  <option value="우리은행">우리은행</option>
+                  <option value="하나은행">하나은행</option>
+                  <option value="농협은행">농협은행</option>
+                </S.ModalSelect>
+              </S.ModalInputDiv>
+            </div>
+
+            {/* 환불사유 */}
+            <S.ModalInputDiv>
+              <S.ModalCont>
+                환불 사유<span>*</span>
+              </S.ModalCont>
+              <S.ModalTextarea
+                name="refundReason"
+                placeholder="환불 사유를 입력해주세요"
+                value={refundReason}
+                onChange={(e) => setRefundReason(e.target.value)}
+              />
+            </S.ModalInputDiv>
+
+            <div className="MyInfo_CngPWSub">
+              <S.ModalButton type="submit">환불신청</S.ModalButton>
+            </div>
+          </S.ModalFormWrap>
+        </ModalCompo>
+      )}
     </ProgramHistoryStyled>
   );
 };
