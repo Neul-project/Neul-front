@@ -19,7 +19,7 @@ const ProgramHistory = () => {
     null
   );
 
-  console.log("프로그램 목록: ", programs);
+  console.log("프로그램 신청목록: ", programs);
 
   // 프로그램 신청내역 요청
   // useEffect(() => {
