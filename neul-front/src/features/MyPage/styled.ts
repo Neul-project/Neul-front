@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MyPageStyled = styled.div`
   max-width: 1280px;
   margin: 0 auto;
-  background-color: #edeff2; //f9fbfc
+  background-color: rgb(242, 245, 248);
 
   .MyPage_container {
     display: flex;
