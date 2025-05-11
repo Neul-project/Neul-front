@@ -41,6 +41,17 @@ const NavigationElement = () => {
 
   return (
     <NavigationElementStyled className={clsx("NavigationElement_main_wrap")}>
+      <div className="NavigationElement_title_background">
+        <ul className="NavigationElement_title_circle">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <p>바로가기</p>
+      </div>
       <div className="NavigationElement_row1">
         <div className="NavigationElement_ele" onClick={stateCheck}>
           <div className="NavigationElement_img">

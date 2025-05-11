@@ -12,6 +12,44 @@ export const NavigationElementStyled = styled.div`
     place-items: center;
     padding: 0px 15px;
 
+    .NavigationElement_title_background {
+      position: relative;
+      font-weight: 600;
+      height: 50px;
+      z-index: 1;
+      margin-bottom: 15px;
+
+      p {
+        position: relative;
+        z-index: 2;
+        color: white;
+        margin: 12px 0px;
+      }
+
+      .NavigationElement_title_circle {
+        position: absolute;
+        left: 50%; /* 중앙 기준점 */
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        width: auto;
+        height: auto;
+        background: none;
+
+        li {
+          display: block;
+          width: 50px;
+          height: 50px;
+          margin: 0 -10px;
+          background: #5da487;
+          border-radius: 50%;
+          transition: all 0.3s ease;
+        }
+      }
+    }
     .NavigationElement_row1,
     .NavigationElement_row2 {
       display: flex;
@@ -30,6 +68,7 @@ export const NavigationElementStyled = styled.div`
       box-shadow: 0 0 20px -9px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: transform 0.2s ease;
+      background-color: white;
 
       &:hover {
         transform: translateY(-8px);

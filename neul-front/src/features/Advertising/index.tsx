@@ -25,13 +25,25 @@ const Advertising = () => {
 
   return (
     <AdvertisingStyled className={clsx("Advertising_main_wrap")}>
-      {arr ? (
-        arr.map((element, index: number) => {
-          return <AdElement key={index} el={element} />;
-        })
-      ) : (
-        <div className="Advertising_text">광고 준비 중 입니다</div>
-      )}
+      <ul className="Advertising_title_circle">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <h5 className="Advertising_title_text">다른 기업 이야기</h5>
+
+      <div>
+        {arr ? (
+          arr.map((element, index: number) => {
+            return <AdElement key={index} el={element} />;
+          })
+        ) : (
+          <div className="Advertising_text">광고 준비 중 입니다</div>
+        )}
+      </div>
     </AdvertisingStyled>
   );
 };
