@@ -6,6 +6,10 @@ export const ChatMessageStyled = styled.div`
     flex-direction: column;
     margin-bottom: 10px;
 
+    &.chatmessage_nonmessage {
+      display: none;
+    }
+
     .chatmessage_chat {
       display: flex;
       align-items: flex-end;
