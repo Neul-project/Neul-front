@@ -38,10 +38,10 @@ const ProgramList = () => {
 
   useEffect(() => {
     //프로그램 전체 요청 리스트
-    // axiosInstance.get("/program/list").then((res) => {
-    //   console.log("program list res", res.data);
-    //   setList(res.data);
-    // });
+    axiosInstance.get("/program/list").then((res) => {
+      //console.log("program list res", res.data);
+      setList(res.data);
+    });
   }, []);
   return (
     <ProgramBackground $backimg={backimg.src}>
@@ -62,7 +62,7 @@ const ProgramList = () => {
           columnClassName="my-masonry-grid_column"
         >
           {list.map((element: any) => (
-            <ProgramElement key={element.key} list={element} />
+            <ProgramElement key={element.id} list={element} />
           ))}
         </Masonry>
       </ProgramListStyled>

@@ -14,7 +14,7 @@ const ProgramElement = (props: { list: any }) => {
 
   //해당 상세 프로그램 페이지 이동
   const open_program = () => {
-    router.push(`/program/${list.key}`);
+    router.push(`/program/${list.id}`);
   };
 
   return (
