@@ -51,7 +51,7 @@ const ProgramDetail = (props: { detailid: string }) => {
   const handleOk = () => {
     axiosInstance
       .post("/program/apply", {
-        params: { userId: user?.id, programId: Number(detailid) },
+        params: { programId: Number(detailid) },
       })
       .then((res) => {
         //console.log("신청 성공");
