@@ -3,7 +3,7 @@ import { FeedBackModalStyled } from "./styled";
 import { useReactMediaRecorder } from "react-media-recorder";
 
 //antd
-import { Button, Input } from "antd";
+import { Button, Input, notification } from "antd";
 import axiosInstance from "@/lib/axios";
 const { TextArea } = Input;
 
@@ -13,9 +13,9 @@ import pause from "@/assets/images/pause.png";
 import clsx from "clsx";
 
 //활동 페이지 > 피드백 내용 모달
-const FeedBackModal = (props: { activityid: string }) => {
+const FeedBackModal = (props: { activityid: string; onClose: () => void }) => {
   //변수 선언
-  const { activityid } = props;
+  const { activityid, onClose } = props;
 
   //useState
   const [content, setContent] = useState(""); //text area 내용
@@ -29,13 +29,19 @@ const FeedBackModal = (props: { activityid: string }) => {
 
   //피드백 보내기 클릭 함수
   const feedbacksend = () => {
-    const userId = 1;
+    axiosInstance
+      .post(`/activity/feedback`, {
+        message: content,
+        activityid: Number(activityid),
+      })
+      .then((res) => {
+        notification.success({
+          message: `피드백 등록 완료`,
+          description: "피드백을 등록하였습니다.",
+        });
 
-    axiosInstance.post(`/activity/feedback`, {
-      message: content,
-      activityid: Number(activityid),
-      userId: userId,
-    });
+        onClose();
+      });
   };
 
   //오디오 설정
@@ -74,16 +80,17 @@ const FeedBackModal = (props: { activityid: string }) => {
 
     formData.append("file", blob, fileName);
 
-    const userId = 1;
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`${key}:`, value);
+    // }
 
-    //**백엔드 저장 요청
+    //백엔드 저장 요청(오디오)
     axiosInstance
       .post(
         `/activity/feedback`,
         {
           message: formData,
           activityid: Number(activityid),
-          userId: userId,
         },
         {
           headers: {
@@ -92,12 +99,15 @@ const FeedBackModal = (props: { activityid: string }) => {
         }
       )
       .then((res) => {
-        console.log("요청 등록 성공");
+        //console.log("요청 등록 성공");
+        notification.success({
+          message: `피드백 등록 완료`,
+          description: "피드백을 등록하였습니다.",
+        });
       });
 
     //console.log("audio", mediaBlobUrl);
   };
-  ``;
 
   return (
     <FeedBackModalStyled className={clsx("FeedbackModal_main_wrap")}>
