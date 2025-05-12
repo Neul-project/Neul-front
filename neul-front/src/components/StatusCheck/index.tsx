@@ -43,6 +43,7 @@ const StatusCheck = ({ type }: statusProps) => {
     axiosInstance
       .get("/status/day", {
         params: {
+          userId,
           date: String(formattedDate),
         },
       })

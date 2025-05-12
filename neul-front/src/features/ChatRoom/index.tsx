@@ -28,7 +28,8 @@ interface Chatting {
   message: string;
   time: string;
   date: string;
-  isMe: boolean;
+  sender: string;
+  userDel: boolean;
 }
 
 // 채팅 전체 화면
@@ -45,8 +46,8 @@ const ChatRoom = () => {
   // 채팅 개수
   const limit = 12;
 
-  // const userId = useAuthStore((state) => state.user?.id);
-  const userId = 1;
+  const userId = useAuthStore((state) => state.user?.id);
+
   // 무조건 아래에서 시작하도록
   const scrollToBottom = () => {
     bottomRef.current?.scrollIntoView({ behavior: "auto" });
@@ -57,26 +58,23 @@ const ChatRoom = () => {
     try {
       // userId를 보냄
       const res = await axiosInstance.get(`/chat/list`, {
-        // params: { userId, limit, currentPage },
-        params: { userId },
+        // params: { limit, currentPage },
       });
 
       // 데이터 가공
       const parsedChats: Chatting[] = res.data.map((chat: any) => {
-        // 본인이 작성한 채팅인지 확인
-        const isMe = chat.user.id === userId;
-
         // 시간, 날짜
         const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
         const time = dayjs(chat.created_at).format("A h:mm");
 
         return {
           ...chat,
-          isMe,
           date,
           time,
         };
       });
+
+      console.log("채팅 목록", parsedChats);
 
       setChattings(parsedChats);
     } catch (e) {
@@ -95,14 +93,11 @@ const ChatRoom = () => {
 
     socketRef.current.off("receive_message"); // 기존 리스너 제거
     socketRef.current.on("receive_message", (message: any) => {
-      const isMe = message.user?.id === userId;
-
       const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
       const time = dayjs(message.created_at).format("A h:mm");
 
       const parsedMessage: Chatting = {
         ...message,
-        isMe,
         date,
         time,
       };
@@ -148,6 +143,7 @@ const ChatRoom = () => {
 
       // 입력창 초기화
       setInputValue("");
+      fetchChatMessages();
     } catch (e) {
       console.error("채팅 메시지 전송 실패:", e);
     }
@@ -235,7 +231,8 @@ const ChatRoom = () => {
                     name={chat.admin.name}
                     message={chat.message}
                     time={shouldShowTime ? chat.time : ""}
-                    isMe={chat.isMe}
+                    sender={chat.sender}
+                    userDel={chat.userDel}
                   />
                 );
               })}
