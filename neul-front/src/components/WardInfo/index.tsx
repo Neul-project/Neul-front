@@ -13,6 +13,7 @@ type UserInfoType = {
   email: string;
   phone: string;
   address: string;
+  role: string;
   ward: {
     name: string;
     gender: "male" | "female";
