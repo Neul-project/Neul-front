@@ -142,6 +142,7 @@ const ProgramHistory = () => {
                   {/* 클릭한 프로그램 id 추가필요 */}
                   <Btn
                     onClick={() => {
+                      // setSelectedProgramId(data.id);
                       setRefundOpen(true);
                     }}
                   >
