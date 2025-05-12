@@ -1,32 +1,27 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-export const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'KCC-Ahnchangho';
-    src: url('/fonts/KCC-Ahnchangho.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
-`;
+import styled from "styled-components";
 
 export const NoteBookStyled = styled.div`
   &.notebook_wrap {
     max-width: 1280px;
+    width: 100%;
     min-height: 809.15px;
     margin: 40px auto;
-    font-family: "KCC-Ahnchangho", sans-serif;
+
     .notebook_box {
-      position: absolute;
-      min-height: 809.15px;
       display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      width: 100%;
+      min-height: 809.15px;
 
       .notebook_spring {
         width: 120px;
         height: 770px;
-        position: relative;
-        top: 20px;
-        left: -55px;
         z-index: 11;
+        position: absolute;
+        top: 20px;
+        left: 545px;
 
         .notebook_ring {
           width: 110px;
@@ -125,9 +120,12 @@ export const NoteBookStyled = styled.div`
       }
 
       .notebook_left {
-        width: 600px;
+        width: 100%;
+        max-width: 600px;
+        min-height: 810px;
         background-color: aliceblue;
         border-radius: 20px;
+        position: relative;
 
         .notebook_note {
           min-height: 750px;
@@ -136,33 +134,39 @@ export const NoteBookStyled = styled.div`
         }
 
         .notebook_note1 {
-          width: 560px;
+          max-width: 560px;
+          width: 100%;
           position: relative;
           top: 28px;
           left: 18px;
 
           .notebook_note2 {
-            width: 555px;
+            max-width: 555px;
+            width: 100%;
             position: relative;
             top: 0;
             right: -5px;
             .notebook_note3 {
-              width: 550px;
+              max-width: 550px;
+              width: 100%;
               position: relative;
               top: 0;
               right: -5px;
               .notebook_note4 {
-                width: 545px;
+                width: 100%;
+                max-width: 545px;
                 position: relative;
                 top: 0;
                 right: -5px;
                 .notebook_note5 {
-                  width: 540px;
+                  width: 100%;
+                  max-width: 540px;
                   position: relative;
                   top: 0;
                   right: -5px;
                   .notebook_note6 {
-                    width: 535px;
+                    width: 100%;
+                    max-width: 535px;
                     position: relative;
                     top: 0;
                     right: -5px;
@@ -185,7 +189,7 @@ export const NoteBookStyled = styled.div`
                       top: 150px;
                       z-index: 25;
                       .notebook_img {
-                        width: 400px;
+                        max-width: 400px;
                         height: 400px;
                       }
                     }
@@ -198,11 +202,12 @@ export const NoteBookStyled = styled.div`
       }
 
       .notebook_right {
-        width: 600px;
+        width: 100%;
+        max-width: 600px;
+        min-height: 810px;
         background-color: aliceblue;
         border-radius: 20px;
         position: relative;
-        left: -120px;
         .notebook_note {
           min-height: 750px;
           background-color: white;
@@ -210,30 +215,36 @@ export const NoteBookStyled = styled.div`
         }
 
         .notebook_note1 {
-          width: 560px;
+          width: 100%;
+          max-width: 560px;
           position: relative;
           top: 28px;
           left: 18px;
 
           .notebook_note2 {
-            width: 555px;
+            width: 100%;
+            max-width: 555px;
             position: relative;
             top: 0;
             .notebook_note3 {
-              width: 550px;
+              width: 100%;
+              max-width: 550px;
               position: relative;
               top: 0;
 
               .notebook_note4 {
-                width: 545px;
+                width: 100%;
+                max-width: 545px;
                 position: relative;
                 top: 0;
                 .notebook_note5 {
-                  width: 540px;
+                  width: 100%;
+                  max-width: 540px;
                   position: relative;
                   top: 0;
                   .notebook_note6 {
-                    width: 535px;
+                    width: 100%;
+                    max-width: 535px;
                     position: relative;
                     top: 0;
                     right: 2px;
