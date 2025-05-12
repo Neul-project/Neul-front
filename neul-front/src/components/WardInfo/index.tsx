@@ -27,7 +27,7 @@ const WardInfo = () => {
 
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
-  console.log("피보호자 정보: ", userInfo);
+  console.log("보호자+피보호자 : ", userInfo);
 
   // 보호자 + 피보호자 정보 요청
   useEffect(() => {
@@ -50,30 +50,13 @@ const WardInfo = () => {
       birth: "",
       note: "",
     },
-    // validationSchema: changePwValidation,
     onSubmit: async (values) => {
       console.log("피보호자 정보 수정:", values);
 
       try {
-        // role에 따라 요청할 데이터가 다르므로 분기 처리
-        let requestData = {};
-
-        if (userInfo?.role === "admin") {
-          // 관리자일 때는 모두 전송
-          requestData = {
-            name: values.name,
-            gender: values.gender,
-            birth: values.birth,
-            note: values.note,
-          };
-        } else {
-          // 사용자일 때는 특이사항만 전송
-          requestData = {
-            note: values.note,
-          };
-        }
-
-        const res = await axiosInstance.patch("/patient/info", requestData);
+        const res = await axiosInstance.patch("/patient/info", {
+          note: values.note,
+        });
 
         if (res.data?.ok) {
           alert("피보호자 정보가 성공적으로 수정되었습니다.");
@@ -162,66 +145,20 @@ const WardInfo = () => {
 
             <S.ModalInputDiv>
               <S.ModalCont>피보호자명</S.ModalCont>
-              {userInfo?.role === "admin" ? (
-                <S.ModalInput
-                  type="text"
-                  name="name"
-                  placeholder="이름"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-              ) : (
-                <div className="readonly">{formik.values.name}</div>
-              )}
+              <div className="readonly">{formik.values.name}</div>
             </S.ModalInputDiv>
 
             <div className="flex">
               <S.ModalInputDiv>
                 <S.ModalCont>성별</S.ModalCont>
-                {userInfo?.role === "admin" ? (
-                  <>
-                    <S.ModalLabel>
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="male"
-                        checked={formik.values.gender === "male"}
-                        onChange={formik.handleChange}
-                      />{" "}
-                      남성
-                    </S.ModalLabel>
-                    <S.ModalLabel>
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="female"
-                        checked={formik.values.gender === "female"}
-                        onChange={formik.handleChange}
-                      />{" "}
-                      여성
-                    </S.ModalLabel>
-                  </>
-                ) : (
-                  <div className="readonly">
-                    {formik.values.gender === "male" ? "남성" : "여성"}
-                  </div>
-                )}
+                <div className="readonly">
+                  {formik.values.gender === "male" ? "남성" : "여성"}
+                </div>
               </S.ModalInputDiv>
 
               <S.ModalInputDiv>
                 <S.ModalCont>생년월일</S.ModalCont>
-                {userInfo?.role === "admin" ? (
-                  <S.ModalInput
-                    type="date"
-                    name="birth"
-                    value={formik.values.birth}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                ) : (
-                  <div className="readonly">{formik.values.birth}</div>
-                )}
+                <div className="readonly">{formik.values.birth}</div>
               </S.ModalInputDiv>
             </div>
 
