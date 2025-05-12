@@ -3,7 +3,7 @@ import { ProgramDetailStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
 import clsx from "clsx";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { Modal, notification } from "antd";
+import { Button, Modal, notification } from "antd";
 
 //프로그램 상세 페이지 컴포넌트
 const ProgramDetail = (props: { detailid: string }) => {
@@ -61,6 +61,12 @@ const ProgramDetail = (props: { detailid: string }) => {
         });
         setIsModalOpen(false);
       });
+
+    // notification.success({
+    //   message: `신청 완료`,
+    //   description: `성공적으로 신청 완료 되었습니다.`,
+    // });
+    // setIsModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -107,6 +113,11 @@ const ProgramDetail = (props: { detailid: string }) => {
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
+          footer={[
+            <Button key="link" type="primary" onClick={handleOk}>
+              결제하기
+            </Button>,
+          ]}
         >
           <div>정말로 신청하시겠습니까?</div>
         </Modal>
