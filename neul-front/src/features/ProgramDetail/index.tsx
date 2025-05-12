@@ -55,10 +55,7 @@ const ProgramDetail = (props: { detailid: string }) => {
       })
       .then((res) => {
         //console.log("신청 성공");
-        notification.success({
-          message: `신청 완료`,
-          description: `성공적으로 신청 완료 되었습니다.`,
-        });
+
         setIsModalOpen(false);
       });
 
