@@ -22,18 +22,18 @@ const ProgramHistory = () => {
   console.log("프로그램 신청목록: ", programs);
 
   // 프로그램 신청내역 요청
-  // useEffect(() => {
-  //   const fetchPrograms = async () => {
-  //     try {
-  //       const res = await axiosInstance.get("/program/histories");
-  //       setPrograms(res.data); // [{}, {}, {}] 40줄 참조
-  //     } catch (err) {
-  //       console.error("프로그램 신청내역 불러오기 오류:", err);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const res = await axiosInstance.get("/program/histories");
+        setPrograms(res.data); // [{}, {}, {}] 40줄 참조
+      } catch (err) {
+        console.error("프로그램 신청내역 불러오기 오류:", err);
+      }
+    };
 
-  //   fetchPrograms();
-  // }, []);
+    fetchPrograms();
+  }, []);
 
   // 데이터(임시)
   const datas = [

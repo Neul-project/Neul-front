@@ -61,8 +61,8 @@ const PaymentFeature = () => {
 
           <div className="Pay_method">
             <div className="Pay_cont">
-              <label className="TermsOfUse_FullAgreement TermsOfUse_label">
-                <input type="checkbox" className="TermsOfUse_input" />
+              <label className="Pay_label">
+                <input type="checkbox" className="Pay_check" />
                 전체 동의
               </label>
             </div>

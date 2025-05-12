@@ -29,7 +29,7 @@ export const PaymentStyled = styled.div`
       /* width: 60%; */
 
       .Program_info {
-        width: 500px;
+        width: 530px;
         background-color: #fff;
         margin-bottom: 20px;
         padding: 23px 21px;
@@ -61,7 +61,7 @@ export const PaymentStyled = styled.div`
       }
 
       .Orderer_info {
-        width: 500px;
+        width: 530px;
         background-color: #fff;
         padding: 23px 21px;
 
@@ -89,7 +89,7 @@ export const PaymentStyled = styled.div`
       /* width: 38%; */
 
       .Total_amount {
-        width: 350px;
+        width: 340px;
         background-color: #fff;
         margin-bottom: 20px;
         padding: 23px 21px;
@@ -121,9 +121,13 @@ export const PaymentStyled = styled.div`
       }
 
       .Pay_method {
-        width: 350px;
+        width: 340px;
         background-color: #fff;
         padding: 23px 21px;
+
+        .Pay_check {
+          margin-right: 10px;
+        }
       }
 
       .Pay_btn {
