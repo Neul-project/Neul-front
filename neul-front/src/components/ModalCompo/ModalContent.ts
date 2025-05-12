@@ -18,6 +18,15 @@ export const ModalFormWrap = styled.form`
     gap: 7px;
     width: 100%;
   }
+
+  .readonly {
+    width: 100%;
+    padding: 9px 9px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    line-height: 20px;
+  }
 `;
 
 export const ModalTitle = styled.div`

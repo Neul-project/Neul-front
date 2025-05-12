@@ -61,6 +61,7 @@ const Header = () => {
             className="Header_user_container"
             onMouseEnter={() => setIsDropdownOpen(true)}
             onMouseLeave={() => setIsDropdownOpen(false)}
+            onClick={() => setIsDropdownOpen((v) => !v)}
           >
             <span>{user.name} 님</span>
             <span className="Header_icon" />
