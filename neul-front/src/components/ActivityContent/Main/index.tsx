@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
 import dynamic from "next/dynamic";
+import { getActivityLabel } from "@/utils/activityoptionlist";
 
 //antd
 import { Select, Radio, Input, Button, Modal, ConfigProvider } from "antd";
@@ -15,6 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
@@ -24,32 +26,33 @@ const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
 const ActivityContent = (props: { id: string }) => {
   //변수 선언
   const { id } = props;
+  const { user } = useAuthStore();
   const [rehabilitation, setRehabilitation] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState(""); //제목
   const [img, setImg] = useState([""]); //이미지 배열
   const [type, setType] = useState(""); //재활치료
   const [note, setNote] = useState("");
-  const [imgarr, setImgArr] = useState([]);
 
   //useEffect
   useEffect(() => {
-    const userId = 2; // **추후 변경
+    const userId = user?.id;
+
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
     axiosInstance
       .get(`/activity/detail`, {
         params: { userId: userId, id: id },
       })
       .then((res) => {
-        console.log("res", res.data);
+        //console.log("res", res.data);
 
         const data = res.data;
+        const imgarr = data.img.split(",");
         setTitle(data.title);
-        setImg(data.img);
         setRehabilitation(data.rehabilitation);
         setType(data.type);
         setNote(data.note);
-        setImgArr(data.img);
+        setImg(imgarr);
       });
   }, []);
 
@@ -92,13 +95,15 @@ const ActivityContent = (props: { id: string }) => {
             disableOnInteraction: false,
           }}
         >
-          <SwiperSlide>
-            <img
-              src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + imgarr}
-              alt={`preview-0`}
-              className="ActivityContent_swperimg"
-            />
-          </SwiperSlide>
+          {img.map((element) => (
+            <SwiperSlide>
+              <img
+                src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + element}
+                alt={`preview-0`}
+                className="ActivityContent_swperimg"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 
@@ -107,7 +112,11 @@ const ActivityContent = (props: { id: string }) => {
         <div>
           <div className="ActivityContent_text">활동 종류</div>
           <ConfigProvider theme={theme}>
-            <Select defaultValue={type} style={{ width: 200 }} disabled />
+            <Select
+              value={getActivityLabel(type)}
+              style={{ width: 200 }}
+              disabled
+            />
           </ConfigProvider>
         </div>
         <div>
