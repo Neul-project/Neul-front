@@ -93,14 +93,11 @@ const ChatRoom = () => {
 
     socketRef.current.off("receive_message"); // 기존 리스너 제거
     socketRef.current.on("receive_message", (message: any) => {
-      const isMe = message.user?.id === userId;
-
       const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
       const time = dayjs(message.created_at).format("A h:mm");
 
       const parsedMessage: Chatting = {
         ...message,
-        isMe,
         date,
         time,
       };
