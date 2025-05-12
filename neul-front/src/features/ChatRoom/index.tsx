@@ -35,6 +35,7 @@ interface Chatting {
 // 채팅 전체 화면
 const ChatRoom = () => {
   const [inputValue, setInputValue] = useState("");
+  const [adminId, setAdminId] = useState<Number>();
   const [chattings, setChattings] = useState<Chatting[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -56,7 +57,6 @@ const ChatRoom = () => {
   // 채팅 목록 가져오기 요청
   const fetchChatMessages = async () => {
     try {
-      // userId를 보냄
       const res = await axiosInstance.get(`/chat/list`, {
         // params: { limit, currentPage },
       });
@@ -82,39 +82,74 @@ const ChatRoom = () => {
     }
   };
 
+  // 스크롤이 마지막에 있는지 확인
+  const isUserAtBottom = () => {
+    const el = bottomRef.current?.parentElement;
+    if (!el) return false;
+    return el.scrollHeight - el.scrollTop === el.clientHeight;
+  };
+
+  // 담당 관리자 id불러오기
+  const getAdminId = async () => {
+    try {
+      const res = await axiosInstance.get("/user/admin", {
+        params: { userId },
+      });
+      setAdminId(res.data);
+    } catch (e) {
+      console.error("담당 관리자 불러오기 실패: ", e);
+    }
+  };
+
   useEffect(() => {
+    if (!userId) return;
+
+    // 담당 관리자 불러옴
+    getAdminId();
+
     // 채팅 목록 처음 1번 불러옴
     fetchChatMessages();
 
-    // 소켓 연결
-    socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
-      withCredentials: true,
-    });
+    if (adminId) {
+      // 관리자한테 온 채팅 읽음 처리 요청
+      axiosInstance.post("/chat/user/read", {
+        userId,
+        adminId,
+      });
 
-    socketRef.current.off("receive_message"); // 기존 리스너 제거
-    socketRef.current.on("receive_message", (message: any) => {
-      const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
-      const time = dayjs(message.created_at).format("A h:mm");
+      // 소켓 연결
+      socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
+        withCredentials: true,
+      });
 
-      const parsedMessage: Chatting = {
-        ...message,
-        date,
-        time,
+      socketRef.current.off("receive_message"); // 기존 리스너 제거
+      socketRef.current.on("receive_message", (message: any) => {
+        const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
+        const time = dayjs(message.created_at).format("A h:mm");
+
+        const parsedMessage: Chatting = {
+          ...message,
+          date,
+          time,
+        };
+
+        // 새 메시지 수신 -> 채팅 상태 업데이트
+        setChattings((prev) => [...prev, parsedMessage]);
+      });
+
+      return () => {
+        // 컴포넌트가 언마운트될 때 소켓 연결 종료
+        socketRef.current.disconnect();
       };
-
-      // 새 메시지 수신 -> 채팅 상태 업데이트
-      setChattings((prev) => [...prev, parsedMessage]);
-    });
-
-    return () => {
-      // 컴포넌트가 언마운트될 때 소켓 연결 종료
-      socketRef.current.disconnect();
-    };
+    }
   }, []);
 
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
   useEffect(() => {
     scrollToBottom();
+    if (isUserAtBottom()) {
+      axiosInstance.post("/chat/user/read", { userId, adminId });
+    }
   }, [chattings]);
 
   // 날짜별로 그룹화
@@ -129,23 +164,25 @@ const ChatRoom = () => {
   // 채팅 보내기
   const sendMessage = async () => {
     if (!inputValue.trim()) return;
+    if (adminId) {
+      // 채팅 객체
+      const messageToSend = {
+        userId: userId, // 로그인한 사용자 ID
+        message: inputValue, // 보낼 메시지 내용
+        sender: "user",
+      };
 
-    // 채팅 객체
-    const messageToSend = {
-      userId: userId, // 로그인한 사용자 ID
-      message: inputValue, // 보낼 메시지 내용
-      sender: "user",
-    };
+      try {
+        // 소켓 실시간 메시지 전송
+        socketRef.current.emit("send_message", messageToSend);
 
-    try {
-      // 소켓 실시간 메시지 전송
-      socketRef.current.emit("send_message", messageToSend);
-
-      // 입력창 초기화
-      setInputValue("");
-      fetchChatMessages();
-    } catch (e) {
-      console.error("채팅 메시지 전송 실패:", e);
+        // 입력창 초기화
+        setInputValue("");
+      } catch (e) {
+        console.error("채팅 메시지 전송 실패:", e);
+      }
+    } else {
+      message.info("담당 관리자가 없습니다.");
     }
   };
 
@@ -224,7 +261,9 @@ const ChatRoom = () => {
               {messages.map((chat, i) => {
                 const currentTime = chat.time;
                 const nextTime = messages[i + 1]?.time;
-                const shouldShowTime = currentTime !== nextTime;
+                const nextSender = messages[i + 1]?.sender;
+                const shouldShowTime =
+                  chat.sender !== nextSender || currentTime !== nextTime;
                 return (
                   <ChatMessage
                     key={chat.id}

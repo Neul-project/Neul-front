@@ -28,7 +28,9 @@ const ChatMessage = ({
           sender === "user" ? "chatmessage_me" : "chatmessage_other"
         }`}
       >
-        {sender === "admin" && <div className="chatmessage_name">{name}</div>}
+        {sender === "admin" && (
+          <div className="chatmessage_name">{name} 도우미</div>
+        )}
 
         <div className="chatmessage_chat">
           <div className="chatmessage_text">{message}</div>
