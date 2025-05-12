@@ -43,14 +43,13 @@ const ActivityTable = () => {
 
   //useState
   const [datalist, setDataList] = useState<DataType[]>();
+  //const [userId,setUserId] = useState();
 
-  //useEffect
   useEffect(() => {
-    //console.log("user", user.id);
-    const userId = user?.id;
+    if (!user?.id) return;
     //화면 로드 시 테이블 내용 요청
-    axiosInstance.get(`/activity/list/${userId}`).then((res) => {
-      console.log("data res", res.data);
+    axiosInstance.get(`/activity/list/${user?.id}`).then((res) => {
+      //console.log("data res", res.data);
 
       const formatdata: DataType[] = res.data.map((item: any) => ({
         key: String(item.id),
@@ -61,7 +60,7 @@ const ActivityTable = () => {
 
       setDataList(formatdata);
     });
-  }, []);
+  }, [user?.id]);
 
   return (
     <ActivityTableStyled className={clsx("ActivityList_main_wrap")}>

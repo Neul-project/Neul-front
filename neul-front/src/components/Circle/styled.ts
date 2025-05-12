@@ -31,7 +31,7 @@ export const CircleStyled = styled.div<{
         width: ${(props) => props.$width};
         height: ${(props) => props.$width};
         margin: 0 -10px;
-        background: #5da487;
+        //background: #5da487;
         border-radius: 50%;
         transition: all 0.3s ease;
       }
@@ -41,7 +41,8 @@ export const CircleStyled = styled.div<{
       position: relative;
       top: ${(props) => props.$titletop};
       z-index: 2;
-      color: white;
+      //color: white;
+      color: black;
       margin: 12px 0px;
     }
   }
