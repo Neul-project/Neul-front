@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderStyled = styled.div`
   &.Header_main_wrap {
     display: flex;
-    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.07);
+
     /* position: relative; */
     z-index: 100;
 
@@ -16,7 +16,7 @@ export const HeaderStyled = styled.div`
 
     /* 스크롤에 따른 헤더 CSS 변경 */
     &.scrolled {
-      height: 65px;
+      height: 64px;
     }
 
     .header {
@@ -27,6 +27,7 @@ export const HeaderStyled = styled.div`
       justify-content: space-between;
       align-items: center;
       margin: 0px auto;
+      box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.07);
 
       .Header_logo_img {
         /* width: 100px; */

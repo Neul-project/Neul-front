@@ -23,6 +23,7 @@ export const PaymentStyled = styled.div`
     display: flex;
     gap: 20px;
     margin: 0 auto;
+    margin-bottom: 100px;
 
     .Payment_leftContainer {
       /* width: 60%; */
