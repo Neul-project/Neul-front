@@ -4,12 +4,13 @@ export const PaymentStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #f2f5f8;
   padding: 20px;
 
   .Payment_title {
-    font-size: 24px;
-    padding: 28px 0;
+    font-size: 28px;
+    font-weight: 600;
+    padding: 30px 0 48px;
   }
 
   .title {
@@ -29,10 +30,11 @@ export const PaymentStyled = styled.div`
       /* width: 60%; */
 
       .Program_info {
-        width: 530px;
+        width: 565px;
         background-color: #fff;
         margin-bottom: 20px;
         padding: 23px 21px;
+        border-radius: 16px;
 
         .program_info_container {
           display: flex;
@@ -61,9 +63,10 @@ export const PaymentStyled = styled.div`
       }
 
       .Orderer_info {
-        width: 530px;
+        width: 565px;
         background-color: #fff;
         padding: 23px 21px;
+        border-radius: 16px;
 
         .Orderder_info_container {
           .O_orderer {
@@ -89,8 +92,9 @@ export const PaymentStyled = styled.div`
       /* width: 38%; */
 
       .Total_amount {
-        width: 340px;
+        width: 375px;
         background-color: #fff;
+        border-radius: 16px;
         margin-bottom: 20px;
         padding: 23px 21px;
 
@@ -120,28 +124,19 @@ export const PaymentStyled = styled.div`
         }
       }
 
-      .Pay_method {
-        width: 340px;
-        background-color: #fff;
-        padding: 23px 21px;
-
-        .Pay_check {
-          margin-right: 10px;
-        }
-      }
-
-      .Pay_btn {
+      .T_btn {
         width: 100%;
 
         button {
           cursor: pointer;
           width: 100%;
-          border: none;
-          padding: 15px 18px;
-          font-size: 16px;
-          font-weight: 700;
-          color: #fff;
+          padding: 17px;
           background-color: #9ac3b0;
+          color: #fff;
+          border: none;
+          border-radius: 12px;
+          font-size: 17px;
+          font-weight: 700;
         }
       }
     }

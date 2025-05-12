@@ -9,7 +9,7 @@ const PaymentFeature = () => {
         {/* 왼쪽 */}
         <div className="Payment_leftContainer">
           {/* 프로그램 주문 정보 */}
-          <div className="Program_info">
+          <div className="Program_info radius">
             <div className="title">프로그램 주문 정보</div>
 
             <div className="program_info_container">
@@ -26,7 +26,7 @@ const PaymentFeature = () => {
           </div>
 
           {/* 주문자 정보 */}
-          <div className="Orderer_info">
+          <div className="Orderer_info radius">
             <div className="title">주문자 정보</div>
 
             <div className="Orderder_info_container">
@@ -39,7 +39,8 @@ const PaymentFeature = () => {
 
         {/* 오른쪽 */}
         <div className="Payment_RightContainer">
-          <div className="Total_amount">
+          {/* 총 결제금액 */}
+          <div className="Total_amount radius">
             <div className="title">최종 결제금액</div>
 
             <div className="T_flex">
@@ -59,17 +60,7 @@ const PaymentFeature = () => {
             </div>
           </div>
 
-          <div className="Pay_method">
-            <div className="Pay_cont">
-              <label className="Pay_label">
-                <input type="checkbox" className="Pay_check" />
-                전체 동의
-              </label>
-            </div>
-
-            <div>동의</div>
-          </div>
-          <div className="Pay_btn">
+          <div className="T_btn">
             <button>결제하기</button>
           </div>
         </div>
