@@ -2,15 +2,38 @@ import { ProgramHistoryStyled, Cell, Btn } from "./styled";
 import ModalCompo from "../ModalCompo";
 import * as S from "@/components/ModalCompo/ModalContent";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import { refundValidation } from "@/utils/userValidation";
 
+import axiosInstance from "@/lib/axios";
+
+// 프로그램 신청내역 컴포넌트
 const ProgramHistory = () => {
+  // 프로그램 목록
+  const [programs, setPrograms] = useState([]);
+  // 환불 모달 on/off
   const [refundOpen, setRefundOpen] = useState(false);
+  // 환불 프로그램 id
+  const [selectedProgramId, setSelectedProgramId] = useState<number | null>(
+    null
+  );
 
-  const [accountNumber, setAccountNumber] = useState("");
-  const [accountHolder, setAccountHolder] = useState("");
-  const [bankName, setBankName] = useState("");
-  const [refundReason, setRefundReason] = useState("");
+  console.log("프로그램 신청목록: ", programs);
+
+  // 프로그램 신청내역 요청
+  // useEffect(() => {
+  //   const fetchPrograms = async () => {
+  //     try {
+  //       const res = await axiosInstance.get("/program/histories");
+  //       setPrograms(res.data); // [{}, {}, {}] 40줄 참조
+  //     } catch (err) {
+  //       console.error("프로그램 신청내역 불러오기 오류:", err);
+  //     }
+  //   };
+
+  //   fetchPrograms();
+  // }, []);
 
   // 데이터(임시)
   const datas = [
@@ -44,6 +67,50 @@ const ProgramHistory = () => {
     },
   ];
 
+  // 환불 요청
+  const formik = useFormik({
+    initialValues: {
+      accountNumber: "",
+      accountHolder: "",
+      bankName: "",
+      refundReason: "",
+    },
+    validationSchema: refundValidation,
+    onSubmit: async (values, { resetForm }) => {
+      // if (!selectedProgramId) {
+      //   alert("프로그램을 선택해주세요.");
+      //   return;
+      // }
+
+      const payload = {
+        programs_id: selectedProgramId,
+        account: values.accountNumber,
+        bank: values.accountHolder,
+        name: values.bankName,
+        note: values.refundReason,
+      };
+
+      console.log("환불신청 데이터: ", payload);
+
+      // try {
+      //   const res = await axiosInstance.post("/program/refund", payload);
+
+      //   if (res.data?.ok) {
+      //     alert("환불 신청이 완료되었습니다.");
+      //     resetForm();
+      //     setSelectedProgramId(null);
+      //     setRefundOpen(false);
+      //   } else {
+      //     alert("환불 신청에 실패했습니다. 다시 시도해주세요.");
+      //     console.warn("환불 실패 응답:", res.data);
+      //   }
+      // } catch (err) {
+      //   console.error(err);
+      //   alert("환불 신청 중 오류가 발생했습니다.");
+      // }
+    },
+  });
+
   return (
     <ProgramHistoryStyled>
       <div className="ProgramHistory_container">
@@ -72,8 +139,10 @@ const ProgramHistory = () => {
                 </div>
 
                 <div className="ProgramHistory_content flex-end">
+                  {/* 클릭한 프로그램 id 추가필요 */}
                   <Btn
                     onClick={() => {
+                      // setSelectedProgramId(data.id);
                       setRefundOpen(true);
                     }}
                   >
@@ -89,18 +158,7 @@ const ProgramHistory = () => {
       {/* 환불 모달 */}
       {refundOpen && (
         <ModalCompo onClose={() => setRefundOpen(false)}>
-          <S.ModalFormWrap
-            onSubmit={(e) => {
-              e.preventDefault();
-              // 여기서 서버 전송 또는 상태 처리
-              console.log({
-                accountNumber,
-                accountHolder,
-                bankName,
-                refundReason,
-              });
-            }}
-          >
+          <S.ModalFormWrap onSubmit={formik.handleSubmit}>
             <S.ModalTitle>환불정보 작성</S.ModalTitle>
 
             {/* 환불 계좌번호 */}
@@ -112,9 +170,13 @@ const ProgramHistory = () => {
                 type="text"
                 name="accountNumber"
                 placeholder="환불 계좌번호를 입력해주세요"
-                value={accountNumber}
-                onChange={(e) => setAccountNumber(e.target.value)}
+                value={formik.values.accountNumber}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.accountNumber && formik.errors.accountNumber && (
+                <div className="error">{formik.errors.accountNumber}</div>
+              )}
             </S.ModalInputDiv>
 
             <div className="flex">
@@ -127,9 +189,14 @@ const ProgramHistory = () => {
                   type="text"
                   name="accountHolder"
                   placeholder="예금자명을 입력해주세요"
-                  value={accountHolder}
-                  onChange={(e) => setAccountHolder(e.target.value)}
+                  value={formik.values.accountHolder}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.accountHolder &&
+                  formik.errors.accountHolder && (
+                    <div className="error">{formik.errors.accountHolder}</div>
+                  )}
               </S.ModalInputDiv>
 
               {/* 은행명 */}
@@ -139,8 +206,9 @@ const ProgramHistory = () => {
                 </S.ModalCont>
                 <S.ModalSelect
                   name="bankName"
-                  value={bankName}
-                  onChange={(e) => setBankName(e.target.value)}
+                  value={formik.values.bankName}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 >
                   <option value="">은행을 선택해주세요</option>
                   <option value="국민은행">국민은행</option>
@@ -149,6 +217,9 @@ const ProgramHistory = () => {
                   <option value="하나은행">하나은행</option>
                   <option value="농협은행">농협은행</option>
                 </S.ModalSelect>
+                {formik.touched.bankName && formik.errors.bankName && (
+                  <div className="error">{formik.errors.bankName}</div>
+                )}
               </S.ModalInputDiv>
             </div>
 
@@ -160,9 +231,13 @@ const ProgramHistory = () => {
               <S.ModalTextarea
                 name="refundReason"
                 placeholder="환불 사유를 입력해주세요"
-                value={refundReason}
-                onChange={(e) => setRefundReason(e.target.value)}
+                value={formik.values.refundReason}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
+              {formik.touched.refundReason && formik.errors.refundReason && (
+                <div className="error">{formik.errors.refundReason}</div>
+              )}
             </S.ModalInputDiv>
 
             <div className="MyInfo_CngPWSub">

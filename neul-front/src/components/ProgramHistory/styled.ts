@@ -97,6 +97,13 @@ export const ProgramHistoryStyled = styled.div`
       }
     }
   }
+
+  .error {
+    font-size: 13px;
+    color: rgb(240, 63, 64);
+    line-height: 20px;
+    padding-left: 4px;
+  }
 `;
 
 export const Cell = styled.div<{ $flex: number }>`

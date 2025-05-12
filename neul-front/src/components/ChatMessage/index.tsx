@@ -5,15 +5,30 @@ interface ChatMessageProps {
   name: string; // 도우미 이름
   message: string; // 채팅 내용
   time: string; // 보낸 시간
-  isMe: boolean; // 본인이 작성한 chat인지 확인
+  sender: string; // 본인이 작성한 chat인지 확인
+  userDel: boolean; // 삭제한 메시지인지 확인
 }
 
 // 채팅 메시지(본인이 작성한 것인지 판단)
-const ChatMessage = ({ name, message, time, isMe }: ChatMessageProps) => {
+const ChatMessage = ({
+  name,
+  message,
+  time,
+  sender,
+  userDel,
+}: ChatMessageProps) => {
   return (
-    <ChatMessageStyled className={clsx("chatmessage_wrap")}>
-      <div className={`${isMe ? "chatmessage_me" : "chatmessage_other"}`}>
-        {!isMe && <div className="chatmessage_name">{name}</div>}
+    <ChatMessageStyled
+      className={clsx(
+        `chatmessage_wrap ${userDel ? "chatmessage_nonmessage" : ""}`
+      )}
+    >
+      <div
+        className={`${
+          sender === "user" ? "chatmessage_me" : "chatmessage_other"
+        }`}
+      >
+        {sender === "admin" && <div className="chatmessage_name">{name}</div>}
 
         <div className="chatmessage_chat">
           <div className="chatmessage_text">{message}</div>

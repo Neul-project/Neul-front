@@ -9,7 +9,7 @@ import axiosInstance from "@/lib/axios";
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 
-import { changePwValidation } from "@/utils/joinValidation";
+import { changePwValidation } from "@/utils/userValidation";
 import { formatPhoneNumber } from "@/utils/formatter";
 
 import { useAuthStore } from "@/stores/useAuthStore";

@@ -6,6 +6,7 @@ import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useAuthStore } from "@/stores/useAuthStore";
+import MiniNoteBook from "../MiniNoteBook";
 
 // 상태 타입
 interface StatusType {
@@ -27,7 +28,6 @@ type statusProps = {
 const StatusCheck = ({ type }: statusProps) => {
   const [status, setStatus] = useState<StatusType[] | null>(null);
   const [name, setName] = useState<string>(""); // 피보호자 이름
-
   const userId = useAuthStore((state) => state.user?.id);
   console.log("유저 id", userId);
   const today = dayjs(); // 오늘 날짜
@@ -38,13 +38,13 @@ const StatusCheck = ({ type }: statusProps) => {
   const SelectDate = (date: dayjs.Dayjs | null) => {
     if (!date) return;
 
-    const selectedDate = date.format("YYYY-MM-DD");
+    const formattedDate = date.format("YYYY-MM-DD");
     // userId와 날짜(2025-04-30)를 보내면 상태 기록 받기
     axiosInstance
       .get("/status/day", {
         params: {
           userId,
-          date: String(selectedDate),
+          date: String(formattedDate),
         },
       })
       .then((res) => {
@@ -87,16 +87,19 @@ const StatusCheck = ({ type }: statusProps) => {
 
     // 오늘 날짜 상태 요청
     SelectDate(today);
-  }, [userId]);
+  }, []);
 
   return (
     // 달력 한글로
     <ConfigProvider locale={koKR}>
       <StatusCheckStyled
         className={clsx(
-          `statuscheck_wrap ${type !== "book" ? "notbook_wrap" : ""}`
+          `statuscheck_wrap ${type !== "book" ? "notbook_wrap" : "book_wrap"}`
         )}
       >
+        {/* 고리 */}
+        {type !== "book" && <MiniNoteBook />}
+
         <div
           className={`statuscheck_box ${type !== "book" ? "notbook_box" : ""}`}
         >

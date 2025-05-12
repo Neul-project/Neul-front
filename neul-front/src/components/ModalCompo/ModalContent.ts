@@ -16,6 +16,16 @@ export const ModalFormWrap = styled.form`
   .flex {
     display: flex;
     gap: 7px;
+    width: 100%;
+  }
+
+  .readonly {
+    width: 100%;
+    padding: 9px 9px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    line-height: 20px;
   }
 `;
 
@@ -44,6 +54,10 @@ export const ModalInput = styled.input`
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
+`;
+
+export const ModalLabel = styled.label`
+  padding: 0 12px;
 `;
 
 export const ModalTextarea = styled.textarea`
