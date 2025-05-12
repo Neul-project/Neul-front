@@ -49,10 +49,9 @@ const ProgramDetail = (props: { detailid: string }) => {
   };
 
   const handleOk = () => {
+    //console.log("de", Number(detailid));
     axiosInstance
-      .post("/program/apply", {
-        params: { programId: Number(detailid) },
-      })
+      .post("/program/apply", { programId: Number(detailid) })
       .then((res) => {
         //console.log("신청 성공");
 
