@@ -160,7 +160,7 @@ const ChatRoom = () => {
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
   useEffect(() => {
     scrollToBottom();
-    if (isUserAtBottom() && adminId) {
+    if (adminId) {
       axiosInstance.post("/chat/user/read", { userId, adminId });
       clearUnreadCount();
     }
