@@ -2,17 +2,17 @@ import styled from "styled-components";
 
 export const StatusCheckStyled = styled.div`
   &.statuscheck_wrap {
-    max-width: 700px;
+    max-width: 500px;
     width: 100%;
     &.notbook_wrap {
-      margin: 20px auto;
+      margin: 30px auto;
       padding-bottom: 20px;
     }
     &.book_wrap {
       position: absolute;
       z-index: 25;
     }
-    padding: 0 10px;
+    padding: 0 32px;
 
     .statuscheck_box {
       &.notbook_box::before {
@@ -100,8 +100,8 @@ export const StatusCheckStyled = styled.div`
       .statuscheck_row {
         display: flex;
         gap: 10px;
-        margin-bottom: 10px;
-        font-size: 18px;
+        margin-bottom: 20px;
+        font-size: 22px;
         font-weight: 500;
         .statuscheck_title {
           min-width: 120px;
@@ -128,11 +128,17 @@ export const StatusCheckStyled = styled.div`
         padding: 10px 5px 5px 67px;
       }
 
+      @media (max-width: 1152px) {
+        .statuscheck_info {
+          padding: 0;
+        }
+      }
+
       .statuscheck_none {
         margin-top: 60px;
         display: flex;
         justify-content: center;
-        font-size: 16px;
+        font-size: 25px;
         color: #999;
       }
     }
@@ -141,7 +147,7 @@ export const StatusCheckStyled = styled.div`
       margin-bottom: 15px;
     }
     .statuscheck_value.scrollable {
-      max-height: 7.5em;
+      max-height: 4em;
       overflow-y: auto;
       white-space: pre-wrap;
       word-break: break-word;

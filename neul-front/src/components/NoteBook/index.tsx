@@ -1,7 +1,5 @@
 import clsx from "clsx";
 import { NoteBookStyled } from "./styled";
-import statusImg from "@/assets/images/statusImg.png";
-import Image from "next/image";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -11,7 +9,7 @@ import { InfoCircleFilled } from "@ant-design/icons";
 
 const NoteBook = () => {
   const [name, setName] = useState<string>(""); // 피보호자 이름
-  const num = Array(1).fill(0);
+  // const num = Array(1).fill(0);
   const lineNum = Array(10).fill(0);
 
   const userId = useAuthStore((state) => state.user?.id);
@@ -70,27 +68,20 @@ const NoteBook = () => {
                           className={`notebook_line notebook_line${i + 1}`}
                         ></div>
                       ))}
-                      {/* 피보호자 이름 */}
-                      {name && (
-                        <div className="statuscheck_name">{name}님 상태</div>
-                      )}
-                      <Popover
-                        className="statuscheck_popover"
-                        placement="bottom"
-                        content={content}
-                      >
-                        <InfoCircleFilled
-                          style={{ fontSize: "16px", color: "#c9c9c9" }}
-                        />
-                      </Popover>
-
-                      {/* 이미지 */}
-                      <div className="notebook_img_box">
-                        <Image
-                          className="notebook_img"
-                          src={statusImg}
-                          alt="상태 이미지"
-                        />
+                      <div className="notebook_name_box">
+                        {/* 피보호자 이름 */}
+                        {name && (
+                          <div className="notebook_name">{name}님 상태</div>
+                        )}
+                        <Popover
+                          className="notebook_popover"
+                          placement="bottom"
+                          content={content}
+                        >
+                          <InfoCircleFilled
+                            style={{ fontSize: "16px", color: "#c9c9c9" }}
+                          />
+                        </Popover>
                       </div>
                     </div>
                   </div>
@@ -98,7 +89,7 @@ const NoteBook = () => {
               </div>
             </div>
           </div>
-          <div className="notebook_spring">
+          {/* <div className="notebook_spring">
             {num.map((_, i) => (
               <div className={`notebook_ring notebook_ring${i + 1}`}>
                 <div className="notebook_ringbottom">
@@ -112,7 +103,7 @@ const NoteBook = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
 
         <div className="notebook_right">
