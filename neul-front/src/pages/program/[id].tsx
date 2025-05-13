@@ -1,4 +1,4 @@
-import ProgramDetail from "@/features/ProgramDetail";
+import ProgramDetail from "@/features/ProgramDetail/Main";
 import { useRouter } from "next/router";
 
 const ProgramDetailPage = () => {
