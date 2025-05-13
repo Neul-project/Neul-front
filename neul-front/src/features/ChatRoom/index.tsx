@@ -95,9 +95,7 @@ const ChatRoom = () => {
   // 담당 관리자 id불러오기
   const getAdminId = async () => {
     try {
-      const res = await axiosInstance.get("/user/admin", {
-        params: { userId },
-      });
+      const res = await axiosInstance.get("/user/admin");
       setAdminId(res.data);
     } catch (e) {
       console.error("담당 관리자 불러오기 실패: ", e);
