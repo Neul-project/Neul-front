@@ -21,17 +21,17 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 // 응답 인터셉터 - 401 발생 시 로그인 페이지로 리디렉션
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (
-      error.response?.status === 401 &&
-      !error.config.url.includes("/check-temp-token")
-    ) {
-      Router.push("/login");
-    }
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (
+//       error.response?.status === 401 &&
+//       !error.config.url.includes("/check-temp-token")
+//     ) {
+//       Router.push("/login");
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;

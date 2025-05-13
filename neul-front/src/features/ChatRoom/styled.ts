@@ -2,8 +2,11 @@ import styled from "styled-components";
 
 export const ChatRoomStyled = styled.div`
   &.chatroom_wrap {
+    background-color: rgb(242, 245, 248);
+    height: 100vh;
     /* 채팅 헤더 */
     .chatroom_header {
+      top: 0px;
       position: fixed;
       width: 100%;
       display: flex;
@@ -47,14 +50,17 @@ export const ChatRoomStyled = styled.div`
 
     /* 채팅 내용 */
     .chatroom_content_box {
+      position: relative;
+      border-radius: 10px;
+      top: 100px;
+      background-color: white;
       max-width: 1028px;
-      height: 99.9vh;
+      height: 700px;
       margin: 0 auto;
       padding-top: 70px;
       display: flex;
       flex-direction: column;
-      border-left: 1.5px solid #ccc;
-      border-right: 1.5px solid #ccc;
+
       .chatroom_content {
         flex: 1;
         overflow-y: scroll;
