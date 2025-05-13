@@ -75,6 +75,19 @@ export const MoreInfoStyled = styled.div`
     }
   }
 
+  .MoreInfo_dup {
+    button {
+      cursor: pointer;
+      padding: 11px 28px;
+      margin-left: 8px;
+      font-size: 15px;
+      background-color: #fff;
+      color: ${(props) => props.theme.colors.pointGreen};
+      border: 1px solid ${(props) => props.theme.colors.pointGreen};
+      border-radius: 4px;
+    }
+  }
+
   .MoreInfo_input {
     width: 330px;
     height: 46px;

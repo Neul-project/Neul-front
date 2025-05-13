@@ -184,7 +184,7 @@ const JoinPage = () => {
     },
   });
 
-  // 이메일,전화번호 값이 변경되면 중복 확인 상태 리셋
+  // 이메일,전화번호 값이 변경되면 중복확인 리셋
   useEffect(() => {
     setIsEmailChecked(false);
   }, [formik.values.email]);
@@ -289,7 +289,7 @@ const JoinPage = () => {
                       handleDuplicationCheck("email", checkEmailValue);
                     }}
                   >
-                    중복 확인
+                    중복확인
                   </button>
                 </div>
               </div>
@@ -385,7 +385,7 @@ const JoinPage = () => {
                       handleDuplicationCheck("phone", formik.values.phone);
                     }}
                   >
-                    중복 확인
+                    중복확인
                   </button>
                 </div>
               </div>
