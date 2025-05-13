@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ProgramContentStyled = styled.div`
   &.ProgramContent_main_wrap {
     width: 100%;
-    height: 400px;
+    height: 100%;
 
     .ProgramDetail_row {
       display: flex;
