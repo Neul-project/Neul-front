@@ -20,7 +20,7 @@ export const NoteBookStyled = styled.div`
         height: 770px;
         z-index: 11;
         position: absolute;
-        top: 20px;
+        top: -40px;
         left: 545px;
 
         .notebook_ring {
@@ -69,59 +69,60 @@ export const NoteBookStyled = styled.div`
           }
 
           .notebook_point_box {
-            width: 25px;
-            height: 20px;
+            width: 16px;
+            height: 13px;
             border-radius: 50%;
             background-color: black;
             position: relative;
-            top: 36px;
+            top: 30px;
             left: -5.8px;
             .notebook_point {
               position: relative;
               top: -5px;
               left: 5px;
               border-radius: 50%;
-              width: 21px;
-              height: 20px;
+              width: 12px;
+              height: 13px;
               background-color: #ccc;
             }
           }
 
           .notebook_point_box2 {
-            width: 25px;
-            height: 20px;
+            width: 16px;
+            height: 13px;
             border-radius: 50%;
             background-color: black;
             position: relative;
-            top: 15px;
-            left: 60px;
+            top: 17px;
+            left: 69px;
             .notebook_point2 {
               position: relative;
-              top: -5px;
+              top: -6px;
+              left: -2px;
               border-radius: 50%;
-              width: 21px;
-              height: 20px;
+              width: 12px;
+              height: 13px;
               background-color: #ccc;
             }
           }
 
           .notebook_ringbottom {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 50px;
             border-radius: 30px 30px 0 0;
             background-color: white;
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 10px;
+            left: 10px;
             z-index: 12;
             overflow: hidden;
             .notebook_ringleft {
               width: 25px;
-              height: 40px;
+              height: 50px;
               /* background-color: aliceblue; */
               position: absolute;
               top: 0px;
-              left: 7px;
+              left: 17px;
               box-shadow: inset 5px 0 3px -2px rgba(0, 0, 0, 0.1),
                 inset -5px 0 3px -2px rgba(0, 0, 0, 0.1);
             }
