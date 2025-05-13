@@ -61,10 +61,49 @@ export const HeaderStyled = styled.div`
 
   .Header_user_container {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 25px;
     position: relative;
     margin-right: 40px;
     font-size: 14px;
     line-height: 39px;
+
+    .user_wrap {
+      position: relative;
+    }
+
+    .div_box {
+      position: relative;
+      height: 27px;
+
+      .absolute {
+        position: absolute;
+        right: -8px;
+        top: 11px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0px 5px;
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 10px;
+        background-color: ${(props) => props.theme.colors.pointGreen};
+        font-size: 9px;
+        color: rgb(255, 255, 255);
+        line-height: 15px;
+        text-align: center;
+        white-space: nowrap;
+      }
+    }
+
+    .GrBook {
+      width: 23px;
+      height: 22px;
+    }
+
+    .bell {
+      width: 27px;
+      height: 27px;
+    }
 
     .Header_icon {
       cursor: pointer;

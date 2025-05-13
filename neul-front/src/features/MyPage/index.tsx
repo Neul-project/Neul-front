@@ -8,6 +8,7 @@ import SidebarMenu from "@/components/SideBarMenu";
 import MyInfo from "@/components/MyInfo";
 import WardInfo from "@/components/WardInfo";
 import ProgramHistory from "@/components/ProgramHistory";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 // import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -53,10 +54,9 @@ const MyPageCompo = () => {
             currentTab={currentTab}
             onTabChange={setTab}
             onLogout={() => {
-              // 로그아웃 처리 로직
-              Cookies.remove("access_token");
-              Cookies.remove("refresh_token");
-              router.push("/");
+              // 상태 초기화 + 쿠키 삭제
+              useAuthStore.getState().logout();
+              window.location.replace("/");
             }}
           />
         </div>

@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import logo from "@/assets/images/logo_small.png";
 
 import { GrBook } from "react-icons/gr";
-import { PiBellLight } from "react-icons/pi";
+import { FaRegBell } from "react-icons/fa6";
+import { PiBellRinging } from "react-icons/pi";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -61,46 +62,54 @@ const Header = () => {
           {/* 로그인 유무에 따라 다른 JSX표시 */}
           {user?.name ? (
             // 로그인 O
-            <div
-              className="Header_user_container"
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
-              onClick={() => setIsDropdownOpen((v) => !v)}
-            >
-              <span>{user.name} 님</span>
-              <span className="Header_icon" />
+            <div className="Header_user_container">
+              <div
+                className="user_wrap"
+                onMouseEnter={() => setIsDropdownOpen(true)}
+                onMouseLeave={() => setIsDropdownOpen(false)}
+                onClick={() => setIsDropdownOpen((v) => !v)}
+              >
+                <span>{user.name} 님</span>
+                <span className="Header_icon" />
 
-              <GrBook />
-              <PiBellLight />
+                {/* 드롭다운 메뉴 */}
+                {isDropdownOpen && (
+                  <div className="Header_dropdown">
+                    <div
+                      className="Header_dropdown_item"
+                      onClick={() => {
+                        if (router.pathname !== "/mypage") {
+                          // 다른페이지일 때만 모달 닫기
+                          setIsDropdownOpen(false);
+                          router.push("/mypage");
+                        }
+                      }}
+                    >
+                      개인정보 수정
+                    </div>
+                    <div
+                      className="Header_dropdown_item"
+                      onClick={() => {
+                        // 상태 초기화 + 쿠키 삭제
+                        useAuthStore.getState().logout();
 
-              {/* 드롭다운 메뉴 */}
-              {isDropdownOpen && (
-                <div className="Header_dropdown">
-                  <div
-                    className="Header_dropdown_item"
-                    onClick={() => {
-                      if (router.pathname !== "/mypage") {
-                        // 다른페이지일 때만 모달 닫기
-                        setIsDropdownOpen(false);
-                        router.push("/mypage");
-                      }
-                    }}
-                  >
-                    개인정보 수정
+                        window.location.replace("/");
+                      }}
+                    >
+                      로그아웃
+                    </div>
                   </div>
-                  <div
-                    className="Header_dropdown_item"
-                    onClick={() => {
-                      // 상태 초기화 + 쿠키 삭제
-                      useAuthStore.getState().logout();
+                )}
+              </div>
 
-                      window.location.replace("/");
-                    }}
-                  >
-                    로그아웃
-                  </div>
-                </div>
-              )}
+              <div className="div_box">
+                <GrBook className="GrBook" />
+                <span className="absolute">1</span>
+              </div>
+
+              <div className="div_box">
+                <PiBellRinging className="bell" />
+              </div>
             </div>
           ) : (
             // 로그인 X
