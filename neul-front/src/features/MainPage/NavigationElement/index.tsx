@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { NavigationElementStyled } from "./styled";
 import { useRouter } from "next/router";
-
+import io from "socket.io-client";
 //component
 
 //image
@@ -10,10 +10,47 @@ import plus from "@/assets/images/plus.png";
 import chat from "@/assets/images/ic-event-survey.png";
 import test from "@/assets/images/ic-event-test.png";
 import relay from "@/assets/images/ic-event-relay.png";
+import { useMessageStore } from "@/stores/useMessageStore";
+import { Badge } from "antd";
+import { useEffect } from "react";
+import axiosInstance from "@/lib/axios";
 
 //네비게이션 컴포넌트
 const NavigationElement = () => {
+  const { setUnreadCount, increaseUnreadCount, clearUnreadCount } =
+    useMessageStore();
+  // const unreadCount = 3;
   const router = useRouter();
+
+  // 안 읽은 채팅 개수 가져오기
+  const fetchUnreadCount = async () => {
+    try {
+      const res = await axiosInstance.get("/chat/unreadCount");
+      setUnreadCount(res.data);
+    } catch (error) {
+      console.error("안 읽은 채팅 개수 가져오기 실패:", error);
+    }
+  };
+
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 개수 가져오기
+    fetchUnreadCount();
+
+    // 소켓 연결
+    const socket = io(process.env.NEXT_PUBLIC_API_URL, {
+      withCredentials: true,
+    });
+
+    // 다른 사람이 채팅 보내면 알림 개수 증가
+    socket.on("receive_message", () => {
+      increaseUnreadCount(); // unreadCount 증가
+    });
+
+    // 컴포넌트 언마운트 시 소켓 연결 종료
+    return () => {
+      socket.disconnect();
+    };
+  }, [increaseUnreadCount, clearUnreadCount]);
 
   //상태확인 페이지 이동
   const stateCheck = () => {
@@ -75,13 +112,19 @@ const NavigationElement = () => {
             <div className="NavigationElement_text">활동기록</div>
           </div>
           <div className="NavigationElement_ele" onClick={ChatRoom}>
-            <div className="NavigationElement_img">
-              <img
-                className="NavigationElement_imgstyle"
-                src={chat.src}
-                alt="puls"
-              />
-            </div>
+            <Badge
+              count={useMessageStore.getState().unreadCount}
+              size="small"
+              offset={[-2, 20]}
+            >
+              <div className="NavigationElement_img">
+                <img
+                  className="NavigationElement_imgstyle"
+                  src={chat.src}
+                  alt="puls"
+                />
+              </div>
+            </Badge>
             <div className="NavigationElement_text">채팅</div>
           </div>
         </div>

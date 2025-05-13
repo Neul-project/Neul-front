@@ -24,40 +24,48 @@ export const NoteBookStyled = styled.div`
         left: 545px;
 
         .notebook_ring {
-          width: 110px;
-          height: 45px;
-          border-radius: 55px 55px 0 0;
+          width: 80px;
+          height: 40px;
+          border-radius: 40px 40px 0 0;
           background-color: #ccc;
           position: absolute;
           top: 50px;
+          right: 28px;
 
           &.notebook_ring2 {
             position: relative;
             top: 130px;
+            right: -11px;
           }
           &.notebook_ring3 {
             position: relative;
             top: 170px;
+            right: -11px;
           }
           &.notebook_ring4 {
             position: relative;
             top: 210px;
+            right: -11px;
           }
           &.notebook_ring5 {
             position: relative;
             top: 255px;
+            right: -11px;
           }
           &.notebook_ring6 {
             position: relative;
             top: 300px;
+            right: -11px;
           }
           &.notebook_ring7 {
             position: relative;
             top: 343px;
+            right: -11px;
           }
           &.notebook_ring8 {
             position: relative;
             top: 385px;
+            right: -11px;
           }
 
           .notebook_point_box {
@@ -66,8 +74,8 @@ export const NoteBookStyled = styled.div`
             border-radius: 50%;
             background-color: black;
             position: relative;
-            top: 40px;
-            left: -5.7px;
+            top: 36px;
+            left: -5.8px;
             .notebook_point {
               position: relative;
               top: -5px;
@@ -85,8 +93,8 @@ export const NoteBookStyled = styled.div`
             border-radius: 50%;
             background-color: black;
             position: relative;
-            top: 20px;
-            left: 90px;
+            top: 15px;
+            left: 60px;
             .notebook_point2 {
               position: relative;
               top: -5px;
@@ -98,7 +106,7 @@ export const NoteBookStyled = styled.div`
           }
 
           .notebook_ringbottom {
-            width: 70px;
+            width: 40px;
             height: 40px;
             border-radius: 30px 30px 0 0;
             background-color: white;
@@ -108,12 +116,12 @@ export const NoteBookStyled = styled.div`
             z-index: 12;
             overflow: hidden;
             .notebook_ringleft {
-              width: 37.7px;
+              width: 25px;
               height: 40px;
               background-color: aliceblue;
               position: absolute;
               top: 0px;
-              left: 13px;
+              left: 6px;
             }
           }
         }
@@ -166,7 +174,7 @@ export const NoteBookStyled = styled.div`
                   right: -5px;
                   .notebook_note6 {
                     width: 100%;
-                    max-width: 535px;
+                    max-width: 550px;
                     position: relative;
                     top: 0;
                     right: -5px;
@@ -244,10 +252,10 @@ export const NoteBookStyled = styled.div`
                   top: 0;
                   .notebook_note6 {
                     width: 100%;
-                    max-width: 535px;
+                    max-width: 550px;
                     position: relative;
                     top: 0;
-                    right: 2px;
+                    right: 10px;
                   }
                 }
               }

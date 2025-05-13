@@ -24,7 +24,7 @@ export const StatusCheckStyled = styled.div`
         height: 100%;
         border-radius: 16px;
         background: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
         z-index: -1;
       }
     }
@@ -38,7 +38,7 @@ export const StatusCheckStyled = styled.div`
         height: 100%;
         border-radius: 16px;
         background: white;
-        box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
         z-index: -2;
       }
     }
@@ -62,7 +62,7 @@ export const StatusCheckStyled = styled.div`
           height: 100%;
           border-radius: 16px;
           background: white;
-          box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.06);
+          box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
           z-index: -1;
         }
 
@@ -76,7 +76,7 @@ export const StatusCheckStyled = styled.div`
           height: 100%;
           border-radius: 16px;
           background: white;
-          box-shadow: 0 6px 8px rgba(0, 0, 0, 0.06);
+          box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
           z-index: -2;
         }
       }
