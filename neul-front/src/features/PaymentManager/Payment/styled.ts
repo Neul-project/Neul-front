@@ -9,7 +9,7 @@ export const PaymentStyled = styled.div`
 
   .Payment_title {
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 500;
     padding: 30px 0 48px;
   }
 
@@ -25,6 +25,7 @@ export const PaymentStyled = styled.div`
     gap: 20px;
     margin: 0 auto;
     margin-bottom: 100px;
+    /* overflow: visible; */
 
     .Payment_leftContainer {
       /* width: 60%; */
@@ -32,7 +33,6 @@ export const PaymentStyled = styled.div`
       .Program_info {
         width: 565px;
         background-color: #fff;
-        margin-bottom: 20px;
         padding: 23px 21px;
         border-radius: 16px;
 
@@ -40,11 +40,12 @@ export const PaymentStyled = styled.div`
           display: flex;
           align-items: flex-start;
           gap: 15px;
+          margin-bottom: 24px;
         }
 
         .program_info_imgDiv {
-          width: 80px;
-          height: 80px;
+          width: 77px;
+          height: 77px;
 
           img {
             width: 100%;
@@ -67,6 +68,7 @@ export const PaymentStyled = styled.div`
         background-color: #fff;
         padding: 23px 21px;
         border-radius: 16px;
+        margin-bottom: 20px;
 
         .Orderder_info_container {
           .O_orderer {
@@ -89,7 +91,14 @@ export const PaymentStyled = styled.div`
     }
 
     .Payment_RightContainer {
-      /* width: 38%; */
+      position: relative;
+
+      .Payment_RightSubContainer {
+        position: sticky;
+        top: 100px;
+        right: 0;
+        z-index: 10;
+      }
 
       .Total_amount {
         width: 375px;
@@ -105,6 +114,7 @@ export const PaymentStyled = styled.div`
 
           .T_column {
             color: #aaa;
+            font-size: 15px;
           }
         }
 
@@ -117,7 +127,8 @@ export const PaymentStyled = styled.div`
           padding: 15px 0;
 
           .T_result {
-            font-size: 19px;
+            font-family: "Pretendard", sans-serif;
+            font-size: 24px;
             font-weight: 700;
             color: #3c7d62;
           }
@@ -131,7 +142,7 @@ export const PaymentStyled = styled.div`
           cursor: pointer;
           width: 100%;
           padding: 17px;
-          background-color: #9ac3b0;
+          background-color: #8cc2a9;
           color: #fff;
           border: none;
           border-radius: 12px;
