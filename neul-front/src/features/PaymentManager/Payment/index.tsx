@@ -13,7 +13,7 @@ interface Program {
   id: number;
   name: string;
   manager: string;
-  price: string;
+  price: number;
   img: string;
 }
 
