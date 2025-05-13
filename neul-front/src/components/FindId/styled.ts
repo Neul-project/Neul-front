@@ -19,7 +19,7 @@ export const FindIdStyled = styled.div`
 
   .FindId_title {
     padding: 50px 0 48px;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 500;
   }
 
@@ -33,6 +33,7 @@ export const FindIdStyled = styled.div`
     padding: 9px 9px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 14px;
   }
 
   .FindId_sub {
