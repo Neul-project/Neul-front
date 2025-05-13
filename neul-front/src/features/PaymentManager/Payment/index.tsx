@@ -10,6 +10,7 @@ interface UserInfo {
 }
 
 interface Program {
+  id: number;
   name: string;
   manager: string;
   price: string;
@@ -54,30 +55,35 @@ const PaymentFeature = () => {
   // 신청한 프로그램 데이터(임시)
   const programs = [
     {
+      id: 1,
       name: "발달장애 아동을 위한 감각통합 놀이",
       manager: "강사명 1",
       price: "18,000원",
       img: "/cute_dog.jpg",
     },
     {
+      id: 2,
       name: "미술 치료 프로그램",
       manager: "강사명 2",
       price: "20,000원",
       img: "/cute_dog.jpg",
     },
     {
+      id: 3,
       name: "음악 치료 프로그램",
       manager: "강사명 3",
       price: "25,000원",
       img: "/cute_dog.jpg",
     },
     {
+      id: 4,
       name: "사회성 훈련 프로그램",
       manager: "강사명 4",
       price: "15,000원",
       img: "/cute_dog.jpg",
     },
     {
+      id: 5,
       name: "언어 치료 프로그램",
       manager: "강사명 5",
       price: "22,000원",
@@ -109,7 +115,7 @@ const PaymentFeature = () => {
 
             {/* 프로그램 주문 목록 */}
             {programs.map((program, i) => (
-              <div key={i} className="program_info_container">
+              <div key={program.id} className="program_info_container">
                 <div className="program_info_imgDiv">
                   <img src={program.img} alt={program.name} />
                 </div>
