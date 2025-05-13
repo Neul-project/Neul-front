@@ -1,13 +1,17 @@
 import { MoreInfoStyled } from "./styled";
 
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { moreInfoValidation } from "@/utils/joinValidation";
 
 import axiosInstance from "@/lib/axios";
-import { useRouter } from "next/router";
+import axios from "axios";
 
 const MoreInfoCompo = () => {
   const router = useRouter();
+
+  const [isPhoneChecked, setIsPhoneChecked] = useState(false);
 
   // 추가 정보 유효성 검사 및 요청
   const formik = useFormik({
@@ -23,6 +27,11 @@ const MoreInfoCompo = () => {
     },
     validationSchema: moreInfoValidation,
     onSubmit: async (values) => {
+      if (!isPhoneChecked) {
+        alert("전화번호 중복 확인을 해주세요.");
+        return;
+      }
+
       // 보호자 정보
       const guardian = {
         name: values.guardianName,
@@ -61,6 +70,35 @@ const MoreInfoCompo = () => {
       }
     },
   });
+
+  // 전화번호 중복 검사
+  const handleDuplicationCheck = async (fieldValue: string) => {
+    if (!fieldValue) {
+      alert("휴대전화번호를 입력해주세요.");
+      return;
+    }
+
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/check?phone=${fieldValue}`
+      );
+
+      if (res.data.isDuplicate) {
+        alert("이미 등록된 전화번호입니다.");
+      } else {
+        alert("사용 가능한 전화번호입니다.");
+        setIsPhoneChecked(true);
+      }
+    } catch (error) {
+      console.error("중복 확인 오류", error);
+      alert("중복 확인 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 전화번호 값이 변경되면 중복확인 리셋
+  useEffect(() => {
+    setIsPhoneChecked(false);
+  }, [formik.values.guardianPhone]);
 
   return (
     <MoreInfoStyled>
@@ -102,7 +140,7 @@ const MoreInfoCompo = () => {
 
             <div className="MoreInfo_inputGroup">
               <label className="MoreInfo_label">
-                전화번호<span className="MoreInfo_essential">*</span>
+                휴대전화번호<span className="MoreInfo_essential">*</span>
               </label>
               <div>
                 <input
@@ -121,6 +159,16 @@ const MoreInfoCompo = () => {
                       {formik.errors.guardianPhone}
                     </div>
                   )}
+              </div>
+              <div className="MoreInfo_dup">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDuplicationCheck(formik.values.guardianPhone);
+                  }}
+                >
+                  중복확인
+                </button>
               </div>
             </div>
           </div>

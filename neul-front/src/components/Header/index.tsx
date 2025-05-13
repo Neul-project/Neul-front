@@ -41,7 +41,7 @@ const Header = () => {
   };
 
   // 헤더 제외할 페이지
-  const notPage = ["/login", "/chat", "/moreinfo"];
+  const notPage = ["/join", "/login", "/chat", "/moreinfo"];
 
   const isHiddenStyle = notPage.includes(router.pathname);
 
