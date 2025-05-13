@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ProgramBackground, ProgramListStyled } from "./styled";
+import { ProgramListStyled } from "./styled";
 import Masonry from "react-masonry-css";
 
 //component
@@ -42,29 +42,15 @@ const ProgramList = () => {
   }, []);
 
   return (
-    <ProgramBackground $backimg={backimg.src}>
-      <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
-        <div className="ProgramList_title">
-          <Circle
-            title={"프로그램 리스트"}
-            width={"67px"}
-            left={"50%"}
-            top={"40%"}
-            titletop={"10%"}
-          />
-        </div>
+    <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
+      <div className="ProgramList_title">프로그램 리스트</div>
 
-        <Masonry
-          breakpointCols={3}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
-          {list?.map((element: any) => (
-            <ProgramElement key={element.id} list={element} />
-          ))}
-        </Masonry>
-      </ProgramListStyled>
-    </ProgramBackground>
+      <div className="ProgramList_grid_wrap">
+        {list?.map((element: any) => (
+          <ProgramElement key={element.id} list={element} />
+        ))}
+      </div>
+    </ProgramListStyled>
   );
 };
 

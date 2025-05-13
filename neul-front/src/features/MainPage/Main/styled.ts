@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const MainPageBackground = styled.div<{ $backimg: string }>`
-  background-image: url(${(props) => props.$backimg});
+  //background-image: url(${(props) => props.$backimg});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
   min-height: 100vh;
+  //background-color: rgb(242, 245, 248);
 `;
 
 export const MainPageStyled = styled.div`
@@ -20,6 +21,7 @@ export const MainPageStyled = styled.div`
     align-items: center;
     margin: 0px auto;
 
-    /* background-color: #edeff2; */
+    .NavigationElement_title {
+    }
   }
 `;

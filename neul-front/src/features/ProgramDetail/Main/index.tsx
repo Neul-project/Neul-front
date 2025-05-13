@@ -4,6 +4,8 @@ import axiosInstance from "@/lib/axios";
 import clsx from "clsx";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { Button, Modal, notification } from "antd";
+import ProgramImg from "../ProgramImg";
+import ProgramContent from "../ProgramContent";
 
 //프로그램 상세 페이지 컴포넌트
 const ProgramDetail = (props: { detailid: string }) => {
@@ -50,11 +52,11 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   const handleOk = () => {
     //console.log("de", Number(detailid));
-    // axiosInstance
-    //   .post("/program/apply", { programId: Number(detailid) })
-    //   .then((res) => {
-    //     //console.log("신청 성공");
-    //   });
+    axiosInstance
+      .post("/program/apply", { programId: Number(detailid) })
+      .then((res) => {
+        //console.log("신청 성공");
+      });
 
     notification.success({
       message: `신청 완료`,
@@ -69,38 +71,29 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   return (
     <ProgramDetailStyled className={clsx("ProgramDetail_main_wrap")}>
-      <div>{title}</div>
+      <div className="ProgramDetail_title">
+        <div>{title}</div>
+      </div>
       <div className="ProgramDetail_main">
-        <div>이미지</div>
-        <div>
-          <div className="ProgramDetail_row">
-            <div>가격</div>
-            <div>{price}</div>
-          </div>
-          <div className="ProgramDetail_row">
-            <div>진행기간</div>
-            <div>{progress}</div>
-          </div>
-          <div className="ProgramDetail_row">
-            <div>모집기간</div>
-            <div>{recruitment}</div>
-          </div>
-          <div className="ProgramDetail_row">
-            <div>카테고리</div>
-            <div>{category}</div>
-          </div>
-          <div className="ProgramDetail_row">
-            <div>모집인원</div>
-            <div>{capacity}</div>
-          </div>
-          <div className="ProgramDetail_row">
-            <div>문의</div>
-            <div>{call}</div>
-          </div>
+        <div className="ProgramDetail_img">
+          <ProgramImg />
+        </div>
+        <div className="ProgramDetail_content">
+          <ProgramContent
+            price={price ?? ""}
+            progress={progress ?? ""}
+            recruitment={recruitment ?? ""}
+            category={category ?? ""}
+            capacity={capacity ?? ""}
+            call={call ?? ""}
+          />
         </div>
       </div>
-      <div>
-        <button onClick={showModal}>신청하기</button>
+
+      <div className="ProgramDetail_btns">
+        <Button>바로 결제하기</Button>
+        <Button onClick={showModal}>신청하기</Button>
+
         <Modal
           title="Basic Modal"
           closable={{ "aria-label": "Custom Close Button" }}
@@ -115,7 +108,7 @@ const ProgramDetail = (props: { detailid: string }) => {
         >
           <div>정말로 신청하시겠습니까?</div>
         </Modal>
-        <button>목록보기</button>
+        <Button>목록보기</Button>
       </div>
     </ProgramDetailStyled>
   );

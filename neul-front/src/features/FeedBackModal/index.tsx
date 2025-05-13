@@ -130,6 +130,7 @@ const FeedBackModal = (props: { activityid: string; onClose: () => void }) => {
         )}
       </div>
       <div className="FeedbackModal_controler">
+        <div>미리 듣기</div>
         <audio
           className="FeedbackModal_audio"
           src={mediaBlobUrl}
