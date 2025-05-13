@@ -96,7 +96,10 @@ const ProgramHistory = () => {
         <div className="ProgramHistory_item_container">
           {programs.length === 0 ? (
             <div className="ProgramHistory_empty">
-              신청한 프로그램이 없습니다.(css수정중임)
+              <div className="empty_img">
+                <img src="/empty.svg" alt="emptyImage" />
+              </div>
+              <div>신청한 프로그램이 없습니다.</div>
             </div>
           ) : (
             programs.map((data) => (

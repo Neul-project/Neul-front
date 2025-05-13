@@ -19,6 +19,17 @@ export const ProgramHistoryStyled = styled.div`
   .ProgramHistory_item_container {
     padding: 20px 0px;
 
+    .ProgramHistory_empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .empty_img {
+        margin-top: 10px;
+        margin-bottom: 7px;
+      }
+    }
+
     .ProgramHistory_item_box {
       position: relative;
       display: flex;
