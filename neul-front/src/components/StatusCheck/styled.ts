@@ -100,8 +100,8 @@ export const StatusCheckStyled = styled.div`
       .statuscheck_row {
         display: flex;
         gap: 10px;
-        margin-bottom: 10px;
-        font-size: 18px;
+        margin-bottom: 20px;
+        font-size: 22px;
         font-weight: 500;
         .statuscheck_title {
           min-width: 120px;
@@ -132,7 +132,7 @@ export const StatusCheckStyled = styled.div`
         margin-top: 60px;
         display: flex;
         justify-content: center;
-        font-size: 16px;
+        font-size: 25px;
         color: #999;
       }
     }
@@ -141,7 +141,7 @@ export const StatusCheckStyled = styled.div`
       margin-bottom: 15px;
     }
     .statuscheck_value.scrollable {
-      max-height: 7.5em;
+      max-height: 4em;
       overflow-y: auto;
       white-space: pre-wrap;
       word-break: break-word;

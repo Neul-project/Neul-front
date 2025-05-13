@@ -79,7 +79,7 @@ export const NoteBookStyled = styled.div`
             .notebook_point {
               position: relative;
               top: -5px;
-              left: 5px;
+              left: 6px;
               border-radius: 50%;
               width: 12px;
               height: 13px;
@@ -183,26 +183,16 @@ export const NoteBookStyled = styled.div`
                     right: -5px;
                     box-shadow: 5px 0px 5px -2px rgba(0, 0, 0, 0.1);
 
-                    .statuscheck_name {
-                      font-size: 22px;
-                      font-weight: bolder;
-                      position: relative;
-                      top: 100px;
-                      left: 70px;
-                    }
-                    .statuscheck_popover {
-                      position: relative;
-                      top: 76px;
-                      left: 210px;
-                    }
-                    .notebook_img_box {
-                      position: relative;
-                      left: 55px;
-                      top: 150px;
-                      z-index: 25;
-                      .notebook_img {
-                        max-width: 400px;
-                        height: 400px;
+                    .notebook_name_box {
+                      display: flex;
+                      align-items: center;
+                      padding: 100px 10px 10px 60px;
+                      .notebook_name {
+                        font-size: 30px;
+                        font-weight: bolder;
+                      }
+                      .notebook_popover {
+                        margin-left: 10px;
                       }
                     }
                   }
