@@ -8,11 +8,12 @@ export const ChatRoomStyled = styled.div`
     .chatroom_header {
       top: 0px;
       position: fixed;
+      z-index: 1;
       width: 100%;
       display: flex;
       align-items: center;
       height: 70px;
-      border-bottom: 1.5px solid #ccc;
+      box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.07);
       background-color: white;
       /* 뒤로가기 버튼 */
       .chatroom_backicon_box {
@@ -50,14 +51,16 @@ export const ChatRoomStyled = styled.div`
 
     /* 채팅 내용 */
     .chatroom_content_box {
-      position: relative;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -45%, 0);
       border-radius: 10px;
-      top: 100px;
       background-color: white;
       max-width: 1028px;
+      width: 100%;
       height: 700px;
       margin: 0 auto;
-      padding-top: 70px;
       display: flex;
       flex-direction: column;
 
@@ -117,6 +120,14 @@ export const ChatRoomStyled = styled.div`
           opacity: 0.4;
           pointer-events: none;
         }
+      }
+    }
+
+    @media (max-width: 1029px) {
+      .chatroom_content_box {
+        transform: translate3d(-50%, -46.5%, 0);
+        height: 93vh;
+        border-radius: 0%;
       }
     }
   }
