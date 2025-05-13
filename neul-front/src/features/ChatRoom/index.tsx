@@ -44,6 +44,7 @@ const ChatRoom = () => {
 
   const socketRef = useRef<any>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const didFetch = useRef(false);
 
   const router = useRouter();
 
@@ -109,9 +110,11 @@ const ChatRoom = () => {
 
   // 관리자 ID 불러오기 (최초 1회만 실행)
   useEffect(() => {
-    if (!userId) return;
-    getAdminId(); // adminId 설정됨
-  }, [userId]);
+    if (!didFetch.current) {
+      getAdminId();
+      didFetch.current = true;
+    }
+  }, []);
 
   // adminId가 존재할 때만 실행
   useEffect(() => {
@@ -121,10 +124,10 @@ const ChatRoom = () => {
     fetchChatMessages();
 
     // 관리자한테 온 채팅 읽음 처리 요청
-    // axiosInstance.post("/chat/user/read", {
-    //   userId,
-    //   adminId,
-    // });
+    axiosInstance.post("/chat/user/read", {
+      userId,
+      adminId,
+    });
 
     // 안읽은 메시지 초기화
     clearUnreadCount();
@@ -157,8 +160,8 @@ const ChatRoom = () => {
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
   useEffect(() => {
     scrollToBottom();
-    if (isUserAtBottom()) {
-      //   axiosInstance.post("/chat/user/read", { userId, adminId });
+    if (adminId) {
+      axiosInstance.post("/chat/user/read", { userId, adminId });
       clearUnreadCount();
     }
   }, [chattings]);

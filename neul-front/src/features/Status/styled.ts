@@ -1,17 +1,11 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-export const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'KCC-Ahnchangho';
-    src: url('/fonts/KCC-Ahnchangho.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
-`;
+import styled from "styled-components";
 
 export const StatusStyled = styled.div`
   &.status_wrap {
-    font-family: "KCC-Ahnchangho", sans-serif;
+    font-family: "Gamja Flower", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
     .status_notebook {
       display: block;
     }
@@ -19,13 +13,13 @@ export const StatusStyled = styled.div`
       display: none;
     }
 
-    /* @media (max-width: 1200px) {
+    @media (max-width: 1200px) {
       .status_notebook {
         display: none;
       }
       .status_statuscheck {
         display: block;
       }
-    } */
+    }
   }
 `;

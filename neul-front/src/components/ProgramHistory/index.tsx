@@ -8,10 +8,18 @@ import { refundValidation } from "@/utils/userValidation";
 
 import axiosInstance from "@/lib/axios";
 
+interface Program {
+  id: number;
+  name: string;
+  payment_status: string;
+  manager: string;
+  price: number;
+}
+
 // 프로그램 신청내역 컴포넌트
 const ProgramHistory = () => {
   // 프로그램 목록
-  const [programs, setPrograms] = useState([]);
+  const [programs, setPrograms] = useState<Program[]>([]);
   // 환불 모달 on/off
   const [refundOpen, setRefundOpen] = useState(false);
   // 환불 프로그램 id
@@ -35,38 +43,6 @@ const ProgramHistory = () => {
     fetchPrograms();
   }, []);
 
-  // 데이터(임시)
-  const datas = [
-    {
-      id: 1,
-      name: "발달장애 아동을 위한 감각통합 놀이",
-      payment_status: "결제 완료",
-      manager: "김지현",
-      price: 10000,
-    },
-    {
-      id: 2,
-      name: "지체장애인을 위한 맞춤 요가 클래스",
-      payment_status: "환불 요청 중",
-      manager: "박정우",
-      price: 12000,
-    },
-    {
-      id: 3,
-      name: "시각장애인을 위한 명상과 호흡법",
-      payment_status: "결제 완료",
-      manager: "이서윤",
-      price: 15000,
-    },
-    {
-      id: 4,
-      name: "청각장애인을 위한 명상과 호흡법",
-      payment_status: "환불 완료",
-      manager: "최승현",
-      price: 45000,
-    },
-  ];
-
   // 환불 요청
   const formik = useFormik({
     initialValues: {
@@ -77,10 +53,10 @@ const ProgramHistory = () => {
     },
     validationSchema: refundValidation,
     onSubmit: async (values, { resetForm }) => {
-      // if (!selectedProgramId) {
-      //   alert("프로그램을 선택해주세요.");
-      //   return;
-      // }
+      if (!selectedProgramId) {
+        alert("프로그램을 선택해주세요.");
+        return;
+      }
 
       const payload = {
         programs_id: selectedProgramId,
@@ -92,22 +68,22 @@ const ProgramHistory = () => {
 
       console.log("환불신청 데이터: ", payload);
 
-      // try {
-      //   const res = await axiosInstance.post("/program/refund", payload);
+      try {
+        const res = await axiosInstance.post("/program/refund", payload);
 
-      //   if (res.data?.ok) {
-      //     alert("환불 신청이 완료되었습니다.");
-      //     resetForm();
-      //     setSelectedProgramId(null);
-      //     setRefundOpen(false);
-      //   } else {
-      //     alert("환불 신청에 실패했습니다. 다시 시도해주세요.");
-      //     console.warn("환불 실패 응답:", res.data);
-      //   }
-      // } catch (err) {
-      //   console.error(err);
-      //   alert("환불 신청 중 오류가 발생했습니다.");
-      // }
+        if (res.data?.ok) {
+          alert("환불 신청이 완료되었습니다.");
+          resetForm();
+          setSelectedProgramId(null);
+          setRefundOpen(false);
+        } else {
+          alert("환불 신청에 실패했습니다. 다시 시도해주세요.");
+          console.warn("환불 실패 응답:", res.data);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("환불 신청 중 오류가 발생했습니다.");
+      }
     },
   });
 
@@ -118,40 +94,49 @@ const ProgramHistory = () => {
 
         {/* 프로그램 목록 */}
         <div className="ProgramHistory_item_container">
-          {datas.map((data) => (
-            <div className="ProgramHistory_item_box" key={data.id}>
-              <div className="ProgramHistory_semicircle"></div>
+          {programs.length === 0 ? (
+            <div className="ProgramHistory_empty">
+              <div className="empty_img">
+                <img src="/empty.svg" alt="emptyImage" />
+              </div>
+              <div>신청한 프로그램이 없습니다.</div>
+            </div>
+          ) : (
+            programs.map((data) => (
+              <div className="ProgramHistory_item_box" key={data.id}>
+                <div className="ProgramHistory_semicircle"></div>
 
-              <div className="ProgramHistory_content_wrap">
-                {/* <div className="ProgramHistory_number">1</div> */}
+                <div className="ProgramHistory_content_wrap">
+                  {/* <div className="ProgramHistory_number">1</div> */}
 
-                <div className="ProgramHistory_content">
-                  <div className="p_name">{data.name}</div>
-                  <div className="payment">{data.payment_status}</div>
-                </div>
+                  <div className="ProgramHistory_content">
+                    <div className="p_name">{data.name}</div>
+                    <div className="payment">{data.payment_status}</div>
+                  </div>
 
-                <div>
-                  <div className="manager">{data.manager}</div>
-                </div>
+                  <div>
+                    <div className="manager">{data.manager}</div>
+                  </div>
 
-                <div className="ProgramHistory_content">
-                  <div className="price">{data.price.toLocaleString()}원</div>
-                </div>
+                  <div className="ProgramHistory_content">
+                    <div className="price">{data.price.toLocaleString()}원</div>
+                  </div>
 
-                <div className="ProgramHistory_content flex-end">
-                  {/* 클릭한 프로그램 id 추가필요 */}
-                  <Btn
-                    onClick={() => {
-                      setSelectedProgramId(data.id);
-                      setRefundOpen(true);
-                    }}
-                  >
-                    환불
-                  </Btn>
+                  <div className="ProgramHistory_content flex-end">
+                    {/* 클릭한 프로그램 id 추가필요 */}
+                    <Btn
+                      onClick={() => {
+                        setSelectedProgramId(data.id);
+                        setRefundOpen(true);
+                      }}
+                    >
+                      환불
+                    </Btn>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
 
