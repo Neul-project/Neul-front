@@ -3,11 +3,8 @@ import styled from "styled-components";
 export const HeaderStyled = styled.div`
   &.Header_main_wrap {
     display: flex;
-
-    /* position: relative; */
-    z-index: 100;
-
     position: fixed;
+    z-index: 100;
     top: 0;
     left: 0;
     width: 100%;
@@ -20,14 +17,18 @@ export const HeaderStyled = styled.div`
     }
 
     .header {
-      max-width: 1280px;
       width: 100%;
-      height: 64px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0px auto;
       box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.07);
+
+      .Header_container {
+        max-width: 1280px;
+        width: 100%;
+        height: 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px auto;
+      }
 
       .Header_logo_img {
         /* width: 100px; */

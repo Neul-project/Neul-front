@@ -8,9 +8,6 @@ import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import Circle from "@/components/Circle";
 
-//dummy
-import { data } from "./dummy";
-
 //image
 import backimg from "@/assets/images/visual-bg.png";
 
@@ -34,7 +31,7 @@ const ProgramList = () => {
   //변수선언
 
   //useState
-  const [list, setList] = useState<ProgramDataType[]>(data);
+  const [list, setList] = useState<ProgramDataType[]>();
 
   useEffect(() => {
     //프로그램 전체 요청 리스트
@@ -43,6 +40,7 @@ const ProgramList = () => {
       setList(res.data);
     });
   }, []);
+
   return (
     <ProgramBackground $backimg={backimg.src}>
       <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
@@ -61,7 +59,7 @@ const ProgramList = () => {
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {list.map((element: any) => (
+          {list?.map((element: any) => (
             <ProgramElement key={element.id} list={element} />
           ))}
         </Masonry>

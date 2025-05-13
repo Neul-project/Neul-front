@@ -18,14 +18,14 @@ const Circle = (props: {
       $left={left}
       $titletop={titletop}
     >
-      <ul className="Circle_title_circle">
+      {/* <ul className="Circle_title_circle">
         <li></li>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
-      </ul>
+      </ul> */}
       <p>{title}</p>
     </CircleStyled>
   );

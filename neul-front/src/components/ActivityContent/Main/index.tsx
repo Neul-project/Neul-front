@@ -147,12 +147,12 @@ const ActivityContent = (props: { id: string }) => {
         </Button>
       </div>
       <Modal
-        title="피드백 내용"
+        title="피드백 제출"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
       >
-        <FeedBackModal activityid={id} />
+        <FeedBackModal activityid={id} onClose={handleCancel} />
       </Modal>
     </ActivityContentStyled>
   );
