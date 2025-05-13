@@ -43,7 +43,7 @@ export const LoginPageStyled = styled.div`
     align-items: center;
     text-align: center;
     font-size: 14px;
-    margin: 20px 0 17px 0;
+    margin: 26px 0 17px 0;
   }
 
   .Login_inputWrap {

@@ -6,6 +6,7 @@ declare module "styled-components" {
       pointBeige: "#fef6d4";
       pointGreen: "#5DA487";
       softGreen: "#79b79d";
+      backColor: "rgb(242, 245, 248)";
     };
   }
 }

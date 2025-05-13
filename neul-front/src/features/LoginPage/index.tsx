@@ -123,7 +123,7 @@ const LoginPage = () => {
             회원가입
           </li>
           <span></span>
-          <li>이메일 찾기</li>
+          <li>아이디 찾기</li>
         </ul>
 
         {/* 소셜 로그인 */}
