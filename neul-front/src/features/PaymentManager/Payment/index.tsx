@@ -20,7 +20,7 @@ const PaymentFeature = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   // const [programs, setPrograms] = useState<Program[]>([]);
 
-  // 프로그램 신청 정보 요청
+  // 프로그램 결제 정보 요청
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
