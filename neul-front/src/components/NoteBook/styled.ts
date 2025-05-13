@@ -30,7 +30,7 @@ export const NoteBookStyled = styled.div`
           background-color: #ccc;
           position: absolute;
           top: 50px;
-          right: 28px;
+          right: 29px;
 
           &.notebook_ring2 {
             position: relative;
@@ -118,10 +118,12 @@ export const NoteBookStyled = styled.div`
             .notebook_ringleft {
               width: 25px;
               height: 40px;
-              background-color: aliceblue;
+              /* background-color: aliceblue; */
               position: absolute;
               top: 0px;
-              left: 6px;
+              left: 7px;
+              box-shadow: inset 5px 0 3px -2px rgba(0, 0, 0, 0.1),
+                inset -5px 0 3px -2px rgba(0, 0, 0, 0.1);
             }
           }
         }
@@ -131,7 +133,7 @@ export const NoteBookStyled = styled.div`
         width: 100%;
         max-width: 600px;
         min-height: 810px;
-        background-color: aliceblue;
+        /* background-color: aliceblue; */
         border-radius: 20px;
         position: relative;
 
@@ -178,6 +180,7 @@ export const NoteBookStyled = styled.div`
                     position: relative;
                     top: 0;
                     right: -5px;
+                    box-shadow: 5px 0px 5px -2px rgba(0, 0, 0, 0.1);
 
                     .statuscheck_name {
                       font-size: 22px;
@@ -213,7 +216,7 @@ export const NoteBookStyled = styled.div`
         width: 100%;
         max-width: 600px;
         min-height: 810px;
-        background-color: aliceblue;
+        /* background-color: aliceblue; */
         border-radius: 20px;
         position: relative;
         .notebook_note {
@@ -256,6 +259,7 @@ export const NoteBookStyled = styled.div`
                     position: relative;
                     top: 0;
                     right: 10px;
+                    box-shadow: -5px 0px 5px -2px rgba(0, 0, 0, 0.1);
                   }
                 }
               }

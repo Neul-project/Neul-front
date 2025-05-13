@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isChatPage = router.pathname === "/chat";
-  const isStatusPage = router.pathname === "/status";
 
   return (
     <ThemeProvider theme={theme}>
@@ -18,7 +17,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <div
         style={{
           paddingTop: isChatPage ? "0px" : "64px",
-          backgroundColor: isStatusPage ? "aliceblue" : "transparent",
         }}
       >
         <Component {...pageProps} />

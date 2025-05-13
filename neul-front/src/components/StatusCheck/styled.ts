@@ -125,7 +125,7 @@ export const StatusCheckStyled = styled.div`
       }
 
       .statuscheck_info {
-        padding: 10px 5px 5px 50px;
+        padding: 10px 5px 5px 67px;
       }
 
       .statuscheck_none {
@@ -138,10 +138,9 @@ export const StatusCheckStyled = styled.div`
     }
 
     .statuscheck_title.statuscheck_margin {
-      margin-top: 15px;
+      margin-bottom: 15px;
     }
     .statuscheck_value.scrollable {
-      margin-top: 15px;
       max-height: 7.5em;
       overflow-y: auto;
       white-space: pre-wrap;

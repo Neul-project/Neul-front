@@ -145,11 +145,7 @@ const StatusCheck = ({ type }: statusProps) => {
                 },
               ].map((item, index) => (
                 <div key={index} className="statuscheck_row">
-                  <span
-                    className={`statuscheck_title ${
-                      item.scroll ? "statuscheck_margin" : ""
-                    }`}
-                  >
+                  <span className={`statuscheck_title statuscheck_margin`}>
                     {item.title}
                   </span>
                   <span
