@@ -2,17 +2,17 @@ import styled from "styled-components";
 
 export const StatusCheckStyled = styled.div`
   &.statuscheck_wrap {
-    max-width: 700px;
+    max-width: 500px;
     width: 100%;
     &.notbook_wrap {
-      margin: 20px auto;
+      margin: 30px auto;
       padding-bottom: 20px;
     }
     &.book_wrap {
       position: absolute;
       z-index: 25;
     }
-    padding: 0 10px;
+    padding: 0 32px;
 
     .statuscheck_box {
       &.notbook_box::before {
@@ -126,6 +126,12 @@ export const StatusCheckStyled = styled.div`
 
       .statuscheck_info {
         padding: 10px 5px 5px 67px;
+      }
+
+      @media (max-width: 1152px) {
+        .statuscheck_info {
+          padding: 0;
+        }
       }
 
       .statuscheck_none {
