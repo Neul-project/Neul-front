@@ -19,13 +19,13 @@ export const StatusStyled = styled.div`
       display: none;
     }
 
-    /* @media (max-width: 1200px) {
+    @media (max-width: 1200px) {
       .status_notebook {
         display: none;
       }
       .status_statuscheck {
         display: block;
       }
-    } */
+    }
   }
 `;
