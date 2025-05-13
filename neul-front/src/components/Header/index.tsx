@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 //images
 import logo from "@/assets/images/logo_small.png";
 
+import { GrBook } from "react-icons/gr";
+
 import { useAuthStore } from "@/stores/useAuthStore";
 
 //header component
@@ -66,6 +68,8 @@ const Header = () => {
             >
               <span>{user.name} 님</span>
               <span className="Header_icon" />
+
+              <GrBook />
 
               {/* 드롭다운 메뉴 */}
               {isDropdownOpen && (
