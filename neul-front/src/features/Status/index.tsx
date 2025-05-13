@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { GlobalStyle, StatusStyled } from "./styled";
-import NoteBook from "@/components/NoteBook";
 import StatusCheck from "@/components/StatusCheck";
+import NoteBook from "@/components/NoteBook";
 
 const Status = () => {
   return (

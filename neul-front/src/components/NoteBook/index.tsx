@@ -11,7 +11,7 @@ import { InfoCircleFilled } from "@ant-design/icons";
 
 const NoteBook = () => {
   const [name, setName] = useState<string>(""); // 피보호자 이름
-  const num = Array(8).fill(0);
+  const num = Array(1).fill(0);
   const lineNum = Array(10).fill(0);
 
   const userId = useAuthStore((state) => state.user?.id);
