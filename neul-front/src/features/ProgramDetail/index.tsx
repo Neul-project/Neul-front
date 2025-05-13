@@ -50,19 +50,17 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   const handleOk = () => {
     //console.log("de", Number(detailid));
-    axiosInstance
-      .post("/program/apply", { programId: Number(detailid) })
-      .then((res) => {
-        //console.log("신청 성공");
+    // axiosInstance
+    //   .post("/program/apply", { programId: Number(detailid) })
+    //   .then((res) => {
+    //     //console.log("신청 성공");
+    //   });
 
-        setIsModalOpen(false);
-      });
-
-    // notification.success({
-    //   message: `신청 완료`,
-    //   description: `성공적으로 신청 완료 되었습니다.`,
-    // });
-    // setIsModalOpen(false);
+    notification.success({
+      message: `신청 완료`,
+      description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
+    });
+    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -111,7 +109,7 @@ const ProgramDetail = (props: { detailid: string }) => {
           onCancel={handleCancel}
           footer={[
             <Button key="link" type="primary" onClick={handleOk}>
-              결제하기
+              신청하기
             </Button>,
           ]}
         >
