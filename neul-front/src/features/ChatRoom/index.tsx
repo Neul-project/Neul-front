@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import "dayjs/locale/ko"; // 한국어 로케일 불러오기
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useMessageStore } from "@/stores/useMessageStore";
 
 import MoreBtn from "@/assets/images/more.svg";
 import Dropdown from "antd/es/dropdown";
@@ -38,6 +39,8 @@ const ChatRoom = () => {
   const [adminId, setAdminId] = useState<Number>();
   const [chattings, setChattings] = useState<Chatting[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
+
+  const { clearUnreadCount } = useMessageStore();
 
   const socketRef = useRef<any>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -117,6 +120,8 @@ const ChatRoom = () => {
         adminId,
       });
 
+      clearUnreadCount();
+
       // 소켓 연결
       socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
         withCredentials: true,
@@ -149,6 +154,7 @@ const ChatRoom = () => {
     scrollToBottom();
     if (isUserAtBottom()) {
       axiosInstance.post("/chat/user/read", { userId, adminId });
+      clearUnreadCount();
     }
   }, [chattings]);
 

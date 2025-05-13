@@ -5,12 +5,20 @@ import theme from "../styles/theme";
 import Header from "@/components/Header";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const isChatPage = router.pathname === "/chat";
+
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <div style={{ paddingTop: "64px" }}>
+      <div
+        style={{
+          paddingTop: isChatPage ? "0px" : "64px",
+        }}
+      >
         <Component {...pageProps} />
       </div>
 

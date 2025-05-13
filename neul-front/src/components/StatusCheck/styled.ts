@@ -24,7 +24,7 @@ export const StatusCheckStyled = styled.div`
         height: 100%;
         border-radius: 16px;
         background: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
         z-index: -1;
       }
     }
@@ -38,7 +38,7 @@ export const StatusCheckStyled = styled.div`
         height: 100%;
         border-radius: 16px;
         background: white;
-        box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
         z-index: -2;
       }
     }
@@ -62,7 +62,7 @@ export const StatusCheckStyled = styled.div`
           height: 100%;
           border-radius: 16px;
           background: white;
-          box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.06);
+          box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
           z-index: -1;
         }
 
@@ -76,7 +76,7 @@ export const StatusCheckStyled = styled.div`
           height: 100%;
           border-radius: 16px;
           background: white;
-          box-shadow: 0 6px 8px rgba(0, 0, 0, 0.06);
+          box-shadow: 0 -8px 42px rgba(0, 0, 0, 0.06);
           z-index: -2;
         }
       }
@@ -125,7 +125,7 @@ export const StatusCheckStyled = styled.div`
       }
 
       .statuscheck_info {
-        padding: 10px 5px 5px 50px;
+        padding: 10px 5px 5px 67px;
       }
 
       .statuscheck_none {
@@ -138,10 +138,9 @@ export const StatusCheckStyled = styled.div`
     }
 
     .statuscheck_title.statuscheck_margin {
-      margin-top: 15px;
+      margin-bottom: 15px;
     }
     .statuscheck_value.scrollable {
-      margin-top: 15px;
       max-height: 7.5em;
       overflow-y: auto;
       white-space: pre-wrap;
