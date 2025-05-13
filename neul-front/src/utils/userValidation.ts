@@ -17,3 +17,11 @@ export const refundValidation = Yup.object({
   bankName: Yup.string().required("은행을 선택해주세요."),
   refundReason: Yup.string().required("환불 사유를 입력해주세요."),
 });
+
+// 아이디 찾기 유효성 검사
+export const findIdValidationSchema = Yup.object({
+  name: Yup.string().required("이름을 입력해주세요."),
+  phone: Yup.string()
+    .matches(/^01[016789][0-9]{7,8}$/, "올바른 전화번호 형식이 아닙니다.")
+    .required("전화번호를 입력해주세요."),
+});
