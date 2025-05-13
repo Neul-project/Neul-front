@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import logo from "@/assets/images/logo_small.png";
 
 import { GrBook } from "react-icons/gr";
+import { PiBellLight } from "react-icons/pi";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -70,6 +71,7 @@ const Header = () => {
               <span className="Header_icon" />
 
               <GrBook />
+              <PiBellLight />
 
               {/* 드롭다운 메뉴 */}
               {isDropdownOpen && (
