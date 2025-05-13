@@ -58,35 +58,35 @@ const PaymentFeature = () => {
       id: 1,
       name: "발달장애 아동을 위한 감각통합 놀이",
       manager: "강사명 1",
-      price: "18,000원",
+      price: 18000,
       img: "/cute_dog.jpg",
     },
     {
       id: 2,
       name: "미술 치료 프로그램",
       manager: "강사명 2",
-      price: "20,000원",
+      price: 20000,
       img: "/cute_dog.jpg",
     },
     {
       id: 3,
       name: "음악 치료 프로그램",
       manager: "강사명 3",
-      price: "25,000원",
+      price: 25000,
       img: "/cute_dog.jpg",
     },
     {
       id: 4,
       name: "사회성 훈련 프로그램",
       manager: "강사명 4",
-      price: "15,000원",
+      price: 15000,
       img: "/cute_dog.jpg",
     },
     {
       id: 5,
       name: "언어 치료 프로그램",
       manager: "강사명 5",
-      price: "22,000원",
+      price: 22000,
       img: "/cute_dog.jpg",
     },
   ];
@@ -123,7 +123,9 @@ const PaymentFeature = () => {
                 <div>
                   <div className="p_name">{program.name}</div>
                   <div className="p_manager">{program.manager}</div>
-                  <div className="p_price">{program.price}</div>
+                  <div className="p_price">
+                    {program.price.toLocaleString()}원
+                  </div>
                 </div>
               </div>
             ))}
