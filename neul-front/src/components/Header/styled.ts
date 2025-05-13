@@ -2,15 +2,6 @@ import styled from "styled-components";
 
 export const HeaderStyled = styled.div`
   &.Header_main_wrap {
-    display: flex;
-    position: fixed;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 64px;
-    background-color: #fff;
-
     /* 스크롤에 따른 헤더 CSS 변경 */
     &.scrolled {
       height: 64px;
@@ -19,6 +10,14 @@ export const HeaderStyled = styled.div`
     .header {
       width: 100%;
       box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.07);
+      display: flex;
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      background-color: #fff;
 
       .Header_container {
         max-width: 1280px;

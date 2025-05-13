@@ -96,62 +96,69 @@ const ChatRoom = () => {
   const getAdminId = async () => {
     try {
       const res = await axiosInstance.get("/user/admin");
+      console.log("관리자id는 뭘까", res.data);
       setAdminId(res.data);
-    } catch (e) {
-      console.error("담당 관리자 불러오기 실패: ", e);
+    } catch (e: any) {
+      if (e.response?.status === 401) {
+        message.info(e.response.data.message);
+      } else {
+        console.error("담당 관리자 불러오기 실패: ", e);
+      }
     }
   };
 
+  // 관리자 ID 불러오기 (최초 1회만 실행)
   useEffect(() => {
     if (!userId) return;
+    getAdminId(); // adminId 설정됨
+  }, [userId]);
 
-    // 담당 관리자 불러옴
-    getAdminId();
+  // adminId가 존재할 때만 실행
+  useEffect(() => {
+    if (!adminId) return;
 
-    // 채팅 목록 처음 1번 불러옴
+    // 채팅 불러오기
     fetchChatMessages();
 
-    if (adminId) {
-      // 관리자한테 온 채팅 읽음 처리 요청
-      axiosInstance.post("/chat/user/read", {
-        userId,
-        adminId,
-      });
+    // 관리자한테 온 채팅 읽음 처리 요청
+    // axiosInstance.post("/chat/user/read", {
+    //   userId,
+    //   adminId,
+    // });
 
-      clearUnreadCount();
+    // 안읽은 메시지 초기화
+    clearUnreadCount();
 
-      // 소켓 연결
-      socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
-        withCredentials: true,
-      });
+    // 소켓 연결
+    socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
+      withCredentials: true,
+    });
 
-      socketRef.current.off("receive_message"); // 기존 리스너 제거
-      socketRef.current.on("receive_message", (message: any) => {
-        const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
-        const time = dayjs(message.created_at).format("A h:mm");
+    socketRef.current.off("receive_message");
+    socketRef.current.on("receive_message", (message: any) => {
+      const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
+      const time = dayjs(message.created_at).format("A h:mm");
 
-        const parsedMessage: Chatting = {
-          ...message,
-          date,
-          time,
-        };
-
-        // 새 메시지 수신 -> 채팅 상태 업데이트
-        setChattings((prev) => [...prev, parsedMessage]);
-      });
-
-      return () => {
-        // 컴포넌트가 언마운트될 때 소켓 연결 종료
-        socketRef.current.disconnect();
+      const parsedMessage: Chatting = {
+        ...message,
+        date,
+        time,
       };
-    }
-  }, []);
+
+      // 새 메시지 수신 -> 채팅 상태 업데이트
+      setChattings((prev) => [...prev, parsedMessage]);
+    });
+
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, [adminId]);
 
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
   useEffect(() => {
     scrollToBottom();
     if (isUserAtBottom()) {
-      axiosInstance.post("/chat/user/read", { userId, adminId });
+      //   axiosInstance.post("/chat/user/read", { userId, adminId });
       clearUnreadCount();
     }
   }, [chattings]);
