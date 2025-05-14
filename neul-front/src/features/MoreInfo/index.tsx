@@ -236,13 +236,16 @@ const MoreInfoCompo = () => {
                       maxLength={2}
                     />
                   </div>
-                  {(formik.errors.birthYear ||
-                    formik.errors.birthMonth ||
-                    formik.errors.birthDay) && (
-                    <div className="MoreInfo_error">
-                      생년월일을 올바르게 입력하세요
-                    </div>
-                  )}
+                  {(formik.touched.birthYear ||
+                    formik.touched.birthMonth ||
+                    formik.touched.birthDay) &&
+                    (formik.errors.birthYear ||
+                      formik.errors.birthMonth ||
+                      formik.errors.birthDay) && (
+                      <div className="MoreInfo_error">
+                        생년월일을 올바르게 입력하세요
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
