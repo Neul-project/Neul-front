@@ -102,6 +102,8 @@ const Header = () => {
                 )}
               </div>
 
+              <div>프로그램 신청내역(1)</div>
+
               <div className="div_box">
                 <GrBook className="GrBook" />
                 <span className="absolute">1</span>
@@ -109,6 +111,7 @@ const Header = () => {
 
               <div className="div_box">
                 <PiBellRinging className="bell" />
+                <span className="absolute">1</span>
               </div>
             </div>
           ) : (
