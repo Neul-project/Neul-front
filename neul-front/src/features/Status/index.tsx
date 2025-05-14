@@ -9,16 +9,13 @@ const Status = () => {
     <>
       <Head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Dongle&family=Gamja+Flower&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
           rel="stylesheet"
         />
       </Head>
       <StatusStyled className={clsx("status_wrap")}>
         <div className="status_notebook">
           <NoteBook />
-        </div>
-        <div className="status_statuscheck">
-          <StatusCheck />
         </div>
       </StatusStyled>
     </>

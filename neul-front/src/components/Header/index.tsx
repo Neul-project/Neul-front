@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { HeaderStyled } from "./styled";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 //images
 import logo from "@/assets/images/logo_small.png";
@@ -42,16 +42,42 @@ const dummyDate = [
   },
 ];
 
+type AlertType = "match" | "match_cancel" | "pay" | "refund";
+
 type alertType = {
   id: number;
-  message: string;
+  message: AlertType;
   isChecked: boolean;
   created_at: string; // 몇분 전 이렇게 바꾸기
+};
+
+const messageMap = {
+  match: {
+    title: "담당 도우미 매칭완료",
+    desc: "도우미와 매칭완료되었습니다.",
+  },
+  match_cancel: {
+    title: "담당 도우미 매칭취소",
+    desc: "도우미와 매칭취소되었습니다.",
+  },
+  pay: {
+    title: "프로그램 결제완료",
+    desc: "신청하신 프로그램 결제가 완료되었습니다.",
+  },
+  refund: {
+    title: "프로그램 환불 완료",
+    desc: "신청하신 프로그램 환불이 완료되었습니다.",
+  },
 };
 
 //header component
 const Header = () => {
   const router = useRouter();
+
+  // zustand admin에 대한 정보 가져오기
+  const { setAdminId } = useAuthStore();
+  // 한번만 실행되도록
+  const didFetch = useRef(false);
 
   // zustand 로그인 유저 정보 가져오기
   const { user } = useAuthStore();
@@ -65,6 +91,8 @@ const Header = () => {
   // 알림 개수
   const [alertContent, setAlertContent] = useState<any>(0);
   const [alertNum, setAlertNum] = useState<any>(0);
+  // 매칭에 대한 알림 개수
+  const [matchAlertNum, setMatchAlertNum] = useState<Number>(0);
 
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
@@ -75,15 +103,34 @@ const Header = () => {
     }
   };
 
-  // 해당 user의 알림 개수 가져오기
+  // 담당 관리자 id 불러오기
+  const getAdminId = async () => {
+    try {
+      const res = await axiosInstance.get("/user/admin");
+      console.log("관리자id는 뭘까", res.data);
+      setAdminId(res.data);
+    } catch (e: any) {
+      if (e.response?.status === 401) {
+        setAdminId(null);
+        console.info("담당 관리자 없음");
+      } else {
+        console.error("담당 관리자 불러오기 실패: ", e);
+      }
+    }
+  };
+
+  // 해당 user의 알림 내용 가져오기
   const getAlert = async () => {
     try {
-      const res = await axiosInstance.get("alert/alarm"); // 해당 유저의
-      console.log("알림들:", res.data);
-      // setAlertContent(dummyDate);
-      setAlertContent(res.data); // 알림 내용
-      // setAlertNum(dummyDate.length);
-      setAlertNum(res.data.filter((item: alertType) => !item.isChecked).length); // 알림 개수
+      // const res = await axiosInstance.get("alert/alarm");
+      // console.log("알림들:", res.data);
+      setAlertContent(dummyDate);
+      // setAlertContent(res.data); // 알림 내용
+      setAlertNum(dummyDate.length);
+      setMatchAlertNum(
+        dummyDate.filter((item: any) => item.message?.includes("match")).length
+      );
+      // setAlertNum(res.data.filter((item: alertType) => !item.isChecked).length); // 알림 개수
     } catch (e) {
       console.error("알림 개수 가져오기 실패: ", e);
     }
@@ -97,26 +144,11 @@ const Header = () => {
 
     // 알림 notification
     alertContent.map((item: alertType, i: number) => {
+      const { title, desc } = messageMap[item.message] || {};
       notification.info({
         key: i,
-        message: `${
-          item.message === "match"
-            ? "담당 도우미 매칭완료"
-            : item.message === "match_cancel"
-            ? "담당 도우미 매칭취소"
-            : item.message === "pay"
-            ? "프로그램 결제완료"
-            : "프로그램 환불 완료"
-        }`,
-        description: `${
-          item.message === "match"
-            ? "도우미와 매칭완료되었습니다."
-            : item.message === "match_cancel"
-            ? "도우미와 매칭취소되었습니다."
-            : item.message === "pay"
-            ? "신청하신 프로그램 결제가 완료되었습니다."
-            : "신청하신 프로그램 환불이 완료되었습니다."
-        }`,
+        message: title,
+        description: desc,
       });
     });
   };
@@ -134,6 +166,14 @@ const Header = () => {
       clearInterval(interval);
     };
   }, []);
+
+  // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
+  useEffect(() => {
+    if (!didFetch.current) {
+      getAdminId();
+      didFetch.current = true;
+    }
+  }, [matchAlertNum]);
 
   // 메뉴 이미지 클릭
   const MoveMain = () => {

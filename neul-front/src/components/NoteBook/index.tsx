@@ -9,7 +9,6 @@ import { InfoCircleFilled } from "@ant-design/icons";
 
 const NoteBook = () => {
   const [name, setName] = useState<string>(""); // 피보호자 이름
-  // const num = Array(1).fill(0);
   const lineNum = Array(10).fill(0);
 
   const userId = useAuthStore((state) => state.user?.id);
@@ -89,21 +88,6 @@ const NoteBook = () => {
               </div>
             </div>
           </div>
-          {/* <div className="notebook_spring">
-            {num.map((_, i) => (
-              <div className={`notebook_ring notebook_ring${i + 1}`}>
-                <div className="notebook_ringbottom">
-                  <div className="notebook_ringleft"></div>
-                </div>
-                <div className="notebook_point_box">
-                  <div className="notebook_point"></div>
-                </div>
-                <div className="notebook_point_box2">
-                  <div className="notebook_point2"></div>
-                </div>
-              </div>
-            ))}
-          </div> */}
         </div>
 
         <div className="notebook_right">
