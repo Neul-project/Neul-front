@@ -19,31 +19,30 @@ interface Program {
 
 const PaymentFeature = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  // const [programs, setPrograms] = useState<Program[]>([]);
+  const [programs, setPrograms] = useState<Program[]>([]);
 
-  // 프로그램 결제 정보 요청
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const res = await axiosInstance.get("/program/payment");
-  //       console.log("결제 프로그램 내역 응답", res.data);
-  //       setPrograms(res.data);
-  //     } catch (err) {
-  //       console.error("결제 프로그램 오류:", err);
-  //     }
-  //   };
+  console.log("결제페이지 프로그램", programs);
 
-  //   fetchData();
-  // }, []);
+  // 프로그램 신청내역 요청
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const res = await axiosInstance.get("/program/histories");
+        setPrograms(res.data);
+      } catch (err) {
+        console.error("프로그램 신청내역 불러오기 오류:", err);
+      }
+    };
+
+    fetchPrograms();
+  }, []);
 
   // 내 정보 요청
   useEffect(() => {
     const fetchMyInfo = async () => {
       try {
         const res = await axiosInstance.get("/user/info");
-
-        const { name, email, phone, address } = res.data;
-        setUserInfo({ name, email, phone, address });
+        setUserInfo(res.data);
       } catch (error) {
         console.error("내 정보 불러오기 실패:", error);
       }
@@ -53,43 +52,43 @@ const PaymentFeature = () => {
   }, []);
 
   // 신청한 프로그램 데이터(임시)
-  const programs = [
-    {
-      id: 1,
-      name: "발달장애 아동을 위한 감각통합 놀이",
-      manager: "강사명 1",
-      price: 18000,
-      img: "/cute_dog.jpg",
-    },
-    {
-      id: 2,
-      name: "미술 치료 프로그램",
-      manager: "강사명 2",
-      price: 20000,
-      img: "/cute_dog.jpg",
-    },
-    {
-      id: 3,
-      name: "음악 치료 프로그램",
-      manager: "강사명 3",
-      price: 25000,
-      img: "/cute_dog.jpg",
-    },
-    {
-      id: 4,
-      name: "사회성 훈련 프로그램",
-      manager: "강사명 4",
-      price: 15000,
-      img: "/cute_dog.jpg",
-    },
-    {
-      id: 5,
-      name: "언어 치료 프로그램",
-      manager: "강사명 5",
-      price: 22000,
-      img: "/cute_dog.jpg",
-    },
-  ];
+  // const programs = [
+  //   {
+  //     id: 1,
+  //     name: "발달장애 아동을 위한 감각통합 놀이",
+  //     manager: "강사명 1",
+  //     price: 18000,
+  //     img: "/cute_dog.jpg",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "미술 치료 프로그램",
+  //     manager: "강사명 2",
+  //     price: 20000,
+  //     img: "/cute_dog.jpg",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "음악 치료 프로그램",
+  //     manager: "강사명 3",
+  //     price: 25000,
+  //     img: "/cute_dog.jpg",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "사회성 훈련 프로그램",
+  //     manager: "강사명 4",
+  //     price: 15000,
+  //     img: "/cute_dog.jpg",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "언어 치료 프로그램",
+  //     manager: "강사명 5",
+  //     price: 22000,
+  //     img: "/cute_dog.jpg",
+  //   },
+  // ];
 
   return (
     <PaymentStyled>
@@ -117,7 +116,10 @@ const PaymentFeature = () => {
             {programs.map((program, i) => (
               <div key={program.id} className="program_info_container">
                 <div className="program_info_imgDiv">
-                  <img src={program.img} alt={program.name} />
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${program.img}`}
+                    alt={program.name}
+                  />
                 </div>
 
                 <div>
@@ -145,7 +147,7 @@ const PaymentFeature = () => {
               </div>
               <div className="T_flex">
                 <div className="T_column">상품할인금액</div>
-                <div className="T_price">-1,000원</div>
+                <div className="T_price">0원</div>
               </div>
 
               <div className="hr" />

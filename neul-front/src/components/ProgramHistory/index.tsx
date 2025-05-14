@@ -61,8 +61,8 @@ const ProgramHistory = () => {
       const payload = {
         programs_id: selectedProgramId,
         account: values.accountNumber,
-        bank: values.accountHolder,
-        name: values.bankName,
+        name: values.accountHolder,
+        bank: values.bankName,
         note: values.refundReason,
       };
 
