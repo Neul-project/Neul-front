@@ -13,7 +13,7 @@ const Advertising = () => {
 
   //광고 이미지 요청
   useEffect(() => {
-    if (arr) {
+    if (arr.length > 1) {
       axiosInstance.get("/banner/list").then((res) => {
         //console.log("banner Res", res.data);
         const datalist = res.data;
@@ -25,14 +25,6 @@ const Advertising = () => {
 
   return (
     <AdvertisingStyled className={clsx("Advertising_main_wrap")}>
-      <ul className="Advertising_title_circle">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
       <h5 className="Advertising_title_text">다른 기업 이야기</h5>
 
       <div className="Advertising_adimg">

@@ -91,7 +91,7 @@ const NavigationElement = () => {
 
   return (
     <NavigationElementStyled className={clsx("NavigationElement_main_wrap")}>
-      <div className="NavigationElement_title_background"></div>
+      <div className="NavigationElement_title">바로가기</div>
       <div className="NavigationElement_rows">
         <div className="NavigationElement_row1">
           <div className="NavigationElement_ele" onClick={stateCheck}>
