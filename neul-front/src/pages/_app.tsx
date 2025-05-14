@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
     return () => {
       // 브라우저 창이 활성화 되면 감지
       window.removeEventListener("focus", checkToken);
-      //
+      // 현재 창이 유저한테 보이면 감지
       document.removeEventListener("visibilitychange", checkToken);
     };
   }, [isLoggedIn, logout]);
