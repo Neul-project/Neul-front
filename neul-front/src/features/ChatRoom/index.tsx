@@ -86,13 +86,6 @@ const ChatRoom = () => {
     }
   };
 
-  // 스크롤이 마지막에 있는지 확인
-  const isUserAtBottom = () => {
-    const el = bottomRef.current?.parentElement;
-    if (!el) return false;
-    return el.scrollHeight - el.scrollTop === el.clientHeight;
-  };
-
   // 담당 관리자 id불러오기
   const getAdminId = async () => {
     try {
