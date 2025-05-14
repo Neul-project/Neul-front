@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import logo from "@/assets/images/logo_small.png";
 
 import { GrBook } from "react-icons/gr";
-import { FaRegBell } from "react-icons/fa6";
 import { PiBellRinging } from "react-icons/pi";
 
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -78,7 +77,7 @@ const Header = () => {
   // 해당 user의 알림 개수 가져오기
   const getAlert = async () => {
     try {
-      const res = await axiosInstance.get("alert/alarm"); // 해당 유저의
+      const res = await axiosInstance.get("alert/alarm"); // 해당 유저의 알림 가져오기
       console.log("알림들:", res.data);
       // setAlertContent(dummyDate);
       setAlertContent(res.data); // 알림 내용
@@ -121,19 +120,19 @@ const Header = () => {
     });
   };
 
-  useEffect(() => {
-    getAlert();
+  // useEffect(() => {
+  //   getAlert();
 
-    const interval = setInterval(() => {
-      getAlert();
-    }, 10000); // 10초마다 가져오기
+  //   const interval = setInterval(() => {
+  //     getAlert();
+  //   }, 10000); // 10초마다 가져오기
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearInterval(interval);
-    };
-  }, []);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //     clearInterval(interval);
+  //   };
+  // }, []);
 
   // 메뉴 이미지 클릭
   const MoveMain = () => {
