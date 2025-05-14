@@ -11,6 +11,43 @@ import { FaRegBell } from "react-icons/fa6";
 import { PiBellRinging } from "react-icons/pi";
 
 import { useAuthStore } from "@/stores/useAuthStore";
+import axiosInstance from "@/lib/axios";
+import { notification } from "antd";
+
+// 알림 더미 데이터
+const dummyDate = [
+  {
+    id: 1,
+    message: "match",
+    isChecked: false, //확인 유무(확인 안 함)
+    created_at: "2025-01-03",
+  },
+  {
+    id: 2,
+    message: "match_cancel",
+    isChecked: false, //확인 유무(확인 안 함)
+    created_at: "2025-01-03",
+  },
+  {
+    id: 3,
+    message: "pay",
+    isChecked: false, //확인 유무(확인 안 함)
+    created_at: "2025-01-03",
+  },
+  {
+    id: 4,
+    message: "refund",
+    isChecked: false, //확인 유무(확인 안 함)
+    created_at: "2025-01-03",
+  },
+];
+
+type alertType = {
+  id: number;
+  message: string;
+  isChecked: boolean;
+  created_at: string; // 몇분 전 이렇게 바꾸기
+};
 
 //header component
 const Header = () => {
@@ -25,6 +62,10 @@ const Header = () => {
   // 스크롤
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // 알림 개수
+  const [alertContent, setAlertContent] = useState<any>(0);
+  const [alertNum, setAlertNum] = useState<any>(0);
+
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
     if (window.scrollY > 64) {
@@ -34,9 +75,64 @@ const Header = () => {
     }
   };
 
+  // 해당 user의 알림 개수 가져오기
+  const getAlert = async () => {
+    try {
+      const res = await axiosInstance.get("alert/alarm"); // 해당 유저의
+      console.log("알림들:", res.data);
+      // setAlertContent(dummyDate);
+      setAlertContent(res.data); // 알림 내용
+      // setAlertNum(dummyDate.length);
+      setAlertNum(res.data.filter((item: alertType) => !item.isChecked).length); // 알림 개수
+    } catch (e) {
+      console.error("알림 개수 가져오기 실패: ", e);
+    }
+  };
+
+  // 해당 알림 읽기
+  const readAlert = async () => {
+    setAlertNum(0); // 알림 0개로
+
+    await axiosInstance.patch("alert/checkAll"); // 해당 user의 모든 알림 읽기
+
+    // 알림 notification
+    alertContent.map((item: alertType, i: number) => {
+      notification.info({
+        key: i,
+        message: `${
+          item.message === "match"
+            ? "담당 도우미 매칭완료"
+            : item.message === "match_cancel"
+            ? "담당 도우미 매칭취소"
+            : item.message === "pay"
+            ? "프로그램 결제완료"
+            : "프로그램 환불 완료"
+        }`,
+        description: `${
+          item.message === "match"
+            ? "도우미와 매칭완료되었습니다."
+            : item.message === "match_cancel"
+            ? "도우미와 매칭취소되었습니다."
+            : item.message === "pay"
+            ? "신청하신 프로그램 결제가 완료되었습니다."
+            : "신청하신 프로그램 환불이 완료되었습니다."
+        }`,
+      });
+    });
+  };
+
   useEffect(() => {
+    getAlert();
+
+    const interval = setInterval(() => {
+      getAlert();
+    }, 10000); // 10초마다 가져오기
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearInterval(interval);
+    };
   }, []);
 
   // 메뉴 이미지 클릭
@@ -107,8 +203,9 @@ const Header = () => {
                 <span className="absolute">1</span>
               </div>
 
-              <div className="div_box">
+              <div className="div_box" onClick={readAlert}>
                 <PiBellRinging className="bell" />
+                <span className="absolute">{alertNum}</span>
                 <span className="absolute">1</span>
               </div>
             </div>

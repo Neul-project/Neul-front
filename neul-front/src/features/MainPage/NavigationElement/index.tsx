@@ -19,7 +19,7 @@ import axiosInstance from "@/lib/axios";
 const NavigationElement = () => {
   const { setUnreadCount, increaseUnreadCount, clearUnreadCount } =
     useMessageStore();
-  // const unreadCount = 3;
+
   const router = useRouter();
 
   // 안 읽은 채팅 개수 가져오기
