@@ -6,7 +6,7 @@ import axiosInstance from "@/lib/axios";
 import { list } from "./comment";
 
 //component
-import { MainPageStyled } from "./styled";
+import { MainPageSide, MainPageStyled } from "./styled";
 import IntroSection from "../IntroSection";
 import Advertising from "@/features/Advertising";
 
@@ -66,11 +66,13 @@ const MainPage = () => {
   }, []);
 
   return (
-    <MainPageStyled className={clsx("MainPage_main_wrap")}>
-      <div className="MainPage_side">{list[listIndex]}</div>
-      <IntroSection />
-      <Advertising />
-    </MainPageStyled>
+    <>
+      <MainPageSide>{list[listIndex]}</MainPageSide>
+      <MainPageStyled className={clsx("MainPage_main_wrap")}>
+        <IntroSection />
+        <Advertising />
+      </MainPageStyled>
+    </>
   );
 };
 

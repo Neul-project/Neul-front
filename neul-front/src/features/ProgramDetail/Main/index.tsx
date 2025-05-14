@@ -29,7 +29,10 @@ const ProgramDetail = (props: { detailid: string }) => {
   const [registration, setRegistration] = useState();
   const [category, setCategory] = useState();
 
+  //console.log("detailid", detailid);
+
   useEffect(() => {
+    if (!detailid) return;
     //id에 해당하는 프로그램 상세 전체 보기
     axiosInstance
       .get(`/program/detail`, { params: { detailid: Number(detailid) } })
@@ -46,7 +49,7 @@ const ProgramDetail = (props: { detailid: string }) => {
         setRegistration(data.registration_at);
         setCategory(data.category);
       });
-  }, []);
+  }, [detailid]);
 
   const Columnlist = () => {
     router.push("/program");
@@ -83,8 +86,9 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   return (
     <ProgramDetailStyled className={clsx("ProgramDetail_main_wrap")}>
-      <div className="ProgramDetail_title">
-        <div>{title}</div>
+      <div className="ProgramDetail_top">
+        <div className="ProgramDetail_ing">접수중</div>
+        <h3 className="ProgramDetail_title">{title}</h3>
       </div>
       <div className="ProgramDetail_main">
         <div className="ProgramDetail_img">

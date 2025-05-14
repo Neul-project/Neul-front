@@ -10,22 +10,44 @@ export const ProgramDetailStyled = styled.div`
     margin: 0px auto;
     padding: 0px 40px;
 
-    .ProgramDetail_title {
-      width: 100%;
-      height: 70px;
+    .ProgramDetail_top {
       display: flex;
-      justify-content: left;
       align-items: center;
-      padding-left: 40px;
-      font-size: 25px;
-      border-bottom: 1px solid black;
+      //margin-bottom: 20px;
+      padding: 20px 0px;
+      gap: 20px;
+
+      .ProgramDetail_ing {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        padding: 0 10px;
+        width: 64px;
+        height: 64px;
+        background: #3d7a99;
+        color: #fff;
+        font-size: 15px;
+        font-family: "NBGB";
+        box-sizing: border-box;
+      }
+
+      .ProgramDetail_title {
+        //margin-top: 20px;
+        color: #333;
+        font-size: 32px;
+        font-family: "NS";
+        font-weight: normal;
+        letter-spacing: -0.045em;
+      }
     }
+
     .ProgramDetail_main {
       display: flex;
       justify-content: center;
       gap: 20px;
       width: 100%;
       padding: 30px 0px;
+      border-top: 2px solid #ccc;
 
       .ProgramDetail_img,
       .ProgramDetail_content {

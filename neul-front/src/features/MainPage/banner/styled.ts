@@ -13,6 +13,26 @@ export const BannerStyled = styled.div`
       margin-bottom: 15px;
     }
 
+    .swiper-pagination {
+      position: absolute;
+      top: 10px;
+      left: 80%;
+      width: auto;
+      height: 100px;
+      gap: 6px;
+    }
+
+    .swiper-pagination-bullet {
+      background: transparent;
+      border: 1px solid white;
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #fff;
+      opacity: 1;
+    }
+
     .Banner_slide {
       width: 100%;
       height: 100%;
@@ -33,31 +53,6 @@ export const BannerStyled = styled.div`
       width: 100%;
       height: 380px;
       padding: 0px 40px;
-
-      .Banner_title_circle {
-        position: relative;
-        left: 100px;
-        top: 25%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-        width: auto;
-        height: auto;
-        background: none;
-        z-index: -10;
-
-        li {
-          display: block;
-          width: 50px;
-          height: 50px;
-          margin: 0 -10px;
-          background: #5da487;
-          border-radius: 50%;
-          transition: all 0.3s ease;
-        }
-      }
 
       .Banner_text {
         font-size: 20px;
