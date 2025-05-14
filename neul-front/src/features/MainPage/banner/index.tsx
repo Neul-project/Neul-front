@@ -22,16 +22,7 @@ const Banner = () => {
 
   return (
     <BannerStyled className={clsx("Banner_main_wrap")}>
-      <ul className="Banner_title_circle">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-      <h5 className="Banner_text">새로운 프로그램</h5>
-
+      <div>새로운 프로그램</div>
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={30}
@@ -58,7 +49,7 @@ const Banner = () => {
         }}
       >
         {list.map((element: any, index: number) => (
-          <SwiperSlide>
+          <SwiperSlide key={index}>
             <div className="Banner_slide">
               <img
                 className="Banner_imgstyle"
