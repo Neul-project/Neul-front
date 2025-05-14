@@ -6,6 +6,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import StatusCheck from "@/components/StatusCheck";
 import { Popover } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
+import Head from "next/head";
 
 const NoteBook = () => {
   const [name, setName] = useState<string>(""); // 피보호자 이름
@@ -53,34 +54,64 @@ const NoteBook = () => {
   );
 
   return (
-    <NoteBookStyled className={clsx("notebook_wrap")}>
-      <div className="notebook_box">
-        <div className="notebook_left">
-          <div className="notebook_note notebook_note1">
-            <div className="notebook_note notebook_note2">
-              <div className="notebook_note notebook_note3">
-                <div className="notebook_note notebook_note4">
-                  <div className="notebook_note notebook_note5">
-                    <div className="notebook_note notebook_note6">
-                      {lineNum.map((_, i) => (
-                        <div
-                          className={`notebook_line notebook_line${i + 1}`}
-                        ></div>
-                      ))}
-                      <div className="notebook_name_box">
-                        {/* 피보호자 이름 */}
-                        {name && (
-                          <div className="notebook_name">{name}님 상태</div>
-                        )}
-                        <Popover
-                          className="notebook_popover"
-                          placement="bottom"
-                          content={content}
-                        >
-                          <InfoCircleFilled
-                            style={{ fontSize: "16px", color: "#c9c9c9" }}
-                          />
-                        </Popover>
+    <>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+
+      <NoteBookStyled className={clsx("notebook_wrap")}>
+        <div className="notebook_box">
+          <div className="notebook_left">
+            <div className="notebook_note notebook_note1">
+              <div className="notebook_note notebook_note2">
+                <div className="notebook_note notebook_note3">
+                  <div className="notebook_note notebook_note4">
+                    <div className="notebook_note notebook_note5">
+                      <div className="notebook_note notebook_note6">
+                        {lineNum.map((_, i) => (
+                          <div
+                            className={`notebook_line notebook_line${i + 1}`}
+                          ></div>
+                        ))}
+                        <div className="notebook_name_box">
+                          {/* 피보호자 이름 */}
+                          {name && (
+                            <div className="notebook_name">{name}님 상태</div>
+                          )}
+                          <Popover
+                            className="notebook_popover"
+                            placement="bottom"
+                            content={content}
+                          >
+                            <InfoCircleFilled
+                              style={{ fontSize: "16px", color: "#c9c9c9" }}
+                            />
+                          </Popover>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="notebook_right">
+            <div className="notebook_note notebook_note1">
+              <div className="notebook_note notebook_note2">
+                <div className="notebook_note notebook_note3">
+                  <div className="notebook_note notebook_note4">
+                    <div className="notebook_note notebook_note5">
+                      <div className="notebook_note notebook_note6">
+                        {lineNum.map((_, i) => (
+                          <div
+                            className={`notebook_line notebook_line${i + 1}`}
+                          ></div>
+                        ))}
+                        <StatusCheck type="book" />
                       </div>
                     </div>
                   </div>
@@ -89,29 +120,8 @@ const NoteBook = () => {
             </div>
           </div>
         </div>
-
-        <div className="notebook_right">
-          <div className="notebook_note notebook_note1">
-            <div className="notebook_note notebook_note2">
-              <div className="notebook_note notebook_note3">
-                <div className="notebook_note notebook_note4">
-                  <div className="notebook_note notebook_note5">
-                    <div className="notebook_note notebook_note6">
-                      {lineNum.map((_, i) => (
-                        <div
-                          className={`notebook_line notebook_line${i + 1}`}
-                        ></div>
-                      ))}
-                      <StatusCheck type="book" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </NoteBookStyled>
+      </NoteBookStyled>
+    </>
   );
 };
 

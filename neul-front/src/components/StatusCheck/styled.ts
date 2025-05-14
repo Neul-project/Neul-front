@@ -135,7 +135,7 @@ export const StatusCheckStyled = styled.div`
       }
 
       .statuscheck_none {
-        margin-top: 60px;
+        margin-top: 31px;
         display: flex;
         justify-content: center;
         font-size: 25px;

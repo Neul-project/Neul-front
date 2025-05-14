@@ -149,7 +149,8 @@ const ChatRoom = () => {
 
   // 날짜별로 그룹화
   const groupDate = useMemo(() => {
-    return chattings.reduce((acc: Record<string, Chatting[]>, chat) => {
+    const filteredChats = chattings.filter((chat) => !chat.userDel);
+    return filteredChats.reduce((acc: Record<string, Chatting[]>, chat) => {
       if (!acc[chat.date]) acc[chat.date] = [];
       acc[chat.date].push(chat);
       return acc;
@@ -281,6 +282,7 @@ const ChatRoom = () => {
           <div className="chatroom_message">
             <input
               type="text"
+              readOnly={adminId ? false : true}
               placeholder={
                 adminId
                   ? "메시지 입력"

@@ -15,7 +15,7 @@ export const ChatMessageStyled = styled.div`
       align-items: flex-end;
       .chatmessage_text {
         max-width: 40%;
-        font-size: 14px;
+        font-size: 17px;
         word-break: break-word;
         padding: 10px 14px;
         border-radius: 10px;
