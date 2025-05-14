@@ -84,6 +84,10 @@ export const ProgramHistoryStyled = styled.div`
           .p_name {
             font-size: 19px;
             font-weight: 700;
+
+            &:hover {
+              text-decoration: underline;
+            }
           }
 
           .payment {
@@ -106,6 +110,37 @@ export const ProgramHistoryStyled = styled.div`
           justify-content: flex-end;
         }
       }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+
+    .number_btn {
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-top: 1px solid rgb(221, 221, 221);
+      border-right: 1px solid rgb(221, 221, 221);
+      border-bottom: 1px solid rgb(221, 221, 221);
+      border-image: initial;
+      border-left: none;
+      cursor: pointer;
+    }
+
+    .number_btn.start {
+      border-left: 1px solid rgb(221, 221, 221);
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
     }
   }
 
