@@ -7,40 +7,13 @@ export const AdvertisingStyled = styled.div`
     padding: 0px 40px;
     width: 100%;
     height: 100%;
-    //gap: 20px;
-    margin: 70px 0px;
-
-    .Advertising_title_circle {
-      position: relative;
-      left: 115px;
-      top: 70px;
-      transform: translate(-50%, -50%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-      width: auto;
-      height: auto;
-      background: none;
-      z-index: -10;
-
-      li {
-        display: block;
-        width: 55px;
-        height: 55px;
-        margin: 0 -10px;
-        background: #5da487;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-      }
-    }
 
     .Advertising_title_text {
-      font-size: 20px;
-      color: #fff;
-      margin-top: 0px;
+      font-size: 25px;
+      color: #000;
       margin-bottom: 35px;
-      margin-left: 45px;
+      margin-left: 20px;
+      margin-top: 30px;
     }
     .Advertising_adimg {
       display: flex;

@@ -5,43 +5,18 @@ import NavigationElement from "@/features/MainPage/NavigationElement";
 import clsx from "clsx";
 
 //image
-import heart from "@/assets/images/heart.png";
-import gif from "@/assets/images/main02_deco.gif";
-import star from "@/assets/images/start.png";
-import bluestar from "@/assets/images/bluestar.png";
-import pinkstar from "@/assets/images/pinkstar.png";
+import Banner from "../banner";
 
 //메인 페이지 > 상위 탭 구성 (프로그램 신청 배너, 네비게이션)
 const IntroSection = () => {
   return (
-    <IntroSectionStyled
-      className={clsx("IntroSection_main_wrap")}
-      $bannerimg={gif.src}
-    >
+    <IntroSectionStyled className={clsx("IntroSection_main_wrap")}>
+      <div className="IntroSection_banner">
+        <Banner />
+      </div>
+
       <div className="IntroSection_Navigation">
         <NavigationElement />
-      </div>
-      <div className="IntroSection_banner">
-        {/* <div className="IntroSection_star">
-          <img className="IntroSection_imgstyle" src={star.src} alt="star" />
-        </div>
-        <div className="IntroSection_bluestar">
-          <img
-            className="IntroSection_imgstyle"
-            src={bluestar.src}
-            alt="star"
-          />
-        </div>
-        <div className="IntroSection_heart">
-          <img className="IntroSection_imgstyle" src={heart.src} alt="star" />
-        </div>
-        <div className="IntroSection_pinkstar">
-          <img
-            className="IntroSection_imgstyle"
-            src={pinkstar.src}
-            alt="star"
-          />
-        </div> */}
       </div>
     </IntroSectionStyled>
   );

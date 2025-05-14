@@ -22,30 +22,15 @@ const Banner = () => {
 
   return (
     <BannerStyled className={clsx("Banner_main_wrap")}>
-      <div>새로운 프로그램</div>
+      <div className="Banner_text">새로운 프로그램</div>
       <Swiper
         modules={[Pagination, Autoplay]}
-        spaceBetween={30}
-        slidesPerView={3}
+        slidesPerView={1}
         //pagination={{ clickable: true }}
         loop={true}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
-        }}
-        breakpoints={{
-          0: {
-            spaceBetween: 0,
-            slidesPerView: 1,
-          },
-          486: {
-            spaceBetween: 20,
-            slidesPerView: 2,
-          },
-          768: {
-            spaceBetween: 30,
-            slidesPerView: 3,
-          },
         }}
       >
         {list.map((element: any, index: number) => (
