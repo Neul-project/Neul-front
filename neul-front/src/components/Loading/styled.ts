@@ -20,14 +20,15 @@ export const LoadingStyled = styled.div`
     justify-content: center;
     align-items: center;
   }
-  .Loading_loader {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid ${({ theme }) => theme.colors.pointGreen};
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+
+  .Loading_img_box {
+    width: 195px;
+
+    img {
+      width: 100%;
+    }
   }
+
   .Loading_text {
     font-size: 15px;
     padding-top: 10px;

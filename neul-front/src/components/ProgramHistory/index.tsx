@@ -1,4 +1,5 @@
 import { ProgramHistoryStyled, Cell, Btn } from "./styled";
+import clsx from "clsx";
 import ModalCompo from "../ModalCompo";
 import * as S from "@/components/ModalCompo/ModalContent";
 
@@ -28,6 +29,22 @@ const ProgramHistory = () => {
   );
 
   console.log("프로그램 신청목록: ", programs);
+
+  // 페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const [visiblePageGroup, setVisiblePageGroup] = useState(1);
+  const pageSize = 5;
+
+  const totalPages = Math.ceil(programs.length / pageSize);
+  const visiblePages = 5; // 한 번에 보여줄 페이지 수 (1~5)
+
+  const paginatedPrograms = programs.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
+  console.log("currentPage:", currentPage);
+  console.log("paginatedPrograms:", paginatedPrograms);
 
   // 프로그램 신청내역 요청
   useEffect(() => {
@@ -102,15 +119,15 @@ const ProgramHistory = () => {
               <div>신청한 프로그램이 없습니다.</div>
             </div>
           ) : (
-            programs.map((data) => (
+            paginatedPrograms.map((data) => (
               <div className="ProgramHistory_item_box" key={data.id}>
                 <div className="ProgramHistory_semicircle"></div>
 
                 <div className="ProgramHistory_content_wrap">
-                  {/* <div className="ProgramHistory_number">1</div> */}
-
                   <div className="ProgramHistory_content">
-                    <div className="p_name">{data.name}</div>
+                    <div className="p_name">
+                      <a href={`/program/${data.id}`}>{data.name}</a>
+                    </div>
                     <div className="payment">{data.payment_status}</div>
                   </div>
 
@@ -123,20 +140,64 @@ const ProgramHistory = () => {
                   </div>
 
                   <div className="ProgramHistory_content flex-end">
-                    {/* 클릭한 프로그램 id 추가필요 */}
-                    <Btn
-                      onClick={() => {
-                        setSelectedProgramId(data.id);
-                        setRefundOpen(true);
-                      }}
-                    >
-                      환불
-                    </Btn>
+                    {data.payment_status !== "결제 대기" && (
+                      <Btn
+                        onClick={() => {
+                          setSelectedProgramId(data.id);
+                          setRefundOpen(true);
+                        }}
+                      >
+                        환불
+                      </Btn>
+                    )}
                   </div>
                 </div>
               </div>
             ))
           )}
+        </div>
+
+        <div className="pagination">
+          <button
+            className="number_btn start"
+            onClick={() => {
+              if (visiblePageGroup > 1) {
+                setVisiblePageGroup(visiblePageGroup - 1);
+                setCurrentPage((visiblePageGroup - 2) * visiblePages + 1);
+              }
+            }}
+            disabled={visiblePageGroup === 1}
+          >
+            <img src="/left_icon.png" alt="left_icon" />
+          </button>
+
+          {Array.from({ length: visiblePages }, (_, idx) => {
+            const page = (visiblePageGroup - 1) * visiblePages + (idx + 1);
+            if (page > totalPages) return null;
+
+            return (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={clsx("number_btn", { active: currentPage === page })}
+              >
+                {page}
+              </button>
+            );
+          })}
+
+          <button
+            className="number_btn"
+            onClick={() => {
+              if (visiblePageGroup * visiblePages < totalPages) {
+                setVisiblePageGroup(visiblePageGroup + 1);
+                setCurrentPage(visiblePageGroup * visiblePages + 1);
+              }
+            }}
+            disabled={visiblePageGroup * visiblePages >= totalPages}
+          >
+            <img src="/right_icon.png" alt="right_icon" />
+          </button>
         </div>
       </div>
 

@@ -1,7 +1,7 @@
-import Status from "@/features/Status";
+import NoteBook from "@/components/NoteBook";
 
 const statusPage = () => {
-  return <Status />;
+  return <NoteBook />;
 };
 
 export default statusPage;

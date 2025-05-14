@@ -12,8 +12,10 @@ type User = {
 type AuthState = {
   user: User | null;
   isLoggedIn: boolean;
+  adminId: number | null;
   login: (user: User) => void;
   logout: () => void;
+  setAdminId: (id: number | null) => void;
   checkToken: () => void;
 };
 
@@ -22,6 +24,7 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       user: null,
       isLoggedIn: false,
+      adminId: null,
 
       login: (user) => {
         console.log("zustand login 실행됨, user:", user);
@@ -34,6 +37,8 @@ export const useAuthStore = create<AuthState>()(
         set({ user: null, isLoggedIn: false });
         console.log("zustand logout 쿠키 및 상태 초기화");
       },
+
+      setAdminId: (id: number | null) => set({ adminId: id }),
 
       checkToken: () => {
         const token = Cookies.get("access_token");

@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const NoteBookStyled = styled.div`
   &.notebook_wrap {
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+
     max-width: 1280px;
     width: 100%;
     min-height: 809.15px;
@@ -82,7 +86,7 @@ export const NoteBookStyled = styled.div`
                     .notebook_name_box {
                       display: flex;
                       align-items: center;
-                      padding: 100px 10px 10px 60px;
+                      padding: 89px 10px 10px 60px;
                       .notebook_name {
                         font-size: 30px;
                         font-weight: bolder;
