@@ -111,7 +111,7 @@ const NoteBook = () => {
                             className={`notebook_line notebook_line${i + 1}`}
                           ></div>
                         ))}
-                        <StatusCheck type="book" />
+                        <StatusCheck />
                       </div>
                     </div>
                   </div>

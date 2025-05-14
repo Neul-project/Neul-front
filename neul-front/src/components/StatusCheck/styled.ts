@@ -3,15 +3,28 @@ import styled from "styled-components";
 export const StatusCheckStyled = styled.div`
   &.statuscheck_wrap {
     width: 100%;
-    &.notbook_wrap {
-      margin: 30px auto;
-      padding-bottom: 20px;
-    }
-    &.book_wrap {
-      position: absolute;
-      z-index: 25;
-    }
+    position: absolute;
+    z-index: 25;
     padding: 0 32px;
+    position: relative;
+
+    .statuscheck_clip_box {
+      display: none;
+      width: 130px;
+      position: absolute;
+      top: -25px;
+      left: -10px;
+      .statuscheck_clip {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    @media (max-width: 1330px) {
+      .statuscheck_clip_box {
+        display: block;
+      }
+    }
 
     .statuscheck_box {
       &.notbook_box::before {
@@ -87,13 +100,7 @@ export const StatusCheckStyled = styled.div`
       .statuscheck_date {
         display: flex;
         justify-content: flex-end;
-
-        &.notbook_date {
-          margin: 10px 0 20px 0;
-        }
-        &.book_date {
-          padding-top: 20px;
-        }
+        padding: 57px 18px 0 10px;
       }
 
       .statuscheck_row {
@@ -109,34 +116,8 @@ export const StatusCheckStyled = styled.div`
         }
       }
 
-      .statuscheck_explanation {
-        margin-top: 40px;
-        padding: 16px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        font-size: 14px;
-        color: #666;
-        line-height: 1.6;
-        border: 1px solid #ddd;
-        &.notbook_explanation {
-          display: none;
-        }
-      }
-
       .statuscheck_info {
-        padding: 78px 5px 5px 67px;
-      }
-
-      @media (max-width: 1330px) {
-        .statuscheck_info {
-          padding: 65px 25px 5px 25px;
-        }
-
-        .statuscheck_date {
-          &.book_date {
-            padding-top: 33px;
-          }
-        }
+        padding: 39px 0px 5px 24px;
       }
 
       .statuscheck_none {
