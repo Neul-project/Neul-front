@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const StatusCheckStyled = styled.div`
   &.statuscheck_wrap {
-    max-width: 500px;
     width: 100%;
     &.notbook_wrap {
       margin: 30px auto;
@@ -100,7 +99,7 @@ export const StatusCheckStyled = styled.div`
       .statuscheck_row {
         display: flex;
         gap: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
         font-size: 22px;
         font-weight: 500;
         .statuscheck_title {
@@ -125,17 +124,23 @@ export const StatusCheckStyled = styled.div`
       }
 
       .statuscheck_info {
-        padding: 10px 5px 5px 67px;
+        padding: 78px 5px 5px 67px;
       }
 
-      @media (max-width: 1152px) {
+      @media (max-width: 1330px) {
         .statuscheck_info {
-          padding: 0;
+          padding: 65px 25px 5px 25px;
+        }
+
+        .statuscheck_date {
+          &.book_date {
+            padding-top: 33px;
+          }
         }
       }
 
       .statuscheck_none {
-        margin-top: 31px;
+        margin-top: 69px;
         display: flex;
         justify-content: center;
         font-size: 25px;
@@ -144,10 +149,10 @@ export const StatusCheckStyled = styled.div`
     }
 
     .statuscheck_title.statuscheck_margin {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
     .statuscheck_value.scrollable {
-      max-height: 4em;
+      max-height: 3em;
       overflow-y: auto;
       white-space: pre-wrap;
       word-break: break-word;

@@ -10,7 +10,7 @@ import Head from "next/head";
 
 const NoteBook = () => {
   const [name, setName] = useState<string>(""); // 피보호자 이름
-  const lineNum = Array(10).fill(0);
+  const lineNum = Array(8).fill(0);
 
   const userId = useAuthStore((state) => state.user?.id);
 

@@ -9,12 +9,12 @@ export const NoteBookStyled = styled.div`
     max-width: 1280px;
     width: 100%;
     min-height: 809.15px;
+    margin: 0 auto;
 
     .notebook_box {
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      /* position: relative; */
       width: 100%;
       min-height: 809.15px;
       margin: 40px auto;
@@ -24,12 +24,11 @@ export const NoteBookStyled = styled.div`
         justify-content: flex-end;
         width: 100%;
         max-width: 700px;
-        min-height: 810px;
         border-radius: 20px;
-        /* position: relative; */
 
         .notebook_note {
           min-height: 750px;
+          min-height: 810px;
           background-color: white;
           box-shadow: -2px 0 3px rgba(0, 0, 0, 0.1);
         }
@@ -37,61 +36,39 @@ export const NoteBookStyled = styled.div`
         .notebook_note1 {
           display: flex;
           justify-content: flex-end;
-          max-width: 560px;
-          width: 100%;
-          /* position: relative;
-          top: 28px;
-          left: 18px; */
-
+          max-width: 100%;
           .notebook_note2 {
             display: flex;
             justify-content: flex-end;
-            max-width: 555px;
-            width: 100%;
-            /* position: relative;
-            top: 0;
-            right: -5px; */
+            max-width: 99%;
             .notebook_note3 {
               display: flex;
               justify-content: flex-end;
-              max-width: 550px;
-              width: 100%;
-              /* position: relative;
-              top: 0;
-              right: -5px; */
+              max-width: 98.9%;
               .notebook_note4 {
                 display: flex;
                 justify-content: flex-end;
-                width: 100%;
-                max-width: 545px;
-                /* position: relative;
-                top: 0;
-                right: -5px; */
+                max-width: 98.6%;
                 .notebook_note5 {
                   display: flex;
                   justify-content: flex-end;
-                  width: 100%;
-                  max-width: 540px;
-                  /* position: relative;
-                  top: 0;
-                  right: -5px; */
+                  max-width: 98.5%;
                   .notebook_note6 {
-                    width: 100%;
-                    max-width: 550px;
-                    /* position: relative;
-                    top: 0;
-                    right: -5px; */
+                    aspect-ratio: 4 / 5;
+                    position: relative;
+                    max-width: 98.2%;
                     box-shadow: 5px 0px 5px -2px rgba(0, 0, 0, 0.1);
 
                     .notebook_name_box {
                       display: flex;
                       align-items: center;
-                      padding: 89px 10px 10px 60px;
+                      padding: 125px 10px 10px 60px;
                       .notebook_name {
                         font-size: 30px;
                         font-weight: bolder;
                       }
                       .notebook_popover {
+                        cursor: pointer;
                         margin-left: 10px;
                       }
                     }
@@ -103,7 +80,7 @@ export const NoteBookStyled = styled.div`
         }
       }
 
-      @media (max-width: 1152px) {
+      @media (max-width: 1330px) {
         .notebook_left {
           display: none;
         }
@@ -120,7 +97,6 @@ export const NoteBookStyled = styled.div`
         width: 100%;
         max-width: 700px;
         border-radius: 20px;
-        /* position: relative; */
         .notebook_note {
           min-height: 810px;
           height: 100%;
@@ -129,38 +105,19 @@ export const NoteBookStyled = styled.div`
         }
 
         .notebook_note1 {
-          width: 100%;
-          max-width: 560px;
-          /* position: relative;
-          top: 28px;
-          left: 18px; */
-
+          max-width: 100%;
           .notebook_note2 {
-            width: 100%;
-            max-width: 555px;
-            /* position: relative;
-            top: 0; */
+            max-width: 99%;
             .notebook_note3 {
-              width: 100%;
-              max-width: 550px;
-              /* position: relative;
-              top: 0; */
-
+              max-width: 98.9%;
               .notebook_note4 {
-                width: 100%;
-                max-width: 545px;
-                /* position: relative;
-                top: 0; */
+                max-width: 98.6%;
                 .notebook_note5 {
-                  width: 100%;
-                  max-width: 540px;
-                  /* position: relative;
-                  top: 0; */
+                  max-width: 98.5%;
                   .notebook_note6 {
-                    width: 100%;
-                    max-width: 550px;
-                    /* position: relative;
-                    top: 0; */
+                    aspect-ratio: 4 / 5;
+                    position: relative;
+                    max-width: 98.2%;
                     box-shadow: -5px 0px 5px -2px rgba(0, 0, 0, 0.1);
                   }
                 }
@@ -173,48 +130,36 @@ export const NoteBookStyled = styled.div`
 
     /* 수첩 줄 */
     .notebook_line {
-      width: 420px;
+      max-width: 530px;
       border: 1px solid #eee;
       opacity: 0.4;
-      position: relative;
-      top: 150px;
-      left: 50px;
+      position: absolute;
+      left: 10%; /* 상대 위치로 변경 */
+      width: 80%; /* 비율 기반 */
       z-index: 20;
+      &.notebook_line1 {
+        top: 21.5%;
+      }
       &.notebook_line2 {
-        position: relative;
-        top: 200px;
+        top: 30%;
       }
       &.notebook_line3 {
-        position: relative;
-        top: 250px;
+        top: 38%;
       }
       &.notebook_line4 {
-        position: relative;
-        top: 300px;
+        top: 46%;
       }
       &.notebook_line5 {
-        position: relative;
-        top: 350px;
+        top: 54.5%;
       }
       &.notebook_line6 {
-        position: relative;
-        top: 400px;
+        top: 62.5%;
       }
       &.notebook_line7 {
-        position: relative;
-        top: 450px;
+        top: 70.5%;
       }
       &.notebook_line8 {
-        position: relative;
-        top: 500px;
-      }
-      &.notebook_line9 {
-        position: relative;
-        top: 550px;
-      }
-      &.notebook_line10 {
-        position: relative;
-        top: 600px;
+        top: 79%;
       }
     }
   }
