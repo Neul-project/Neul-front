@@ -89,13 +89,11 @@ const MyInfo = () => {
     try {
       const res = await axiosInstance.delete("/user/withdraw");
 
-      if (res.data?.ok === true) {
-        Cookies.remove("access_token");
+      console.log("회원탈퇴", res.data);
 
-        // 소셜 로그인 사용자일 경우 refresh_token도 제거
-        if (Cookies.get("refresh_token")) {
-          Cookies.remove("refresh_token");
-        }
+      if (res.data) {
+        // access_token, refresh_token 제거 및 zustand 상태 초기화
+        useAuthStore.getState().logout();
 
         alert("탈퇴가 완료되었습니다.");
         router.push("/");
