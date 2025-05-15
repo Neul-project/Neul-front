@@ -8,17 +8,36 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 //image
-import main01 from "@/assets/images/back1.jpg";
-import main02 from "@/assets/images/back2.jpg";
-import main03 from "@/assets/images/back3.jpg";
-import main04 from "@/assets/images/back1.jpg";
-import main05 from "@/assets/images/back2.jpg";
-import main06 from "@/assets/images/back3.jpg";
+import axiosInstance from "@/lib/axios";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 //banner
 const Banner = () => {
-  // **백엔드에서 리스트 받기
-  const list = [main01, main02, main03, main04, main05, main06];
+  const [bannerItems, setBannerItems] = useState<{ id: number; img: string }[]>(
+    []
+  );
+  const router = useRouter();
+
+  useEffect(() => {
+    axiosInstance.get("/program/list").then((res) => {
+      const data = res.data.slice(0, 5);
+
+      const items = data.map((element: any) => ({
+        id: element.id,
+        img: element.img.split(",")[0], // 첫 번째 이미지
+      }));
+
+      setBannerItems(items);
+    });
+  }, []);
+
+  //console.log("imglist", bannerItems);
+
+  const handleClick = (id: number) => {
+    //console.log("클릭한 배너 ID:", id);
+    router.push(`/program/${id}`);
+  };
 
   return (
     <BannerStyled className={clsx("Banner_main_wrap")}>
@@ -33,12 +52,17 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
       >
-        {list.map((element: any, index: number) => (
+        {bannerItems.map((element: any, index: number) => (
           <SwiperSlide key={index}>
-            <div className="Banner_slide">
+            <div
+              className="Banner_slide"
+              onClick={() => handleClick(element.id)}
+            >
               <img
                 className="Banner_imgstyle"
-                src={element.src}
+                src={
+                  process.env.NEXT_PUBLIC_API_URL + "/uploads/" + element.img
+                }
                 alt={`banner-${index}`}
               />
             </div>
