@@ -87,7 +87,7 @@ const FeedBackModal = (props: { activityid: string; onClose: () => void }) => {
     //백엔드 저장 요청(오디오)
     axiosInstance
       .post(
-        `/activity/feedback`,
+        `/activity/feedback/audio`,
         {
           message: formData,
           activityid: Number(activityid),

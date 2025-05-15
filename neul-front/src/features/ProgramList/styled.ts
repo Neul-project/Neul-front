@@ -28,7 +28,7 @@ export const ProgramListStyled = styled.div`
     .ProgramList_grid_wrap {
       display: flex;
       flex-wrap: wrap;
-      gap: 30px 0;
+      gap: 30px 0px;
       padding: 30px 0;
       border-bottom: 1px solid #ccc;
       border-top: 1px solid #ccc;

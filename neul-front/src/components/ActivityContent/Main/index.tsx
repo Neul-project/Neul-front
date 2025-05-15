@@ -36,6 +36,7 @@ const ActivityContent = (props: { id: string }) => {
 
   //useEffect
   useEffect(() => {
+    if (!user?.id) return;
     const userId = user?.id;
 
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
@@ -54,7 +55,7 @@ const ActivityContent = (props: { id: string }) => {
         setNote(data.note);
         setImg(imgarr);
       });
-  }, []);
+  }, [user]);
 
   const optionsWithDisabled: CheckboxGroupProps<string>["options"] = [
     { label: "참여", value: "yes", disabled: rehabilitation !== "yes" },

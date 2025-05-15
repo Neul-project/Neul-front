@@ -1,15 +1,11 @@
 import clsx from "clsx";
 import { ProgramListStyled } from "./styled";
-import Masonry from "react-masonry-css";
+//import Masonry from "react-masonry-css";
 
 //component
 import ProgramElement from "@/components/ProgramElement";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
-import Circle from "@/components/Circle";
-
-//image
-import backimg from "@/assets/images/visual-bg.png";
 
 //프로그램 데이터 타입
 interface ProgramDataType {

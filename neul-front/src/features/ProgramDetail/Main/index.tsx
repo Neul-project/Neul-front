@@ -19,7 +19,7 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   //useState
   const [title, setTitle] = useState();
-  const [img, setImg] = useState();
+  const [img, setImg] = useState([""]);
   const [manager, setManager] = useState();
   const [call, setCall] = useState();
   const [capacity, setCapacity] = useState();
@@ -28,7 +28,8 @@ const ProgramDetail = (props: { detailid: string }) => {
   const [recruitment, setRecruitment] = useState();
   const [registration, setRegistration] = useState();
   const [category, setCategory] = useState();
-
+  const [target, setTarget] = useState("");
+  const [note, setNote] = useState("");
   //console.log("detailid", detailid);
 
   useEffect(() => {
@@ -38,9 +39,11 @@ const ProgramDetail = (props: { detailid: string }) => {
       .get(`/program/detail`, { params: { detailid: Number(detailid) } })
       .then((res) => {
         const data = res.data;
+        console.log("Data", data);
+        const imgarr = data.img.split(",");
         setTitle(data.name);
         setCall(data.call);
-        setImg(data.img);
+        setImg(imgarr);
         setManager(data.manager);
         setCapacity(data.capacity);
         setPrice(data.price);
@@ -48,6 +51,8 @@ const ProgramDetail = (props: { detailid: string }) => {
         setRecruitment(data.recruitment);
         setRegistration(data.registration_at);
         setCategory(data.category);
+        setTarget(data.target);
+        setNote(data.note);
       });
   }, [detailid]);
 
@@ -66,17 +71,41 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   const handleOk = () => {
     //console.log("de", Number(detailid));
-    axiosInstance
-      .post("/program/apply", { programId: Number(detailid) })
-      .then((res) => {
-        //console.log("신청 성공");
 
-        notification.success({
-          message: `신청 완료`,
-          description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
+    //장바구니에 있는 지 확인용
+    axiosInstance.get("/program/histories").then((res) => {
+      const list = res.data;
+
+      //중복 신청 확인
+      const alreadyApplied = list.some(
+        (element: any) => element.id === Number(detailid)
+      );
+
+      if (alreadyApplied) {
+        notification.info({
+          message: `신청 실패`,
+          description: `이미 신청한 프로그램 입니다.`,
         });
         setIsModalOpen(false);
-      });
+      } else {
+        axiosInstance
+          .post("/program/apply", { programId: Number(detailid) })
+          .then((res) => {
+            //console.log("신청 성공");
+
+            notification.success({
+              message: `신청 완료`,
+              description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
+            });
+            setIsModalOpen(false);
+          });
+      }
+    });
+  };
+
+  //바로 결제 확인 버튼
+  const DirecthandleOk = () => {
+    setIsDirectModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -92,7 +121,7 @@ const ProgramDetail = (props: { detailid: string }) => {
       </div>
       <div className="ProgramDetail_main">
         <div className="ProgramDetail_img">
-          <ProgramImg img={img ?? ""} />
+          <ProgramImg imgarr={img} />
         </div>
         <div className="ProgramDetail_content">
           <ProgramContent
@@ -102,12 +131,16 @@ const ProgramDetail = (props: { detailid: string }) => {
             category={category ?? ""}
             capacity={capacity ?? ""}
             call={call ?? ""}
+            target={target ?? ""}
+            note={note ?? ""}
           />
         </div>
       </div>
 
       <div className="ProgramDetail_btns">
-        <Button onClick={showdirectModal}>바로 결제하기</Button>
+        <button onClick={showdirectModal} className="ProgramDetail_Dir">
+          바로 결제하기
+        </button>
         <Modal
           title="바로 결제하기"
           closable={{ "aria-label": "Custom Close Button" }}
@@ -115,7 +148,7 @@ const ProgramDetail = (props: { detailid: string }) => {
           onOk={handleOk}
           onCancel={handleCancel}
           footer={
-            <Button key="link" type="primary" onClick={handleOk}>
+            <Button key="link" type="primary" onClick={DirecthandleOk}>
               결제하기
             </Button>
           }
@@ -123,7 +156,9 @@ const ProgramDetail = (props: { detailid: string }) => {
           <div>정말로 바로 결제하시겠습니까?</div>
         </Modal>
 
-        <Button onClick={showModal}>신청하기</Button>
+        <button className="ProgramDetail_show" onClick={showModal}>
+          신청하기
+        </button>
 
         <Modal
           title="프로그램 신청하기"
@@ -139,7 +174,9 @@ const ProgramDetail = (props: { detailid: string }) => {
         >
           <div>정말로 신청하시겠습니까?</div>
         </Modal>
-        <Button onClick={Columnlist}>목록보기</Button>
+        <button className="ProgramDetail_show" onClick={Columnlist}>
+          목록보기
+        </button>
       </div>
     </ProgramDetailStyled>
   );

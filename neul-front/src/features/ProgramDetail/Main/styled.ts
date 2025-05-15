@@ -49,10 +49,13 @@ export const ProgramDetailStyled = styled.div`
       padding: 30px 0px;
       border-top: 2px solid #ccc;
 
-      .ProgramDetail_img,
+      .ProgramDetail_img {
+        width: 43%;
+        height: 100%;
+      }
       .ProgramDetail_content {
-        width: 50%;
-        height: 400px;
+        width: 57%;
+        height: 100%;
       }
     }
 
@@ -61,6 +64,31 @@ export const ProgramDetailStyled = styled.div`
       justify-content: center;
       gap: 10px;
       padding-bottom: 20px;
+
+      .ProgramDetail_Dir {
+        padding: 14px 0;
+        margin: 0 2px;
+        width: 160px;
+        background: #3d7a99;
+        color: #fff;
+        font-size: 16px;
+        font-family: "NBGB";
+        line-height: 20px;
+        border: none;
+        cursor: pointer;
+      }
+      .ProgramDetail_show {
+        padding: 13px 0;
+        margin: 0 2px;
+        width: 160px;
+        background: #fff;
+        border: 1px solid #d5d5d5;
+        color: #666;
+        font-size: 16px;
+        font-family: "NBGB";
+        line-height: 20px;
+        cursor: pointer;
+      }
     }
   }
 `;
