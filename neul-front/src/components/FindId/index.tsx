@@ -10,11 +10,18 @@ import { useRouter } from "next/router";
 const FindId = () => {
   const router = useRouter();
 
+  // 아이디 있을때
   const [foundEmail, setFoundEmail] = useState<string | null>(null);
+
+  // 검색 시도 여부
+  const [isSearched, setIsSearched] = useState(false);
+
+  // 아이디 없음 여부
+  const [notFound, setNotFound] = useState(false);
 
   console.log("foundEmail", foundEmail);
 
-  // 아이디 찾기
+  // 아이디 찾기 요청
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,10 +41,17 @@ const FindId = () => {
         );
         console.log("아이디 찾기 응답", res.data);
 
-        if (res.data?.email) {
+        setIsSearched(true); // 검색 시도 상태 기록
+
+        if (res.data?.ok === false) {
+          setFoundEmail(null);
+          setNotFound(true); // 찾지 못한 상태
+        } else if (res.data?.email) {
           setFoundEmail(res.data.email);
+          setNotFound(false);
         } else {
-          alert("일치하는 이메일을 찾을 수 없습니다.");
+          setFoundEmail(null);
+          setNotFound(true);
         }
       } catch (error) {
         console.error("아이디 찾기 실패:", error);
@@ -63,6 +77,30 @@ const FindId = () => {
             >
               로그인
             </button>
+          </div>
+        ) : notFound && isSearched ? (
+          <div className="FindId_ResultContainer">
+            <p>고객님 명의로 찾은 ID가 없습니다.</p>
+            <div className="FindId_No_container">
+              <button
+                className="FindId_ResultBtn"
+                onClick={() => {
+                  setNotFound(false);
+                  setIsSearched(false);
+                  formik.resetForm();
+                }}
+              >
+                다시 찾기
+              </button>
+              <button
+                onClick={() => {
+                  router.push("/");
+                }}
+                className="FindId_homeBtn"
+              >
+                홈으로 이동
+              </button>
+            </div>
           </div>
         ) : (
           <form

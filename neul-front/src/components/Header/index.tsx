@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 //images
-import logo from "@/assets/images/logo_small.png";
+import logo from "@/assets/images/new_logo.png";
 
 import { GrBook } from "react-icons/gr";
 import { PiBellRinging } from "react-icons/pi";
@@ -75,6 +75,7 @@ const Header = () => {
 
   // zustand admin에 대한 정보 가져오기
   const { setAdminId } = useAuthStore();
+  const userId = useAuthStore((state) => state.user?.id);
   // 한번만 실행되도록
   const didFetch = useRef(false);
 
@@ -167,7 +168,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    getAdminId();
     getAlert();
     getCartCount(); // 장바구니 개수
 
@@ -185,11 +185,12 @@ const Header = () => {
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
-    if (!didFetch.current) {
-      getAdminId();
-      didFetch.current = true;
-    }
-  }, [matchAlertNum]);
+    // if (!didFetch.current) {
+    getAdminId();
+    //   didFetch.current = true;
+    // }
+  }, [userId]);
+  // }, [matchAlertNum]);
 
   // 메뉴 이미지 클릭
   const MoveMain = () => {
@@ -237,7 +238,7 @@ const Header = () => {
                         }
                       }}
                     >
-                      개인정보 수정
+                      마이페이지
                     </div>
                     <div
                       className="Header_dropdown_item"
