@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { ProgramElementStyled } from "./styled";
 import { useRouter } from "next/router";
+import { getCategoryLabel } from "@/utils/programcategory";
 
 /*
 1.제목/분류/진행기간/모집기간/모집인원
@@ -33,7 +34,9 @@ const ProgramElement = (props: { list: any }) => {
         <div className="ProgramElement_Recruit">모집중</div>
         <div className="ProgramElement_title">{list.name}</div>
         <div className="ProgramElement_botton_content">
-          <div className="ProgramElement_category">{list.category}</div>
+          <div className="ProgramElement_category">
+            {getCategoryLabel(list.category)}
+          </div>
           <div className="ProgramElement_progress">
             진행기간 {list.progress}
           </div>

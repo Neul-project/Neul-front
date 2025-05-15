@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const ProgramElementStyled = styled.div`
   &.ProgramElement_main_wrap {
     flex: 0 0 25%;
-    padding: 0 10px;
+    padding: 0 15px;
     cursor: pointer;
 
     .ProgramElement_img {
       width: 100%;
       height: 300px;
-      object-fit: cover;
+      //object-fit: cover;
       background: #e5e5e5;
       border-radius: 5px;
       overflow: hidden;
