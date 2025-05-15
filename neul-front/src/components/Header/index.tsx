@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 //images
-import logo from "@/assets/images/logo_small.png";
+import logo from "@/assets/images/new_logo.png";
 
 import { GrBook } from "react-icons/gr";
 import { PiBellRinging } from "react-icons/pi";
@@ -237,7 +237,7 @@ const Header = () => {
                         }
                       }}
                     >
-                      개인정보 수정
+                      마이페이지
                     </div>
                     <div
                       className="Header_dropdown_item"

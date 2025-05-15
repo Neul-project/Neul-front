@@ -10,7 +10,11 @@ import { useRouter } from "next/router";
 const FindId = () => {
   const router = useRouter();
 
+  // 아이디 있을때
   const [foundEmail, setFoundEmail] = useState<string | null>(null);
+
+  // 아이디 없음 여부
+  const [notFound, setNotFound] = useState(false);
 
   console.log("foundEmail", foundEmail);
 
