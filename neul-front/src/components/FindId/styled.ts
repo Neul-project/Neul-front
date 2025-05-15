@@ -8,14 +8,16 @@ export const FindIdStyled = styled.div`
     width: 340px;
     margin: 0 auto;
     text-align: center;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
   }
 
   .FindId_ResultContainer {
     p {
       margin-bottom: 15px;
+    }
+
+    .FindId_No_container {
+      display: flex;
+      gap: 10px;
     }
 
     .FindId_ResultEmail {
@@ -32,15 +34,29 @@ export const FindIdStyled = styled.div`
     .FindId_ResultBtn {
       cursor: pointer;
       width: 100%;
-      height: 42px;
+      height: 46px;
       margin-top: 10px;
       border: none;
       border-radius: 8px;
-      background-color: #5da487;
+      background-color: ${(props) => props.theme.colors.pointGreen};
       color: #fff;
-      font-weight: 700;
       font-size: 16px;
     }
+
+    .FindId_homeBtn {
+      cursor: pointer;
+      width: 100%;
+      height: 46px;
+      margin-top: 10px;
+      border: 1px solid ${(props) => props.theme.colors.pointGreen};
+      border-radius: 8px;
+      background-color: #fff;
+      color: ${(props) => props.theme.colors.pointGreen};
+      font-size: 16px;
+    }
+  }
+
+  .FindId_homeBtn {
   }
 
   .FindId_InputContainer {
@@ -79,10 +95,10 @@ export const FindIdStyled = styled.div`
       width: 100%;
       height: 42px;
       margin-top: 10px;
-      border: 1px solid #5da487;
+      border: 1px solid ${(props) => props.theme.colors.pointGreen};
       border-radius: 8px;
       background-color: #fff;
-      color: #5da487;
+      color: ${(props) => props.theme.colors.pointGreen};
       font-weight: 700;
       font-size: 16px;
     }
@@ -95,5 +111,6 @@ export const FindIdStyled = styled.div`
   .error {
     font-size: 13px;
     color: rgb(238, 106, 123);
+    text-align: start;
   }
 `;
