@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import Cookies from "js-cookie";
+import { useCartStore } from "./useCartStore";
 
 type User = {
   id: number;
@@ -27,13 +28,17 @@ export const useAuthStore = create<AuthState>()(
       adminId: null,
 
       login: (user) => {
-        console.log("zustand login 실행됨, user:", user);
+        console.log("zustand user:", user);
         set({ user, isLoggedIn: true });
       },
 
       logout: () => {
         Cookies.remove("access_token");
         Cookies.remove("refresh_token");
+
+        // 로그아웃 시 장바구니 초기화
+        useCartStore.setState({ cartCount: 0 });
+
         set({ user: null, isLoggedIn: false });
         console.log("zustand logout 쿠키 및 상태 초기화");
       },
@@ -45,8 +50,7 @@ export const useAuthStore = create<AuthState>()(
         const { isLoggedIn } = get();
 
         if (!token && isLoggedIn) {
-          console.log("자동 로그아웃");
-          get().logout();
+          get().logout(); // 자동 로그아웃
         }
       },
     }),

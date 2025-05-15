@@ -117,7 +117,7 @@ const PaymentFeature = () => {
               <div key={program.id} className="program_info_container">
                 <div className="program_info_imgDiv">
                   <img
-                    src={`${process.env.NEXT_PUBLIC_API_URL}${program.img}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${program.img}`}
                     alt={program.name}
                   />
                 </div>
