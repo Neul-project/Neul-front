@@ -4,7 +4,7 @@ export const BannerStyled = styled.div`
   &.Banner_main_wrap {
     width: 100%;
     height: 100%;
-    padding: 0px 40px;
+    //padding: 0px 40px;
 
     .Banner_text {
       font-size: 25px;

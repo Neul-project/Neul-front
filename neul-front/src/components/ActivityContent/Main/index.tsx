@@ -96,8 +96,8 @@ const ActivityContent = (props: { id: string }) => {
             disableOnInteraction: false,
           }}
         >
-          {img.map((element) => (
-            <SwiperSlide>
+          {img.map((element, index: number) => (
+            <SwiperSlide key={index}>
               <img
                 src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + element}
                 alt={`preview-0`}
