@@ -7,14 +7,33 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useAuthStore } from "@/stores/useAuthStore";
+
+import Loading from "@/components/Loading";
 
 // _app.tsx
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isChatPage = router.pathname === "/chat";
+
+  // 로딩중 컴포넌트 추가
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setIsLoading(true);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router]);
 
   // 로그인 상태 확인 및 자동 로그아웃 처리
   const logout = useAuthStore((state) => state.logout);
@@ -54,6 +73,7 @@ export default function App({ Component, pageProps }: AppProps) {
           paddingTop: isChatPage ? "0px" : "64px",
         }}
       >
+        {isLoading && <Loading />}
         <Component {...pageProps} />
       </div>
 

@@ -21,24 +21,8 @@ export const LoadingStyled = styled.div`
     align-items: center;
   }
 
-  .Loading_img_box {
-    width: 195px;
-
-    img {
-      width: 100%;
-    }
-  }
-
   .Loading_text {
     font-size: 15px;
     padding-top: 10px;
-  }
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
   }
 `;
