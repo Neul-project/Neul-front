@@ -76,30 +76,38 @@ const FeedBackAudio = (props: { activityid: string }) => {
     //console.log("audio", mediaBlobUrl);
   };
 
+  const statusMap: Record<string, string> = {
+    idle: "대기 중",
+    recording: "녹음 중",
+    stopped: "녹음 완료. 재녹음이 가능합니다.",
+    acquiring_media: "마이크 접근 중",
+    failed: "오류 발생",
+  };
+
   return (
-    <FeedBackAudioStyled>
-      <div className="FeedbackModal_recording">
-        <p>{status}</p>
+    <FeedBackAudioStyled className="FeedBackAudio_main_wrap">
+      <div className="FeedBackAudio_recording">
         {!isRecording ? (
-          <div className="FeedbackModal_mic" onClick={handleStartRecording}>
+          <div className="FeedBackAudio_mic" onClick={handleStartRecording}>
             <img src={mic.src} alt="mic" />
           </div>
         ) : (
-          <div className="FeedbackModal_pause" onClick={handleStopRecording}>
+          <div className="FeedBackAudio_pause" onClick={handleStopRecording}>
             <img src={pause.src} alt="pause" />
           </div>
         )}
       </div>
-      <div className="FeedbackModal_controler">
+      <p className="FeedBackAudio_state">{statusMap[status] || "알 수 없음"}</p>
+      <div className="FeedBackAudio_controler">
         <div>미리 듣기</div>
         <audio
-          className="FeedbackModal_audio"
+          className="FeedBackAudio_audio"
           src={mediaBlobUrl}
           controls
         ></audio>
       </div>
-      <div className="FeedbackModal_footer">
-        <Button onClick={uploadRecording} className="FeedbackModal_footer_send">
+      <div className="FeedBackAudio_footer">
+        <Button onClick={uploadRecording} className="FeedBackAudio_footer_send">
           음성 보내기
         </Button>
       </div>
