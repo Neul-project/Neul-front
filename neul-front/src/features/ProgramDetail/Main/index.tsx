@@ -66,6 +66,17 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   const handleOk = () => {
     //console.log("de", Number(detailid));
+
+    //장바구니에 있는 지 확인용
+    axiosInstance
+      .get("/program/cartlist", {
+        params: { programId: Number(detailid) },
+      })
+      .then((res) => {
+        const list = res.data;
+        console.log("list", list);
+      });
+
     axiosInstance
       .post("/program/apply", { programId: Number(detailid) })
       .then((res) => {
@@ -77,6 +88,11 @@ const ProgramDetail = (props: { detailid: string }) => {
         });
         setIsModalOpen(false);
       });
+  };
+
+  //바로 결제 확인 버튼
+  const DirecthandleOk = () => {
+    setIsDirectModalOpen(false);
   };
 
   const handleCancel = () => {
@@ -115,7 +131,7 @@ const ProgramDetail = (props: { detailid: string }) => {
           onOk={handleOk}
           onCancel={handleCancel}
           footer={
-            <Button key="link" type="primary" onClick={handleOk}>
+            <Button key="link" type="primary" onClick={DirecthandleOk}>
               결제하기
             </Button>
           }
