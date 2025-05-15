@@ -8,7 +8,7 @@ export const ProgramElementStyled = styled.div`
 
     .ProgramElement_img {
       width: 100%;
-      height: 300px;
+      height: 280px;
       //object-fit: cover;
       background: #e5e5e5;
       border-radius: 5px;
@@ -31,7 +31,7 @@ export const ProgramElementStyled = styled.div`
 
       .ProgramElement_Recruit {
         display: inline-block;
-        padding: 7px 8px;
+        padding: 5px 6px;
         font-weight: 600;
         font-size: 13px;
         color: #13453c;
@@ -44,19 +44,29 @@ export const ProgramElementStyled = styled.div`
         color: #999;
       }
       .ProgramElement_title {
-        min-height: 51px;
-        max-height: 51px;
-        line-height: 2.4rem;
-        margin-top: 12px;
+        width: 100%;
+        max-width: 280px;
+        margin-top: 10px;
         font-family: "GmarketSans";
         font-weight: 500;
-        font-size: 1.7rem;
+        font-size: 25px;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .ProgramElement_botton_content {
         margin-top: 15px;
         padding-top: 15px;
         border-top: 1px dashed #ccc;
+        font-size: 15px;
+
+        .ProgramElement_category,
+        .ProgramElement_progress,
+        .ProgramElement_recru {
+          padding-bottom: 3px;
+        }
       }
     }
   }

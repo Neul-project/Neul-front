@@ -10,8 +10,8 @@ import { getRecruitmentState } from "@/utils/getrecruitmentstate";
 */
 
 //프로그램 요소 컴포넌트
-const ProgramElement = (props: { list: any }) => {
-  const { list } = props;
+const ProgramElement = (props: { list: any; filterStatus: any }) => {
+  const { list, filterStatus } = props;
   const router = useRouter();
   const [state, setState] = useState("");
   const imgarr = list.img.split(",");
@@ -20,6 +20,16 @@ const ProgramElement = (props: { list: any }) => {
     const result = getRecruitmentState(list.recruitment);
     if (result) setState(result);
   }, [list.recruitment]);
+
+  // 필터 조건 검사
+  const shouldRender = () => {
+    if (!filterStatus || filterStatus === "all") return true;
+    if (filterStatus === "recruiting") return state === "모집중";
+    if (filterStatus === "completed") return state === "모집완료";
+    return true;
+  };
+
+  if (!shouldRender()) return null; // 조건에 맞지 않으면 렌더링하지 않음
 
   //해당 상세 프로그램 페이지 이동
   const open_program = () => {
@@ -58,7 +68,7 @@ const ProgramElement = (props: { list: any }) => {
             모집기간 {list.recruitment}
           </div>
           <div className="ProgramElement_capacity">
-            모집인원 {list.capacity}
+            모집인원 {list.capacity}명
           </div>
         </div>
       </div>
