@@ -18,6 +18,7 @@ import Dropdown from "antd/es/dropdown";
 import { MenuProps } from "antd/es/menu";
 import Modal from "antd/es/modal";
 import message from "antd/es/message";
+import { notification } from "antd";
 
 dayjs.locale("ko"); // 로케일 설정
 
@@ -36,7 +37,6 @@ interface Chatting {
 // 채팅 전체 화면
 const ChatRoom = () => {
   const [inputValue, setInputValue] = useState("");
-  const [adminId, setAdminId] = useState<Number>();
   const [chattings, setChattings] = useState<Chatting[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -51,6 +51,7 @@ const ChatRoom = () => {
   // 채팅 개수
   const limit = 12;
 
+  const { adminId } = useAuthStore();
   const userId = useAuthStore((state) => state.user?.id);
 
   // 무조건 아래에서 시작하도록
@@ -86,68 +87,55 @@ const ChatRoom = () => {
     }
   };
 
-  // 담당 관리자 id불러오기
-  const getAdminId = async () => {
-    try {
-      const res = await axiosInstance.get("/user/admin");
-      console.log("관리자id는 뭘까", res.data);
-      setAdminId(res.data);
-    } catch (e: any) {
-      if (e.response?.status === 401) {
-        message.info(e.response.data.message);
-      } else {
-        console.error("담당 관리자 불러오기 실패: ", e);
-      }
-    }
-  };
-
   // 관리자 ID 불러오기 (최초 1회만 실행)
-  useEffect(() => {
-    if (!didFetch.current) {
-      getAdminId();
-      didFetch.current = true;
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   // adminId가 존재할 때만 실행
   useEffect(() => {
-    if (!adminId) return;
+    if (!adminId) {
+      if (!didFetch.current) {
+        notification.info({
+          message: "아직 담당자가 매칭되지 않았습니다.",
+        });
+        didFetch.current = true;
+      }
+    } else {
+      // 채팅 불러오기
+      fetchChatMessages();
 
-    // 채팅 불러오기
-    fetchChatMessages();
+      // 관리자한테 온 채팅 읽음 처리 요청
+      axiosInstance.post("/chat/user/read", {
+        userId,
+        adminId,
+      });
 
-    // 관리자한테 온 채팅 읽음 처리 요청
-    axiosInstance.post("/chat/user/read", {
-      userId,
-      adminId,
-    });
+      // 안읽은 메시지 초기화
+      clearUnreadCount();
 
-    // 안읽은 메시지 초기화
-    clearUnreadCount();
+      // 소켓 연결
+      socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
+        withCredentials: true,
+      });
 
-    // 소켓 연결
-    socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
-      withCredentials: true,
-    });
+      socketRef.current.off("receive_message");
+      socketRef.current.on("receive_message", (message: any) => {
+        const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
+        const time = dayjs(message.created_at).format("A h:mm");
 
-    socketRef.current.off("receive_message");
-    socketRef.current.on("receive_message", (message: any) => {
-      const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
-      const time = dayjs(message.created_at).format("A h:mm");
+        const parsedMessage: Chatting = {
+          ...message,
+          date,
+          time,
+        };
 
-      const parsedMessage: Chatting = {
-        ...message,
-        date,
-        time,
+        // 새 메시지 수신 -> 채팅 상태 업데이트
+        setChattings((prev) => [...prev, parsedMessage]);
+      });
+
+      return () => {
+        socketRef.current.disconnect();
       };
-
-      // 새 메시지 수신 -> 채팅 상태 업데이트
-      setChattings((prev) => [...prev, parsedMessage]);
-    });
-
-    return () => {
-      socketRef.current.disconnect();
-    };
+    }
   }, [adminId]);
 
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
@@ -161,7 +149,8 @@ const ChatRoom = () => {
 
   // 날짜별로 그룹화
   const groupDate = useMemo(() => {
-    return chattings.reduce((acc: Record<string, Chatting[]>, chat) => {
+    const filteredChats = chattings.filter((chat) => !chat.userDel);
+    return filteredChats.reduce((acc: Record<string, Chatting[]>, chat) => {
       if (!acc[chat.date]) acc[chat.date] = [];
       acc[chat.date].push(chat);
       return acc;
@@ -189,7 +178,9 @@ const ChatRoom = () => {
         console.error("채팅 메시지 전송 실패:", e);
       }
     } else {
-      message.info("담당 관리자가 없습니다.");
+      notification.info({
+        message: "담당 관리자가 없습니다.",
+      });
     }
   };
 
@@ -291,7 +282,12 @@ const ChatRoom = () => {
           <div className="chatroom_message">
             <input
               type="text"
-              placeholder="메시지 입력"
+              readOnly={adminId ? false : true}
+              placeholder={
+                adminId
+                  ? "메시지 입력"
+                  : "매칭된 도우미가 없어서 채팅이 불가합니다."
+              }
               value={inputValue}
               onKeyDown={(e) => {
                 if (e.key === "Enter") sendMessage();
@@ -303,7 +299,7 @@ const ChatRoom = () => {
           </div>
           <SendOutlined
             className={`chatroom_sendbtn ${
-              inputValue.trim() === "" ? "chatroom_disabled" : ""
+              !adminId || inputValue.trim() === "" ? "chatroom_disabled" : ""
             }`}
             onClick={sendMessage}
           />

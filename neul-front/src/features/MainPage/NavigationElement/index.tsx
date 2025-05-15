@@ -11,12 +11,15 @@ import chat from "@/assets/images/ic-event-survey.png";
 import test from "@/assets/images/ic-event-test.png";
 import relay from "@/assets/images/ic-event-relay.png";
 import { useMessageStore } from "@/stores/useMessageStore";
-import { Badge } from "antd";
+import { Badge, message, notification } from "antd";
 import { useEffect } from "react";
 import axiosInstance from "@/lib/axios";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 //네비게이션 컴포넌트
 const NavigationElement = () => {
+  const { adminId, user } = useAuthStore();
+
   const { setUnreadCount, increaseUnreadCount, clearUnreadCount } =
     useMessageStore();
 
@@ -34,6 +37,7 @@ const NavigationElement = () => {
 
   useEffect(() => {
     // 컴포넌트가 마운트될 때 개수 가져오기
+    if (!adminId) return;
     fetchUnreadCount();
 
     // 소켓 연결
@@ -50,7 +54,7 @@ const NavigationElement = () => {
     return () => {
       socket.disconnect();
     };
-  }, [increaseUnreadCount, clearUnreadCount]);
+  }, [adminId, increaseUnreadCount, clearUnreadCount]);
 
   //상태확인 페이지 이동
   const stateCheck = () => {
@@ -63,7 +67,16 @@ const NavigationElement = () => {
   };
   //채팅방 이동
   const ChatRoom = () => {
-    router.push("/chat");
+    if (adminId) {
+      router.push("/chat");
+    } else if (!adminId && !user?.id) {
+      router.push("/login");
+      message.info("로그인이 필요합니다.");
+    } else {
+      notification.info({
+        message: "담당 도우미가 없어 채팅이 불가합니다.",
+      });
+    }
   };
 
   //마이페이지 이동
@@ -78,7 +91,7 @@ const NavigationElement = () => {
 
   return (
     <NavigationElementStyled className={clsx("NavigationElement_main_wrap")}>
-      <div className="NavigationElement_title_background"></div>
+      <div className="NavigationElement_title">바로가기</div>
       <div className="NavigationElement_rows">
         <div className="NavigationElement_row1">
           <div className="NavigationElement_ele" onClick={stateCheck}>

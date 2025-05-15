@@ -2,20 +2,16 @@ import clsx from "clsx";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import axiosInstance from "@/lib/axios";
+import { list } from "./comment";
 
 //component
-import { MainPageBackground, MainPageStyled } from "./styled";
+import { MainPageStyled } from "./styled";
 import IntroSection from "../IntroSection";
 import Advertising from "@/features/Advertising";
 
-import axiosInstance from "@/lib/axios";
-
 // zustand
 import { useAuthStore } from "@/stores/useAuthStore";
-import Banner from "../banner";
-
-//image
-import backimg from "@/assets/images/visual-bg.png";
 
 //main page component
 const MainPage = () => {
@@ -23,6 +19,8 @@ const MainPage = () => {
   const { login } = useAuthStore();
 
   const [isTokenProcessed, setIsTokenProcessed] = useState(false);
+
+  const [listIndex, setListIndex] = useState(0);
 
   // 소셜로그인 토큰 저장
   useEffect(() => {
@@ -59,14 +57,20 @@ const MainPage = () => {
     }
   }, [router.isReady, router.query, isTokenProcessed]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setListIndex((prevIndex) => (prevIndex + 1) % list.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <MainPageBackground $backimg={backimg.src}>
-      <MainPageStyled className={clsx("MainPage_main_wrap")}>
-        <IntroSection />
-        <Banner />
-        <Advertising />
-      </MainPageStyled>
-    </MainPageBackground>
+    <MainPageStyled className={clsx("MainPage_main_wrap")}>
+      <div className="MainPage_side">{list[listIndex]}</div>
+      <IntroSection />
+      <Advertising />
+    </MainPageStyled>
   );
 };
 
