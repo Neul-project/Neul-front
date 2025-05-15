@@ -43,8 +43,8 @@ const ProgramHistory = () => {
     currentPage * pageSize
   );
 
-  console.log("currentPage:", currentPage);
-  console.log("paginatedPrograms:", paginatedPrograms);
+  // console.log("currentPage:", currentPage);
+  // console.log("paginatedPrograms:", paginatedPrograms);
 
   // 프로그램 신청내역 요청
   useEffect(() => {

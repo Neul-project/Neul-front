@@ -6,7 +6,8 @@ import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useAuthStore } from "@/stores/useAuthStore";
-import MiniNoteBook from "../MiniNoteBook";
+import clip from "@/assets/images/clip.png";
+import Image from "next/image";
 
 // 상태 타입
 interface StatusType {
@@ -20,12 +21,8 @@ interface StatusType {
   recorded_at: string;
 }
 
-type statusProps = {
-  type?: string;
-};
-
 // 상태 체크 페이지(처음 입장했을때는 오늘 날짜로 초기화)
-const StatusCheck = ({ type }: statusProps) => {
+const StatusCheck = () => {
   const [status, setStatus] = useState<StatusType[] | null>(null);
   const [name, setName] = useState<string>(""); // 피보호자 이름
   const userId = useAuthStore((state) => state.user?.id);
@@ -70,20 +67,18 @@ const StatusCheck = ({ type }: statusProps) => {
 
   useEffect(() => {
     if (!userId) return;
-    if (type !== "book") {
-      // 피보호자 이름은 1번만 불러옴
-      axiosInstance
-        .get("/patient/name", {
-          params: { userId },
-        })
-        .then((res) => {
-          setName(res.data.name);
-          console.log("피보호자이름", res.data.name);
-        })
-        .catch((e) => {
-          console.error("피보호자 이름 불러오기 실패:", e);
-        });
-    }
+    // 피보호자 이름은 1번만 불러옴
+    // axiosInstance
+    //   .get("/patient/name", {
+    //     params: { userId },
+    //   })
+    //   .then((res) => {
+    //     setName(res.data.name);
+    //     console.log("피보호자이름", res.data.name);
+    //   })
+    //   .catch((e) => {
+    //     console.error("피보호자 이름 불러오기 실패:", e);
+    //   });
 
     // 오늘 날짜 상태 요청
     SelectDate(today);
@@ -92,26 +87,16 @@ const StatusCheck = ({ type }: statusProps) => {
   return (
     // 달력 한글로
     <ConfigProvider locale={koKR}>
-      <StatusCheckStyled
-        className={clsx(
-          `statuscheck_wrap ${type !== "book" ? "notbook_wrap" : "book_wrap"}`
-        )}
-      >
-        {/* 고리 */}
-        {type !== "book" && <MiniNoteBook />}
-
-        <div
-          className={`statuscheck_box ${type !== "book" ? "notbook_box" : ""}`}
-        >
+      <StatusCheckStyled className={clsx(`statuscheck_wrap`)}>
+        <div className="statuscheck_clip_box">
+          <Image className="statuscheck_clip" src={clip} alt="클립" />
+        </div>
+        <div className="statuscheck_box">
           {/* 피보호자 이름 */}
           {name && <div className="statuscheck_name">{name}님 상태</div>}
 
           {/* 날짜 선택 */}
-          <div
-            className={`statuscheck_date ${
-              type !== "book" ? "notbook_date" : "book_date"
-            }`}
-          >
+          <div className="statuscheck_date">
             <DatePicker
               size="large"
               value={selectedDate}
@@ -121,7 +106,7 @@ const StatusCheck = ({ type }: statusProps) => {
 
           {/* 상태 */}
           {status && status.length > 0 ? (
-            <div className={type !== "book" ? "" : "statuscheck_info"}>
+            <div className="statuscheck_info">
               {[
                 { title: "컨디션", value: status[0].condition },
                 { title: "아침 식사량", value: status[0].meal?.split(",")[0] },
@@ -157,29 +142,6 @@ const StatusCheck = ({ type }: statusProps) => {
                   </span>
                 </div>
               ))}
-              <div
-                className={`statuscheck_explanation ${
-                  type === "book" ? "notbook_explanation" : ""
-                }`}
-              >
-                <p>
-                  <strong>컨디션 기준</strong> <br />
-                  - 아주 좋음: 피보호자가 매우 건강하고 활동적임. <br />
-                  - 좋음: 건강하지만 약간의 피로감을 느낄 수 있음. <br />
-                  - 보통: 특별한 문제가 없지만 조금 피곤해 보임. <br />
-                  - 나쁨: 건강 상태가 좋지 않거나 피로가 심함. <br />- 아주
-                  나쁨: 피보호자의 상태가 매우 나쁘고, 즉각적인 관리가 필요함.
-                </p>
-                <br />
-                <p>
-                  <strong>식사량 기준</strong> <br />
-                  - 완식: 식사를 모두 섭취함. <br />
-                  - 대부분 섭취: 식사량의 80% 이상 섭취함. <br />
-                  - 절반 섭취: 식사량의 50% 정도 섭취함. <br />
-                  - 조금 섭취: 식사량의 30% 미만 섭취함. <br />- 식사 거부:
-                  식사를 거부하거나 거의 섭취하지 않음.
-                </p>
-              </div>
             </div>
           ) : (
             // 아직 등록된 상태가 없는 경우

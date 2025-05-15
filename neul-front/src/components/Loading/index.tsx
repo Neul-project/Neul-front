@@ -3,24 +3,20 @@ import { LoadingStyled } from "./styled";
 
 import Image from "next/image";
 
+const gifList = [
+  "/main01_deco_resize.gif",
+  "/main02_deco_resize.gif",
+  "/main03_deco_resize.gif",
+];
+
 const Loading = () => {
-  const gifList = ["/main01_deco.gif", "/main02_deco.gif", "/main03_deco.gif"];
+  console.log("실행됨", typeof window === "undefined" ? "서버" : "클라이언트");
 
-  // 컴포넌트가 마운트될 때 단 한 번만 랜덤 선택
-  const randomGif = useMemo(() => {
-    const index = Math.floor(Math.random() * gifList.length);
-    return gifList[index];
-  }, []);
+  const [selectedGif, setSelectedGif] = useState<string | null>(null);
 
-  const [dotCount, setDotCount] = useState(0);
-
-  // '...' 애니메이션
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDotCount((prev) => (prev + 1) % 4); // 0, 1, 2, 3
-    }, 500); // 0.5초 간격
-
-    return () => clearInterval(interval);
+    const index = Math.floor(Math.random() * gifList.length);
+    setSelectedGif(gifList[index]);
   }, []);
 
   return (
@@ -28,13 +24,15 @@ const Loading = () => {
       <div className="Loading_center">
         <div className="Loading_wrap">
           <div>
-            <Image
-              src={randomGif}
-              alt="gif"
-              width={195}
-              height={180}
-              priority
-            />
+            {selectedGif && (
+              <Image
+                src={selectedGif}
+                alt="gif"
+                width={240}
+                height={140}
+                priority
+              />
+            )}
           </div>
           <p className="Loading_text">LOADING...</p>
         </div>
