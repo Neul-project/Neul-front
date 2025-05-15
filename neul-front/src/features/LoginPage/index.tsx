@@ -10,6 +10,7 @@ import { loginSchema } from "@/utils/joinValidation";
 
 // zustand
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useCartStore } from "@/stores/useCartStore";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -72,7 +73,7 @@ const LoginPage = () => {
         {/* 로고 */}
         <div className="Login_logoCont">
           <a href="/">
-            <img src="/logo_small.png" alt="logo" />
+            <img src="/new_logo_sizeup.png" alt="logo" />
           </a>
         </div>
 

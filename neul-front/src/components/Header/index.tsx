@@ -10,6 +10,7 @@ import { GrBook } from "react-icons/gr";
 import { PiBellRinging } from "react-icons/pi";
 
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useCartStore } from "@/stores/useCartStore";
 import axiosInstance from "@/lib/axios";
 import { notification } from "antd";
 
@@ -81,7 +82,7 @@ const Header = () => {
 
   // zustand 로그인 유저 정보 가져오기
   const { user } = useAuthStore();
-  console.log(user); // {id, name, provider}
+  // console.log(user); // {id, name, provider}
 
   // hover 드롭다운
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -95,7 +96,22 @@ const Header = () => {
   const [matchAlertNum, setMatchAlertNum] = useState<Number>(0);
 
   // 장바구니 개수
-  const [cartCount, setCartCount] = useState<number>(0);
+  const cartCount = useCartStore((state) => state.cartCount);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const fetchCartCount = useCartStore((state) => state.fetchCartCount);
+
+  // 장바구니 개수 요청
+  // useEffect(() => {
+  //   fetchCartCount();
+  // }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchCartCount();
+    }
+  }, [isLoggedIn]);
+
+  // const [cartCount, setCartCount] = useState<number>(0);
 
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
@@ -107,15 +123,15 @@ const Header = () => {
   };
 
   // 장바구니 개수 요청
-  const getCartCount = async () => {
-    try {
-      const res = await axiosInstance.get("/program/count");
-      console.log("장바구니 개수", res.data.count);
-      setCartCount(res.data.count);
-    } catch (e) {
-      console.error("장바구니 개수 가져오기 실패: ", e);
-    }
-  };
+  // const getCartCount = async () => {
+  //   try {
+  //     const res = await axiosInstance.get("/program/count");
+  //     console.log("장바구니 개수", res.data.count);
+  //     setCartCount(res.data.count);
+  //   } catch (e) {
+  //     console.error("장바구니 개수 가져오기 실패: ", e);
+  //   }
+  // };
 
   // 담당 관리자 id 불러오기
   const getAdminId = async () => {
@@ -169,11 +185,9 @@ const Header = () => {
 
   useEffect(() => {
     getAlert();
-    getCartCount(); // 장바구니 개수
 
     const interval = setInterval(() => {
       getAlert();
-      getCartCount();
     }, 10000); // 10초마다 가져오기
 
     window.addEventListener("scroll", handleScroll);
@@ -222,7 +236,9 @@ const Header = () => {
                 onMouseLeave={() => setIsDropdownOpen(false)}
                 onClick={() => setIsDropdownOpen((v) => !v)}
               >
-                <span>{user.name} 님</span>
+                <span>
+                  <strong className="username">{user.name}</strong>님
+                </span>
                 <span className="Header_icon" />
 
                 {/* 드롭다운 메뉴 */}

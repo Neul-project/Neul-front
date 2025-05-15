@@ -83,7 +83,7 @@ export const LoginPageStyled = styled.div`
     button {
       cursor: pointer;
       width: 100%;
-      height: 42px;
+      height: 47px;
       margin-top: 10px;
       border: none;
       border-radius: 8px;
@@ -112,7 +112,7 @@ export const LoginPageStyled = styled.div`
     }
 
     span {
-      height: 17px;
+      height: 15px;
       border: 1px solid #ddd;
     }
   }

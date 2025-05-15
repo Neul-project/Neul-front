@@ -11,8 +11,14 @@ export const FindIdStyled = styled.div`
   }
 
   .FindId_ResultContainer {
-    p {
-      margin-bottom: 15px;
+    .guide1 {
+      /* margin-bottom: 15px; */
+    }
+
+    .guide2 {
+      color: #aaa;
+      font-size: 13px;
+      margin-bottom: 35px;
     }
 
     .FindId_No_container {
