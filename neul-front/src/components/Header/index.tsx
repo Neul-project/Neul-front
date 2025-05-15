@@ -255,11 +255,7 @@ const Header = () => {
 
               <div className="div_box">
                 <GrBook className="GrBook" />
-                <span className="absolute">
-                  {cartCount > 0 && (
-                    <span className="absolute">{cartCount}</span>
-                  )}
-                </span>
+                {cartCount > 0 && <span className="absolute">{cartCount}</span>}
               </div>
 
               <div className="div_box" onClick={readAlert}>
