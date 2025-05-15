@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const ActivityTableStyled = styled.div`
   &.ActivityList_main_wrap {
+    //padding: 0px 20px;
+
     .ant-table-thead > tr > th {
       text-align: center;
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
+      //border-top: 1px solid #ccc;
+      //border-bottom: 1px solid #ccc;
     }
 
     .ant-table-tbody > tr:hover {
@@ -120,7 +122,7 @@ export const theme = {
     },
     Table: {
       rowHoverBg: "#none", // hover 시 배경색
-      headerBg: "none", // 헤더 배경색
+      headerBg: "rgb(242, 245, 248)", // 헤더 배경색
       rowSelectedBg: "#bae7ff", // 선택된 row 배경색
       headerColor: "#000",
       headerBorderRadius: 0,

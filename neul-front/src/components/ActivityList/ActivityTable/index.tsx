@@ -51,12 +51,14 @@ const ActivityTable = () => {
     axiosInstance.get(`/activity/list/${user?.id}`).then((res) => {
       //console.log("data res", res.data);
 
-      const formatdata: DataType[] = res.data.map((item: any) => ({
-        key: String(item.id),
-        number: item.id,
-        title: item.title,
-        date: item.recorded_at,
-      }));
+      const formatdata: DataType[] = res.data.map(
+        (item: any, index: number) => ({
+          key: String(item.id),
+          number: item.id,
+          title: item.title,
+          date: item.recorded_at,
+        })
+      );
 
       setDataList(formatdata);
     });
