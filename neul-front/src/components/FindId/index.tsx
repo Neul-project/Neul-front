@@ -32,6 +32,7 @@ const FindId = () => {
             phone: values.phone,
           }
         );
+        console.log("아이디 찾기 응답", res.data);
 
         if (res.data?.email) {
           setFoundEmail(res.data.email);
@@ -54,10 +55,13 @@ const FindId = () => {
 
         {foundEmail ? (
           <div className="FindId_ResultContainer">
-            <p>고객님의 아이디(이메일)는 아래와 같습니다.</p>
+            <p>아이디 찾기가 완료되었습니다.</p>
             <div className="FindId_ResultEmail">{foundEmail}</div>
-            <button onClick={() => router.push("/login")}>
-              로그인 하러가기
+            <button
+              className="FindId_ResultBtn"
+              onClick={() => router.push("/login")}
+            >
+              로그인
             </button>
           </div>
         ) : (
@@ -94,7 +98,7 @@ const FindId = () => {
                 value={formik.values.phone}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                placeholder="숫자만 입력 (예: 01012345678)"
+                placeholder="숫자만 입력해주세요."
                 maxLength={11}
               />
               {formik.touched.phone && formik.errors.phone && (
