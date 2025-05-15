@@ -33,6 +33,7 @@ const FeedBackModal = (props: { activityid: string; onClose: () => void }) => {
       .post(`/activity/feedback`, {
         message: content,
         activityid: Number(activityid),
+        recorded_at: "",
       })
       .then((res) => {
         notification.success({
