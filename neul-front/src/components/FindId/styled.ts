@@ -2,11 +2,45 @@ import styled from "styled-components";
 
 export const FindIdStyled = styled.div`
   height: 100vh;
+  background-color: ${(props) => props.theme.colors.backColor};
 
   .FindId_container {
-    display: flex;
+    width: 340px;
+    margin: 0 auto;
+    text-align: center;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
+  }
+
+  .FindId_ResultContainer {
+    p {
+      margin-bottom: 15px;
+    }
+
+    .FindId_ResultEmail {
+      width: 100%;
+      padding: 10px 9px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #fcfcfc;
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 10px;
+    }
+
+    .FindId_ResultBtn {
+      cursor: pointer;
+      width: 100%;
+      height: 42px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #5da487;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+    }
   }
 
   .FindId_InputContainer {
@@ -26,6 +60,7 @@ export const FindIdStyled = styled.div`
   .FindId_name {
     font-size: 14px;
     margin-bottom: 5px;
+    text-align: start;
   }
 
   .FindId_input {

@@ -123,7 +123,13 @@ const LoginPage = () => {
             회원가입
           </li>
           <span></span>
-          <li>아이디 찾기</li>
+          <li
+            onClick={() => {
+              router.push("/findid");
+            }}
+          >
+            아이디 찾기
+          </li>
         </ul>
 
         {/* 소셜 로그인 */}

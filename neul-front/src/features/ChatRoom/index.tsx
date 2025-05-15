@@ -87,9 +87,6 @@ const ChatRoom = () => {
     }
   };
 
-  // 관리자 ID 불러오기 (최초 1회만 실행)
-  useEffect(() => {}, []);
-
   // adminId가 존재할 때만 실행
   useEffect(() => {
     if (!adminId) {
@@ -133,7 +130,9 @@ const ChatRoom = () => {
       });
 
       return () => {
-        socketRef.current.disconnect();
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+        }
       };
     }
   }, [adminId]);
@@ -204,7 +203,8 @@ const ChatRoom = () => {
             params: { userId },
           });
           message.success("모든 채팅 내용이 삭제되었습니다.");
-          fetchChatMessages();
+          await fetchChatMessages();
+          scrollToBottom();
         } catch (e) {
           console.error("모든 채팅 내용 삭제 실패: ", e);
           message.error("모든 채팅 내용 삭제에 실패했습니다.");
@@ -282,7 +282,7 @@ const ChatRoom = () => {
           <div className="chatroom_message">
             <input
               type="text"
-              readOnly={adminId ? false : true}
+              disabled={!adminId}
               placeholder={
                 adminId
                   ? "메시지 입력"

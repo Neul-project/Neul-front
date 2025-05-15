@@ -167,6 +167,7 @@ const Header = () => {
   };
 
   useEffect(() => {
+    getAdminId();
     getAlert();
     getCartCount(); // 장바구니 개수
 
@@ -253,7 +254,12 @@ const Header = () => {
                 )}
               </div>
 
-              <div className="div_box">
+              <div
+                className="div_box"
+                onClick={() => {
+                  router.push("/payment");
+                }}
+              >
                 <GrBook className="GrBook" />
                 {cartCount > 0 && <span className="absolute">{cartCount}</span>}
               </div>
