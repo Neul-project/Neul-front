@@ -167,6 +167,7 @@ const Header = () => {
   };
 
   useEffect(() => {
+    getAdminId();
     getAlert();
     getCartCount(); // 장바구니 개수
 
