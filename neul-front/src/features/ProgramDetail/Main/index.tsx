@@ -7,6 +7,7 @@ import { Button, Modal, notification } from "antd";
 import ProgramImg from "../ProgramImg";
 import ProgramContent from "../ProgramContent";
 import { useRouter } from "next/router";
+import { getRecruitmentState } from "@/utils/getrecruitmentstate";
 
 //프로그램 상세 페이지 컴포넌트
 const ProgramDetail = (props: { detailid: string }) => {
@@ -30,7 +31,7 @@ const ProgramDetail = (props: { detailid: string }) => {
   const [category, setCategory] = useState();
   const [target, setTarget] = useState("");
   const [note, setNote] = useState("");
-  //console.log("detailid", detailid);
+  const [state, setState] = useState("");
 
   useEffect(() => {
     if (!detailid) return;
@@ -39,7 +40,7 @@ const ProgramDetail = (props: { detailid: string }) => {
       .get(`/program/detail`, { params: { detailid: Number(detailid) } })
       .then((res) => {
         const data = res.data;
-        console.log("Data", data);
+        //console.log("Data", data);
         const imgarr = data.img.split(",");
         setTitle(data.name);
         setCall(data.call);
@@ -56,6 +57,13 @@ const ProgramDetail = (props: { detailid: string }) => {
       });
   }, [detailid]);
 
+  useEffect(() => {
+    if (!recruitment) return;
+
+    const result = getRecruitmentState(recruitment);
+    if (result) setState(result);
+  }, [recruitment]);
+
   const Columnlist = () => {
     router.push("/program");
   };
@@ -66,12 +74,13 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   //바로 결제하기 모달
   const showdirectModal = () => {
-    setIsDirectModalOpen(true);
+    if (state === "모집완료") {
+    } else {
+      setIsDirectModalOpen(true);
+    }
   };
 
   const handleOk = () => {
-    //console.log("de", Number(detailid));
-
     //장바구니에 있는 지 확인용
     axiosInstance.get("/program/histories").then((res) => {
       const list = res.data;
@@ -116,7 +125,13 @@ const ProgramDetail = (props: { detailid: string }) => {
   return (
     <ProgramDetailStyled className={clsx("ProgramDetail_main_wrap")}>
       <div className="ProgramDetail_top">
-        <div className="ProgramDetail_ing">접수중</div>
+        <div
+          className={`ProgramDetail_ing ${
+            state === "모집완료" ? "ProgramDetail_ing_end" : ""
+          }`}
+        >
+          {state}
+        </div>
         <h3 className="ProgramDetail_title">{title}</h3>
       </div>
       <div className="ProgramDetail_main">
@@ -138,7 +153,13 @@ const ProgramDetail = (props: { detailid: string }) => {
       </div>
 
       <div className="ProgramDetail_btns">
-        <button onClick={showdirectModal} className="ProgramDetail_Dir">
+        <button
+          onClick={showdirectModal}
+          className={`ProgramDetail_Dir ${
+            state === "모집완료" ? "disabled" : ""
+          }`}
+          disabled={state === "모집완료"}
+        >
           바로 결제하기
         </button>
         <Modal
@@ -156,7 +177,13 @@ const ProgramDetail = (props: { detailid: string }) => {
           <div>정말로 바로 결제하시겠습니까?</div>
         </Modal>
 
-        <button className="ProgramDetail_show" onClick={showModal}>
+        <button
+          className={`ProgramDetail_show ${
+            state === "모집완료" ? "disabled" : ""
+          }`}
+          onClick={showModal}
+          disabled={state === "모집완료"}
+        >
           신청하기
         </button>
 

@@ -38,6 +38,11 @@ export const ProgramElementStyled = styled.div`
         background: #e9f5f3;
         border-radius: 3px;
       }
+      /* 모집완료일 때 배경색 */
+      .ProgramElement_Recruit_end {
+        background-color: #f0f0f0;
+        color: #999;
+      }
       .ProgramElement_title {
         min-height: 51px;
         max-height: 51px;

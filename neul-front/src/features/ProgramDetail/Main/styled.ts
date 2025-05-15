@@ -30,6 +30,10 @@ export const ProgramDetailStyled = styled.div`
         font-family: "NBGB";
         box-sizing: border-box;
       }
+      .ProgramDetail_ing_end {
+        background-color: #f0f0f0;
+        color: #999;
+      }
 
       .ProgramDetail_title {
         //margin-top: 20px;
@@ -88,6 +92,17 @@ export const ProgramDetailStyled = styled.div`
         font-family: "NBGB";
         line-height: 20px;
         cursor: pointer;
+      }
+      .ProgramDetail_Dir.disabled,
+      .ProgramDetail_Dir:disabled,
+      .ProgramDetail_show.disabled,
+      .ProgramDetail_show:disabled {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+        opacity: 0.7;
+        pointer-events: none;
+        //transition: background-color 0.3s;
       }
     }
   }

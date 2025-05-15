@@ -2,7 +2,8 @@ import clsx from "clsx";
 import { ProgramElementStyled } from "./styled";
 import { useRouter } from "next/router";
 import { getCategoryLabel } from "@/utils/programcategory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getRecruitmentState } from "@/utils/getrecruitmentstate";
 
 /*
 1.제목/분류/진행기간/모집기간/모집인원
@@ -13,8 +14,12 @@ const ProgramElement = (props: { list: any }) => {
   const { list } = props;
   const router = useRouter();
   const [state, setState] = useState("");
-  console.log("list", list);
   const imgarr = list.img.split(",");
+
+  useEffect(() => {
+    const result = getRecruitmentState(list.recruitment);
+    if (result) setState(result);
+  }, [list.recruitment]);
 
   //해당 상세 프로그램 페이지 이동
   const open_program = () => {
@@ -34,7 +39,13 @@ const ProgramElement = (props: { list: any }) => {
         />
       </div>
       <div className="ProgramElement_content">
-        <div className="ProgramElement_Recruit">모집중</div>
+        <div
+          className={`ProgramElement_Recruit ${
+            state === "모집완료" ? "ProgramElement_Recruit_end" : ""
+          }`}
+        >
+          {state}
+        </div>
         <div className="ProgramElement_title">{list.name}</div>
         <div className="ProgramElement_botton_content">
           <div className="ProgramElement_category">

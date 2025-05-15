@@ -35,15 +35,16 @@ export const BannerStyled = styled.div`
 
     .Banner_slide {
       width: 100%;
-      height: 100%;
+      height: 400px;
+      //border: 1px solid black;
       border-radius: 15px;
       overflow: hidden;
       cursor: pointer;
-      object-fit: cover;
 
       .Banner_imgstyle {
         width: 100%;
         height: 100%;
+        object-fit: cover;
       }
     }
   }
