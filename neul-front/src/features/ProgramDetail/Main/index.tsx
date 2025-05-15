@@ -68,26 +68,33 @@ const ProgramDetail = (props: { detailid: string }) => {
     //console.log("de", Number(detailid));
 
     //장바구니에 있는 지 확인용
-    axiosInstance
-      .get("/program/cartlist", {
-        params: { programId: Number(detailid) },
-      })
-      .then((res) => {
-        const list = res.data;
-        console.log("list", list);
-      });
+    axiosInstance.get("/program/histories").then((res) => {
+      const list = res.data;
 
-    axiosInstance
-      .post("/program/apply", { programId: Number(detailid) })
-      .then((res) => {
-        //console.log("신청 성공");
+      const alreadyApplied = list.some(
+        (element: any) => element.id === Number(detailid)
+      );
 
+      if (alreadyApplied) {
         notification.success({
-          message: `신청 완료`,
-          description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
+          message: `신청 실패`,
+          description: `이미 신청한 프로그램 입니다.`,
         });
         setIsModalOpen(false);
-      });
+      } else {
+        axiosInstance
+          .post("/program/apply", { programId: Number(detailid) })
+          .then((res) => {
+            //console.log("신청 성공");
+
+            notification.success({
+              message: `신청 완료`,
+              description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
+            });
+            setIsModalOpen(false);
+          });
+      }
+    });
   };
 
   //바로 결제 확인 버튼
