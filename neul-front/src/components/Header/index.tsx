@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/images/logo_small.png";
 
 import { GrBook } from "react-icons/gr";
-import { FaRegBell } from "react-icons/fa6";
 import { PiBellRinging } from "react-icons/pi";
 
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -109,9 +108,9 @@ const Header = () => {
   // 장바구니 개수 요청
   const getCartCount = async () => {
     try {
-      // const res = await axiosInstance.get("/cart/count");
-      // console.log("장바구니 개수", res.data.count);
-      // setCartCount(res.data.count);
+      const res = await axiosInstance.get("/program/count");
+      console.log("장바구니 개수", res.data.count);
+      setCartCount(res.data.count);
     } catch (e) {
       console.error("장바구니 개수 가져오기 실패: ", e);
     }
@@ -256,7 +255,7 @@ const Header = () => {
 
               <div className="div_box">
                 <GrBook className="GrBook" />
-                <span className="absolute">1</span>
+                <span className="absolute">{cartCount}</span>
               </div>
 
               <div className="div_box" onClick={readAlert}>
