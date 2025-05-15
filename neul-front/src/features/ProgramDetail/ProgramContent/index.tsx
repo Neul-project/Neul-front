@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ProgramContentStyled } from "./styled";
+import { getCategoryLabel } from "@/utils/programcategory";
 
 const ProgramContent = (props: {
   price: string;
@@ -8,33 +9,54 @@ const ProgramContent = (props: {
   category: string;
   capacity: string;
   call: string;
+  target: string;
+  note: string;
 }) => {
-  const { price, progress, recruitment, category, capacity, call } = props;
+  const {
+    price,
+    progress,
+    recruitment,
+    category,
+    capacity,
+    call,
+    target,
+    note,
+  } = props;
   return (
     <ProgramContentStyled className={clsx("ProgramContent_main_wrap")}>
       <div className="ProgramDetail_row">
-        <div>가격</div>
-        <div>{price}</div>
+        <div className="ProgramDetail_row_title">진행기간</div>
+        <div className="ProgramDetail_row_detail">{progress}</div>
       </div>
       <div className="ProgramDetail_row">
-        <div>진행기간</div>
-        <div>{progress}</div>
+        <div className="ProgramDetail_row_title">모집기간</div>
+        <div className="ProgramDetail_row_detail">{recruitment}</div>
       </div>
       <div className="ProgramDetail_row">
-        <div>모집기간</div>
-        <div>{recruitment}</div>
+        <div className="ProgramDetail_row_title">카테고리</div>
+        <div className="ProgramDetail_row_detail">
+          {getCategoryLabel(category)}
+        </div>
       </div>
       <div className="ProgramDetail_row">
-        <div>카테고리</div>
-        <div>{category}</div>
+        <div className="ProgramDetail_row_title">모집인원</div>
+        <div className="ProgramDetail_row_detail">{capacity}명</div>
       </div>
       <div className="ProgramDetail_row">
-        <div>모집인원</div>
-        <div>{capacity}</div>
+        <div className="ProgramDetail_row_title">참여대상</div>
+        <div className="ProgramDetail_row_detail">{target}</div>
       </div>
       <div className="ProgramDetail_row">
-        <div>문의</div>
-        <div>{call}</div>
+        <div className="ProgramDetail_row_title">가격</div>
+        <div className="ProgramDetail_row_detail">{price}원</div>
+      </div>
+      <div className="ProgramDetail_row">
+        <div className="ProgramDetail_row_title">문의</div>
+        <div className="ProgramDetail_row_detail">{call}</div>
+      </div>
+      <div className="ProgramDetail_row">
+        <div className="ProgramDetail_row_title">프로그램 내용</div>
+        <div className="ProgramDetail_row_detail">{note}</div>
       </div>
     </ProgramContentStyled>
   );
