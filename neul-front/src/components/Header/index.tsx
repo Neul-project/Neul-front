@@ -222,7 +222,9 @@ const Header = () => {
                 onMouseLeave={() => setIsDropdownOpen(false)}
                 onClick={() => setIsDropdownOpen((v) => !v)}
               >
-                <span>{user.name} 님</span>
+                <span>
+                  <strong>{user.name}</strong>님
+                </span>
                 <span className="Header_icon" />
 
                 {/* 드롭다운 메뉴 */}
