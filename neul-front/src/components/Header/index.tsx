@@ -94,12 +94,26 @@ const Header = () => {
   // 매칭에 대한 알림 개수
   const [matchAlertNum, setMatchAlertNum] = useState<Number>(0);
 
+  // 장바구니 개수
+  const [cartCount, setCartCount] = useState<number>(0);
+
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
     if (window.scrollY > 64) {
       setIsScrolled(true);
     } else {
       setIsScrolled(false);
+    }
+  };
+
+  // 장바구니 개수 요청
+  const getCartCount = async () => {
+    try {
+      // const res = await axiosInstance.get("/cart/count");
+      // console.log("장바구니 개수", res.data.count);
+      // setCartCount(res.data.count);
+    } catch (e) {
+      console.error("장바구니 개수 가져오기 실패: ", e);
     }
   };
 
@@ -155,9 +169,11 @@ const Header = () => {
 
   useEffect(() => {
     getAlert();
+    getCartCount(); // 장바구니 개수
 
     const interval = setInterval(() => {
       getAlert();
+      getCartCount();
     }, 10000); // 10초마다 가져오기
 
     window.addEventListener("scroll", handleScroll);
