@@ -12,19 +12,26 @@ export const ProgramListStyled = styled.div`
     padding: 0px 20px;
 
     .ProgramList_title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      padding: 30px 0;
+      border-bottom: 1px solid #ccc;
       padding-top: 50px;
       align-items: center;
-      text-align: center;
       font-size: 25px;
       margin-bottom: 60px;
       font-weight: bolder;
     }
 
     .ProgramList_grid_wrap {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      padding-bottom: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px 0;
+      padding: 30px 0;
+      border-bottom: 1px solid #ccc;
+      border-top: 1px solid #ccc;
     }
   }
 `;

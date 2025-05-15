@@ -13,7 +13,7 @@ export const AdvertisingStyled = styled.div`
       color: #000;
       margin-bottom: 35px;
       margin-left: 20px;
-      margin-top: 30px;
+      margin-top: 60px;
     }
     .Advertising_adimg {
       display: flex;

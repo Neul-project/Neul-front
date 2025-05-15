@@ -26,7 +26,7 @@ const Banner = () => {
       <Swiper
         modules={[Pagination, Autoplay]}
         slidesPerView={1}
-        //pagination={{ clickable: true }}
+        pagination={{ clickable: true }}
         loop={true}
         autoplay={{
           delay: 5000,
