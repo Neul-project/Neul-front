@@ -7,7 +7,7 @@ interface CartState {
   setCartCount: (count: number) => void;
 }
 
-export const useCartStore = create<CartState>((set, get) => ({
+export const useCartStore = create<CartState>((set) => ({
   cartCount: 0,
 
   fetchCartCount: async () => {

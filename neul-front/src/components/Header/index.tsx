@@ -100,18 +100,11 @@ const Header = () => {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const fetchCartCount = useCartStore((state) => state.fetchCartCount);
 
-  // 장바구니 개수 요청
-  // useEffect(() => {
-  //   fetchCartCount();
-  // }, []);
-
   useEffect(() => {
     if (isLoggedIn) {
       fetchCartCount();
     }
   }, [isLoggedIn]);
-
-  // const [cartCount, setCartCount] = useState<number>(0);
 
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
@@ -121,17 +114,6 @@ const Header = () => {
       setIsScrolled(false);
     }
   };
-
-  // 장바구니 개수 요청
-  // const getCartCount = async () => {
-  //   try {
-  //     const res = await axiosInstance.get("/program/count");
-  //     console.log("장바구니 개수", res.data.count);
-  //     setCartCount(res.data.count);
-  //   } catch (e) {
-  //     console.error("장바구니 개수 가져오기 실패: ", e);
-  //   }
-  // };
 
   // 담당 관리자 id 불러오기
   const getAdminId = async () => {
