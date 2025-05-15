@@ -8,6 +8,7 @@ import ProgramImg from "../ProgramImg";
 import ProgramContent from "../ProgramContent";
 import { useRouter } from "next/router";
 import { getRecruitmentState } from "@/utils/getrecruitmentstate";
+import { useCartStore } from "@/stores/useCartStore";
 
 //프로그램 상세 페이지 컴포넌트
 const ProgramDetail = (props: { detailid: string }) => {
@@ -99,8 +100,10 @@ const ProgramDetail = (props: { detailid: string }) => {
       } else {
         axiosInstance
           .post("/program/apply", { programId: Number(detailid) })
-          .then((res) => {
+          .then(async (res) => {
             //console.log("신청 성공");
+
+            await useCartStore.getState().fetchCartCount();
 
             notification.success({
               message: `신청 완료`,
