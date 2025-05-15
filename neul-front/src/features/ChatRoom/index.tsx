@@ -61,9 +61,11 @@ const ChatRoom = () => {
 
   // 채팅 목록 가져오기 요청
   const fetchChatMessages = async () => {
+    console.log(userId, "유저id!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     try {
       const res = await axiosInstance.get(`/chat/list`, {
         // params: { limit, currentPage },
+        params: { userId },
       });
 
       // 데이터 가공

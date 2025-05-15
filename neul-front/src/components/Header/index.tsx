@@ -75,6 +75,7 @@ const Header = () => {
 
   // zustand admin에 대한 정보 가져오기
   const { setAdminId } = useAuthStore();
+  const userId = useAuthStore((state) => state.user?.id);
   // 한번만 실행되도록
   const didFetch = useRef(false);
 
@@ -167,7 +168,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    getAdminId();
     getAlert();
     getCartCount(); // 장바구니 개수
 
@@ -185,11 +185,12 @@ const Header = () => {
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
-    if (!didFetch.current) {
-      getAdminId();
-      didFetch.current = true;
-    }
-  }, [matchAlertNum]);
+    // if (!didFetch.current) {
+    getAdminId();
+    //   didFetch.current = true;
+    // }
+  }, [userId]);
+  // }, [matchAlertNum]);
 
   // 메뉴 이미지 클릭
   const MoveMain = () => {
