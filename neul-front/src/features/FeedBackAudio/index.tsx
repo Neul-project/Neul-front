@@ -43,6 +43,8 @@ const FeedBackAudio = (props: { activityid: string }) => {
 
     const formData = new FormData();
     formData.append("audio", blob);
+    formData.append("activityid", activityid);
+    formData.append("userId", String(userId));
 
     // for (const [key, value] of formData.entries()) {
     //   console.log(`${key}:`, value);
@@ -52,11 +54,8 @@ const FeedBackAudio = (props: { activityid: string }) => {
     axiosInstance
       .post(
         `/activity/feedback/audio`,
-        {
-          message: formData,
-          activityid: Number(activityid),
-          userId: userId,
-        },
+        formData,
+
         {
           headers: {
             "Content-Type": "multipart/form-data",
