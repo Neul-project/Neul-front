@@ -8,10 +8,11 @@ import { Pagination, Autoplay } from "swiper/modules";
 import clsx from "clsx";
 
 //활동기록 스와이퍼 이미지
-const SwiperImg = (props: { img: any }) => {
-  const { img } = props;
+const SwiperImg = (props: { img: any; title: string; patientname: string }) => {
+  const { img, title, patientname } = props;
   return (
     <SwiperStyled className={clsx("SwiperImg_main_wrap")}>
+      <div className="SwiperImg_title">{patientname}님 활동기록</div>
       <Swiper
         modules={[Pagination, Autoplay]}
         className="ActivityContent_swiper"

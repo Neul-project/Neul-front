@@ -2,10 +2,9 @@ import { ActivityContentStyled, theme } from "./styled";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
+import OnePage from "@/components/OnePage";
 
 import { useAuthStore } from "@/stores/useAuthStore";
-import SwiperImg from "../SwiperImg";
-import SubContent from "../SubContent";
 
 //활동 기록 컴포넌트
 const ActivityContent = (props: { id: string }) => {
@@ -17,6 +16,7 @@ const ActivityContent = (props: { id: string }) => {
   const [img, setImg] = useState([""]); //이미지 배열
   const [type, setType] = useState(""); //재활치료
   const [note, setNote] = useState("");
+  const [patientname, setPatientName] = useState("");
 
   //useEffect
   useEffect(() => {
@@ -38,28 +38,35 @@ const ActivityContent = (props: { id: string }) => {
         setType(data.type);
         setNote(data.note);
         setImg(imgarr);
+        setPatientName(data.patient.name);
       });
   }, [user]);
 
   return (
     <ActivityContentStyled className={clsx("ActivityContent_main_wrap")}>
-      <div className="ActivityContent_title">
-        <div>{title}</div> 활동기록 열람
-      </div>
-
       <div className="ActivityContent_sub">
         {/* 스와이퍼 이미지 */}
         <div className="ActivityContent_swiper">
-          <SwiperImg img={img} />
+          <OnePage
+            type={"left"}
+            lineNum={[]}
+            activity={"swiper"}
+            img={img}
+            title={title}
+            patientname={patientname}
+          />
         </div>
 
         {/* 활동 종류 & 재활 치료*/}
         <div className="ActivityContent_content">
-          <SubContent
-            type={type}
+          <OnePage
+            type={"right"}
+            lineNum={[]}
+            activity="subcontent"
             rehabilitation={rehabilitation}
             note={note}
             id={id}
+            activitytype={type}
           />
         </div>
       </div>

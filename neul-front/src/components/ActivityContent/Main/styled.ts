@@ -8,9 +8,9 @@ export const ActivityContentStyled = styled.div`
     display: flex;
     flex-direction: column;
     //align-items: center;
-    margin: 20px auto;
+    margin: 40px auto;
     padding: 0px 20px;
-    gap: 20px;
+    //gap: 20px;
 
     .ActivityContent_title {
       display: flex;
@@ -30,14 +30,14 @@ export const ActivityContentStyled = styled.div`
       display: flex;
       flex-direction: row;
 
-      .ActivityContent_swiper {
+      /* .ActivityContent_swiper {
         width: 50%;
         height: 100%;
       }
       .ActivityContent_content {
         width: 50%;
         height: 100%;
-      }
+      } */
     }
 
     .ActivityContent_subtitle {

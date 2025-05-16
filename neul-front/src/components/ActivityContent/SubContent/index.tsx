@@ -42,32 +42,17 @@ const SubContent = (props: {
       <div className="SubContent_type">
         <div>
           <div className="SubContent_text">활동 종류</div>
-          <ConfigProvider theme={theme}>
-            <Select
-              value={getActivityLabel(type)}
-              style={{ width: 200 }}
-              disabled
-            />
-          </ConfigProvider>
+          <div>{getActivityLabel(type)}</div>
         </div>
         <div>
           <div className="SubContent_text">재활 치료</div>
-          <ConfigProvider theme={theme}>
-            <Radio.Group
-              options={optionsWithDisabled}
-              value={rehabilitation}
-              optionType="button"
-              buttonStyle="solid"
-            />
-          </ConfigProvider>
+          <div>{rehabilitation}</div>
         </div>
       </div>
       {/* 특이사항 */}
       <div className="SubContent_option">
         <div className="SubContent_text">특이사항</div>
-        <ConfigProvider theme={theme}>
-          <TextArea rows={6} disabled value={note} />
-        </ConfigProvider>
+        <div>{note}</div>
       </div>
       {/* 피드백 작성 */}
       <div className="SubContent_feedback">
