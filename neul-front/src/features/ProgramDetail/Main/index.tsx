@@ -75,10 +75,14 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   //바로 결제하기 모달
   const showdirectModal = () => {
-    if (state === "모집완료") {
-    } else {
-      setIsDirectModalOpen(true);
-    }
+    //console.log("de", detailid);
+
+    //해당 프로그램id에 해당하는 신청한 사람 개수 반환
+    axiosInstance.get("/program/paylist", {
+      params: { detailid: Number(detailid) },
+    });
+
+    setIsDirectModalOpen(true);
   };
 
   const handleOk = () => {
