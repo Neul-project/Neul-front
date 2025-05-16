@@ -17,6 +17,8 @@ const ActivityContent = (props: { id: string }) => {
   const [type, setType] = useState(""); //재활치료
   const [note, setNote] = useState("");
   const [patientname, setPatientName] = useState("");
+  const lineNumleft = Array(1).fill(0);
+  const lineNumright = Array(8).fill(0);
 
   //useEffect
   useEffect(() => {
@@ -49,7 +51,7 @@ const ActivityContent = (props: { id: string }) => {
         <div className="ActivityContent_swiper">
           <OnePage
             type={"left"}
-            lineNum={[]}
+            lineNum={lineNumleft}
             activity={"swiper"}
             img={img}
             title={title}
@@ -61,7 +63,7 @@ const ActivityContent = (props: { id: string }) => {
         <div className="ActivityContent_content">
           <OnePage
             type={"right"}
-            lineNum={[]}
+            lineNum={lineNumright}
             activity="subcontent"
             rehabilitation={rehabilitation}
             note={note}

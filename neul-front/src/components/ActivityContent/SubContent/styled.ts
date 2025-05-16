@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const SubContentStyled = styled.div`
   &.SubContent_main_wrap {
+    padding: 125px 10px 10px 60px;
     .SubContent_type {
       display: flex;
       width: 100%;
@@ -23,7 +24,10 @@ export const SubContentStyled = styled.div`
     }
 
     .SubContent_text {
-      margin-bottom: 10px;
+      //margin-bottom: 10px;
+      min-width: 120px;
+      font-weight: bold;
+      color: #999;
     }
   }
 `;

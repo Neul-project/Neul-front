@@ -28,16 +28,15 @@ export const ActivityContentStyled = styled.div`
     .ActivityContent_sub {
       width: 100%;
       display: flex;
-      flex-direction: row;
 
-      /* .ActivityContent_swiper {
+      .ActivityContent_swiper {
         width: 50%;
         height: 100%;
       }
       .ActivityContent_content {
         width: 50%;
         height: 100%;
-      } */
+      }
     }
 
     .ActivityContent_subtitle {

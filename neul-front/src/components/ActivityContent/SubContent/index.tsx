@@ -39,21 +39,24 @@ const SubContent = (props: {
 
   return (
     <SubContentStyled className={clsx("SubContent_main_wrap")}>
-      <div className="SubContent_type">
-        <div>
-          <div className="SubContent_text">활동 종류</div>
-          <div>{getActivityLabel(type)}</div>
-        </div>
-        <div>
-          <div className="SubContent_text">재활 치료</div>
-          <div>{rehabilitation}</div>
-        </div>
+      {/* 활동종류 */}
+      <div>
+        <div className="SubContent_text">활동 종류</div>
+        <div>{getActivityLabel(type)}</div>
       </div>
+
+      {/* 재활치료 */}
+      <div>
+        <div className="SubContent_text">재활 치료</div>
+        <div>{rehabilitation}</div>
+      </div>
+
       {/* 특이사항 */}
       <div className="SubContent_option">
         <div className="SubContent_text">특이사항</div>
         <div>{note}</div>
       </div>
+
       {/* 피드백 작성 */}
       <div className="SubContent_feedback">
         <Button className="SubContent_feedback_btn" onClick={feedback}>

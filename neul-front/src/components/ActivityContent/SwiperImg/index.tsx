@@ -20,10 +20,6 @@ const SwiperImg = (props: { img: any; title: string; patientname: string }) => {
         slidesPerView={1}
         pagination={{ clickable: true }}
         loop={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
       >
         {img.map((element: any, index: number) => (
           <SwiperSlide key={index}>
