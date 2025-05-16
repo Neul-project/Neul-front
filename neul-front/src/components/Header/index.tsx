@@ -14,34 +14,6 @@ import { useCartStore } from "@/stores/useCartStore";
 import axiosInstance from "@/lib/axios";
 import { notification } from "antd";
 
-// 알림 더미 데이터
-const dummyDate = [
-  {
-    id: 1,
-    message: "match",
-    isChecked: false, //확인 유무(확인 안 함)
-    created_at: "2025-01-03",
-  },
-  {
-    id: 2,
-    message: "match_cancel",
-    isChecked: false, //확인 유무(확인 안 함)
-    created_at: "2025-01-03",
-  },
-  {
-    id: 3,
-    message: "pay",
-    isChecked: false, //확인 유무(확인 안 함)
-    created_at: "2025-01-03",
-  },
-  {
-    id: 4,
-    message: "refund",
-    isChecked: false, //확인 유무(확인 안 함)
-    created_at: "2025-01-03",
-  },
-];
-
 type AlertType = "match" | "match_cancel" | "pay" | "refund";
 
 type alertType = {
@@ -90,7 +62,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   // 알림 개수
-  const [alertContent, setAlertContent] = useState<any>(0);
+  const [alertContent, setAlertContent] = useState<any>();
   const [alertNum, setAlertNum] = useState<any>(0);
   // 매칭에 대한 알림 개수
   const [matchAlertNum, setMatchAlertNum] = useState<Number>(0);
@@ -122,40 +94,44 @@ const Header = () => {
       console.log("관리자id는 뭘까", res.data);
       setAdminId(res.data);
     } catch (e: any) {
-      if (e.response?.status === 401) {
-        setAdminId(null);
-        console.info("담당 관리자 없음");
-      } else {
-        console.error("담당 관리자 불러오기 실패: ", e);
-      }
+      console.error("담당 관리자 불러오기 실패: ", e);
+      // if (e.response?.status === 401) {
+      setAdminId(null);
+      //   console.info("담당 관리자 없음");
+      // } else {
+      //   console.error("담당 관리자 불러오기 실패: ", e);
+      // }
     }
   };
 
   // 해당 user의 알림 내용 가져오기
   const getAlert = async () => {
     try {
-      // const res = await axiosInstance.get("alert/alarm");
-      // console.log("알림들:", res.data);
-      setAlertContent(dummyDate);
-      // setAlertContent(res.data); // 알림 내용
-      setAlertNum(dummyDate.length);
-      setMatchAlertNum(
-        dummyDate.filter((item: any) => item.message?.includes("match")).length
+      const res = await axiosInstance.get("alert/alarm");
+
+      setAlertContent(res.data.filter((item: any) => !item.isChecked)); // 알림 내용
+      console.log(
+        "알림들:",
+        res.data.filter((item: any) => !item.isChecked)
       );
-      // setAlertNum(res.data.filter((item: alertType) => !item.isChecked).length); // 알림 개수
+      setMatchAlertNum(
+        res.data.filter((item: any) => item.message?.includes("match")).length // 매칭 관련 알림 개수
+      );
+      setAlertNum(res.data.filter((item: alertType) => !item.isChecked).length); // 알림 개수
     } catch (e) {
-      console.error("알림 개수 가져오기 실패: ", e);
+      console.error("알림 내용 가져오기 실패: ", e);
     }
   };
 
   // 해당 알림 읽기
   const readAlert = async () => {
-    setAlertNum(0); // 알림 0개로
+    setAlertNum(0); // 알림 0개
+    setAlertContent(null);
 
     await axiosInstance.patch("alert/checkAll"); // 해당 user의 모든 알림 읽기
 
     // 알림 notification
-    alertContent.map((item: alertType, i: number) => {
+    alertContent?.map((item: alertType, i: number) => {
       const { title, desc } = messageMap[item.message] || {};
       notification.info({
         key: i,
@@ -166,10 +142,12 @@ const Header = () => {
   };
 
   useEffect(() => {
+    getAdminId();
     getAlert();
 
     const interval = setInterval(() => {
       getAlert();
+      getAdminId();
     }, 10000); // 10초마다 가져오기
 
     window.addEventListener("scroll", handleScroll);
@@ -181,12 +159,8 @@ const Header = () => {
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
-    // if (!didFetch.current) {
     getAdminId();
-    //   didFetch.current = true;
-    // }
-  }, [userId]);
-  // }, [matchAlertNum]);
+  }, [matchAlertNum]);
 
   // 메뉴 이미지 클릭
   const MoveMain = () => {
@@ -266,7 +240,6 @@ const Header = () => {
               <div className="div_box" onClick={readAlert}>
                 <PiBellRinging className="bell" />
                 <span className="absolute">{alertNum}</span>
-                <span className="absolute">1</span>
               </div>
             </div>
           ) : (
