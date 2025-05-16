@@ -3,7 +3,6 @@ import { ChatRoomStyled } from "./styled";
 import SendOutlined from "@ant-design/icons/SendOutlined";
 import ChatMessage from "../../components/ChatMessage";
 import arrow_back from "@/assets/images/arrow_back.svg";
-import io from "socket.io-client";
 import Image from "next/image";
 import clsx from "clsx";
 import axiosInstance from "@/lib/axios";
@@ -20,6 +19,7 @@ import Modal from "antd/es/modal";
 import { message } from "antd";
 import { notification } from "antd";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
+import { io, Socket } from "socket.io-client";
 
 dayjs.locale("ko"); // 로케일 설정
 
@@ -37,19 +37,26 @@ interface Chatting {
 
 // 채팅 전체 화면
 const ChatRoom = () => {
+  // 입력한 채팅
   const [inputValue, setInputValue] = useState("");
   const [chattings, setChattings] = useState<Chatting[]>([]);
 
+  // 무한스크롤에 필요한 것들
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
+  // 알림 0으로 초기화
   const { clearUnreadCount } = useMessageStore();
 
-  const socketRef = useRef<any>(null);
+  // 맨밑 감지
   const bottomRef = useRef<HTMLDivElement>(null);
   const didFetch = useRef(false);
 
+  // 소켓
+  const socketRef = useRef<Socket | null>(null);
+
+  // 라우터
   const router = useRouter();
 
   // 채팅 개수
@@ -118,10 +125,15 @@ const ChatRoom = () => {
 
       // 렌더링이 끝난 뒤 scrollTop 조절
       requestAnimationFrame(() => {
-        if (container) {
-          const newScrollHeight = container.scrollHeight;
-          container.scrollTop = newScrollHeight - prevScrollHeight;
-        }
+        setTimeout(() => {
+          if (container) {
+            const newScrollHeight = container.scrollHeight;
+            container.scrollTop = newScrollHeight - prevScrollHeight;
+
+            // 최초 로딩 시 맨 아래로
+            if (pageToFetch === 1) scrollToBottom();
+          }
+        }, 0);
       });
     } catch (e) {
       console.error("챗팅 목록 가져오기 실패: ", e);
@@ -139,8 +151,7 @@ const ChatRoom = () => {
 
   // adminId가 존재할 때만 실행
   useEffect(() => {
-    if (!adminId) return;
-    if (didFetch.current) return;
+    if (!adminId || didFetch.current) return;
 
     didFetch.current = true;
 
@@ -156,31 +167,44 @@ const ChatRoom = () => {
     clearUnreadCount();
 
     // 소켓 연결
-    socketRef.current = io(process.env.NEXT_PUBLIC_API_URL, {
-      withCredentials: true,
-    });
+    if (!socketRef.current) {
+      socketRef.current = io(process.env.NEXT_PUBLIC_API_URL!, {
+        withCredentials: true,
+      });
 
-    socketRef.current.off("receive_message");
-    socketRef.current.on("receive_message", (message: any) => {
-      const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
-      const time = dayjs(message.created_at).format("A h:mm");
+      socketRef.current.on("connect", () => {
+        console.log("소켓 연결됨!", socketRef.current?.id);
+      });
 
-      const parsedMessage: Chatting = {
-        ...message,
-        date,
-        time,
-      };
-
-      // 새 메시지 수신 -> 채팅 상태 업데이트
-      setChattings((prev) => [...prev, parsedMessage]);
-    });
-
+      // socketRef.current.off("receive_message");
+      socketRef.current.on("receive_message", handleReceiveMessage);
+    }
     return () => {
-      if (socketRef.current) {
-        socketRef.current.disconnect();
-      }
+      socketRef.current?.off("receive_message", handleReceiveMessage);
+      socketRef.current?.disconnect();
+      socketRef.current = null;
+      didFetch.current = false;
     };
   }, [adminId]);
+
+  const handleReceiveMessage = (message: any) => {
+    const date = dayjs(message.created_at).format("YYYY년 MM월 DD일");
+    const time = dayjs(message.created_at).format("A h:mm");
+
+    const parsedMessage: Chatting = {
+      ...message,
+      date,
+      time,
+    };
+
+    setChattings((prev) => [...prev, parsedMessage]);
+  };
+
+  // return () => {
+  //   if (socketRef.current) {
+  //     socketRef.current.disconnect();
+  //   }
+  // };
 
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
   useEffect(() => {
@@ -214,7 +238,7 @@ const ChatRoom = () => {
 
       try {
         // 소켓 실시간 메시지 전송
-        socketRef.current.emit("send_message", messageToSend);
+        socketRef.current?.emit("send_message", messageToSend);
 
         // 입력창 초기화
         setInputValue("");

@@ -46,14 +46,9 @@ const messageMap = {
 const Header = () => {
   const router = useRouter();
 
-  // zustand admin에 대한 정보 가져오기
-  const { setAdminId } = useAuthStore();
-  const userId = useAuthStore((state) => state.user?.id);
-  // 한번만 실행되도록
-  const didFetch = useRef(false);
-
-  // zustand 로그인 유저 정보 가져오기
-  const { user } = useAuthStore();
+  // zustand 로그인 유저 정보, admin 정보 가져오기
+  const { setAdminId, user } = useAuthStore();
+  const userId = user?.id;
   // console.log(user); // {id, name, provider}
 
   // hover 드롭다운
@@ -87,11 +82,31 @@ const Header = () => {
     }
   };
 
+  // 해당 user의 알림 내용 가져오기
+  const getAlert = async () => {
+    if (!userId) return;
+
+    try {
+      const res = await axiosInstance.get("alert/alarm");
+
+      setAlertContent(res.data.filter((item: any) => !item.isChecked)); // 알림 내용
+      // console.log(
+      //   "알림들:",
+      //   res.data.filter((item: any) => !item.isChecked)
+      // );
+      setMatchAlertNum(
+        res.data.filter((item: any) => item.message?.includes("match")).length // 매칭 관련 알림 개수
+      );
+      setAlertNum(res.data.filter((item: alertType) => !item.isChecked).length); // 알림 개수
+    } catch (e) {
+      console.error("알림 내용 가져오기 실패: ", e);
+    }
+  };
+
   // 담당 관리자 id 불러오기
   const getAdminId = async () => {
     try {
       const res = await axiosInstance.get("/user/admin");
-      console.log("관리자id는 뭘까", res.data);
       setAdminId(res.data);
     } catch (e: any) {
       // console.error("담당 관리자 불러오기 실패: ", e);
@@ -101,25 +116,6 @@ const Header = () => {
       // } else {
       //   console.error("담당 관리자 불러오기 실패: ", e);
       // }
-    }
-  };
-
-  // 해당 user의 알림 내용 가져오기
-  const getAlert = async () => {
-    try {
-      const res = await axiosInstance.get("alert/alarm");
-
-      setAlertContent(res.data.filter((item: any) => !item.isChecked)); // 알림 내용
-      console.log(
-        "알림들:",
-        res.data.filter((item: any) => !item.isChecked)
-      );
-      setMatchAlertNum(
-        res.data.filter((item: any) => item.message?.includes("match")).length // 매칭 관련 알림 개수
-      );
-      setAlertNum(res.data.filter((item: alertType) => !item.isChecked).length); // 알림 개수
-    } catch (e) {
-      console.error("알림 내용 가져오기 실패: ", e);
     }
   };
 
@@ -141,21 +137,19 @@ const Header = () => {
     });
   };
 
-  // useEffect(() => {
-  //   getAdminId();
-  //   getAlert();
+  useEffect(() => {
+    getAlert();
 
-  //   const interval = setInterval(() => {
-  //     getAlert();
-  //     getAdminId();
-  //   }, 10000); // 10초마다 가져오기
+    const interval = setInterval(() => {
+      getAlert();
+    }, 10000); // 10초마다 가져오기
 
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //     clearInterval(interval);
-  //   };
-  // }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearInterval(interval);
+    };
+  }, []);
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
