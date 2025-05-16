@@ -157,7 +157,9 @@ const PaymentFeature = () => {
                 <div className="program_info_imgDiv">
                   <a href={`/program/${program.id}`}>
                     <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/image/${program.img}`}
+                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/image/${
+                        program.img.split(",")[0]
+                      }`}
                       alt={program.name}
                     />
                   </a>

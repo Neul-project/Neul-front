@@ -59,11 +59,16 @@ const ChatRoom = () => {
   const userId = user?.id;
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const isFetching = useRef(false);
+
   const fetchNextPage = async () => {
-    if (loading || !hasMore) return;
+    if (loading || !hasMore || isFetching.current) return;
+    if (page === 1 && chattings.length === 0) return; // 첫 페이지 로딩 완료 전엔 호출 막기
+    isFetching.current = true;
     const nextPage = page + 1;
     await fetchChatMessages(nextPage);
     setPage(nextPage);
+    isFetching.current = false;
   };
   const targetRef = useInfiniteScroll({
     hasMore,
@@ -78,6 +83,7 @@ const ChatRoom = () => {
 
   // 채팅 목록 가져오기 요청
   const fetchChatMessages = async (pageToFetch = 1) => {
+    console.log("fetchChatMessages 호출, page:", pageToFetch);
     const container = scrollContainerRef.current;
     const prevScrollHeight = container?.scrollHeight ?? 0;
 
@@ -108,14 +114,15 @@ const ChatRoom = () => {
 
       // hasMore는 데이터 개수가 limit보다 작으면 false
       setHasMore(parsedChats.length === limit);
+      setPage(pageToFetch);
 
-      // 스크롤 위치 복원
-      setTimeout(() => {
+      // 렌더링이 끝난 뒤 scrollTop 조절
+      requestAnimationFrame(() => {
         if (container) {
           const newScrollHeight = container.scrollHeight;
           container.scrollTop = newScrollHeight - prevScrollHeight;
         }
-      }, 100);
+      });
     } catch (e) {
       console.error("챗팅 목록 가져오기 실패: ", e);
     } finally {
@@ -133,9 +140,11 @@ const ChatRoom = () => {
   // adminId가 존재할 때만 실행
   useEffect(() => {
     if (!adminId) return;
+    if (didFetch.current) return;
 
-    // 채팅 불러오기
-    fetchChatMessages();
+    didFetch.current = true;
+
+    fetchChatMessages(1);
 
     // 관리자한테 온 채팅 읽음 처리 요청
     axiosInstance.post("/chat/user/read", {
