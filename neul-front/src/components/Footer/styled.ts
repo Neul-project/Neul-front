@@ -13,12 +13,12 @@ export const FooterStyled = styled.div`
       align-items: center;
       justify-content: center;
       margin: 0px auto;
-      gap: 10px;
+      gap: 8px;
       padding: 10px 40px;
       border-top: 1px solid rgb(247, 247, 247);
 
       .Footer_text {
-        font-size: 13px;
+        font-size: 12px;
         color: gray;
       }
     }

@@ -69,7 +69,8 @@ const FindId = () => {
 
         {foundEmail ? (
           <div className="FindId_ResultContainer">
-            <p>아이디 찾기가 완료되었습니다.</p>
+            <p className="guide1">고객님의 Neul 계정을 찾았습니다.</p>
+            <p className="guide2">아이디 확인 후 로그인해 주세요.</p>
             <div className="FindId_ResultEmail">{foundEmail}</div>
             <button
               className="FindId_ResultBtn"

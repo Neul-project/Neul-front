@@ -41,6 +41,45 @@ export const PaymentStyled = styled.div`
           align-items: flex-start;
           gap: 15px;
           margin-bottom: 24px;
+
+          .Program_info_label {
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: pointer;
+
+            .Program_labelInput {
+              appearance: none;
+              position: absolute;
+              width: 1px;
+              height: 1px;
+              border: none;
+              opacity: 0;
+              overflow: hidden;
+            }
+          }
+
+          .Program_info_div {
+            border: 2px solid #cbd1d7;
+            border-radius: 4px;
+            width: 20px;
+            height: 20px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-color: #fff;
+          }
+
+          .checked {
+            border: 2px solid #222;
+            background-color: #222;
+            background-image: url("/check.svg");
+          }
         }
 
         .program_info_imgDiv {
@@ -49,6 +88,7 @@ export const PaymentStyled = styled.div`
 
           img {
             width: 100%;
+            height: 100%;
           }
         }
 

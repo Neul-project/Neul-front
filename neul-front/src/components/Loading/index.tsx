@@ -10,8 +10,6 @@ const gifList = [
 ];
 
 const Loading = () => {
-  console.log("실행됨", typeof window === "undefined" ? "서버" : "클라이언트");
-
   const [selectedGif, setSelectedGif] = useState<string | null>(null);
 
   useEffect(() => {

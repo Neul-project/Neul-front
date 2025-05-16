@@ -73,6 +73,10 @@ export const HeaderStyled = styled.div`
       position: relative;
     }
 
+    .username {
+      color: #333;
+    }
+
     .div_box {
       position: relative;
       height: 27px;
