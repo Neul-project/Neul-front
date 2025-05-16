@@ -66,29 +66,34 @@ const PaymentFeature = () => {
       return;
     }
 
-    try {
-      // 1. 프론트 → 백엔드: 결제 준비 요청
-      const res = await axiosInstance.post("/program/create", {
-        amount,
-        programId: selectedProgramIds, // [12, 13]
-      });
-      const { orderId } = res.data;
+    console.log("주문정보", {
+      amount,
+      programId: selectedProgramIds,
+    });
 
-      // 2. 받은 orderId로 토스 결제창 띄우기
-      const tossPayments = await loadTossPayments(tossClientKey);
+    // try {
+    //   // 1. 프론트 → 백엔드: 결제 준비 요청
+    //   const res = await axiosInstance.post("/program/create", {
+    //     amount,
+    //     programId: selectedProgramIds, // [12, 13]
+    //   });
+    //   const { orderId } = res.data;
 
-      await tossPayments.requestPayment({
-        amount: amount,
-        orderId: orderId,
-        orderName: `${amount}원 결제`,
+    //   // 2. 받은 orderId로 토스 결제창 띄우기
+    //   const tossPayments = await loadTossPayments(tossClientKey);
 
-        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
-        failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
-      });
-    } catch (error) {
-      console.error("결제 요청 중 오류:", error);
-      window.location.href = "/payment/fail";
-    }
+    //   await tossPayments.requestPayment({
+    //     amount: amount,
+    //     orderId: orderId,
+    //     orderName: `${amount}원 결제`,
+
+    //     successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
+    //     failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
+    //   });
+    // } catch (error) {
+    //   console.error("결제 요청 중 오류:", error);
+    //   window.location.href = "/payment/fail";
+    // }
   };
 
   // 처음 페이지 진입 시 모든 프로그램 체크표시
@@ -156,7 +161,7 @@ const PaymentFeature = () => {
                 <div className="program_info_imgDiv">
                   <a href={`/program/${program.id}`}>
                     <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${program.img}`}
+                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/image/${program.img}`}
                       alt={program.name}
                     />
                   </a>
