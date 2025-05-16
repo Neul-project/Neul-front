@@ -7,15 +7,7 @@ import Circle from "@/components/Circle";
 const ActivityList = () => {
   return (
     <ActivityListStyled className={clsx("ActivityList_main_wrap")}>
-      <div className="ActivityList_title">
-        <Circle
-          title={"활동 기록 열람하기"}
-          width={"67px"}
-          left={"50%"}
-          top={"40%"}
-          titletop={"10%"}
-        />
-      </div>
+      <div className="ActivityList_title">활동 기록 열람하기</div>
       <ActivityTable />
     </ActivityListStyled>
   );

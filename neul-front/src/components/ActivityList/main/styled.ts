@@ -7,17 +7,18 @@ export const ActivityListStyled = styled.div`
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    //align-items: center;
     margin: 0px auto;
     padding: 0px 20px;
-    //background-color: #edeff2;
 
     .ActivityList_title {
-      padding-top: 50px;
-      align-items: center;
-      text-align: center;
+      padding: 50px 10px 7px 10px;
       font-size: 25px;
+      font-weight: bold;
       margin-bottom: 20px;
+      display: inline-block;
+      //border-bottom: 2px solid rgb(242, 245, 248);
+      text-align: center;
+      align-self: center;
     }
   }
 

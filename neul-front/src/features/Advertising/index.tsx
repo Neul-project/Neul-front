@@ -16,8 +16,11 @@ const Advertising = () => {
     axiosInstance.get("/banner/list").then((res) => {
       console.log("banner Res", res.data);
       const datalist = res.data;
-      const data = res.data[datalist.length - 1].img.split(",");
-      setArr(data);
+      console.log("res", datalist);
+      if (datalist.length > 1) {
+        const data = res.data[datalist.length - 1].img.split(",");
+        setArr(data);
+      }
     });
   }, []);
 
