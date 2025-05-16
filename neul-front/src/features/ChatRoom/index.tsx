@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChatRoomStyled } from "./styled";
 import SendOutlined from "@ant-design/icons/SendOutlined";
 import ChatMessage from "../../components/ChatMessage";
@@ -17,8 +17,9 @@ import MoreBtn from "@/assets/images/more.svg";
 import Dropdown from "antd/es/dropdown";
 import { MenuProps } from "antd/es/menu";
 import Modal from "antd/es/modal";
-import message from "antd/es/message";
+import { message } from "antd";
 import { notification } from "antd";
+import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 
 dayjs.locale("ko"); // 로케일 설정
 
@@ -34,43 +35,19 @@ interface Chatting {
   userDel: boolean;
 }
 
-// 1. 상단에 테스트용 데이터 생성
-const generateMockData = (page: number, limit: number): Chatting[] => {
-  const mock: Chatting[] = [];
-  const total = 50; // 전체 데이터 수 (예: 50개)
-  const start = total - (page + 1) * limit;
-  const end = total - page * limit;
-
-  for (let i = Math.max(0, start); i < end; i++) {
-    const createdAt = dayjs().subtract(i, "minute");
-    mock.push({
-      id: i,
-      user: { id: 1, name: "테스트 유저" },
-      admin: { id: 999, name: "관리자" },
-      message: `테스트 메시지 ${i + 1}`,
-      date: createdAt.format("YYYY년 MM월 DD일"),
-      time: createdAt.format("A h:mm"),
-      sender: i % 2 === 0 ? "user" : "admin",
-      userDel: false,
-    });
-  }
-
-  return mock;
-};
-
 // 채팅 전체 화면
 const ChatRoom = () => {
   const [inputValue, setInputValue] = useState("");
   const [chattings, setChattings] = useState<Chatting[]>([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true); // 더 불러올 데이터 여부
+
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   const { clearUnreadCount } = useMessageStore();
 
   const socketRef = useRef<any>(null);
-
   const bottomRef = useRef<HTMLDivElement>(null);
-  const topObserverRef = useRef<HTMLDivElement>(null);
   const didFetch = useRef(false);
 
   const router = useRouter();
@@ -78,87 +55,87 @@ const ChatRoom = () => {
   // 채팅 개수
   const limit = 12;
 
-  const { adminId } = useAuthStore();
-  console.log(adminId);
-  const userId = useAuthStore((state) => state.user?.id);
+  const { adminId, user } = useAuthStore();
+  const userId = user?.id;
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const fetchNextPage = async () => {
+    if (loading || !hasMore) return;
+    const nextPage = page + 1;
+    await fetchChatMessages(nextPage);
+    setPage(nextPage);
+  };
+  const targetRef = useInfiniteScroll({
+    hasMore,
+    loading,
+    onIntersect: fetchNextPage,
+  });
 
   // 무조건 아래에서 시작하도록
   const scrollToBottom = () => {
     bottomRef.current?.scrollIntoView({ behavior: "auto" });
   };
 
-  // 2. fetchChatMessages 함수 수정 (axios 제거)
-  const fetchChatMessages = useCallback(async (page: number) => {
-    const parsedChats = generateMockData(page, limit);
+  // 채팅 목록 가져오기 요청
+  const fetchChatMessages = async (pageToFetch = 1) => {
+    const container = scrollContainerRef.current;
+    const prevScrollHeight = container?.scrollHeight ?? 0;
 
-    if (parsedChats.length < limit) setHasMore(false);
+    setLoading(true);
+    try {
+      const res = await axiosInstance.get(`/chat/list`, {
+        params: { userId, page: pageToFetch, limit },
+      });
 
-    if (page === 0) {
-      setChattings(parsedChats.reverse());
-      setTimeout(() => scrollToBottom(), 100);
-    } else {
-      setChattings((prev) => [...parsedChats.reverse(), ...prev]);
+      // 데이터 가공
+      const parsedChats: Chatting[] = res.data.map((chat: any) => {
+        // 시간, 날짜
+        const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
+        const time = dayjs(chat.created_at).format("A h:mm");
+
+        return {
+          ...chat,
+          date,
+          time,
+        };
+      });
+
+      console.log("채팅 목록", parsedChats);
+
+      setChattings((prev) =>
+        pageToFetch === 1 ? parsedChats : [...parsedChats, ...prev]
+      );
+
+      // hasMore는 데이터 개수가 limit보다 작으면 false
+      setHasMore(parsedChats.length === limit);
+
+      // 스크롤 위치 복원
+      setTimeout(() => {
+        if (container) {
+          const newScrollHeight = container.scrollHeight;
+          container.scrollTop = newScrollHeight - prevScrollHeight;
+        }
+      }, 100);
+    } catch (e) {
+      console.error("챗팅 목록 가져오기 실패: ", e);
+    } finally {
+      setLoading(false);
     }
-  }, []);
+  };
 
-  // 특정 페이지 채팅 불러오기 (페이지당 12개)
-  // const fetchChatMessages = useCallback(
-  //   async (page: number) => {
-  //     if (!userId) return;
-
-  //     try {
-  //       const res = await axiosInstance.get(`/chat/list`, {
-  //         params: { userId, page, limit },
-  //       });
-
-  //       // 데이터 가공
-  //       const parsedChats: Chatting[] = res.data.map((chat: any) => {
-  //         // 시간, 날짜
-  //         const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
-  //         const time = dayjs(chat.created_at).format("A h:mm");
-
-  //         return {
-  //           ...chat,
-  //           date,
-  //           time,
-  //         };
-  //       });
-
-  //       console.log("채팅 목록", parsedChats);
-
-  //       // 페이징 처리, 가져온 메시지가 limit보다 적으면 더 이상 불러올 게 없음
-  //       if (parsedChats.length < limit) setHasMore(false);
-
-  //       if (page === 0) {
-  //         // 최초 불러오기 (맨 아래부터 보여야 하니까)
-  //         setChattings(parsedChats.reverse());
-  //         setTimeout(() => scrollToBottom(), 100);
-  //       } else {
-  //         // 기존 데이터 위에 추가 (역순이라 맨 위에 추가)
-  //         setChattings((prev) => [...parsedChats.reverse(), ...prev]);
-  //       }
-  //     } catch (e) {
-  //       console.error("채팅 목록 가져오기 실패: ", e);
-  //     }
-  //   },
-  //   [userId]
-  // );
+  // if (!didFetch.current) {
+  //     notification.info({
+  //       message: "아직 담당자가 매칭되지 않았습니다.",
+  //     });
+  //     didFetch.current = true;
+  //   }
 
   // adminId가 존재할 때만 실행
   useEffect(() => {
-    if (!adminId) {
-      if (!didFetch.current) {
-        notification.info({
-          message: "아직 담당자가 매칭되지 않았습니다.",
-        });
-        didFetch.current = true;
-      }
-      return;
-    }
+    if (!adminId) return;
 
-    fetchChatMessages(0);
-    setCurrentPage(0);
-    setHasMore(true);
+    // 채팅 불러오기
+    fetchChatMessages();
 
     // 관리자한테 온 채팅 읽음 처리 요청
     axiosInstance.post("/chat/user/read", {
@@ -194,7 +171,7 @@ const ChatRoom = () => {
         socketRef.current.disconnect();
       }
     };
-  }, [adminId, fetchChatMessages, userId, clearUnreadCount]);
+  }, [adminId]);
 
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
   useEffect(() => {
@@ -203,34 +180,7 @@ const ChatRoom = () => {
       axiosInstance.post("/chat/user/read", { userId, adminId });
       clearUnreadCount();
     }
-  }, [chattings, adminId, userId, clearUnreadCount]);
-
-  // 무한스크롤(맨 위 스크롤 관찰)
-  useEffect(() => {
-    if (!hasMore) return; // 더 이상 불러올 게 없으면 종료
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          // 맨 위에 닿으면 다음 페이지 불러오기
-          fetchChatMessages(currentPage + 1);
-          setCurrentPage((prev) => prev + 1);
-        }
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: 1.0,
-      }
-    );
-
-    const target = topObserverRef.current;
-    if (target) observer.observe(target);
-
-    return () => {
-      if (target) observer.unobserve(target);
-    };
-  }, [currentPage, fetchChatMessages, hasMore]);
+  }, [chattings, clearUnreadCount]);
 
   // 날짜별로 그룹화
   const groupDate = useMemo(() => {
@@ -289,9 +239,7 @@ const ChatRoom = () => {
             params: { userId },
           });
           message.success("모든 채팅 내용이 삭제되었습니다.");
-          await fetchChatMessages(0);
-          setCurrentPage(0);
-          setHasMore(true);
+          await fetchChatMessages();
           scrollToBottom();
         } catch (e) {
           console.error("모든 채팅 내용 삭제 실패: ", e);
@@ -340,9 +288,9 @@ const ChatRoom = () => {
       </div>
       {/* 채팅 내용 */}
       <div className="chatroom_content_box">
-        <div className="chatroom_content">
-          {/* 맨 위 감시용 div */}
-          <div ref={topObserverRef} />
+        <div className="chatroom_content" ref={scrollContainerRef}>
+          {loading && <div className="chatroom_loading">불러오는 중...</div>}
+          <div ref={targetRef} style={{ height: 1 }} />
           {Object.entries(groupDate).map(([date, messages]) => (
             <div key={date}>
               <div className="chatroom_date">{date}</div>

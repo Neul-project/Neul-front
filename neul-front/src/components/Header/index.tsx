@@ -94,7 +94,7 @@ const Header = () => {
       console.log("관리자id는 뭘까", res.data);
       setAdminId(res.data);
     } catch (e: any) {
-      console.error("담당 관리자 불러오기 실패: ", e);
+      // console.error("담당 관리자 불러오기 실패: ", e);
       // if (e.response?.status === 401) {
       setAdminId(null);
       //   console.info("담당 관리자 없음");
