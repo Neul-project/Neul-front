@@ -27,6 +27,7 @@ export const AdvertisingStyled = styled.div`
         width: 100%;
         height: 100%;
         justify-content: center;
+        align-items: center;
         font-size: 20px;
       }
     }
