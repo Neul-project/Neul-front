@@ -78,7 +78,7 @@ export const ChatRoomStyled = styled.div`
         .chatroom_date {
           text-align: center;
           color: #ccc;
-          margin: 70px 0 36px 0;
+          margin: 18px 0 22px 0;
         }
       }
 
