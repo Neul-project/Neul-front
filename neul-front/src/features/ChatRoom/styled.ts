@@ -4,6 +4,8 @@ export const ChatRoomStyled = styled.div`
   &.chatroom_wrap {
     background-color: rgb(242, 245, 248);
     height: 100vh;
+    overflow: hidden;
+
     /* 채팅 헤더 */
     .chatroom_header {
       top: 0px;
@@ -59,7 +61,7 @@ export const ChatRoomStyled = styled.div`
       background-color: white;
       max-width: 1028px;
       width: 100%;
-      height: 700px;
+      max-height: 700px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -126,7 +128,7 @@ export const ChatRoomStyled = styled.div`
     @media (max-width: 1029px) {
       .chatroom_content_box {
         transform: translate3d(-50%, -46.5%, 0);
-        height: 93vh;
+        max-height: 93vh;
         border-radius: 0%;
       }
     }

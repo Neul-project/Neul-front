@@ -142,13 +142,6 @@ const ChatRoom = () => {
     }
   };
 
-  // if (!didFetch.current) {
-  //     notification.info({
-  //       message: "아직 담당자가 매칭되지 않았습니다.",
-  //     });
-  //     didFetch.current = true;
-  //   }
-
   // adminId가 존재할 때만 실행
   useEffect(() => {
     if (!adminId || didFetch.current) return;
@@ -176,7 +169,6 @@ const ChatRoom = () => {
         console.log("소켓 연결됨!", socketRef.current?.id);
       });
 
-      // socketRef.current.off("receive_message");
       socketRef.current.on("receive_message", handleReceiveMessage);
     }
     return () => {
@@ -199,12 +191,6 @@ const ChatRoom = () => {
 
     setChattings((prev) => [...prev, parsedMessage]);
   };
-
-  // return () => {
-  //   if (socketRef.current) {
-  //     socketRef.current.disconnect();
-  //   }
-  // };
 
   // 새로운 채팅이 추가될 때마다 자동으로 스크롤 맨 아래로
   useEffect(() => {
