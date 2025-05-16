@@ -38,25 +38,28 @@ const FeedBackAudio = (props: { activityid: string }) => {
       return;
     }
 
-    const response = await fetch(mediaBlobUrl); // Blob URL로부터 Blob만 가져오기(blob http:3000/ ~~ -> ~~만 추출)
+    const response = await fetch(mediaBlobUrl);
     const blob = await response.blob();
 
+    //console.log("blob", blob);
+
     const formData = new FormData();
-    formData.append("audio", blob);
+    formData.append("audio", blob, "recording.wav");
+    formData.append("activityid", activityid);
+    formData.append("userId", String(userId));
 
     // for (const [key, value] of formData.entries()) {
     //   console.log(`${key}:`, value);
     // }
 
+    // return;
+
     //백엔드 저장 요청(오디오)
     axiosInstance
       .post(
         `/activity/feedback/audio`,
-        {
-          message: formData,
-          activityid: Number(activityid),
-          userId: userId,
-        },
+        formData,
+
         {
           headers: {
             "Content-Type": "multipart/form-data",

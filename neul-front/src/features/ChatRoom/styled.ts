@@ -69,9 +69,9 @@ export const ChatRoomStyled = styled.div`
         overflow-y: scroll;
 
         /* Firefox */
-        scrollbar-width: none;
+        /* scrollbar-width: none; */
         /* IE 10+ */
-        -ms-overflow-style: none;
+        /* -ms-overflow-style: none; */
 
         padding: 10px;
         box-sizing: border-box;
@@ -84,7 +84,7 @@ export const ChatRoomStyled = styled.div`
 
       .chatroom_content::-webkit-scrollbar {
         /* Chrome, Safari, Edge */
-        display: none;
+        /* display: none; */
       }
 
       /* 메시지 보내는 부분 */
