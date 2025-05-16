@@ -99,7 +99,9 @@ const ActivityContent = (props: { id: string }) => {
           {img.map((element, index: number) => (
             <SwiperSlide key={index}>
               <img
-                src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + element}
+                src={
+                  process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + element
+                }
                 alt={`preview-0`}
                 className="ActivityContent_swperimg"
               />

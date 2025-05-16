@@ -41,7 +41,7 @@ const FeedBackAudio = (props: { activityid: string }) => {
     const response = await fetch(mediaBlobUrl);
     const blob = await response.blob();
 
-    //console.log("blob", blob);
+    console.log("blob", response);
 
     const formData = new FormData();
     formData.append("audio", blob, "recording.wav");
