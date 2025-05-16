@@ -3,6 +3,8 @@ import { PaymentStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
 import clsx from "clsx";
 
+import { loadTossPayments } from "@tosspayments/payment-sdk";
+
 interface UserInfo {
   name: string;
   phone: string;
@@ -54,6 +56,40 @@ const PaymentFeature = () => {
 
     fetchMyInfo();
   }, []);
+
+  // 토스 결제
+  const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
+
+  const handlePayment = async (amount: number) => {
+    if (!tossClientKey) {
+      console.error("Toss client key가 없습니다.");
+      return;
+    }
+
+    try {
+      // 1. 프론트 → 백엔드: 결제 준비 요청
+      const res = await axiosInstance.post("/program/create", {
+        amount,
+        programId: selectedProgramIds, // [12, 13]
+      });
+      const { orderId } = res.data;
+
+      // 2. 받은 orderId로 토스 결제창 띄우기
+      const tossPayments = await loadTossPayments(tossClientKey);
+
+      await tossPayments.requestPayment({
+        amount: amount,
+        orderId: orderId,
+        orderName: `${amount}원 결제`,
+
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
+        failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
+      });
+    } catch (error) {
+      console.error("결제 요청 중 오류:", error);
+      window.location.href = "/payment/fail";
+    }
+  };
 
   // 처음 페이지 진입 시 모든 프로그램 체크표시
   useEffect(() => {
@@ -169,7 +205,13 @@ const PaymentFeature = () => {
             </div>
 
             <div className="T_btn">
-              <button>결제하기</button>
+              <button
+                onClick={() => {
+                  handlePayment(totalSelectedPrice);
+                }}
+              >
+                결제하기
+              </button>
             </div>
           </div>
         </div>
