@@ -33,6 +33,7 @@ const ProgramDetail = (props: { detailid: string }) => {
   const [target, setTarget] = useState("");
   const [note, setNote] = useState("");
   const [state, setState] = useState("");
+  const [total, setTotal] = useState(); //현재 백엔드에 저장된 프로그램 신청 인원 수
 
   useEffect(() => {
     if (!detailid) return;

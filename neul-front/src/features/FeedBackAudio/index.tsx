@@ -44,7 +44,7 @@ const FeedBackAudio = (props: { activityid: string }) => {
     console.log("blob", response);
 
     const formData = new FormData();
-    formData.append("audio", blob, "recording.wav");
+    formData.append("audio", blob, "recording.webm");
     formData.append("activityid", activityid);
     formData.append("userId", String(userId));
 
