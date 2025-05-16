@@ -13,14 +13,12 @@ const Advertising = () => {
 
   //광고 이미지 요청
   useEffect(() => {
-    if (arr.length > 1) {
-      axiosInstance.get("/banner/list").then((res) => {
-        //console.log("banner Res", res.data);
-        const datalist = res.data;
-        const data = res.data[datalist.length - 1].img.split(",");
-        setArr(data);
-      });
-    }
+    axiosInstance.get("/banner/list").then((res) => {
+      console.log("banner Res", res.data);
+      const datalist = res.data;
+      const data = res.data[datalist.length - 1].img.split(",");
+      setArr(data);
+    });
   }, []);
 
   return (
@@ -28,7 +26,7 @@ const Advertising = () => {
       <h5 className="Advertising_title_text">다른 기업 이야기</h5>
 
       <div className="Advertising_adimg">
-        {arr ? (
+        {arr.length > 0 ? (
           arr.map((element, index: number) => {
             return <AdElement key={index} el={element} />;
           })
