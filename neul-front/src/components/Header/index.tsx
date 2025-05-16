@@ -239,7 +239,7 @@ const Header = () => {
 
               <div className="div_box" onClick={readAlert}>
                 <PiBellRinging className="bell" />
-                <span className="absolute">{alertNum}</span>
+                {alertNum > 0 && <span className="absolute">{alertNum}</span>}
               </div>
             </div>
           ) : (
