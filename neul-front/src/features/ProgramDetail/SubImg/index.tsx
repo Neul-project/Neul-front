@@ -15,7 +15,9 @@ const SubImg = (props: { imgarr: string[]; setMainImg: any }) => {
           >
             <img
               className="SubImg_imgstyle"
-              src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + element}
+              src={
+                process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + element
+              }
               alt={`img-${index}`}
             />
           </div>

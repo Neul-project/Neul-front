@@ -61,7 +61,9 @@ const Banner = () => {
               <img
                 className="Banner_imgstyle"
                 src={
-                  process.env.NEXT_PUBLIC_API_URL + "/uploads/" + element.img
+                  process.env.NEXT_PUBLIC_API_URL +
+                  "/uploads/image/" +
+                  element.img
                 }
                 alt={`banner-${index}`}
               />

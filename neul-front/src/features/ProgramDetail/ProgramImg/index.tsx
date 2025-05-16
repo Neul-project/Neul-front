@@ -20,7 +20,7 @@ const ProgramImg = (props: { imgarr: string[] }) => {
       <div className="ProgramImg_main">
         <img
           className="ProgramImg_imgstyle"
-          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + mainImg}
+          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + mainImg}
           alt="img"
         />
       </div>
