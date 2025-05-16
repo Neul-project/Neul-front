@@ -1,7 +1,6 @@
 import { ActivityListStyled } from "./styled";
 import clsx from "clsx";
 import ActivityTable from "../ActivityTable";
-import Circle from "@/components/Circle";
 
 //활동 기록 컴포넌트
 const ActivityList = () => {
