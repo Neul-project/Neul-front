@@ -44,7 +44,7 @@ const ProgramElement = (props: { list: any; filterStatus: any }) => {
       <div className="ProgramElement_img">
         <img
           className="ProgramElement_imgstyle"
-          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + imgarr[0]}
+          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + imgarr[0]}
           alt="img"
         />
       </div>

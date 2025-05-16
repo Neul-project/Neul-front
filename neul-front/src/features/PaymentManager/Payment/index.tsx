@@ -72,7 +72,8 @@ const PaymentFeature = () => {
         amount,
         programId: selectedProgramIds, // [12, 13]
       });
-      const { orderId } = res.data;
+      // console.log("orderId", res.data);
+      const orderId = res.data;
 
       // 2. 받은 orderId로 토스 결제창 띄우기
       const tossPayments = await loadTossPayments(tossClientKey);
@@ -156,7 +157,7 @@ const PaymentFeature = () => {
                 <div className="program_info_imgDiv">
                   <a href={`/program/${program.id}`}>
                     <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${program.img}`}
+                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/image/${program.img}`}
                       alt={program.name}
                     />
                   </a>
