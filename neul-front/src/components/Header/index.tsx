@@ -141,21 +141,21 @@ const Header = () => {
     });
   };
 
-  useEffect(() => {
-    getAdminId();
-    getAlert();
+  // useEffect(() => {
+  //   getAdminId();
+  //   getAlert();
 
-    const interval = setInterval(() => {
-      getAlert();
-      getAdminId();
-    }, 10000); // 10초마다 가져오기
+  //   const interval = setInterval(() => {
+  //     getAlert();
+  //     getAdminId();
+  //   }, 10000); // 10초마다 가져오기
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearInterval(interval);
-    };
-  }, []);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //     clearInterval(interval);
+  //   };
+  // }, []);
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
