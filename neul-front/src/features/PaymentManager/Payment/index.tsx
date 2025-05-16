@@ -66,34 +66,30 @@ const PaymentFeature = () => {
       return;
     }
 
-    console.log("주문정보", {
-      amount,
-      programId: selectedProgramIds,
-    });
+    try {
+      // 1. 프론트 → 백엔드: 결제 준비 요청
+      const res = await axiosInstance.post("/program/create", {
+        amount,
+        programId: selectedProgramIds, // [12, 13]
+      });
+      // console.log("orderId", res.data);
+      const orderId = res.data;
 
-    // try {
-    //   // 1. 프론트 → 백엔드: 결제 준비 요청
-    //   const res = await axiosInstance.post("/program/create", {
-    //     amount,
-    //     programId: selectedProgramIds, // [12, 13]
-    //   });
-    //   const { orderId } = res.data;
+      // 2. 받은 orderId로 토스 결제창 띄우기
+      const tossPayments = await loadTossPayments(tossClientKey);
 
-    //   // 2. 받은 orderId로 토스 결제창 띄우기
-    //   const tossPayments = await loadTossPayments(tossClientKey);
+      await tossPayments.requestPayment({
+        amount: amount,
+        orderId: orderId,
+        orderName: `${amount}원 결제`,
 
-    //   await tossPayments.requestPayment({
-    //     amount: amount,
-    //     orderId: orderId,
-    //     orderName: `${amount}원 결제`,
-
-    //     successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
-    //     failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
-    //   });
-    // } catch (error) {
-    //   console.error("결제 요청 중 오류:", error);
-    //   window.location.href = "/payment/fail";
-    // }
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
+        failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
+      });
+    } catch (error) {
+      console.error("결제 요청 중 오류:", error);
+      window.location.href = "/payment/fail";
+    }
   };
 
   // 처음 페이지 진입 시 모든 프로그램 체크표시
