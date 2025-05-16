@@ -5,11 +5,12 @@ import mic from "@/assets/images/mic.png";
 import pause from "@/assets/images/pause.png";
 import { useState } from "react";
 import { useReactMediaRecorder } from "react-media-recorder";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 const FeedBackAudio = (props: { activityid: string }) => {
   const { activityid } = props;
   const [isRecording, setIsRecording] = useState(false); //음성 녹음 버튼 클릭 확인용
-
+  const { user } = useAuthStore();
   //오디오 설정
   const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({ audio: true });
@@ -27,6 +28,11 @@ const FeedBackAudio = (props: { activityid: string }) => {
   };
 
   const uploadRecording = async () => {
+    if (!user?.id) return;
+    const userId = user?.id;
+
+    //console.log("user", userId);
+
     if (!mediaBlobUrl) {
       console.error("mediaBlobUrl이 없습니다. 먼저 녹음을 해주세요");
       return;
@@ -36,16 +42,7 @@ const FeedBackAudio = (props: { activityid: string }) => {
     const blob = await response.blob();
 
     const formData = new FormData();
-    const now = new Date();
-    //파일명 변경 (yyyymmddhhmm)
-    const fileName = `${now.getFullYear()}${(now.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}${now.getDate().toString().padStart(2, "0")}${now
-      .getHours()
-      .toString()
-      .padStart(2, "0")}${now.getMinutes().toString().padStart(2, "0")}.webm`;
-
-    formData.append("file", blob, fileName);
+    formData.append("audio", blob);
 
     // for (const [key, value] of formData.entries()) {
     //   console.log(`${key}:`, value);
@@ -58,6 +55,7 @@ const FeedBackAudio = (props: { activityid: string }) => {
         {
           message: formData,
           activityid: Number(activityid),
+          userId: userId,
         },
         {
           headers: {

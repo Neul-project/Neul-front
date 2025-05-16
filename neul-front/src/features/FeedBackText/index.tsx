@@ -2,10 +2,12 @@ import { FeedBackTextStyled } from "./styled";
 import { Button, Input, notification } from "antd";
 import axiosInstance from "@/lib/axios";
 import { useState } from "react";
+import { useAuthStore } from "@/stores/useAuthStore";
 const { TextArea } = Input;
 
 const FeedBackText = (props: { activityid: string; onClose: () => void }) => {
   const { activityid, onClose } = props;
+  const { user } = useAuthStore();
   //useState
   const [content, setContent] = useState(""); //text area 내용
 
@@ -17,11 +19,15 @@ const FeedBackText = (props: { activityid: string; onClose: () => void }) => {
 
   //피드백 보내기 클릭 함수
   const feedbacksend = () => {
+    if (!user?.id) return;
+    const userId = user?.id;
+
     axiosInstance
       .post(`/activity/feedback`, {
         message: content,
         activityid: Number(activityid),
-        recorded_at: "",
+        userId: userId,
+        //recorded_at: "",
       })
       .then((res) => {
         notification.success({
