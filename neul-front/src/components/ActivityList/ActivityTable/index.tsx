@@ -11,6 +11,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 
 interface DataType {
   key: string;
+  id: number;
   number: number;
   title: string;
   date: string;
@@ -54,7 +55,8 @@ const ActivityTable = () => {
       const formatdata: DataType[] = res.data.map(
         (item: any, index: number) => ({
           key: String(item.id),
-          number: item.id,
+          number: index + 1,
+          id: item.id,
           title: item.title,
           date: item.recorded_at,
         })
@@ -73,7 +75,7 @@ const ActivityTable = () => {
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
-                router.push(`/activity/${record.number}`);
+                router.push(`/activity/${record.id}`);
               },
             };
           }}

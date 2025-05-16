@@ -18,10 +18,28 @@ export const ActivityContentStyled = styled.div`
       text-align: center;
       align-items: flex-end;
       gap: 10px;
-      justify-content: center;
-      font-size: 24px;
+      justify-content: left;
+      font-size: 27px;
       font-weight: bold;
+      margin-bottom: 50px;
+      margin-top: 20px;
     }
+
+    .ActivityContent_sub {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      .ActivityContent_swiper {
+        width: 50%;
+        height: 100%;
+      }
+      .ActivityContent_content {
+        width: 50%;
+        height: 100%;
+      }
+    }
+
     .ActivityContent_subtitle {
       display: flex;
       gap: 10px;
@@ -37,24 +55,6 @@ export const ActivityContentStyled = styled.div`
         height: 100%;
         object-fit: contain;
       }
-    }
-
-    .ActivityContent_type {
-      display: flex;
-      width: 100%;
-      gap: 30px;
-    }
-
-    .ActivityContent_feedback {
-      display: flex;
-      justify-content: center;
-      .ActivityContent_feedback_btn {
-        width: 150px;
-      }
-    }
-
-    .ActivityContent_text {
-      margin-bottom: 10px;
     }
   }
 
