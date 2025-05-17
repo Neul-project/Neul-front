@@ -76,45 +76,12 @@ export const NavigationElementStyled = styled.div`
       margin-top: 20px;
       gap: 5px;
       place-items: center;
-      padding: 0px 15px;
 
-      .NavigationElement_title_background {
-        position: relative;
-        font-weight: 600;
-        height: 50px;
-        z-index: 1;
+      .NavigationElement_title {
+        font-size: 20px;
+        color: #000;
+        font-weight: bold;
         margin-bottom: 15px;
-
-        p {
-          position: relative;
-          z-index: 2;
-          color: white;
-          margin: 10px 0px;
-          font-size: 16px;
-        }
-
-        .NavigationElement_title_circle {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 0;
-          width: auto;
-          height: auto;
-          background: none;
-
-          li {
-            display: block;
-            width: 45px;
-            height: 45px;
-            margin: 0 -10px;
-            background: #5da487;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-          }
-        }
       }
 
       .NavigationElement_rows {
@@ -176,79 +143,38 @@ export const NavigationElementStyled = styled.div`
       height: 100%;
       display: flex;
       flex-direction: column;
-      text-align: center;
+      text-align: left;
       justify-content: center;
-      margin-top: 20px;
-      gap: 5px;
-      place-items: center;
-      padding: 0px 15px;
+      //gap: 15px;
+      //place-items: center;
+      //padding: 0px 15px;
 
-      .NavigationElement_title_background {
-        position: relative;
-        font-weight: 600;
-        height: 50px;
-        z-index: 1;
-        margin-bottom: 0px;
-
-        p {
-          position: relative;
-          z-index: 2;
-          color: white;
-          margin: 10px 0px;
-          font-size: 13px;
-        }
-
-        .NavigationElement_title_circle {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 0;
-          width: auto;
-          height: auto;
-          background: none;
-
-          li {
-            display: block;
-            width: 40px;
-            height: 40px;
-            margin: 0 -10px;
-            background: #5da487;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-          }
-        }
+      .NavigationElement_title {
+        font-size: 19px;
+        color: #000;
+        font-weight: bold;
+        margin-bottom: 10px;
       }
-
       .NavigationElement_rows {
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        gap: 15px;
+        gap: 8px;
       }
 
-      .NavigationElement_row1 {
-        display: flex;
-        width: 100%;
-        gap: 15px;
-        justify-content: center;
-      }
+      .NavigationElement_row1,
       .NavigationElement_row2 {
         display: flex;
         width: 100%;
-        gap: 15px;
-        justify-content: center;
+        gap: 8px;
       }
 
       .NavigationElement_ele {
         display: flex;
         flex-direction: column;
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: 80px;
         align-items: center;
         justify-content: center;
         border-radius: 15px;
@@ -262,12 +188,14 @@ export const NavigationElementStyled = styled.div`
         }
 
         .NavigationElement_img {
-          width: 45px;
+          width: 35px;
+          margin-bottom: 5px;
         }
         .NavigationElement_imgstyle {
           width: 100%;
           height: 100%;
         }
+
         .NavigationElement_text {
           font-size: 13px;
         }
