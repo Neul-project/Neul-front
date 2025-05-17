@@ -78,7 +78,13 @@ const PaymentSucessFeat = () => {
             </button>
           </div>
           <div className="Success_goDetail">
-            <button>신청내역 보기</button>
+            <button
+              onClick={() => {
+                router.push("/mypage?tab=program");
+              }}
+            >
+              신청내역 보기
+            </button>
           </div>
         </div>
       </div>
