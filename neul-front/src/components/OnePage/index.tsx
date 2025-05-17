@@ -3,6 +3,8 @@ import { Popover } from "antd";
 import { InfoCircleFilled } from "@ant-design/icons";
 import clsx from "clsx";
 import { OnePageStyled } from "./styled";
+import SwiperImg from "../ActivityContent/SwiperImg";
+import SubContent from "../ActivityContent/SubContent";
 
 interface OnePageProps {
   type: "left" | "right";
@@ -10,6 +12,14 @@ interface OnePageProps {
   children?: ReactNode;
   name?: string;
   popoverContent?: ReactNode;
+  activity?: string;
+  img?: string[];
+  activitytype?: string;
+  rehabilitation?: string;
+  note?: string;
+  id?: string;
+  title?: string;
+  patientname?: string;
 }
 
 const OnePage = ({
@@ -18,6 +28,14 @@ const OnePage = ({
   children,
   name,
   popoverContent,
+  activity,
+  img,
+  rehabilitation,
+  note,
+  id,
+  activitytype,
+  title,
+  patientname,
 }: OnePageProps) => {
   return (
     <OnePageStyled className={clsx(`onepage_${type}`)}>
@@ -50,6 +68,25 @@ const OnePage = ({
                         </Popover>
                       )}
                     </div>
+                  )}
+
+                  {/* 활동기록 왼쪽 */}
+                  {type === "left" && activity === "swiper" && (
+                    <SwiperImg
+                      img={img}
+                      title={title!}
+                      patientname={patientname!}
+                    />
+                  )}
+
+                  {/* 활동기록 오른쪽 */}
+                  {type === "right" && activity === "subcontent" && (
+                    <SubContent
+                      type={activitytype!}
+                      rehabilitation={rehabilitation!}
+                      note={note!}
+                      id={id!}
+                    />
                   )}
 
                   {/* children 자리 */}
