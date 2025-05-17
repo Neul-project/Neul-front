@@ -187,7 +187,7 @@ const Header = () => {
                 onClick={() => setIsDropdownOpen((v) => !v)}
               >
                 <span>
-                  <strong className="username">{user.name}</strong>님
+                  <strong className="username">{user.name} </strong>님
                 </span>
                 <span className="Header_icon" />
 

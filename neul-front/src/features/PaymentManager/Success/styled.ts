@@ -2,28 +2,62 @@ import styled from "styled-components";
 
 export const PaymentSuccessStyled = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 80vh;
   background-color: ${(props) => props.theme.colors.backColor};
+  padding: 20px;
 
   .Success_container {
     width: 450px;
-    /* margin: 0 auto; */
-    padding: 25px;
+    padding: 20px;
     background-color: #fff;
     border-radius: 16px;
+    margin-bottom: 15px;
+
+    @media (max-width: 632px) {
+      width: 100%;
+    }
+  }
+
+  .padding {
+    padding: 36px 50px;
+  }
+
+  .Success_firstBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .Success_title {
     font-size: 24px;
-    margin: 0 0 30px 0;
+  }
+
+  .Success_orderNum {
+    margin-bottom: 23px;
+
+    span {
+      color: ${(props) => props.theme.colors.pointGreen};
+      font-weight: 700;
+    }
   }
 
   .Success_cont {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    color: ${(props) => props.theme.colors.pointGreen};
+
+    span {
+      font-size: 21px;
+      font-weight: 700;
+    }
   }
 
   .Success_btnContainer {
+    width: 100%;
     display: flex;
     gap: 10px;
   }
@@ -34,13 +68,12 @@ export const PaymentSuccessStyled = styled.div`
     button {
       cursor: pointer;
       width: 100%;
-      padding: 12px 17px;
+      padding: 9px;
       background-color: #8cc2a9;
       color: #fff;
       border: none;
-      border-radius: 12px;
-      font-size: 17px;
-      font-weight: 700;
+      border-radius: 20px;
+      font-size: 14px;
     }
   }
 
@@ -50,13 +83,23 @@ export const PaymentSuccessStyled = styled.div`
     button {
       cursor: pointer;
       width: 100%;
-      padding: 12px 17px;
+      padding: 9px;
       background-color: #fff;
       color: #8cc2a9;
       border: 1px solid #8cc2a9;
-      border-radius: 12px;
-      font-size: 17px;
-      font-weight: 700;
+      border-radius: 20px;
+      font-size: 14px;
     }
+  }
+
+  .Success_orderInfo {
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .Success_goods {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
   }
 `;

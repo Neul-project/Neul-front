@@ -5,6 +5,8 @@ import clsx from "clsx";
 
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
+import { useCartStore } from "@/stores/useCartStore";
+
 interface UserInfo {
   name: string;
   phone: string;
@@ -68,7 +70,7 @@ const PaymentFeature = () => {
     }
 
     try {
-      // 1. 프론트 → 백엔드: 결제 준비 요청
+      // 1. 결제 준비 요청
       const res = await axiosInstance.post("/program/create", {
         amount,
         programId: selectedProgramIds, // [12, 13]
@@ -87,6 +89,11 @@ const PaymentFeature = () => {
         successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
         failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
       });
+
+      // 장바구니 수량 감소 (프론트에서 먼저 처리)
+      const prevCount = useCartStore.getState().cartCount;
+      const newCount = Math.max(0, prevCount - selectedProgramIds.length);
+      useCartStore.getState().setCartCount(newCount);
     } catch (error) {
       console.error("결제 요청 중 오류:", error);
       window.location.href = "/payment/fail";
@@ -110,7 +117,10 @@ const PaymentFeature = () => {
 
   // 선택된 프로그램 가격 합산
   const totalSelectedPrice = programs
-    .filter((p) => selectedProgramIds.includes(p.id))
+    .filter(
+      (p) =>
+        selectedProgramIds.includes(p.id) && p.payment_status !== "결제 완료"
+    )
     .reduce((acc, p) => acc + p.price, 0);
 
   return (

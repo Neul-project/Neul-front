@@ -39,7 +39,7 @@ export const PaymentStyled = styled.div`
         .program_info_container {
           display: flex;
           align-items: flex-start;
-          gap: 15px;
+          gap: 17px;
           margin-bottom: 24px;
 
           .Program_info_label {
