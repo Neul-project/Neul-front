@@ -143,7 +143,7 @@ const PaymentFeature = () => {
 
           {/* 프로그램 주문 정보 */}
           <div className="Program_info radius">
-            <div className="title">프로그램 신청 정보</div>
+            <div className="title">프로그램 신청정보</div>
 
             {/* 프로그램 주문 목록 */}
             {programs.filter(
