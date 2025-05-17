@@ -9,8 +9,26 @@ export const SideBarMenuStyled = styled.div`
   border: none;
   border-radius: 16px;
 
+  @media (max-width: 632px) {
+    width: 100%;
+    height: auto;
+    margin-bottom: 18px;
+    padding: 14px 29px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 534px) {
+    padding: 14px 17px;
+  }
+
   .SideBar_wrap {
     border-bottom: 1px solid rgb(238, 238, 238);
+
+    @media (max-width: 632px) {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: none;
+    }
 
     .SideBarMenu_item {
       cursor: pointer;
@@ -18,8 +36,20 @@ export const SideBarMenuStyled = styled.div`
       color: #1e1e23;
       margin-top: 30px;
 
+      @media (max-width: 632px) {
+        margin-top: 0px;
+      }
+
+      @media (max-width: 427px) {
+        font-size: 10px;
+      }
+
       &:last-child {
         margin-bottom: 30px;
+
+        @media (max-width: 632px) {
+          margin-bottom: 2px;
+        }
       }
     }
 
@@ -44,6 +74,10 @@ export const SideBarMenuStyled = styled.div`
   .SideBarMenu_logout {
     padding-top: 30px;
     text-align: center;
+
+    @media (max-width: 632px) {
+      display: none;
+    }
 
     button {
       cursor: pointer;

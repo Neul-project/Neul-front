@@ -1,12 +1,20 @@
 import styled from "styled-components";
 
 export const WardInfoStyled = styled.div`
+  @media (max-width: 632px) {
+    padding: 0 20px;
+  }
+
   .WardInfo_container {
     padding: 20px 29px;
     border-radius: 16px;
     border: none;
     background-color: #fff;
     box-sizing: border-box;
+
+    @media (max-width: 632px) {
+      padding: 14px 17px;
+    }
   }
 
   .m-b {
@@ -24,24 +32,44 @@ export const WardInfoStyled = styled.div`
     color: #1c1c1c;
     word-break: break-all;
 
+    @media (max-width: 632px) {
+      font-size: 16px;
+    }
+
     span {
       font-size: 21px;
       font-weight: 700;
+
+      @media (max-width: 632px) {
+        font-size: 16px;
+      }
     }
   }
 
   .WardInfo_email {
     font-size: 14px;
     color: #848896;
+
+    @media (max-width: 632px) {
+      font-size: 12px;
+    }
   }
 
   .WardInfo_wardContainer {
     width: 100%;
+
+    @media (max-width: 632px) {
+      font-size: 13px;
+    }
   }
 
   .WardInfo_wardTitle {
     font-size: 19px;
     font-weight: 700;
+
+    @media (max-width: 632px) {
+      font-size: 16px;
+    }
   }
 
   .WardInfo_wardName {

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 export const ProgramHistoryStyled = styled.div`
+  @media (max-width: 632px) {
+    padding: 0 20px;
+  }
+
   .ProgramHistory_container {
     width: 650px;
     padding: 20px 20px;
@@ -8,12 +12,21 @@ export const ProgramHistoryStyled = styled.div`
     border: none;
     background-color: #fff;
     box-sizing: border-box;
+
+    @media (max-width: 632px) {
+      width: 100%;
+    }
   }
 
   .ProgramHistory_title {
     font-size: 19px;
     padding-bottom: 20px;
     border-bottom: 2px solid rgb(51, 51, 51);
+
+    @media (max-width: 632px) {
+      font-size: 16px;
+      padding-bottom: 10px;
+    }
   }
 
   .ProgramHistory_item_container {
@@ -42,6 +55,10 @@ export const ProgramHistoryStyled = styled.div`
       padding: 12px 12px 16px 20px;
       margin-bottom: 10px;
       /* min-height: 111px; */
+
+      @media (max-width: 632px) {
+        padding: 12px;
+      }
 
       .ProgramHistory_semicircle {
         position: absolute;
@@ -85,6 +102,10 @@ export const ProgramHistoryStyled = styled.div`
             font-size: 19px;
             font-weight: 700;
 
+            @media (max-width: 632px) {
+              font-size: 14px;
+            }
+
             &:hover {
               text-decoration: underline;
             }
@@ -93,17 +114,28 @@ export const ProgramHistoryStyled = styled.div`
           .payment {
             font-size: 14px;
             color: gray;
+
+            @media (max-width: 632px) {
+              font-size: 11px;
+            }
           }
 
           .price {
             font-size: 13px;
             color: #565e67;
+
+            @media (max-width: 632px) {
+              font-size: 11px;
+            }
           }
         }
 
         .manager {
           font-size: 14px;
-          /* color: gray; */
+
+          @media (max-width: 632px) {
+            font-size: 12px;
+          }
         }
 
         .flex-end {
@@ -131,6 +163,11 @@ export const ProgramHistoryStyled = styled.div`
       border-image: initial;
       border-left: none;
       cursor: pointer;
+
+      @media (max-width: 632px) {
+        width: 26px;
+        height: 26px;
+      }
     }
 
     .number_btn.start {
@@ -169,4 +206,9 @@ export const Btn = styled.button`
   line-height: 20px;
   letter-spacing: -1px;
   color: ${(props) => props.theme.colors.pointGreen};
+
+  @media (max-width: 632px) {
+    font-size: 11px;
+    padding: 1px 8px;
+  }
 `;

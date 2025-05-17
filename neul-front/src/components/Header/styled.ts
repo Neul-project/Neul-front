@@ -71,6 +71,7 @@ export const HeaderStyled = styled.div`
 
     @media (max-width: 632px) {
       margin-right: 20px;
+      gap: 13px;
     }
 
     .user_wrap {

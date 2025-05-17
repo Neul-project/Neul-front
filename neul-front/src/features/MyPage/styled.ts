@@ -9,9 +9,17 @@ export const MyPageStyled = styled.div`
     max-width: 1050px;
     margin: 0 auto;
     padding: 50px 0 80px;
+
+    @media (max-width: 632px) {
+      display: block;
+      padding: 18px 0 80px;
+    }
   }
 
   .MyPage_leftContainer {
+    @media (max-width: 632px) {
+      padding: 0 20px;
+    }
   }
 
   .MyPage_rightContainer {
