@@ -8,6 +8,10 @@ export const LoginPageStyled = styled.div`
   margin-bottom: 60px;
   color: rgb(136, 136, 136);
 
+  @media (max-width: 632px) {
+    margin-top: 0px;
+  }
+
   li {
     list-style: none;
   }
