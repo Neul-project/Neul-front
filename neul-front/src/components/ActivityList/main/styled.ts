@@ -17,8 +17,8 @@ export const ActivityListStyled = styled.div`
       margin-bottom: 20px;
       display: inline-block;
       //border-bottom: 2px solid rgb(242, 245, 248);
-      text-align: center;
-      align-self: center;
+      text-align: left;
+      //align-items: left;
     }
   }
 
@@ -29,17 +29,18 @@ export const ActivityListStyled = styled.div`
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      //align-items: center;
       margin: 0px auto;
       padding: 0px 20px;
 
-      .ActivityList_h1 {
-        padding-top: 20px;
-        align-items: center;
-        text-align: center;
-        //font-weight: 800;
-        font-size: 25px;
+      .ActivityList_title {
+        padding: 30px 10px 0px 10px;
+        font-size: 20px;
+        font-weight: bold;
         margin-bottom: 20px;
+        display: inline-block;
+        //border-bottom: 2px solid rgb(242, 245, 248);
+        text-align: left;
+        //align-items: left;
       }
     }
   }
@@ -51,17 +52,18 @@ export const ActivityListStyled = styled.div`
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      //align-items: center;
       margin: 0px auto;
       padding: 0px 20px;
 
-      .ActivityList_h1 {
-        padding-top: 20px;
-        align-items: center;
-        text-align: center;
-        //font-weight: 800;
-        font-size: 20px;
-        margin-bottom: 14px;
+      .ActivityList_title {
+        padding: 20px 10px 0px 10px;
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        display: inline-block;
+        //border-bottom: 2px solid rgb(242, 245, 248);
+        text-align: left;
+        //align-items: left;
       }
     }
   }

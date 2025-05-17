@@ -1,8 +1,9 @@
 import { FeedBackTextStyled } from "./styled";
-import { Button, Input, notification } from "antd";
+import { Button, ConfigProvider, Input, notification } from "antd";
 import axiosInstance from "@/lib/axios";
 import { useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { AntdGlobalTheme } from "@/utils/antdtheme";
 const { TextArea } = Input;
 
 const FeedBackText = (props: { activityid: string; onClose: () => void }) => {
@@ -41,20 +42,22 @@ const FeedBackText = (props: { activityid: string; onClose: () => void }) => {
 
   return (
     <FeedBackTextStyled>
-      <TextArea
-        rows={8}
-        onChange={onChange}
-        className="FeedbackText_textarea"
-      />
+      <ConfigProvider theme={AntdGlobalTheme}>
+        <TextArea
+          rows={8}
+          onChange={onChange}
+          className="FeedbackText_textarea"
+        />
 
-      <div className="FeedbackText_footer">
-        <Button
-          onClick={feedbacksend}
-          className="FeedbackText_footer_feeedback"
-        >
-          피드백 보내기
-        </Button>
-      </div>
+        <div className="FeedbackText_footer">
+          <Button
+            onClick={feedbacksend}
+            className="FeedbackText_footer_feeedback"
+          >
+            피드백 보내기
+          </Button>
+        </div>
+      </ConfigProvider>
     </FeedBackTextStyled>
   );
 };

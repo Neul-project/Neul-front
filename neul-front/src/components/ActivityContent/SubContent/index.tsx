@@ -7,6 +7,7 @@ import type { CheckboxGroupProps } from "antd/es/checkbox";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import clsx from "clsx";
+import { AntdGlobalTheme } from "@/utils/antdtheme";
 
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
@@ -40,28 +41,30 @@ const SubContent = (props: {
   return (
     <SubContentStyled className={clsx("SubContent_main_wrap")}>
       {/* 활동종류 */}
-      <div>
+      <div className="SubContent_row">
         <div className="SubContent_text">활동 종류</div>
-        <div>{getActivityLabel(type)}</div>
+        <div className="SubContent_re_text">{getActivityLabel(type)}</div>
       </div>
 
       {/* 재활치료 */}
-      <div>
+      <div className="SubContent_row">
         <div className="SubContent_text">재활 치료</div>
-        <div>{rehabilitation}</div>
+        <div className="SubContent_re_text">{rehabilitation}</div>
       </div>
 
       {/* 특이사항 */}
-      <div className="SubContent_option">
+      <div className="SubContent_row">
         <div className="SubContent_text">특이사항</div>
-        <div>{note}</div>
+        <div className="SubContent_re_text SubContent_re_text_note">{note}</div>
       </div>
 
       {/* 피드백 작성 */}
       <div className="SubContent_feedback">
-        <Button className="SubContent_feedback_btn" onClick={feedback}>
-          피드백 작성
-        </Button>
+        <ConfigProvider theme={AntdGlobalTheme}>
+          <Button className="SubContent_feedback_btn" onClick={feedback}>
+            피드백 작성
+          </Button>
+        </ConfigProvider>
       </div>
       <Modal
         title="피드백 제출"

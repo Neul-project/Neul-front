@@ -15,7 +15,7 @@ const SwiperImg = (props: { img: any; title: string; patientname: string }) => {
       <div className="SwiperImg_title">{patientname}님 활동기록</div>
       <Swiper
         modules={[Pagination, Autoplay]}
-        className="ActivityContent_swiper"
+        className="SwiperImg_swiper"
         spaceBetween={50}
         slidesPerView={1}
         pagination={{ clickable: true }}
@@ -28,7 +28,7 @@ const SwiperImg = (props: { img: any; title: string; patientname: string }) => {
                 process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + element
               }
               alt={`preview-0`}
-              className="ActivityContent_swperimg"
+              className="SwiperImg_swperimg"
             />
           </SwiperSlide>
         ))}

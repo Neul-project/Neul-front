@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
 import OnePage from "@/components/OnePage";
-
+import Head from "next/head";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 //활동 기록 컴포넌트
@@ -45,34 +45,43 @@ const ActivityContent = (props: { id: string }) => {
   }, [user]);
 
   return (
-    <ActivityContentStyled className={clsx("ActivityContent_main_wrap")}>
-      <div className="ActivityContent_sub">
-        {/* 스와이퍼 이미지 */}
-        <div className="ActivityContent_swiper">
-          <OnePage
-            type={"left"}
-            lineNum={lineNumleft}
-            activity={"swiper"}
-            img={img}
-            title={title}
-            patientname={patientname}
-          />
-        </div>
+    <>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
 
-        {/* 활동 종류 & 재활 치료*/}
-        <div className="ActivityContent_content">
-          <OnePage
-            type={"right"}
-            lineNum={lineNumright}
-            activity="subcontent"
-            rehabilitation={rehabilitation}
-            note={note}
-            id={id}
-            activitytype={type}
-          />
+      <ActivityContentStyled className={clsx("ActivityContent_main_wrap")}>
+        <div className="ActivityContent_sub">
+          {/* 스와이퍼 이미지 */}
+          <div className="ActivityContent_swiper">
+            <OnePage
+              type={"left"}
+              lineNum={lineNumleft}
+              activity={"swiper"}
+              img={img}
+              title={title}
+              patientname={patientname}
+            />
+          </div>
+
+          {/* 활동 종류 & 재활 치료*/}
+          <div className="ActivityContent_content">
+            <OnePage
+              type={"right"}
+              lineNum={lineNumright}
+              activity="subcontent"
+              rehabilitation={rehabilitation}
+              note={note}
+              id={id}
+              activitytype={type}
+            />
+          </div>
         </div>
-      </div>
-    </ActivityContentStyled>
+      </ActivityContentStyled>
+    </>
   );
 };
 

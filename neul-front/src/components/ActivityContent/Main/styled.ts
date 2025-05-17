@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const ActivityContentStyled = styled.div`
   &.ActivityContent_main_wrap {
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+
     max-width: 1280px;
     width: 100%;
     min-height: 100vh;
@@ -43,17 +47,6 @@ export const ActivityContentStyled = styled.div`
       display: flex;
       gap: 10px;
       align-items: flex-end;
-    }
-
-    .ActivityContent_swiper {
-      width: 100%;
-      height: 400px;
-
-      .ActivityContent_swperimg {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
     }
   }
 

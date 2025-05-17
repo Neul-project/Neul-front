@@ -6,7 +6,8 @@ import FeedBackAudio from "../FeedBackAudio";
 import FeedBackText from "../FeedBackText";
 
 // antd
-import { Radio } from "antd";
+import { ConfigProvider, Radio } from "antd";
+import { AntdGlobalTheme } from "@/utils/antdtheme";
 
 //활동 페이지 > 피드백 내용 모달
 const FeedBackModal = (props: { activityid: string; onClose: () => void }) => {
@@ -17,14 +18,16 @@ const FeedBackModal = (props: { activityid: string; onClose: () => void }) => {
   return (
     <FeedBackModalStyled className={clsx("FeedbackModal_main_wrap")}>
       <div className="FeedbackModal_radio_group">
-        <Radio.Group
-          onChange={(e) => setSelectedType(e.target.value)}
-          value={selectedType}
-          buttonStyle="solid"
-        >
-          <Radio value="text">텍스트</Radio>
-          <Radio value="audio">오디오</Radio>
-        </Radio.Group>
+        <ConfigProvider theme={AntdGlobalTheme}>
+          <Radio.Group
+            onChange={(e) => setSelectedType(e.target.value)}
+            value={selectedType}
+            buttonStyle="solid"
+          >
+            <Radio value="text">텍스트</Radio>
+            <Radio value="audio">오디오</Radio>
+          </Radio.Group>
+        </ConfigProvider>
       </div>
 
       {/* 조건부 렌더링 */}

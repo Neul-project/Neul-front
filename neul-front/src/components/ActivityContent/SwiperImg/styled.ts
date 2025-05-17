@@ -7,5 +7,27 @@ export const SwiperStyled = styled.div`
       font-size: 30px;
       font-weight: bolder;
     }
+
+    .SwiperImg_swiper {
+      width: 100%;
+      height: 400px;
+
+      .SwiperImg_swperimg {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .swiper-pagination-bullet {
+      background: transparent;
+      border: 1px solid #5da487;
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #5da487;
+      opacity: 1;
+    }
   }
 `;

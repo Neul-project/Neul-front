@@ -1,11 +1,12 @@
 import axiosInstance from "@/lib/axios";
 import { FeedBackAudioStyled } from "./styled";
-import { Button, notification } from "antd";
+import { Button, ConfigProvider, notification } from "antd";
 import mic from "@/assets/images/mic.png";
 import pause from "@/assets/images/pause.png";
 import { useState } from "react";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { AntdGlobalTheme } from "@/utils/antdtheme";
 
 const FeedBackAudio = (props: { activityid: string }) => {
   const { activityid } = props;
@@ -108,9 +109,14 @@ const FeedBackAudio = (props: { activityid: string }) => {
         ></audio>
       </div>
       <div className="FeedBackAudio_footer">
-        <Button onClick={uploadRecording} className="FeedBackAudio_footer_send">
-          음성 보내기
-        </Button>
+        <ConfigProvider theme={AntdGlobalTheme}>
+          <Button
+            onClick={uploadRecording}
+            className="FeedBackAudio_footer_send"
+          >
+            음성 보내기
+          </Button>
+        </ConfigProvider>
       </div>
     </FeedBackAudioStyled>
   );
