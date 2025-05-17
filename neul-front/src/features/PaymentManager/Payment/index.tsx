@@ -16,6 +16,7 @@ interface Program {
   id: number;
   name: string;
   manager: string;
+  payment_status: string;
   price: number;
   img: string;
 }
@@ -121,7 +122,7 @@ const PaymentFeature = () => {
         <div className="Payment_leftContainer">
           {/* 주문자 정보 */}
           <div className="Orderer_info radius">
-            <div className="title">주문자 정보</div>
+            <div className="title">신청자 정보</div>
 
             <div className="Orderder_info_container">
               <div className="O_orderer">{userInfo?.name}</div>
@@ -132,50 +133,63 @@ const PaymentFeature = () => {
 
           {/* 프로그램 주문 정보 */}
           <div className="Program_info radius">
-            <div className="title">프로그램 주문 정보</div>
+            <div className="title">프로그램 신청 정보</div>
 
             {/* 프로그램 주문 목록 */}
-            {programs.map((program, i) => (
-              <div key={program.id} className="program_info_container">
-                {/* 체크박스 */}
-                <label className="Program_info_label">
-                  <input
-                    type="checkbox"
-                    className="Program_labelInput"
-                    checked={selectedProgramIds.includes(program.id)}
-                    onChange={() => toggleProgramSelection(program.id)}
-                    style={{ marginRight: "8px" }}
-                  />
-
-                  <div
-                    className={clsx("Program_info_div", {
-                      checked: selectedProgramIds.includes(program.id),
-                    })}
-                  ></div>
-                </label>
-
-                <div className="program_info_imgDiv">
-                  <a href={`/program/${program.id}`}>
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/image/${
-                        program.img.split(",")[0]
-                      }`}
-                      alt={program.name}
-                    />
-                  </a>
+            {programs.filter(
+              (program) => program.payment_status !== "결제 완료"
+            ).length === 0 ? (
+              <div className="Payment_empty">
+                <div className="empty_img">
+                  <img src="/empty.svg" alt="emptyImage" />
                 </div>
-
-                <div>
-                  <div className="p_name">
-                    <a href={`/program/${program.id}`}>{program.name}</a>
-                  </div>
-                  <div className="p_manager">{program.manager}</div>
-                  <div className="p_price">
-                    {program.price.toLocaleString()}원
-                  </div>
-                </div>
+                <div className="empty_cont">프로그램 신청내역이 없습니다.</div>
               </div>
-            ))}
+            ) : (
+              programs
+                .filter((program) => program.payment_status !== "결제 완료")
+                .map((program, i) => (
+                  <div key={program.id} className="program_info_container">
+                    {/* 체크박스 */}
+                    <label className="Program_info_label">
+                      <input
+                        type="checkbox"
+                        className="Program_labelInput"
+                        checked={selectedProgramIds.includes(program.id)}
+                        onChange={() => toggleProgramSelection(program.id)}
+                        style={{ marginRight: "8px" }}
+                      />
+
+                      <div
+                        className={clsx("Program_info_div", {
+                          checked: selectedProgramIds.includes(program.id),
+                        })}
+                      ></div>
+                    </label>
+
+                    <div className="program_info_imgDiv">
+                      <a href={`/program/${program.id}`}>
+                        <img
+                          src={`${
+                            process.env.NEXT_PUBLIC_API_URL
+                          }/uploads/image/${program.img.split(",")[0]}`}
+                          alt={program.name}
+                        />
+                      </a>
+                    </div>
+
+                    <div>
+                      <div className="p_name">
+                        <a href={`/program/${program.id}`}>{program.name}</a>
+                      </div>
+                      <div className="p_manager">{program.manager}</div>
+                      <div className="p_price">
+                        {program.price.toLocaleString()}원
+                      </div>
+                    </div>
+                  </div>
+                ))
+            )}
           </div>
         </div>
 

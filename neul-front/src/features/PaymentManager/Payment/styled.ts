@@ -130,6 +130,22 @@ export const PaymentStyled = styled.div`
       }
     }
 
+    .Payment_empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 15px;
+
+      .empty_img {
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+
+      .empty_cont {
+        margin-bottom: 30px;
+      }
+    }
+
     .Payment_RightContainer {
       position: relative;
 
