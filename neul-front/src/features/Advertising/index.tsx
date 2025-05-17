@@ -14,11 +14,12 @@ const Advertising = () => {
   //광고 이미지 요청
   useEffect(() => {
     axiosInstance.get("/banner/list").then((res) => {
-      console.log("banner Res", res.data);
+      //console.log("banner Res", res.data);
       const datalist = res.data;
-      console.log("res", datalist);
-      if (datalist.length > 1) {
+      //console.log("res", datalist);
+      if (datalist.length > 0) {
         const data = res.data[datalist.length - 1].img.split(",");
+        //console.log("data", data);
         setArr(data);
       }
     });

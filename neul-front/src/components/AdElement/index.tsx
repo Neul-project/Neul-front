@@ -11,7 +11,7 @@ const AdElement = (props: { el: any }) => {
       <div className="AdElement_img">
         <img
           className="AdElement_imgstyle"
-          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/" + el}
+          src={process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + el}
           alt="img"
         />
       </div>
