@@ -10,6 +10,11 @@ export const MoreInfoStyled = styled.div`
   .MoreInfo_container {
     width: 640px;
     margin: 0 auto;
+
+    @media (max-width: 632px) {
+      width: 100%;
+      padding: 0 20px;
+    }
   }
 
   .MoreInfo_title {
@@ -61,6 +66,11 @@ export const MoreInfoStyled = styled.div`
     display: flex;
     padding: 10px 20px;
 
+    @media (max-width: 632px) {
+      display: block;
+      padding: 0px;
+    }
+
     &:focus {
       outline: 1px solid #333;
     }
@@ -72,6 +82,9 @@ export const MoreInfoStyled = styled.div`
       font-size: 15px;
       margin-bottom: 8px;
       color: #333;
+
+      @media (max-width: 632px) {
+      }
     }
   }
 
@@ -85,6 +98,11 @@ export const MoreInfoStyled = styled.div`
       color: ${(props) => props.theme.colors.pointGreen};
       border: 1px solid ${(props) => props.theme.colors.pointGreen};
       border-radius: 4px;
+
+      @media (max-width: 632px) {
+        margin-left: 0px;
+        margin-top: 10px;
+      }
     }
   }
 
@@ -100,6 +118,10 @@ export const MoreInfoStyled = styled.div`
     color: rgb(51, 51, 51);
     outline: none;
     box-sizing: border-box;
+
+    @media (max-width: 632px) {
+      width: 100%;
+    }
   }
 
   .MoreInfo_inputSmall {
@@ -167,6 +189,11 @@ export const MoreInfoStyled = styled.div`
   .MoreInfo_addressBtn {
     margin-left: 8px;
 
+    @media (max-width: 632px) {
+      margin-left: 0px;
+      margin-top: 10px;
+    }
+
     button {
       width: 120px;
       height: 44px;
@@ -193,6 +220,10 @@ export const MoreInfoStyled = styled.div`
     color: rgb(51, 51, 51);
     outline: none;
     box-sizing: border-box;
+
+    @media (max-width: 632px) {
+      width: 100%;
+    }
   }
 
   .MoreInfo_subBtn {
@@ -210,6 +241,10 @@ export const MoreInfoStyled = styled.div`
       border-radius: 4px;
       font-size: 16px;
       white-space: nowrap;
+
+      @media (max-width: 632px) {
+        padding: 10px;
+      }
 
       &:hover {
         background-color: ${(props) => props.theme.colors.softGreen};
