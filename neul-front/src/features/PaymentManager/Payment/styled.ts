@@ -27,6 +27,11 @@ export const PaymentStyled = styled.div`
     margin-bottom: 100px;
     /* overflow: visible; */
 
+    @media (max-width: 632px) {
+      display: block;
+      width: 100%;
+    }
+
     .Payment_leftContainer {
       /* width: 60%; */
 
@@ -35,6 +40,11 @@ export const PaymentStyled = styled.div`
         background-color: #fff;
         padding: 23px 21px;
         border-radius: 16px;
+
+        @media (max-width: 632px) {
+          width: 100%;
+          margin-bottom: 20px;
+        }
 
         .program_info_container {
           display: flex;
@@ -92,6 +102,15 @@ export const PaymentStyled = styled.div`
           }
         }
 
+        .p_name {
+          @media (max-width: 632px) {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+        }
+
         .p_manager {
           font-size: 14px;
           color: gray;
@@ -109,6 +128,10 @@ export const PaymentStyled = styled.div`
         padding: 23px 21px;
         border-radius: 16px;
         margin-bottom: 20px;
+
+        @media (max-width: 632px) {
+          width: 100%;
+        }
 
         .Orderder_info_container {
           .O_orderer {
@@ -163,6 +186,10 @@ export const PaymentStyled = styled.div`
         margin-bottom: 20px;
         padding: 23px 21px;
 
+        @media (max-width: 632px) {
+          width: 100%;
+        }
+
         .T_flex {
           display: flex;
           justify-content: space-between;
@@ -197,12 +224,12 @@ export const PaymentStyled = styled.div`
         button {
           cursor: pointer;
           width: 100%;
-          padding: 17px;
+          padding: 14px;
           background-color: #8cc2a9;
           color: #fff;
           border: none;
           border-radius: 12px;
-          font-size: 17px;
+          font-size: 19px;
           font-weight: 700;
         }
       }

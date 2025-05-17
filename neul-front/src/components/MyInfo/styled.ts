@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 export const MyInfoStyled = styled.div`
+  @media (max-width: 632px) {
+    padding: 0 20px;
+  }
+
   .MyInfo_container {
     width: 650px;
     padding: 20px 29px;
@@ -8,16 +12,30 @@ export const MyInfoStyled = styled.div`
     border: none;
     background-color: #fff;
     box-sizing: border-box;
+
+    @media (max-width: 632px) {
+      width: 100%;
+      font-size: 14px;
+      padding: 14px 17px;
+    }
   }
 
   .MyInfo_flex {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 632px) {
+      display: block;
+    }
   }
 
   .MyInfo_cont {
     padding: 12px 0;
+
+    @media (max-width: 632px) {
+      padding: 6px 0 12px 0;
+    }
   }
 
   .MyInfo_name {
@@ -27,9 +45,17 @@ export const MyInfoStyled = styled.div`
     color: #1c1c1c;
     word-break: break-all;
 
+    @media (max-width: 632px) {
+      font-size: 18px;
+    }
+
     span {
       font-size: 21px;
       font-weight: 700;
+
+      @media (max-width: 632px) {
+        font-size: 19px;
+      }
     }
   }
 
@@ -40,6 +66,12 @@ export const MyInfoStyled = styled.div`
 
   .MyInfo_changePw {
     padding-right: 10px;
+
+    @media (max-width: 632px) {
+      margin-top: 5px;
+      padding-right: 0px;
+      text-align: end;
+    }
 
     button {
       cursor: pointer;
@@ -52,6 +84,11 @@ export const MyInfoStyled = styled.div`
       line-height: 20px;
       letter-spacing: -1px;
       color: #747783;
+
+      @media (max-width: 632px) {
+        font-size: 12px;
+        padding: 6px 12px;
+      }
     }
   }
 
@@ -105,18 +142,35 @@ export const MyInfoStyled = styled.div`
     border-top: 1px solid rgb(238, 238, 238);
     padding: 12px 0;
 
+    @media (max-width: 632px) {
+      display: block;
+      padding: 6px 0;
+    }
+
     .title {
       padding: 10px 0;
+
+      @media (max-width: 632px) {
+        padding: 5px 0;
+      }
     }
 
     .phone {
       padding-right: 12px;
+
+      @media (max-width: 632px) {
+        padding: 5px 0;
+      }
     }
   }
 
   .MyInfo_address {
     padding: 12px 0;
     border-top: 1px solid rgb(238, 238, 238);
+
+    @media (max-width: 632px) {
+      padding: 6px 0;
+    }
   }
 
   .MyInfo_address_exist {
@@ -124,6 +178,10 @@ export const MyInfoStyled = styled.div`
     color: gray;
     font-size: 14px;
     vertical-align: text-bottom;
+
+    @media (max-width: 632px) {
+      padding-left: 15px;
+    }
   }
 
   .MyInfo_withDraw {
@@ -133,6 +191,11 @@ export const MyInfoStyled = styled.div`
     color: #bbb;
     font-size: 14px;
     padding: 12px 29px;
+
+    @media (max-width: 632px) {
+      font-size: 12px;
+      padding: 12px 15px;
+    }
 
     &:hover {
       text-decoration: underline;

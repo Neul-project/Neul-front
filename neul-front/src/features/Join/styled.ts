@@ -21,8 +21,9 @@ export const JoinStyled = styled.div`
     display: flex;
     justify-content: flex-end;
 
-    @media (max-width: 506px) {
-      width: 320px;
+    @media (max-width: 632px) {
+      width: 100%;
+      padding-right: 0px;
     }
   }
 
@@ -61,6 +62,10 @@ export const JoinStyled = styled.div`
   .Join_width {
     position: relative;
     width: 330px;
+
+    @media (max-width: 632px) {
+      width: 100%;
+    }
   }
 
   .joinBtn {

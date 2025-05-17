@@ -5,9 +5,14 @@ export const FindIdStyled = styled.div`
   background-color: ${(props) => props.theme.colors.backColor};
 
   .FindId_container {
-    width: 340px;
+    width: 375px;
     margin: 0 auto;
     text-align: center;
+
+    @media (max-width: 632px) {
+      width: 100%;
+      padding: 20px;
+    }
   }
 
   .FindId_ResultContainer {
@@ -67,6 +72,10 @@ export const FindIdStyled = styled.div`
 
   .FindId_InputContainer {
     width: 375px;
+
+    @media (max-width: 632px) {
+      width: 100%;
+    }
   }
 
   .input_subContainer {

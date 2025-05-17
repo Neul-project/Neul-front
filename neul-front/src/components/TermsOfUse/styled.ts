@@ -4,9 +4,18 @@ export const TermsOfUseStyled = styled.div`
   width: 640px;
   margin: 0 auto;
 
+  @media (max-width: 632px) {
+    width: 100%;
+  }
+
   .TermsOfUse_container {
     display: flex;
     padding: 10px 20px;
+
+    @media (max-width: 632px) {
+      display: block;
+      padding: 0px;
+    }
   }
 
   .TermsOfUse_title {
@@ -96,6 +105,8 @@ export const TermsOfUseStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: green;
 
     i {
       position: absolute;

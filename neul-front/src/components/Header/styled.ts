@@ -69,6 +69,11 @@ export const HeaderStyled = styled.div`
     font-size: 14px;
     line-height: 39px;
 
+    @media (max-width: 632px) {
+      margin-right: 20px;
+      gap: 13px;
+    }
+
     .user_wrap {
       position: relative;
     }
