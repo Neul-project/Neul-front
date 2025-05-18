@@ -19,4 +19,22 @@ export const ProgramImgStyled = styled.div`
       object-fit: contain;
     }
   }
+
+  @media (max-width: 768px) {
+    &.ProgrmaImg_main_wrap {
+      .ProgramImg_main {
+        height: 380px;
+        //border: 1px solid black;
+      }
+    }
+  }
+
+  @media (max-width: 486px) {
+    &.ProgrmaImg_main_wrap {
+      .ProgramImg_main {
+        height: 300px;
+        //border: 1px solid black;
+      }
+    }
+  }
 `;

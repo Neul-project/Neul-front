@@ -11,6 +11,7 @@ const ProgramContent = (props: {
   call: string;
   target: string;
   note: string;
+  manager: string;
 }) => {
   const {
     price,
@@ -21,6 +22,7 @@ const ProgramContent = (props: {
     call,
     target,
     note,
+    manager,
   } = props;
   return (
     <ProgramContentStyled className={clsx("ProgramContent_main_wrap")}>
@@ -45,6 +47,10 @@ const ProgramContent = (props: {
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">참여대상</div>
         <div className="ProgramDetail_row_detail">{target}</div>
+      </div>
+      <div className="ProgramDetail_row">
+        <div className="ProgramDetail_row_title">담당자</div>
+        <div className="ProgramDetail_row_detail">{manager}</div>
       </div>
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">가격</div>

@@ -42,7 +42,7 @@ const ProgramDetail = (props: { detailid: string }) => {
       .get(`/program/detail`, { params: { detailid: Number(detailid) } })
       .then((res) => {
         const data = res.data;
-        //console.log("Data", data);
+        console.log("Data", data);
         const imgarr = data.img.split(",");
         setTitle(data.name);
         setCall(data.call);
@@ -156,6 +156,7 @@ const ProgramDetail = (props: { detailid: string }) => {
             call={call ?? ""}
             target={target ?? ""}
             note={note ?? ""}
+            manager={manager ?? ""}
           />
         </div>
       </div>
