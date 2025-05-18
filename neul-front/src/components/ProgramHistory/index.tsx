@@ -90,6 +90,16 @@ const ProgramHistory = () => {
 
         if (res.data?.ok) {
           alert("환불 신청이 완료되었습니다.");
+
+          // 상태 업데이트
+          setPrograms((prevPrograms) =>
+            prevPrograms.map((program) =>
+              program.id === selectedProgramId
+                ? { ...program, payment_status: "환불 대기" }
+                : program
+            )
+          );
+
           resetForm();
           setSelectedProgramId(null);
           setRefundOpen(false);
@@ -140,7 +150,9 @@ const ProgramHistory = () => {
                   </div>
 
                   <div className="ProgramHistory_content flex-end">
-                    {data.payment_status !== "결제 대기" && (
+                    {!["결제 대기", "환불 대기", "환불 완료"].includes(
+                      data.payment_status
+                    ) && (
                       <Btn
                         onClick={() => {
                           setSelectedProgramId(data.id);
