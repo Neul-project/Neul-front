@@ -85,15 +85,10 @@ const Header = () => {
   // 해당 user의 알림 내용 가져오기
   const getAlert = async () => {
     if (!userId) return;
-
     try {
       const res = await axiosInstance.get("alert/alarm");
 
       setAlertContent(res.data.filter((item: any) => !item.isChecked)); // 알림 내용
-      // console.log(
-      //   "알림들:",
-      //   res.data.filter((item: any) => !item.isChecked)
-      // );
       setMatchAlertNum(
         res.data.filter((item: any) => item.message?.includes("match")).length // 매칭 관련 알림 개수
       );
@@ -108,14 +103,10 @@ const Header = () => {
     try {
       const res = await axiosInstance.get("/user/admin");
       setAdminId(res.data);
-    } catch (e: any) {
-      // console.error("담당 관리자 불러오기 실패: ", e);
-      // if (e.response?.status === 401) {
+    } catch (err) {
+      // 일반 회원이거나 admin 아님 → 무시
       setAdminId(null);
-      //   console.info("담당 관리자 없음");
-      // } else {
-      //   console.error("담당 관리자 불러오기 실패: ", e);
-      // }
+      console.warn("관리자 정보 없음 (일반회원일 수 있음)");
     }
   };
 

@@ -55,8 +55,8 @@ const LoginPage = () => {
         // admin 정보가 있을 경우에만 상태 저장
         try {
           const adminRes = await axiosInstance.get("/user/admin");
-          if (adminRes.data?.adminId) {
-            setAdminId(adminRes.data.adminId);
+          if (adminRes?.data) {
+            setAdminId(adminRes.data);
           }
         } catch (err) {
           // 일반 회원이거나 admin 아님 → 무시

@@ -90,7 +90,6 @@ const ChatRoom = () => {
 
   // 채팅 목록 가져오기 요청
   const fetchChatMessages = async (pageToFetch = 1) => {
-    console.log("fetchChatMessages 호출, page:", pageToFetch);
     const container = scrollContainerRef.current;
     const prevScrollHeight = container?.scrollHeight ?? 0;
 
@@ -112,8 +111,6 @@ const ChatRoom = () => {
           time,
         };
       });
-
-      console.log("채팅 목록", parsedChats);
 
       setChattings((prev) =>
         pageToFetch === 1 ? parsedChats : [...parsedChats, ...prev]
@@ -163,10 +160,6 @@ const ChatRoom = () => {
     if (!socketRef.current) {
       socketRef.current = io(process.env.NEXT_PUBLIC_API_URL!, {
         withCredentials: true,
-      });
-
-      socketRef.current.on("connect", () => {
-        console.log("소켓 연결됨!", socketRef.current?.id);
       });
 
       socketRef.current.on("receive_message", handleReceiveMessage);
@@ -308,7 +301,6 @@ const ChatRoom = () => {
       {/* 채팅 내용 */}
       <div className="chatroom_content_box">
         <div className="chatroom_content" ref={scrollContainerRef}>
-          {loading && <div className="chatroom_loading">불러오는 중...</div>}
           <div ref={targetRef} style={{ height: 1 }} />
           {Object.entries(groupDate).map(([date, messages]) => (
             <div key={date}>
