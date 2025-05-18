@@ -250,7 +250,7 @@ export const ProgramDetailStyled = styled.div`
         }
 
         .ProgramDetail_title {
-          //margin-top: 20px;
+          margin-top: 20px;
           color: #333;
           font-size: 20px;
           font-family: "NS";
@@ -269,7 +269,7 @@ export const ProgramDetailStyled = styled.div`
         justify-content: center;
         gap: 20px;
         width: 100%;
-        padding: 0px 0px;
+        padding: 15px 0px;
         border-top: 2px solid #ccc;
 
         .ProgramDetail_img {

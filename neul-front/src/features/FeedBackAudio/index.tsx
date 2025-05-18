@@ -8,8 +8,8 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { AntdGlobalTheme } from "@/utils/antdtheme";
 
-const FeedBackAudio = (props: { activityid: string }) => {
-  const { activityid } = props;
+const FeedBackAudio = (props: { activityid: string; onClose: () => void }) => {
+  const { activityid, onClose } = props;
   const [isRecording, setIsRecording] = useState(false); //음성 녹음 버튼 클릭 확인용
   const { user } = useAuthStore();
   //오디오 설정
@@ -74,7 +74,7 @@ const FeedBackAudio = (props: { activityid: string }) => {
           description: "피드백을 등록하였습니다.",
         });
       });
-
+    onClose();
     //console.log("audio", mediaBlobUrl);
   };
 

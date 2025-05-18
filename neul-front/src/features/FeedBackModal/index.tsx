@@ -32,7 +32,7 @@ const FeedBackModal = (props: { activityid: string; onClose: () => void }) => {
 
       {/* 조건부 렌더링 */}
       {selectedType === "audio" ? (
-        <FeedBackAudio activityid={activityid} />
+        <FeedBackAudio activityid={activityid} onClose={onClose} />
       ) : (
         <FeedBackText activityid={activityid} onClose={onClose} />
       )}
