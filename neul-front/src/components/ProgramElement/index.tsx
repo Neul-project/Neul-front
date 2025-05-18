@@ -18,16 +18,6 @@ const ProgramElement = (props: { list: any; filterStatus: any }) => {
   const [total, setTotal] = useState(0);
   const imgarr = list.img.split(",");
 
-  // 필터 조건 검사
-  const shouldRender = () => {
-    if (!filterStatus || filterStatus === "all") return true;
-    if (filterStatus === "recruiting") return state === "모집중";
-    if (filterStatus === "completed") return state === "모집완료";
-    return true;
-  };
-
-  if (!shouldRender()) return null; // 조건에 맞지 않으면 렌더링하지 않음
-
   //해당 상세 프로그램 페이지 이동
   const open_program = () => {
     router.push(`/program/${list.id}`);
@@ -48,12 +38,23 @@ const ProgramElement = (props: { list: any; filterStatus: any }) => {
     const result = getRecruitmentState(list.recruitment);
 
     // 신청 인원이 정원보다 많으면 무조건 모집완료
-    if (total >= list.capacity) {
-      setState("모집완료");
-    } else if (result) {
-      setState(result);
-    }
+    // if (total >= list.capacity) {
+    //   setState("모집완료");
+    // } else if (result) {
+    //   setState(result);
+    // }
+    setState(result!);
   }, [list.recruitment, total]);
+
+  // 필터 조건 검사
+  const shouldRender = () => {
+    if (!filterStatus || filterStatus === "all") return true;
+    if (filterStatus === "recruiting") return state === "모집중";
+    if (filterStatus === "completed") return state === "모집완료";
+    return true;
+  };
+
+  if (!shouldRender()) return null; // 조건에 맞지 않으면 렌더링하지 않음
 
   return (
     <ProgramElementStyled
@@ -89,7 +90,7 @@ const ProgramElement = (props: { list: any; filterStatus: any }) => {
             모집기간 {list.recruitment}
           </div>
           <div className="ProgramElement_capacity">
-            모집인원 {list.capacity}명
+            모집인원 {list.capacity.toLocaleString()}명
           </div>
         </div>
       </div>

@@ -19,10 +19,10 @@ const Advertising = () => {
       //console.log("res", datalist);
       if (datalist.length > 0) {
         const data = res.data[datalist.length - 1].img.split(",");
-        //const urldata = res.data[datalist.length - 1].url.split(",");
-        //console.log("data", data);
+        const urldata = res.data[datalist.length - 1].url.split(",");
+        //console.log("data", urldata);
         setArr(data);
-        //setUrl(urldata);
+        setUrl(urldata);
       }
     });
   }, []);
@@ -34,7 +34,7 @@ const Advertising = () => {
       <div className="Advertising_adimg">
         {arr.length > 0 ? (
           arr.map((element, index: number) => {
-            return <AdElement key={index} el={element} url={url} />;
+            return <AdElement key={index} el={element} url={url[index]} />;
           })
         ) : (
           <div className="Advertising_text">광고 준비 중 입니다</div>

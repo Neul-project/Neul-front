@@ -10,6 +10,7 @@ const AdElement = (props: { el: any; url: any }) => {
   const router = useRouter();
 
   const urlCick = () => {
+    //console.log("url", url);
     router.push(url);
   };
 

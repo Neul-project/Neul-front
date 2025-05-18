@@ -75,11 +75,12 @@ const ProgramDetail = (props: { detailid: string }) => {
 
     const result = getRecruitmentState(recruitment);
     //if (result) setState(result);
-    if (total >= capacity) {
-      setState("모집완료");
-    } else if (result) {
-      setState(result);
-    }
+    // if (total >= capacity) {
+    //   setState("모집완료");
+    // } else if (result) {
+    //   setState(result);
+    // }
+    setState(result!);
   }, [recruitment, total]);
 
   const Columnlist = () => {

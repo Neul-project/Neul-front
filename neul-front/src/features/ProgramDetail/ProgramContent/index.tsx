@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { ProgramContentStyled } from "./styled";
 import { getCategoryLabel } from "@/utils/programcategory";
+import { formatPhoneNumber } from "@/utils/formatter";
 
 const ProgramContent = (props: {
   price: string;
@@ -45,7 +46,7 @@ const ProgramContent = (props: {
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">모집인원</div>
         <div className="ProgramDetail_row_detail">
-          {total} / {capacity}명
+          {total.toLocaleString()} / {capacity.toLocaleString()}명
         </div>
       </div>
       <div className="ProgramDetail_row">
@@ -58,11 +59,15 @@ const ProgramContent = (props: {
       </div>
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">가격</div>
-        <div className="ProgramDetail_row_detail">{price}원</div>
+        <div className="ProgramDetail_row_detail">
+          {price.toLocaleString()}원
+        </div>
       </div>
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">문의</div>
-        <div className="ProgramDetail_row_detail">{call}</div>
+        <div className="ProgramDetail_row_detail">
+          {formatPhoneNumber(call)}
+        </div>
       </div>
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">프로그램 내용</div>
