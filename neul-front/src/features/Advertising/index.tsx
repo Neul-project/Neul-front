@@ -10,7 +10,7 @@ import axiosInstance from "@/lib/axios";
 //Advertising component
 const Advertising = () => {
   const [arr, setArr] = useState([]);
-
+  const [url, setUrl] = useState([]);
   //광고 이미지 요청
   useEffect(() => {
     axiosInstance.get("/banner/list").then((res) => {
@@ -19,6 +19,7 @@ const Advertising = () => {
       //console.log("res", datalist);
       if (datalist.length > 0) {
         const data = res.data[datalist.length - 1].img.split(",");
+        //const urldata = res.data[datalist.length - 1].url.split(",");
         //console.log("data", data);
         setArr(data);
       }
