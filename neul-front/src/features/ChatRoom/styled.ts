@@ -67,15 +67,11 @@ export const ChatRoomStyled = styled.div`
       display: flex;
       flex-direction: column;
 
-      .chatroom_content {
+      .chatroom_content.scrollable {
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
         flex: 1;
-        overflow-y: scroll;
-
-        /* Firefox */
-        /* scrollbar-width: none; */
-        /* IE 10+ */
-        /* -ms-overflow-style: none; */
-
         padding: 10px;
         box-sizing: border-box;
         .chatroom_date {
@@ -83,11 +79,24 @@ export const ChatRoomStyled = styled.div`
           color: #ccc;
           margin: 18px 0 22px 0;
         }
-      }
+        &::-webkit-scrollbar {
+          width: 20px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: ${(props) => props.theme.colors.softGreen};
+          /* background-color: #bbb; */
+          border-radius: 10px;
 
-      .chatroom_content::-webkit-scrollbar {
-        /* Chrome, Safari, Edge */
-        /* display: none; */
+          border: 7px solid white; /* 스크롤을 적용할 영역 색깔과 border 색상을 똑같이 맞춘다 */
+        }
+        &::-webkit-scrollbar-track {
+          background-color: rgba(
+            0,
+            0,
+            0,
+            0
+          ); /* 스크롤바 뒷 배경을 투명 처리한다 */
+        }
       }
 
       /* 메시지 보내는 부분 */

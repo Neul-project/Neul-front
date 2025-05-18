@@ -302,7 +302,7 @@ const ChatRoom = () => {
       </div>
       {/* 채팅 내용 */}
       <div className="chatroom_content_box">
-        <div className="chatroom_content" ref={scrollContainerRef}>
+        <div className="chatroom_content scrollable" ref={scrollContainerRef}>
           <div ref={targetRef} style={{ height: 1 }} />
           {Object.entries(groupDate).map(([date, messages]) => (
             <div key={date}>
