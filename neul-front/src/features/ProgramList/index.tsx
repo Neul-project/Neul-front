@@ -74,6 +74,7 @@ const ProgramList = () => {
     });
   }, []);
 
+  //console.log("filteredList", filteredList);
   return (
     <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
       <div className="ProgramList_title">프로그램 리스트</div>
@@ -93,13 +94,19 @@ const ProgramList = () => {
       </div>
 
       <div className="ProgramList_grid_wrap">
-        {paginatedList?.map((element: any) => (
-          <ProgramElement
-            key={element.id}
-            list={element}
-            filterStatus={filterStatus}
-          />
-        ))}
+        {filteredList && filteredList.length > 0 ? (
+          paginatedList?.map((element: any) => (
+            <ProgramElement
+              key={element.id}
+              list={element}
+              filterStatus={filterStatus}
+            />
+          ))
+        ) : (
+          <div className="ProgramList_empty_message">
+            프로그램 준비 중입니다.
+          </div>
+        )}
       </div>
       <Pagination
         align="center"

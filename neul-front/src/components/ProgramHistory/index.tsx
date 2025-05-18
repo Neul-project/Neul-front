@@ -11,10 +11,12 @@ import axiosInstance from "@/lib/axios";
 
 interface Program {
   id: number;
+  img: string;
   name: string;
   payment_status: string;
   manager: string;
   price: number;
+  refund_status: string;
 }
 
 // 프로그램 신청내역 컴포넌트
@@ -95,7 +97,7 @@ const ProgramHistory = () => {
           setPrograms((prevPrograms) =>
             prevPrograms.map((program) =>
               program.id === selectedProgramId
-                ? { ...program, payment_status: "환불 대기" }
+                ? { ...program, refund_status: "환불 대기" }
                 : program
             )
           );
@@ -138,7 +140,11 @@ const ProgramHistory = () => {
                     <div className="p_name">
                       <a href={`/program/${data.id}`}>{data.name}</a>
                     </div>
-                    <div className="payment">{data.payment_status}</div>
+                    <div className="payment">
+                      {data.refund_status
+                        ? data.refund_status
+                        : data.payment_status}
+                    </div>
                   </div>
 
                   <div>
@@ -150,18 +156,19 @@ const ProgramHistory = () => {
                   </div>
 
                   <div className="ProgramHistory_content flex-end">
-                    {!["결제 대기", "환불 대기", "환불 완료"].includes(
-                      data.payment_status
-                    ) && (
-                      <Btn
-                        onClick={() => {
-                          setSelectedProgramId(data.id);
-                          setRefundOpen(true);
-                        }}
-                      >
-                        환불
-                      </Btn>
-                    )}
+                    {data.payment_status !== "결제 대기" &&
+                      !["환불 대기", "환불 완료"].includes(
+                        data.refund_status
+                      ) && (
+                        <Btn
+                          onClick={() => {
+                            setSelectedProgramId(data.id);
+                            setRefundOpen(true);
+                          }}
+                        >
+                          환불
+                        </Btn>
+                      )}
                   </div>
                 </div>
               </div>
