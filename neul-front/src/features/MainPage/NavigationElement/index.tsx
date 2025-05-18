@@ -48,8 +48,11 @@ const NavigationElement = () => {
     });
 
     // 다른 사람이 채팅 보내면 알림 개수 증가
-    socket.on("receive_message", () => {
-      increaseUnreadCount(); // unreadCount 증가
+    socket.on("receive_message", (data: any) => {
+      // 현재 userid랑 받은 아이디와 같은지 확인
+      if (user?.id === data.user.id) {
+        increaseUnreadCount(); // unreadCount 증가
+      }
     });
 
     // 컴포넌트 언마운트 시 소켓 연결 종료
