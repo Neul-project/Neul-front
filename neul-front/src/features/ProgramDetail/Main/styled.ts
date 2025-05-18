@@ -24,7 +24,7 @@ export const ProgramDetailStyled = styled.div`
         padding: 0 10px;
         width: 64px;
         height: 64px;
-        background: #3d7a99;
+        background: #5da487;
         color: #fff;
         font-size: 15px;
       }
@@ -72,7 +72,7 @@ export const ProgramDetailStyled = styled.div`
         padding: 14px 0;
         margin: 0 2px;
         width: 160px;
-        background: #3d7a99;
+        background: #5da487;
         color: #fff;
         font-size: 16px;
         font-family: "NBGB";
@@ -130,7 +130,7 @@ export const ProgramDetailStyled = styled.div`
           padding: 0 10px;
           width: 64px;
           height: 64px;
-          background: #3d7a99;
+          background: #5da487;
           color: #fff;
           font-size: 14px;
         }
@@ -183,7 +183,7 @@ export const ProgramDetailStyled = styled.div`
           padding: 12px 0;
           margin: 0 2px;
           width: 140px;
-          background: #3d7a99;
+          background: #5da487;
           color: #fff;
           font-size: 14px;
           line-height: 20px;
@@ -239,7 +239,7 @@ export const ProgramDetailStyled = styled.div`
           padding: 0 10px;
           width: 50px;
           height: 50px;
-          background: #3d7a99;
+          background: #5da487;
           color: #fff;
           font-size: 12px;
         }
@@ -295,7 +295,7 @@ export const ProgramDetailStyled = styled.div`
           padding: 12px 0;
           margin: 0 2px;
           width: 140px;
-          background: #3d7a99;
+          background: #5da487;
           color: #fff;
           font-size: 14px;
           line-height: 20px;
