@@ -90,7 +90,6 @@ const ChatRoom = () => {
 
   // 채팅 목록 가져오기 요청
   const fetchChatMessages = async (pageToFetch = 1) => {
-    console.log("fetchChatMessages 호출, page:", pageToFetch);
     const container = scrollContainerRef.current;
     const prevScrollHeight = container?.scrollHeight ?? 0;
 
@@ -101,19 +100,19 @@ const ChatRoom = () => {
       });
 
       // 데이터 가공
-      const parsedChats: Chatting[] = res.data.map((chat: any) => {
-        // 시간, 날짜
-        const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
-        const time = dayjs(chat.created_at).format("A h:mm");
+      const parsedChats: Chatting[] = res.data
+        .map((chat: any) => {
+          // 시간, 날짜
+          const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
+          const time = dayjs(chat.created_at).format("A h:mm");
 
-        return {
-          ...chat,
-          date,
-          time,
-        };
-      });
-
-      console.log("채팅 목록", parsedChats);
+          return {
+            ...chat,
+            date,
+            time,
+          };
+        })
+        .filter((chat: Chatting) => !chat.userDel); // 삭제된 메시지는 한번더 걸러주기(메모리에서)
 
       setChattings((prev) =>
         pageToFetch === 1 ? parsedChats : [...parsedChats, ...prev]
@@ -163,10 +162,6 @@ const ChatRoom = () => {
     if (!socketRef.current) {
       socketRef.current = io(process.env.NEXT_PUBLIC_API_URL!, {
         withCredentials: true,
-      });
-
-      socketRef.current.on("connect", () => {
-        console.log("소켓 연결됨!", socketRef.current?.id);
       });
 
       socketRef.current.on("receive_message", handleReceiveMessage);
@@ -308,7 +303,6 @@ const ChatRoom = () => {
       {/* 채팅 내용 */}
       <div className="chatroom_content_box">
         <div className="chatroom_content" ref={scrollContainerRef}>
-          {loading && <div className="chatroom_loading">불러오는 중...</div>}
           <div ref={targetRef} style={{ height: 1 }} />
           {Object.entries(groupDate).map(([date, messages]) => (
             <div key={date}>

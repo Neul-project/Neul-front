@@ -61,7 +61,8 @@ export const ChatRoomStyled = styled.div`
       background-color: white;
       max-width: 1028px;
       width: 100%;
-      max-height: 700px;
+      max-height: 600px;
+      height: 100%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
