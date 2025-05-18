@@ -19,7 +19,7 @@ export const SubContentStyled = styled.div`
       }
     }
 
-    .SUbContent_left {
+    .SubContent_left {
       display: none;
     }
     .SubContent_type {
@@ -49,6 +49,11 @@ export const SubContentStyled = styled.div`
       }
     }
 
+    .SubContent_content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
     .SubContent_row {
       display: flex;
 
@@ -75,10 +80,10 @@ export const SubContentStyled = styled.div`
 
   @media (max-width: 1330px) {
     &.SubContent_main_wrap {
-      padding: 0px 10px 10px 60px;
+      padding: 0px 10px 10px 30px;
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: 60px;
 
       .SubContent_clip_box {
         display: block;
@@ -91,7 +96,7 @@ export const SubContentStyled = styled.div`
           height: 100%;
         }
       }
-      .SUbContent_left {
+      .SubContent_left {
         display: block;
       }
       .SubContent_type {
@@ -118,9 +123,17 @@ export const SubContentStyled = styled.div`
           box-shadow: none;
           font-size: 22px;
           width: 150px;
+          text-align: left;
+          cursor: pointer;
         }
       }
 
+      .SubContent_content {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        padding-left: 30px;
+      }
       .SubContent_row {
         display: flex;
 
@@ -135,6 +148,171 @@ export const SubContentStyled = styled.div`
           min-width: 120px;
           font-weight: bold;
           font-size: 22px;
+        }
+
+        .SubContent_re_text_note {
+          width: 100%;
+          height: 350px;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    &.SubContent_main_wrap {
+      padding: 0px 10px 10px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      .SubContent_clip_box {
+        display: block;
+        width: 130px;
+        position: absolute;
+        top: -25px;
+        left: -10px;
+        .SubContent_clip {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .SubContent_left {
+        display: block;
+      }
+      .SubContent_type {
+        display: flex;
+        width: 100%;
+        gap: 30px;
+      }
+
+      .SubContent_option {
+        margin-top: 10px;
+      }
+
+      .SubContent_feedback {
+        display: flex;
+        justify-content: left;
+        margin-top: 10px;
+
+        .SubContent_feedback_btn {
+          font-family: "Gowun Batang", serif;
+          font-weight: 400;
+          font-style: normal;
+
+          border: none;
+          box-shadow: none;
+          text-align: left;
+          font-size: 20px;
+          width: 150px;
+        }
+      }
+
+      .SubContent_content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-left: 30px;
+      }
+
+      .SubContent_row {
+        display: flex;
+
+        .SubContent_text {
+          min-width: 140px;
+          font-weight: bold;
+          font-size: 20px;
+          color: #999;
+        }
+
+        .SubContent_re_text {
+          min-width: 120px;
+          font-weight: bold;
+          font-size: 20px;
+        }
+
+        .SubContent_re_text_note {
+          width: 100%;
+          height: 350px;
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+  @media (max-width: 486px) {
+    &.SubContent_main_wrap {
+      padding: 0px 10px 10px 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      .SubContent_clip_box {
+        display: block;
+        width: 130px;
+        position: absolute;
+        top: -25px;
+        left: -10px;
+        .SubContent_clip {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .SubContent_left {
+        display: block;
+      }
+      .SubContent_type {
+        display: flex;
+        width: 100%;
+        gap: 30px;
+      }
+
+      .SubContent_option {
+        margin-top: 10px;
+      }
+
+      .SubContent_feedback {
+        display: flex;
+        justify-content: left;
+        margin-top: 10px;
+
+        .SubContent_feedback_btn {
+          font-family: "Gowun Batang", serif;
+          font-weight: 400;
+          font-style: normal;
+
+          border: none;
+          box-shadow: none;
+          text-align: left;
+          font-size: 20px;
+          width: 150px;
+        }
+      }
+
+      .SubContent_content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-left: 30px;
+      }
+      .SubContent_row_note {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .SubContent_row {
+        display: flex;
+
+        .SubContent_text {
+          min-width: 140px;
+          font-weight: bold;
+          font-size: 20px;
+          color: #999;
+        }
+
+        .SubContent_re_text {
+          min-width: 120px;
+          font-weight: bold;
+          font-size: 20px;
         }
 
         .SubContent_re_text_note {

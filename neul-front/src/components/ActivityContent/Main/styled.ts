@@ -67,19 +67,6 @@ export const ActivityContentStyled = styled.div`
       padding: 0px 0px;
       //gap: 20px;
 
-      .ActivityContent_title {
-        display: flex;
-        width: 100%;
-        text-align: center;
-        align-items: flex-end;
-        gap: 10px;
-        justify-content: left;
-        font-size: 27px;
-        font-weight: bold;
-        margin-bottom: 50px;
-        margin-top: 20px;
-      }
-
       .ActivityContent_sub {
         display: block;
         width: 100%;
@@ -95,12 +82,6 @@ export const ActivityContentStyled = styled.div`
           display: flex;
           justify-content: center;
         }
-      }
-
-      .ActivityContent_subtitle {
-        display: flex;
-        gap: 10px;
-        align-items: flex-end;
       }
     }
   }
