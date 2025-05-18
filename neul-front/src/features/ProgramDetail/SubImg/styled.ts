@@ -17,4 +17,22 @@ export const SubImgStyled = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    &.SubImg_main_wrap {
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      margin-top: 10px;
+
+      .SubImg_img {
+        width: calc(100% / 3);
+
+        .SubImg_imgstyle {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
 `;

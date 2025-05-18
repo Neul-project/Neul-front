@@ -97,6 +97,8 @@ export const OnePageStyled = styled.div`
       }
     }
   }
+
+  //활동기록 오른쪽 양쪽버전
   &.onepage_right_activity {
     display: flex;
     justify-content: flex-start;
@@ -110,7 +112,7 @@ export const OnePageStyled = styled.div`
       box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1);
     }
   }
-
+  //활동기록 오른쪽 한쪽 버전
   @media (max-width: 1330px) {
     &.onepage_left {
       display: none;
@@ -151,6 +153,85 @@ export const OnePageStyled = styled.div`
                 }
               }
             }
+          }
+        }
+      }
+    }
+
+    //activity 한쪽 버전 라인 정리
+    @media (max-width: 1330px) {
+      &.onepage_right_activity {
+        .onepage_line {
+          max-width: 530px;
+          border: 1px solid #eee;
+          opacity: 0.4;
+          position: absolute;
+          left: 10%;
+          width: 80%;
+          z-index: 20;
+
+          &.onepage_line1 {
+            top: 15%;
+          }
+          &.onepage_line2 {
+            top: 50%;
+          }
+          &.onepage_line3 {
+            top: 55%;
+          }
+          &.onepage_line4 {
+            top: 60%;
+          }
+          &.onepage_line5 {
+            top: 65%;
+          }
+          &.onepage_line6 {
+            top: 70%;
+          }
+          &.onepage_line7 {
+            top: 75%;
+          }
+          &.onepage_line8 {
+            top: 80%;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      &.onepage_right_activity {
+        .onepage_line {
+          max-width: 530px;
+          border: 1px solid #eee;
+          opacity: 0.4;
+          position: absolute;
+          left: 10%;
+          width: 80%;
+          z-index: 20;
+
+          &.onepage_line1 {
+            top: 14%;
+          }
+          &.onepage_line2 {
+            top: 47%;
+          }
+          &.onepage_line3 {
+            top: 52%;
+          }
+          &.onepage_line4 {
+            top: 57%;
+          }
+          &.onepage_line5 {
+            top: 62%;
+          }
+          &.onepage_line6 {
+            top: 67%;
+          }
+          &.onepage_line7 {
+            top: 72%;
+          }
+          &.onepage_line8 {
+            top: 77%;
           }
         }
       }

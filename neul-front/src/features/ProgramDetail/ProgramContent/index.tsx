@@ -7,10 +7,12 @@ const ProgramContent = (props: {
   progress: string;
   recruitment: string;
   category: string;
-  capacity: string;
+  capacity: number;
   call: string;
   target: string;
   note: string;
+  manager: string;
+  total: number;
 }) => {
   const {
     price,
@@ -21,6 +23,8 @@ const ProgramContent = (props: {
     call,
     target,
     note,
+    manager,
+    total,
   } = props;
   return (
     <ProgramContentStyled className={clsx("ProgramContent_main_wrap")}>
@@ -40,11 +44,17 @@ const ProgramContent = (props: {
       </div>
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">모집인원</div>
-        <div className="ProgramDetail_row_detail">{capacity}명</div>
+        <div className="ProgramDetail_row_detail">
+          {total} / {capacity}명
+        </div>
       </div>
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">참여대상</div>
         <div className="ProgramDetail_row_detail">{target}</div>
+      </div>
+      <div className="ProgramDetail_row">
+        <div className="ProgramDetail_row_title">담당자</div>
+        <div className="ProgramDetail_row_detail">{manager}</div>
       </div>
       <div className="ProgramDetail_row">
         <div className="ProgramDetail_row_title">가격</div>

@@ -24,15 +24,14 @@ export const ProgramDetailStyled = styled.div`
         padding: 0 10px;
         width: 64px;
         height: 64px;
-        background: #3d7a99;
+        background: #5da487;
         color: #fff;
         font-size: 15px;
-        font-family: "NBGB";
-        box-sizing: border-box;
       }
       .ProgramDetail_ing_end {
         background-color: #f0f0f0;
         color: #999;
+        white-space: pre-line;
       }
 
       .ProgramDetail_title {
@@ -73,7 +72,7 @@ export const ProgramDetailStyled = styled.div`
         padding: 14px 0;
         margin: 0 2px;
         width: 160px;
-        background: #3d7a99;
+        background: #5da487;
         color: #fff;
         font-size: 16px;
         font-family: "NBGB";
@@ -103,6 +102,227 @@ export const ProgramDetailStyled = styled.div`
         opacity: 0.7;
         pointer-events: none;
         //transition: background-color 0.3s;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    &.ProgramDetail_main_wrap {
+      max-width: 1280px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0px auto;
+      padding: 0px 40px;
+
+      .ProgramDetail_top {
+        display: flex;
+        align-items: center;
+        //margin-bottom: 20px;
+        padding: 15px 0px;
+        gap: 15px;
+
+        .ProgramDetail_ing {
+          display: flex;
+          align-items: center;
+          text-align: center;
+          padding: 0 10px;
+          width: 64px;
+          height: 64px;
+          background: #5da487;
+          color: #fff;
+          font-size: 14px;
+        }
+        .ProgramDetail_ing_end {
+          background-color: #f0f0f0;
+          color: #999;
+          white-space: pre-line;
+        }
+
+        .ProgramDetail_title {
+          //margin-top: 20px;
+          color: #333;
+          font-size: 28px;
+          font-family: "NS";
+          font-weight: normal;
+          letter-spacing: -0.045em;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .ProgramDetail_main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        padding: 30px 0px;
+        border-top: 2px solid #ccc;
+
+        .ProgramDetail_img {
+          width: 100%;
+          height: 100%;
+        }
+        .ProgramDetail_content {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .ProgramDetail_btns {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding-bottom: 20px;
+
+        .ProgramDetail_Dir {
+          padding: 12px 0;
+          margin: 0 2px;
+          width: 140px;
+          background: #5da487;
+          color: #fff;
+          font-size: 14px;
+          line-height: 20px;
+          border: none;
+          cursor: pointer;
+        }
+        .ProgramDetail_show {
+          padding: 12px 0;
+          margin: 0 2px;
+          width: 140px;
+          background: #fff;
+          border: 1px solid #d5d5d5;
+          color: #666;
+          font-size: 14px;
+          line-height: 20px;
+          cursor: pointer;
+        }
+        .ProgramDetail_Dir.disabled,
+        .ProgramDetail_Dir:disabled,
+        .ProgramDetail_show.disabled,
+        .ProgramDetail_show:disabled {
+          background-color: #ccc;
+          color: #666;
+          cursor: not-allowed;
+          opacity: 0.7;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 486px) {
+    &.ProgramDetail_main_wrap {
+      max-width: 1280px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0px auto;
+      padding: 0px 40px;
+
+      .ProgramDetail_top {
+        display: flex;
+        align-items: center;
+        //margin-bottom: 20px;
+        padding: 15px 0px;
+        gap: 15px;
+
+        .ProgramDetail_ing {
+          display: flex;
+          align-items: center;
+          text-align: center;
+          padding: 0 10px;
+          width: 50px;
+          height: 50px;
+          background: #5da487;
+          color: #fff;
+          font-size: 12px;
+        }
+        .ProgramDetail_ing_end {
+          background-color: #f0f0f0;
+          color: #999;
+          white-space: pre-line;
+        }
+
+        .ProgramDetail_title {
+          //margin-top: 20px;
+          color: #333;
+          font-size: 20px;
+          font-family: "NS";
+          font-weight: normal;
+          letter-spacing: -0.045em;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .ProgramDetail_main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        padding: 0px 0px;
+        border-top: 2px solid #ccc;
+
+        .ProgramDetail_img {
+          width: 100%;
+          height: 100%;
+        }
+        .ProgramDetail_content {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .ProgramDetail_btns {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding-bottom: 20px;
+        margin: 0px auto;
+        margin-top: 10px;
+
+        .ProgramDetail_Dir {
+          padding: 12px 0;
+          margin: 0 2px;
+          width: 140px;
+          background: #5da487;
+          color: #fff;
+          font-size: 14px;
+          line-height: 20px;
+          border: none;
+          cursor: pointer;
+        }
+        .ProgramDetail_show {
+          padding: 12px 0;
+          margin: 0 2px;
+          width: 140px;
+          background: #fff;
+          border: 1px solid #d5d5d5;
+          color: #666;
+          font-size: 14px;
+          line-height: 20px;
+          cursor: pointer;
+        }
+        .ProgramDetail_Dir.disabled,
+        .ProgramDetail_Dir:disabled,
+        .ProgramDetail_show.disabled,
+        .ProgramDetail_show:disabled {
+          background-color: #ccc;
+          color: #666;
+          cursor: not-allowed;
+          opacity: 0.7;
+          pointer-events: none;
+        }
       }
     }
   }

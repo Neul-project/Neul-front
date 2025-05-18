@@ -52,7 +52,7 @@ const SubContent = (props: {
       <div className="SubContent_clip_box">
         <Image className="SubContent_clip" src={clip} alt="클립" />
       </div>
-      <div className="SUbContent_left">
+      <div className="SubContent_left">
         <SwiperImg
           img={img}
           title={title!}
@@ -60,42 +60,44 @@ const SubContent = (props: {
           styletype={"rightside"}
         />
       </div>
-      {/* 활동종류 */}
-      <div className="SubContent_row">
-        <div className="SubContent_text">활동 종류</div>
-        <div className="SubContent_re_text">{getActivityLabel(type)}</div>
-      </div>
-
-      {/* 재활치료 */}
-      <div className="SubContent_row">
-        <div className="SubContent_text">재활 치료</div>
-        <div className="SubContent_re_text">
-          {getRehabilitation(rehabilitation)}
+      <div className="SubContent_content">
+        {/* 활동종류 */}
+        <div className="SubContent_row">
+          <div className="SubContent_text">활동 종류</div>
+          <div className="SubContent_re_text">{getActivityLabel(type)}</div>
         </div>
-      </div>
 
-      {/* 특이사항 */}
-      <div className="SubContent_row">
-        <div className="SubContent_text">특이사항</div>
-        <div className="SubContent_re_text SubContent_re_text_note">{note}</div>
-      </div>
+        {/* 재활치료 */}
+        <div className="SubContent_row">
+          <div className="SubContent_text">재활 치료</div>
+          <div className="SubContent_re_text">
+            {getRehabilitation(rehabilitation)}
+          </div>
+        </div>
 
-      {/* 피드백 작성 */}
-      <div className="SubContent_feedback">
-        <ConfigProvider theme={AntdGlobalTheme}>
-          <Button className="SubContent_feedback_btn" onClick={feedback}>
+        {/* 특이사항 */}
+        <div className="SubContent_row  SubContent_row_note">
+          <div className="SubContent_text">특이사항</div>
+          <div className="SubContent_re_text SubContent_re_text_note">
+            {note}
+          </div>
+        </div>
+
+        {/* 피드백 작성 */}
+        <div className="SubContent_feedback">
+          <div className="SubContent_feedback_btn" onClick={feedback}>
             피드백 작성
-          </Button>
-        </ConfigProvider>
+          </div>
+        </div>
+        <Modal
+          title="피드백 제출"
+          open={isModalOpen}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <FeedBackModal activityid={id} onClose={handleCancel} />
+        </Modal>
       </div>
-      <Modal
-        title="피드백 제출"
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <FeedBackModal activityid={id} onClose={handleCancel} />
-      </Modal>
     </SubContentStyled>
   );
 };

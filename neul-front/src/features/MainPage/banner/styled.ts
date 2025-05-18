@@ -117,7 +117,7 @@ export const BannerStyled = styled.div`
       .swiper-pagination {
         position: absolute;
         top: 10px;
-        left: 80%;
+        left: 70%;
         width: auto;
         height: 100px;
         gap: 6px;

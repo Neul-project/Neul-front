@@ -3,12 +3,13 @@ import { ProgramDetailStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
 import clsx from "clsx";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { Button, Modal, notification } from "antd";
+import { Button, ConfigProvider, Modal, notification } from "antd";
 import ProgramImg from "../ProgramImg";
 import ProgramContent from "../ProgramContent";
 import { useRouter } from "next/router";
 import { getRecruitmentState } from "@/utils/getrecruitmentstate";
 import { useCartStore } from "@/stores/useCartStore";
+import { GreenTheme } from "@/utils/antdtheme";
 
 //프로그램 상세 페이지 컴포넌트
 const ProgramDetail = (props: { detailid: string }) => {
@@ -24,7 +25,7 @@ const ProgramDetail = (props: { detailid: string }) => {
   const [img, setImg] = useState([""]);
   const [manager, setManager] = useState();
   const [call, setCall] = useState();
-  const [capacity, setCapacity] = useState();
+  const [capacity, setCapacity] = useState<number>(0);
   const [price, setPrice] = useState();
   const [progress, setProgress] = useState();
   const [recruitment, setRecruitment] = useState();
@@ -33,7 +34,7 @@ const ProgramDetail = (props: { detailid: string }) => {
   const [target, setTarget] = useState("");
   const [note, setNote] = useState("");
   const [state, setState] = useState("");
-  const [total, setTotal] = useState(); //현재 백엔드에 저장된 프로그램 신청 인원 수
+  const [total, setTotal] = useState<number>(0); //현재 백엔드에 저장된 프로그램 신청 인원 수
 
   useEffect(() => {
     if (!detailid) return;
@@ -57,33 +58,60 @@ const ProgramDetail = (props: { detailid: string }) => {
         setTarget(data.target);
         setNote(data.note);
       });
+
+    //해당 프로그램id에 해당하는 신청한 사람 개수 반환
+    axiosInstance
+      .get("/program/paylist", {
+        params: { detailid: Number(detailid) },
+      })
+      .then((res) => {
+        //console.log("res", res.data);
+        setTotal(res.data);
+      });
   }, [detailid]);
 
   useEffect(() => {
     if (!recruitment) return;
 
     const result = getRecruitmentState(recruitment);
-    if (result) setState(result);
-  }, [recruitment]);
+    //if (result) setState(result);
+    if (total >= capacity) {
+      setState("모집완료");
+    } else if (result) {
+      setState(result);
+    }
+  }, [recruitment, total]);
 
   const Columnlist = () => {
     router.push("/program");
   };
 
   const showModal = () => {
-    setIsModalOpen(true);
+    if (total >= capacity) {
+      //console.log("실행되면 안됨");
+      notification.info({
+        message: `모집인원 마감`,
+        description: `모집 인원이 마감되어 신청하실 수 없습니다.`,
+      });
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   //바로 결제하기 모달
   const showdirectModal = () => {
     //console.log("de", detailid);
 
-    //해당 프로그램id에 해당하는 신청한 사람 개수 반환
-    axiosInstance.get("/program/paylist", {
-      params: { detailid: Number(detailid) },
-    });
-
-    setIsDirectModalOpen(true);
+    //console.log("T", total, capacity);
+    if (total < capacity) {
+      setIsDirectModalOpen(true);
+    } else {
+      //console.log("실행되면 안됨");
+      notification.info({
+        message: `모집인원 마감`,
+        description: `모집 인원이 마감되어 신청하실 수 없습니다.`,
+      });
+    }
   };
 
   const handleOk = () => {
@@ -156,6 +184,8 @@ const ProgramDetail = (props: { detailid: string }) => {
             call={call ?? ""}
             target={target ?? ""}
             note={note ?? ""}
+            manager={manager ?? ""}
+            total={total ?? ""}
           />
         </div>
       </div>
@@ -177,9 +207,11 @@ const ProgramDetail = (props: { detailid: string }) => {
           onOk={handleOk}
           onCancel={handleCancel}
           footer={
-            <Button key="link" type="primary" onClick={DirecthandleOk}>
-              결제하기
-            </Button>
+            <ConfigProvider theme={GreenTheme}>
+              <Button key="link" type="primary" onClick={DirecthandleOk}>
+                결제하기
+              </Button>
+            </ConfigProvider>
           }
         >
           <div>정말로 바로 결제하시겠습니까?</div>
@@ -202,9 +234,11 @@ const ProgramDetail = (props: { detailid: string }) => {
           onOk={handleOk}
           onCancel={handleCancel}
           footer={
-            <Button key="link" type="primary" onClick={handleOk}>
-              신청하기
-            </Button>
+            <ConfigProvider theme={GreenTheme}>
+              <Button key="link" type="primary" onClick={handleOk}>
+                신청하기
+              </Button>
+            </ConfigProvider>
           }
         >
           <div>정말로 신청하시겠습니까?</div>
