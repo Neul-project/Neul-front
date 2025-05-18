@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { getCategoryLabel } from "@/utils/programcategory";
 import { useEffect, useState } from "react";
 import { getRecruitmentState } from "@/utils/getrecruitmentstate";
+import axiosInstance from "@/lib/axios";
 
 /*
 1.제목/분류/진행기간/모집기간/모집인원
@@ -14,12 +15,8 @@ const ProgramElement = (props: { list: any; filterStatus: any }) => {
   const { list, filterStatus } = props;
   const router = useRouter();
   const [state, setState] = useState("");
+  const [total, setTotal] = useState(0);
   const imgarr = list.img.split(",");
-
-  useEffect(() => {
-    const result = getRecruitmentState(list.recruitment);
-    if (result) setState(result);
-  }, [list.recruitment]);
 
   // 필터 조건 검사
   const shouldRender = () => {
@@ -35,6 +32,28 @@ const ProgramElement = (props: { list: any; filterStatus: any }) => {
   const open_program = () => {
     router.push(`/program/${list.id}`);
   };
+
+  useEffect(() => {
+    axiosInstance
+      .get("/program/paylist", {
+        params: { detailid: Number(list.id) },
+      })
+      .then((res) => {
+        //console.log("res", res.data);
+        setTotal(res.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    const result = getRecruitmentState(list.recruitment);
+
+    // 신청 인원이 정원보다 많으면 무조건 모집완료
+    if (total >= list.capacity) {
+      setState("모집완료");
+    } else if (result) {
+      setState(result);
+    }
+  }, [list.recruitment, total]);
 
   return (
     <ProgramElementStyled

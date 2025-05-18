@@ -22,6 +22,7 @@ const Advertising = () => {
         //const urldata = res.data[datalist.length - 1].url.split(",");
         //console.log("data", data);
         setArr(data);
+        //setUrl(urldata);
       }
     });
   }, []);
@@ -33,7 +34,7 @@ const Advertising = () => {
       <div className="Advertising_adimg">
         {arr.length > 0 ? (
           arr.map((element, index: number) => {
-            return <AdElement key={index} el={element} />;
+            return <AdElement key={index} el={element} url={url} />;
           })
         ) : (
           <div className="Advertising_text">광고 준비 중 입니다</div>

@@ -74,8 +74,13 @@ const ProgramDetail = (props: { detailid: string }) => {
     if (!recruitment) return;
 
     const result = getRecruitmentState(recruitment);
-    if (result) setState(result);
-  }, [recruitment]);
+    //if (result) setState(result);
+    if (total >= capacity) {
+      setState("모집완료");
+    } else if (result) {
+      setState(result);
+    }
+  }, [recruitment, total]);
 
   const Columnlist = () => {
     router.push("/program");

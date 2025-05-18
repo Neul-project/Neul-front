@@ -41,7 +41,7 @@ export const SubContentStyled = styled.div`
         font-family: "Gowun Batang", serif;
         font-weight: 400;
         font-style: normal;
-
+        cursor: pointer;
         border: none;
         box-shadow: none;
         font-size: 22px;
