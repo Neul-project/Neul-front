@@ -97,7 +97,7 @@ const ProgramHistory = () => {
           setPrograms((prevPrograms) =>
             prevPrograms.map((program) =>
               program.id === selectedProgramId
-                ? { ...program, payment_status: "환불 대기" }
+                ? { ...program, refund_status: "환불 대기" }
                 : program
             )
           );
