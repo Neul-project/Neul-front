@@ -38,7 +38,14 @@ const OnePage = ({
   patientname,
 }: OnePageProps) => {
   return (
-    <OnePageStyled className={clsx(`onepage_${type}`)}>
+    <OnePageStyled
+      className={clsx(
+        `onepage_${type}`,
+        type === "right" &&
+          activity === "subcontent" &&
+          "onepage_right_activity"
+      )}
+    >
       <div className="onepage_note onepage_note1">
         <div className="onepage_note onepage_note2">
           <div className="onepage_note onepage_note3">
@@ -81,12 +88,17 @@ const OnePage = ({
 
                   {/* 활동기록 오른쪽 */}
                   {type === "right" && activity === "subcontent" && (
-                    <SubContent
-                      type={activitytype!}
-                      rehabilitation={rehabilitation!}
-                      note={note!}
-                      id={id!}
-                    />
+                    <>
+                      <SubContent
+                        img={img}
+                        title={title!}
+                        patientname={patientname!}
+                        type={activitytype!}
+                        rehabilitation={rehabilitation!}
+                        note={note!}
+                        id={id!}
+                      />
+                    </>
                   )}
 
                   {/* children 자리 */}

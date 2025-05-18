@@ -1,5 +1,10 @@
 import { SubContentStyled, theme } from "./styled";
-import { getActivityLabel } from "@/utils/activityoptionlist";
+import {
+  getActivityLabel,
+  getRehabilitation,
+} from "@/utils/activityoptionlist";
+import clip from "@/assets/images/clip.png";
+import Image from "next/image";
 
 //antd
 import { Select, Radio, Input, Button, Modal, ConfigProvider } from "antd";
@@ -8,6 +13,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import clsx from "clsx";
 import { AntdGlobalTheme } from "@/utils/antdtheme";
+import SwiperImg from "../SwiperImg";
 
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
@@ -21,8 +27,11 @@ const SubContent = (props: {
   rehabilitation: string;
   note: string;
   id: string;
+  img?: string[];
+  title?: string;
+  patientname?: string;
 }) => {
-  const { type, rehabilitation, note, id } = props;
+  const { type, rehabilitation, note, id, img, title, patientname } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const optionsWithDisabled: CheckboxGroupProps<string>["options"] = [
     { label: "참여", value: "yes", disabled: rehabilitation !== "yes" },
@@ -40,6 +49,17 @@ const SubContent = (props: {
 
   return (
     <SubContentStyled className={clsx("SubContent_main_wrap")}>
+      <div className="SubContent_clip_box">
+        <Image className="SubContent_clip" src={clip} alt="클립" />
+      </div>
+      <div className="SUbContent_left">
+        <SwiperImg
+          img={img}
+          title={title!}
+          patientname={patientname!}
+          styletype={"rightside"}
+        />
+      </div>
       {/* 활동종류 */}
       <div className="SubContent_row">
         <div className="SubContent_text">활동 종류</div>
@@ -49,7 +69,9 @@ const SubContent = (props: {
       {/* 재활치료 */}
       <div className="SubContent_row">
         <div className="SubContent_text">재활 치료</div>
-        <div className="SubContent_re_text">{rehabilitation}</div>
+        <div className="SubContent_re_text">
+          {getRehabilitation(rehabilitation)}
+        </div>
       </div>
 
       {/* 특이사항 */}

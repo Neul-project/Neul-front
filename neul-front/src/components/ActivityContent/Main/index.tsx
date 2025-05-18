@@ -70,6 +70,9 @@ const ActivityContent = (props: { id: string }) => {
           {/* 활동 종류 & 재활 치료*/}
           <div className="ActivityContent_content">
             <OnePage
+              img={img}
+              title={title}
+              patientname={patientname}
               type={"right"}
               lineNum={lineNumright}
               activity="subcontent"

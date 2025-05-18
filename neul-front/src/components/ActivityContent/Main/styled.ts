@@ -50,6 +50,61 @@ export const ActivityContentStyled = styled.div`
     }
   }
 
+  @media (max-width: 1330px) {
+    &.ActivityContent_main_wrap {
+      font-family: "Gowun Batang", serif;
+      font-weight: 400;
+      font-style: normal;
+
+      max-width: 1280px;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+
+      //align-items: center;
+      margin: 40px auto;
+      padding: 0px 0px;
+      //gap: 20px;
+
+      .ActivityContent_title {
+        display: flex;
+        width: 100%;
+        text-align: center;
+        align-items: flex-end;
+        gap: 10px;
+        justify-content: left;
+        font-size: 27px;
+        font-weight: bold;
+        margin-bottom: 50px;
+        margin-top: 20px;
+      }
+
+      .ActivityContent_sub {
+        display: block;
+        width: 100%;
+        margin: 0px auto;
+
+        .ActivityContent_swiper {
+          width: 50%;
+          height: 100%;
+        }
+        .ActivityContent_content {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+
+      .ActivityContent_subtitle {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+      }
+    }
+  }
+
   @media (max-width: 768px) {
     .ActivityContent_title {
       font-size: 20px;
