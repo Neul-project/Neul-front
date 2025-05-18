@@ -100,17 +100,19 @@ const ChatRoom = () => {
       });
 
       // 데이터 가공
-      const parsedChats: Chatting[] = res.data.map((chat: any) => {
-        // 시간, 날짜
-        const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
-        const time = dayjs(chat.created_at).format("A h:mm");
+      const parsedChats: Chatting[] = res.data
+        .map((chat: any) => {
+          // 시간, 날짜
+          const date = dayjs(chat.created_at).format("YYYY년 MM월 DD일");
+          const time = dayjs(chat.created_at).format("A h:mm");
 
-        return {
-          ...chat,
-          date,
-          time,
-        };
-      });
+          return {
+            ...chat,
+            date,
+            time,
+          };
+        })
+        .filter((chat: Chatting) => !chat.userDel); // 삭제된 메시지는 한번더 걸러주기(메모리에서)
 
       setChattings((prev) =>
         pageToFetch === 1 ? parsedChats : [...parsedChats, ...prev]
