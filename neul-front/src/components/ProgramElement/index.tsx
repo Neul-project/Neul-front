@@ -70,7 +70,9 @@ const ProgramElement = (props: { list: any; filterStatus: any }) => {
       <div className="ProgramElement_content">
         <div
           className={`ProgramElement_Recruit ${
-            state === "모집완료" ? "ProgramElement_Recruit_end" : ""
+            state === "모집완료" || state === "모집예정"
+              ? "ProgramElement_Recruit_end"
+              : ""
           }`}
         >
           {state}

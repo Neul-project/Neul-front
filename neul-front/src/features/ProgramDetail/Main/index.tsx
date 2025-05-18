@@ -150,7 +150,10 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   //바로 결제 확인 버튼
   const DirecthandleOk = () => {
+    handleOk();
+    router.push("/payment");
     setIsDirectModalOpen(false);
+    //결제 폼 열기
   };
 
   const handleCancel = () => {
@@ -163,7 +166,9 @@ const ProgramDetail = (props: { detailid: string }) => {
       <div className="ProgramDetail_top">
         <div
           className={`ProgramDetail_ing ${
-            state === "모집완료" ? "ProgramDetail_ing_end" : ""
+            state === "모집완료" || state === "모집예정"
+              ? "ProgramDetail_ing_end"
+              : ""
           }`}
         >
           {state}
@@ -194,7 +199,7 @@ const ProgramDetail = (props: { detailid: string }) => {
         <button
           onClick={showdirectModal}
           className={`ProgramDetail_Dir ${
-            state === "모집완료" ? "disabled" : ""
+            state === "모집완료" || state === "모집예정" ? "disabled" : ""
           }`}
           disabled={state === "모집완료"}
         >
@@ -219,7 +224,7 @@ const ProgramDetail = (props: { detailid: string }) => {
 
         <button
           className={`ProgramDetail_show ${
-            state === "모집완료" ? "disabled" : ""
+            state === "모집완료" || state === "모집예정" ? "disabled" : ""
           }`}
           onClick={showModal}
           disabled={state === "모집완료"}
