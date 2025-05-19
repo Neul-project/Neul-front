@@ -20,6 +20,7 @@ import { message } from "antd";
 import { notification } from "antd";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import { io, Socket } from "socket.io-client";
+import { DownOutlined } from "@ant-design/icons";
 
 dayjs.locale("ko"); // 로케일 설정
 
@@ -52,6 +53,9 @@ const ChatRoom = () => {
   // 맨밑 감지
   const bottomRef = useRef<HTMLDivElement>(null);
   const didFetch = useRef(false);
+
+  // 바텀버튼
+  const [showBottomButton, setShowBottomButton] = useState(false);
 
   // 소켓
   const socketRef = useRef<Socket | null>(null);
@@ -140,6 +144,29 @@ const ChatRoom = () => {
       setLoading(false);
     }
   };
+
+  // 스크롤 위치가 맨 아래가 아닌 경우 버튼을 보이도록
+  const handleScroll = () => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const isAtBottom =
+      container.scrollHeight - container.scrollTop - container.clientHeight <
+      50;
+
+    setShowBottomButton(!isAtBottom);
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // adminId가 존재할 때만 실행
   useEffect(() => {
@@ -302,6 +329,11 @@ const ChatRoom = () => {
       </div>
       {/* 채팅 내용 */}
       <div className="chatroom_content_box">
+        {showBottomButton && (
+          <div className="chatroom_bottom_button" onClick={scrollToBottom}>
+            <DownOutlined />
+          </div>
+        )}
         <div className="chatroom_content scrollable" ref={scrollContainerRef}>
           <div ref={targetRef} style={{ height: 1 }} />
           {Object.entries(groupDate).map(([date, messages]) => (
