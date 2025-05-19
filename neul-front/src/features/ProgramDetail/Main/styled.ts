@@ -10,12 +10,27 @@ export const ProgramDetailStyled = styled.div`
     margin: 0px auto;
     padding: 0px 40px;
 
+    .ProgramDetail_share {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      .ProgramDetail_imgstyle {
+        width: 100%;
+        height: 100%;
+      }
+    }
     .ProgramDetail_top {
       display: flex;
+      justify-content: space-between;
       align-items: center;
       //margin-bottom: 20px;
       padding: 20px 0px;
       gap: 20px;
+
+      .ProgramDetail_top_left {
+        display: flex;
+        gap: 20px;
+      }
 
       .ProgramDetail_ing {
         display: flex;
@@ -35,12 +50,13 @@ export const ProgramDetailStyled = styled.div`
       }
 
       .ProgramDetail_title {
-        //margin-top: 20px;
+        margin-top: 5px;
         color: #333;
         font-size: 32px;
         font-family: "NS";
         font-weight: normal;
         letter-spacing: -0.045em;
+        //text-align: center;
       }
     }
 
@@ -141,7 +157,7 @@ export const ProgramDetailStyled = styled.div`
         }
 
         .ProgramDetail_title {
-          //margin-top: 20px;
+          margin-top: 5px;
           color: #333;
           font-size: 28px;
           font-family: "NS";
@@ -250,7 +266,7 @@ export const ProgramDetailStyled = styled.div`
         }
 
         .ProgramDetail_title {
-          margin-top: 20px;
+          margin-top: 5px;
           color: #333;
           font-size: 20px;
           font-family: "NS";

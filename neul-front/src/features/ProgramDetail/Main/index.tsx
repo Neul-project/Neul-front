@@ -11,6 +11,15 @@ import { getRecruitmentState } from "@/utils/getrecruitmentstate";
 import { useCartStore } from "@/stores/useCartStore";
 import { GreenTheme } from "@/utils/antdtheme";
 
+//image
+import share from "@/assets/images/share.png";
+import { useKakao } from "@/hooks/useKakao";
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 //프로그램 상세 페이지 컴포넌트
 const ProgramDetail = (props: { detailid: string }) => {
   //변수 선언
@@ -36,6 +45,62 @@ const ProgramDetail = (props: { detailid: string }) => {
   const [state, setState] = useState("");
   const [total, setTotal] = useState<number>(0); //현재 백엔드에 저장된 프로그램 신청 인원 수
 
+  const KAKAO_JS_KEY = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
+
+  useEffect(() => {
+    const loadKakaoSdk = () => {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(KAKAO_JS_KEY);
+        //console.log("Kakao SDK initialized");
+      }
+    };
+
+    if (!window.Kakao) {
+      const script = document.createElement("script");
+      script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+      script.async = true;
+      script.onload = loadKakaoSdk;
+      document.body.appendChild(script);
+    } else {
+      loadKakaoSdk();
+    }
+  }, []);
+
+  const kakaoShare = () => {
+    console.log("img", img[0]);
+    console.log("Link", window.location.href);
+    if (!window.Kakao) return;
+    const url = window.location.href;
+    window.Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: title,
+        description: "",
+        imageUrl: process.env.NEXT_PUBLIC_BASE_URL + "/uploads/image/" + img[0],
+        link: {
+          mobileWebUrl: window.location.href,
+          webUrl: window.location.href,
+        },
+      },
+
+      buttons: [
+        {
+          title: "웹으로 이동",
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+        {
+          title: "앱으로 이동",
+          link: {
+            mobileWebUrl: "https://developers.kakao.com",
+            webUrl: "https://developers.kakao.com",
+          },
+        },
+      ],
+    });
+  };
   useEffect(() => {
     if (!detailid) return;
     //id에 해당하는 프로그램 상세 전체 보기
@@ -165,16 +230,21 @@ const ProgramDetail = (props: { detailid: string }) => {
   return (
     <ProgramDetailStyled className={clsx("ProgramDetail_main_wrap")}>
       <div className="ProgramDetail_top">
-        <div
-          className={`ProgramDetail_ing ${
-            state === "모집완료" || state === "모집예정"
-              ? "ProgramDetail_ing_end"
-              : ""
-          }`}
-        >
-          {state}
+        <div className="ProgramDetail_top_left">
+          <div
+            className={`ProgramDetail_ing ${
+              state === "모집완료" || state === "모집예정"
+                ? "ProgramDetail_ing_end"
+                : ""
+            }`}
+          >
+            {state}
+          </div>
+          <h3 className="ProgramDetail_title">{title}</h3>
         </div>
-        <h3 className="ProgramDetail_title">{title}</h3>
+        <div className="ProgramDetail_share" onClick={kakaoShare}>
+          <img className="ProgramDetail_imgstyle" src={share.src} alt="share" />
+        </div>
       </div>
       <div className="ProgramDetail_main">
         <div className="ProgramDetail_img">

@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 import Loading from "@/components/Loading";
+import Script from "next/script";
 
 // _app.tsx
 export default function App({ Component, pageProps }: AppProps) {
@@ -67,18 +68,26 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [isLoggedIn, logout]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Header />
-      <div
-        style={{
-          paddingTop: isChatPage ? "0px" : "64px",
-        }}
-      >
-        {isLoading && <Loading />}
-        <Component {...pageProps} />
-      </div>
+    <>
+      {/* <Script
+        src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
+        integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6"
+        strategy="beforeInteractive"
+      /> */}
+      <ThemeProvider theme={theme}>
+        <Header />
 
-      <Footer />
-    </ThemeProvider>
+        <div
+          style={{
+            paddingTop: isChatPage ? "0px" : "64px",
+          }}
+        >
+          {isLoading && <Loading />}
+          <Component {...pageProps} />
+        </div>
+
+        <Footer />
+      </ThemeProvider>
+    </>
   );
 }
