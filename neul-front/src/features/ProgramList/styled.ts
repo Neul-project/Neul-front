@@ -29,7 +29,12 @@ export const ProgramListStyled = styled.div`
       flex-direction: row;
       align-items: center;
       justify-content: end;
+      gap: 10px;
       //padding: 10px 0px;
+
+      .ProgramList_search {
+        width: 280px;
+      }
     }
 
     .ProgramList_grid_wrap {
@@ -42,6 +47,7 @@ export const ProgramListStyled = styled.div`
     }
 
     .ProgramList_empty_message {
+      height: calc(100vh - 120px);
     }
 
     .ProgramList_pagination {
@@ -83,13 +89,19 @@ export const ProgramListStyled = styled.div`
         //margin-bottom: 60px;
         font-weight: bolder;
       }
+
       .ProgramList_subtitle {
         //border-top: 1px solid #ccc;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: end;
+        gap: 10px;
         //padding: 10px 0px;
+
+        .ProgramList_search {
+          width: 240px;
+        }
       }
 
       .ProgramList_grid_wrap {
@@ -129,10 +141,18 @@ export const ProgramListStyled = styled.div`
       .ProgramList_subtitle {
         //border-top: 1px solid #ccc;
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: start;
         justify-content: end;
+        gap: 5px;
         //padding: 10px 0px;
+
+        .ProgramList_search {
+          width: 200px;
+          /* .ant-input {
+            font-size: 12px;
+          } */
+        }
       }
 
       .ProgramList_grid_wrap {

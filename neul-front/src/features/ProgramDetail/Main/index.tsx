@@ -66,8 +66,11 @@ const ProgramDetail = (props: { detailid: string }) => {
   }, []);
 
   const kakaoShare = () => {
-    console.log("img", img[0]);
-    console.log("Link", window.location.href);
+    // console.log(
+    //   "img",
+    //   process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + img[0]
+    // );
+    //console.log("Link", window.location.href);
     if (!window.Kakao) return;
     const url = window.location.href;
     window.Kakao.Share.sendDefault({
@@ -93,6 +96,7 @@ const ProgramDetail = (props: { detailid: string }) => {
       ],
     });
   };
+
   useEffect(() => {
     if (!detailid) return;
     //id에 해당하는 프로그램 상세 전체 보기

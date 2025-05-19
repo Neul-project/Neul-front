@@ -7,9 +7,10 @@ import ProgramElement from "@/components/ProgramElement";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 
-import { Select, Pagination, ConfigProvider } from "antd";
-import { AntdGlobalTheme } from "@/utils/antdtheme";
+import { Select, Pagination, ConfigProvider, Input } from "antd";
+import { AntdGlobalTheme, GreenTheme } from "@/utils/antdtheme";
 import { getRecruitmentState } from "@/utils/getrecruitmentstate";
+import { SearchProps } from "antd/es/input";
 
 //프로그램 데이터 타입
 interface ProgramDataType {
@@ -30,13 +31,31 @@ interface ProgramDataType {
 const ProgramList = () => {
   //변수선언
   const { Option } = Select;
+  const { Search } = Input;
+
   //useState
   const [list, setList] = useState<ProgramDataType[]>();
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [searchValue, setSearchValue] = useState("");
 
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 12;
+
+  //프로그램 검색
+  const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
+    //console.log("value", value);
+
+    //프로그램 : 프로그램 제목(title) 검색에 따른 행(피드백) 반환 요청
+    axiosInstance
+      .get("/program/search", { params: { data: value } })
+      .then((res) => {
+        const data = res.data;
+        //console.log("data", data);
+        setList(data);
+        setSearchValue("");
+      });
+  };
 
   const handleFilterChange = (value: string) => {
     //console.log("va", value);
@@ -74,7 +93,6 @@ const ProgramList = () => {
     });
   }, []);
 
-  //console.log("filteredList", filteredList);
   return (
     <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
       <div className="ProgramList_title">프로그램 리스트</div>
@@ -90,6 +108,15 @@ const ProgramList = () => {
             <Option value="completed">모집완료</Option>
             <Option value="upcoming">모집예정</Option>
           </Select>
+        </ConfigProvider>
+        <ConfigProvider theme={GreenTheme}>
+          <Search
+            placeholder="프로그램 이름을 입력하시오."
+            onSearch={onSearch}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="ProgramList_search"
+          />
         </ConfigProvider>
       </div>
 
@@ -115,6 +142,7 @@ const ProgramList = () => {
           marginTop: "30px",
           marginBottom: "30px",
         }}
+        simple
         current={currentPage}
         pageSize={itemsPerPage}
         total={filteredList?.length}
