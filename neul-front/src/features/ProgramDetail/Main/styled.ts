@@ -132,12 +132,30 @@ export const ProgramDetailStyled = styled.div`
       margin: 0px auto;
       padding: 0px 40px;
 
+      .ProgramDetail_share {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .ProgramDetail_imgstyle {
+          width: 80%;
+          height: 80%;
+        }
+      }
+
       .ProgramDetail_top {
         display: flex;
+        //flex-direction: column;
         align-items: center;
         //margin-bottom: 20px;
         padding: 15px 0px;
         gap: 15px;
+
+        .ProgramDetail_top_left {
+          display: flex;
+          flex-direction: column;
+          gap: 0px;
+          width: 80%;
+        }
 
         .ProgramDetail_ing {
           display: flex;
@@ -145,7 +163,7 @@ export const ProgramDetailStyled = styled.div`
           text-align: center;
           padding: 0 10px;
           width: 64px;
-          height: 64px;
+          height: 30px;
           background: #5da487;
           color: #fff;
           font-size: 14px;
@@ -164,9 +182,9 @@ export const ProgramDetailStyled = styled.div`
           font-weight: normal;
           letter-spacing: -0.045em;
 
-          white-space: nowrap;
+          /* white-space: nowrap;
           overflow: hidden;
-          text-overflow: ellipsis;
+          text-overflow: ellipsis; */
         }
       }
 
@@ -241,6 +259,17 @@ export const ProgramDetailStyled = styled.div`
       margin: 0px auto;
       padding: 0px 40px;
 
+      .ProgramDetail_share {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .ProgramDetail_imgstyle {
+          width: 80%;
+          height: 80%;
+        }
+      }
+
       .ProgramDetail_top {
         display: flex;
         align-items: center;
@@ -248,13 +277,20 @@ export const ProgramDetailStyled = styled.div`
         padding: 15px 0px;
         gap: 15px;
 
+        .ProgramDetail_top_left {
+          display: flex;
+          flex-direction: column;
+          gap: 0px;
+          width: 80%;
+        }
+
         .ProgramDetail_ing {
           display: flex;
           align-items: center;
           text-align: center;
           padding: 0 10px;
-          width: 50px;
-          height: 50px;
+          width: 55px;
+          height: 30px;
           background: #5da487;
           color: #fff;
           font-size: 12px;
@@ -273,9 +309,9 @@ export const ProgramDetailStyled = styled.div`
           font-weight: normal;
           letter-spacing: -0.045em;
 
-          white-space: nowrap;
+          /* white-space: nowrap;
           overflow: hidden;
-          text-overflow: ellipsis;
+          text-overflow: ellipsis; */
         }
       }
 
