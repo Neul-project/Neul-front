@@ -11,20 +11,26 @@ import axiosInstance from "@/lib/axios";
 const Advertising = () => {
   const [arr, setArr] = useState([]);
   const [url, setUrl] = useState([]);
+
   //광고 이미지 요청
   useEffect(() => {
-    axiosInstance.get("/banner/list").then((res) => {
-      //console.log("banner Res", res.data);
-      const datalist = res.data;
-      //console.log("res", datalist);
-      if (datalist.length > 0) {
-        const data = res.data[datalist.length - 1].img.split(",");
-        const urldata = res.data[datalist.length - 1].url.split(",");
-        //console.log("data", urldata);
-        setArr(data);
-        setUrl(urldata);
-      }
-    });
+    axiosInstance
+      .get("/banner/list")
+      .then((res) => {
+        //console.log("banner Res", res.data);
+        const datalist = res.data;
+        //console.log("res", datalist);
+        if (datalist.length > 0) {
+          const data = res.data[datalist.length - 1].img.split(",");
+          const urldata = res.data[datalist.length - 1].url.split(",");
+          //console.log("data", urldata);
+          setArr(data);
+          setUrl(urldata);
+        }
+      })
+      .catch((error: string) => {
+        console.log("광고 error");
+      });
   }, []);
 
   return (
