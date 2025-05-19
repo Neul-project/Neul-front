@@ -8,6 +8,11 @@ export const PaymentSuccessStyled = styled.div`
   background-color: ${(props) => props.theme.colors.backColor};
   padding: 20px;
 
+  .Success_ing {
+    width: 300px;
+    margin: 0 auto;
+  }
+
   .Success_container {
     width: 450px;
     padding: 20px;

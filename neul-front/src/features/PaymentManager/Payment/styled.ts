@@ -13,11 +13,97 @@ export const PaymentStyled = styled.div`
     padding: 30px 0 48px;
   }
 
-  .title {
+  .AllSelect {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-weight: 700;
     font-size: 18px;
     margin-bottom: 28px;
+    padding-bottom: 4px;
     color: #333;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: -16px;
+      right: -16px;
+      height: 1px;
+      bottom: -10px;
+      background-color: #eceff3;
+    }
+  }
+
+  .L-flex {
+    display: flex;
+  }
+
+  .select_del {
+    button {
+      cursor: pointer;
+      padding: 6px 10px;
+      border: 1px solid #dfe4eb;
+      border-radius: 6px;
+      background-color: #fff;
+      font-weight: 500;
+
+      &:disabled {
+        cursor: default;
+
+        &:hover {
+          background-color: #fff;
+        }
+      }
+
+      &:hover {
+        background-color: #f2f5f8;
+      }
+    }
+  }
+
+  .Program_info_label {
+    word-break: break-all;
+    display: flex;
+    align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+
+    .Program_labelInput {
+      appearance: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      border: none;
+      opacity: 0;
+      overflow: hidden;
+    }
+  }
+
+  .Program_info_div {
+    border: 2px solid #cbd1d7;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-color: #fff;
+  }
+
+  .checked {
+    border: 2px solid #222;
+    background-color: #222;
+    background-image: url("/check.svg");
+  }
+
+  .select_m {
+    margin-left: 15px;
+    margin-bottom: 3px;
   }
 
   .Payment_container {
@@ -38,7 +124,7 @@ export const PaymentStyled = styled.div`
       .Program_info {
         width: 565px;
         background-color: #fff;
-        padding: 23px 21px;
+        padding: 20px 21px;
         border-radius: 16px;
 
         @media (max-width: 632px) {
@@ -51,45 +137,6 @@ export const PaymentStyled = styled.div`
           align-items: flex-start;
           gap: 17px;
           margin-bottom: 24px;
-
-          .Program_info_label {
-            word-break: break-all;
-            display: flex;
-            align-items: center;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            cursor: pointer;
-
-            .Program_labelInput {
-              appearance: none;
-              position: absolute;
-              width: 1px;
-              height: 1px;
-              border: none;
-              opacity: 0;
-              overflow: hidden;
-            }
-          }
-
-          .Program_info_div {
-            border: 2px solid #cbd1d7;
-            border-radius: 4px;
-            width: 20px;
-            height: 20px;
-            box-sizing: border-box;
-            flex-shrink: 0;
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-            background-color: #fff;
-          }
-
-          .checked {
-            border: 2px solid #222;
-            background-color: #222;
-            background-image: url("/check.svg");
-          }
         }
 
         .program_info_imgDiv {

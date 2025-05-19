@@ -123,6 +123,50 @@ const PaymentFeature = () => {
     )
     .reduce((acc, p) => acc + p.price, 0);
 
+  // 선택된 프로그램 삭제
+  // 1. '결제 대기' 상태인 선택된 프로그램만 추림
+  const deletableIds = programs
+    .filter(
+      (p) =>
+        selectedProgramIds.includes(p.id) && p.payment_status === "결제 대기"
+    )
+    .map((p) => p.id);
+
+  // 2. 선택된 프로그램 없을 시 버튼 비활성화용
+  const isDeleteDisabled = deletableIds.length === 0;
+
+  // 3. 삭제 실행
+  const handleDeleteSelected = async () => {
+    console.log(deletableIds);
+
+    if (isDeleteDisabled) {
+      alert("삭제할 프로그램을 선택해주세요.");
+      return;
+    }
+
+    try {
+      const res = await axiosInstance.post("/program/delete-cart", {
+        programIds: deletableIds,
+      });
+
+      console.log("장바구니 삭제", res.data);
+
+      if (res.data.ok) {
+        // 4. 삭제된 항목 프론트에서 제거
+        setPrograms((prev) => prev.filter((p) => !deletableIds.includes(p.id)));
+        setSelectedProgramIds((prev) =>
+          prev.filter((id) => !deletableIds.includes(id))
+        );
+
+        // 5. 선택 초기화
+        setSelectedProgramIds([]);
+      }
+    } catch (err) {
+      console.error("선택 삭제 실패:", err);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <PaymentStyled>
       <div className="Payment_title">결제하기</div>
@@ -143,9 +187,54 @@ const PaymentFeature = () => {
 
           {/* 프로그램 주문 정보 */}
           <div className="Program_info radius">
-            <div className="title">프로그램 신청정보</div>
+            {/* 전체 선택, 선택삭제 */}
+            <div className="AllSelect">
+              <label className="Program_info_label L-flex">
+                <input
+                  type="checkbox"
+                  className="Program_labelInput"
+                  checked={
+                    selectedProgramIds.length > 0 &&
+                    selectedProgramIds.length ===
+                      programs.filter((p) => p.payment_status !== "결제 완료")
+                        .length
+                  }
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      const allIds = programs
+                        .filter((p) => p.payment_status !== "결제 완료")
+                        .map((p) => p.id);
+                      setSelectedProgramIds(allIds);
+                    } else {
+                      setSelectedProgramIds([]);
+                    }
+                  }}
+                  style={{ marginRight: "8px" }}
+                />
 
-            {/* 프로그램 주문 목록 */}
+                <div
+                  className={clsx("Program_info_div", {
+                    checked:
+                      selectedProgramIds.length > 0 &&
+                      selectedProgramIds.length ===
+                        programs.filter((p) => p.payment_status !== "결제 완료")
+                          .length,
+                  })}
+                ></div>
+                <div className="select_m">전체선택</div>
+              </label>
+
+              <div className="select_del">
+                <button
+                  onClick={handleDeleteSelected}
+                  disabled={isDeleteDisabled}
+                >
+                  선택삭제
+                </button>
+              </div>
+            </div>
+
+            {/* 프로그램 주문목록 */}
             {programs.filter(
               (program) => program.payment_status !== "결제 완료"
             ).length === 0 ? (

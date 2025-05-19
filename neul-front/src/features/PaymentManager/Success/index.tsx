@@ -13,11 +13,6 @@ const PaymentSucessFeat = () => {
 
   console.log("결제성공, 주문정보: ", orderInfo);
 
-  // 장바구니 개수 요청(결제완료된 건수 동기화)
-  useEffect(() => {
-    useCartStore.getState().fetchCartCount();
-  }, []);
-
   // 최종 결제승인 요청
   useEffect(() => {
     // 쿼리 다 로드되기 전이면 아무것도 하지 않음
@@ -33,9 +28,11 @@ const PaymentSucessFeat = () => {
         });
 
         // 2. 응답 받은 주문 정보 저장
-
         setOrderInfo(res.data);
         setLoading(false);
+
+        // 3. 장바구니 카운트 동기적 갱신
+        await useCartStore.getState().fetchCartCount();
       } catch (err) {
         console.error("결제 승인 실패:", err);
         // router.replace("/payment/fail");
@@ -45,7 +42,7 @@ const PaymentSucessFeat = () => {
     confirmPayment();
   }, [orderId, amount, paymentKey]);
 
-  if (loading) return <div>결제 확인 중입니다...</div>;
+  if (loading) return <div className="Success_ing">결제 확인 중입니다...</div>;
 
   return (
     <PaymentSuccessStyled>
