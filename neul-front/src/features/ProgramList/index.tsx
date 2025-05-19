@@ -34,64 +34,74 @@ const ProgramList = () => {
   const { Search } = Input;
 
   //useState
-  const [list, setList] = useState<ProgramDataType[]>();
-  const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [list, setList] = useState<ProgramDataType[]>(); //전체 리스트
+  const [filterStatus, setFilterStatus] = useState<string>("all"); //select에 사용될 모집 상태
   const [searchValue, setSearchValue] = useState("");
 
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 12;
 
+  useEffect(() => {
+    //프로그램 전체 요청 리스트
+    axiosInstance.get("/program/list").then((res: any) => {
+      //console.log("program list res", res.data);
+      setList(res.data);
+    });
+  }, []);
+
   //프로그램 검색
   const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
     //console.log("value", value);
-
+    setSearchValue(value);
     //프로그램 : 프로그램 제목(title) 검색에 따른 행(피드백) 반환 요청
     axiosInstance
       .get("/program/search", { params: { data: value } })
       .then((res) => {
-        const data = res.data;
+        const data = res.data.reverse();
         //console.log("data", data);
         setList(data);
         setSearchValue("");
       });
   };
 
+  //select으로 필터 했을 때 실행 함수
   const handleFilterChange = (value: string) => {
     //console.log("va", value);
+
+    axiosInstance.get("/program/list").then((res: any) => {
+      //console.log("program list res", res.data);
+      setList(res.data);
+    });
+
     setFilterStatus(value);
     setCurrentPage(1); // 필터 바뀌면 1페이지로 초기화
   };
 
+  //페이지네이션 페이지 변경 되었을 때 실행 함수
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 필터링된 리스트
+  // 필터링된 리스트 - 모집중 / 모집예정 / 모집완료 분리
   const filteredList = list?.filter((item) => {
     if (filterStatus === "all") return true;
     const state = getRecruitmentState(item.recruitment);
     if (filterStatus === "recruiting") return state === "모집중";
     if (filterStatus === "completed") return state === "모집완료";
     if (filterStatus === "upcoming") return state === "모집예정";
-    return true; // 혹은 기본값
+    return true; // 기본값
   });
 
-  // 현재 페이지에서 보여줄 리스트
+  // // 현재 페이지에서 보여줄 리스트 - 한 화면에 보여질 리스트 (현재 총 12개)
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedList = filteredList?.slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
-  useEffect(() => {
-    //프로그램 전체 요청 리스트
-    axiosInstance.get("/program/list").then((res) => {
-      //console.log("program list res", res.data);
-      setList(res.data.reverse());
-    });
-  }, []);
+  //console.log("pa", paginatedList);
 
   return (
     <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
