@@ -178,20 +178,40 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   const handleOk = () => {
     //장바구니에 있는 지 확인용
-    axiosInstance.get("/program/histories").then((res) => {
+    axiosInstance.get("/program/histories").then((res: any) => {
       const list = res.data;
+
+      //장바구니에 있는지 확인
+      const incart = list.filter((item: any) => {
+        return item.payment_status === "결제 대기";
+      });
+
+      //결제 완료
+      const endpay = list.filter((item: any) => {
+        return item.payment_status === "결제 완료";
+      });
 
       //중복 신청 확인
       const alreadyApplied = list.some(
         (element: any) => element.id === Number(detailid)
       );
 
-      if (alreadyApplied) {
+      //console.log("in", incart[0].id);
+      if (incart[0].id === Number(detailid)) {
         notification.info({
-          message: `신청 실패`,
+          message: `신청 완료`,
+          description: `이미 신청한 프로그램 입니다. 결제를 진행해 주세요.`,
+        });
+        setIsModalOpen(false);
+        setIsDirectModalOpen(false);
+      } else if (endpay[0].id === Number(detailid)) {
+        //이미 구매한 경우
+        notification.info({
+          message: `신청 완료`,
           description: `이미 신청한 프로그램 입니다.`,
         });
         setIsModalOpen(false);
+        setIsDirectModalOpen(false);
       } else {
         axiosInstance
           .post("/program/apply", { programId: Number(detailid) })
@@ -214,22 +234,52 @@ const ProgramDetail = (props: { detailid: string }) => {
   const DirecthandleOk = () => {
     //handleOk();
 
+    //장바구니 내역
     axiosInstance.get("/program/histories").then((res) => {
       const list = res.data;
+      console.log("list", list);
 
-      //중복 신청 확인
+      /*해당 프로그램 아이디와 같은 행을 찾아서 그 행에 해당하는 
+      list.payment_status가 결제 대기인 경우에는 장바구니로 이동할것
+      */
+
+      //장바구니에 있는지 확인
+      const incart = list.filter((item: any) => {
+        return item.payment_status === "결제 대기";
+      });
+
+      //결제 완료
+      const endpay = list.filter((item: any) => {
+        return item.payment_status === "결제 완료";
+      });
+
+      //중복 신청 확인 - 결제 상태를 나타냄(결제 대기 || 결제 완료)
       const alreadyApplied = list.some(
         (element: any) => element.id === Number(detailid)
       );
 
-      if (alreadyApplied) {
+      //alreadyApplied가 true이면 이미 신청한거임
+      //console.log("incart", incart);
+
+      if (incart[0].id === Number(detailid)) {
+        //장바구니에 있는 경우 - 결제 대기 상태
         notification.info({
-          message: `신청 실패`,
-          description: `이미 신청한 프로그램 입니다.`,
+          message: `신청 완료`,
+          description: `이미 신청한 프로그램 입니다. 결제를 진행해 주세요.`,
+        });
+        setIsModalOpen(false);
+        setIsDirectModalOpen(false);
+        router.push("/payment");
+      } else if (endpay[0].id === Number(detailid)) {
+        //이미 구매한 경우
+        notification.info({
+          message: `신청 완료`,
+          description: `이미 신청한 프로그램 입니다. `,
         });
         setIsModalOpen(false);
         setIsDirectModalOpen(false);
       } else {
+        //장바구니에도 없고 결제도 하지 않는 상태
         axiosInstance
           .post("/program/apply", { programId: Number(detailid) })
           .then(async (res) => {
