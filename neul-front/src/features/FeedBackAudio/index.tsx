@@ -39,13 +39,25 @@ const FeedBackAudio = (props: { activityid: string; onClose: () => void }) => {
       return;
     }
 
+    const now = new Date();
+    const pad = (n: number) => n.toString().padStart(2, "0");
+
+    const filename =
+      now.getFullYear().toString() +
+      pad(now.getMonth() + 1) +
+      pad(now.getDate()) +
+      pad(now.getHours()) +
+      pad(now.getMinutes()) +
+      pad(now.getSeconds()) +
+      ".webm";
+
     const response = await fetch(mediaBlobUrl);
     const blob = await response.blob();
 
-    console.log("blob", response);
+    //console.log("blob", response);
 
     const formData = new FormData();
-    formData.append("audio", blob, "recording.webm");
+    formData.append("audio", blob, filename);
     formData.append("activityid", activityid);
     formData.append("userId", String(userId));
 
