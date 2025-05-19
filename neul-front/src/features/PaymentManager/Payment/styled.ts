@@ -7,6 +7,13 @@ export const PaymentStyled = styled.div`
   background-color: #f2f5f8;
   padding: 20px;
 
+  .title {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
   .Payment_title {
     font-size: 28px;
     font-weight: 500;
