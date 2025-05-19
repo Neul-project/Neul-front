@@ -13,7 +13,6 @@ import { GreenTheme } from "@/utils/antdtheme";
 
 //image
 import share from "@/assets/images/share.png";
-import { useKakao } from "@/hooks/useKakao";
 declare global {
   interface Window {
     Kakao: any;
@@ -89,13 +88,6 @@ const ProgramDetail = (props: { detailid: string }) => {
           link: {
             mobileWebUrl: window.location.href,
             webUrl: window.location.href,
-          },
-        },
-        {
-          title: "앱으로 이동",
-          link: {
-            mobileWebUrl: "https://developers.kakao.com",
-            webUrl: "https://developers.kakao.com",
           },
         },
       ],
@@ -216,10 +208,41 @@ const ProgramDetail = (props: { detailid: string }) => {
 
   //바로 결제 확인 버튼
   const DirecthandleOk = () => {
-    handleOk();
-    router.push("/payment");
-    setIsDirectModalOpen(false);
-    //결제 폼 열기
+    //handleOk();
+
+    axiosInstance.get("/program/histories").then((res) => {
+      const list = res.data;
+
+      //중복 신청 확인
+      const alreadyApplied = list.some(
+        (element: any) => element.id === Number(detailid)
+      );
+
+      if (alreadyApplied) {
+        notification.info({
+          message: `신청 실패`,
+          description: `이미 신청한 프로그램 입니다.`,
+        });
+        setIsModalOpen(false);
+        setIsDirectModalOpen(false);
+      } else {
+        axiosInstance
+          .post("/program/apply", { programId: Number(detailid) })
+          .then(async (res) => {
+            //console.log("신청 성공");
+
+            await useCartStore.getState().fetchCartCount();
+
+            notification.success({
+              message: `신청 완료`,
+              description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
+            });
+            setIsModalOpen(false);
+            router.push("/payment");
+            setIsDirectModalOpen(false);
+          });
+      }
+    });
   };
 
   const handleCancel = () => {
