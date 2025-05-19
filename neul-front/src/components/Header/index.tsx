@@ -140,7 +140,7 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
       clearInterval(interval);
     };
-  }, [userId]);
+  }, [user]);
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
