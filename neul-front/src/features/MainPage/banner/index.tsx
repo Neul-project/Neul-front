@@ -22,7 +22,7 @@ const Banner = () => {
   useEffect(() => {
     axiosInstance.get("/program/list").then((res) => {
       const data = res.data.reverse().slice(0, 5);
-
+      console.log("data", data);
       const items = data.map((element: any) => ({
         id: element.id,
         img: element.img.split(",")[0], // 첫 번째 이미지
@@ -42,35 +42,39 @@ const Banner = () => {
   return (
     <BannerStyled className={clsx("Banner_main_wrap")}>
       <div className="Banner_text">새로운 프로그램</div>
-      <Swiper
-        modules={[Pagination, Autoplay]}
-        slidesPerView={1}
-        pagination={{ clickable: true }}
-        loop={true}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-      >
-        {bannerItems.map((element: any, index: number) => (
-          <SwiperSlide key={index}>
-            <div
-              className="Banner_slide"
-              onClick={() => handleClick(element.id)}
-            >
-              <img
-                className="Banner_imgstyle"
-                src={
-                  process.env.NEXT_PUBLIC_API_URL +
-                  "/uploads/image/" +
-                  element.img
-                }
-                alt={`banner-${index}`}
-              />
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {bannerItems.length > 0 ? (
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          loop={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+        >
+          {bannerItems.map((element: any, index: number) => (
+            <SwiperSlide key={index}>
+              <div
+                className="Banner_slide"
+                onClick={() => handleClick(element.id)}
+              >
+                <img
+                  className="Banner_imgstyle"
+                  src={
+                    process.env.NEXT_PUBLIC_API_URL +
+                    "/uploads/image/" +
+                    element.img
+                  }
+                  alt={`banner-${index}`}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <div className="Banner_ing">프로그램 준비 중 입니다...</div>
+      )}
     </BannerStyled>
   );
 };

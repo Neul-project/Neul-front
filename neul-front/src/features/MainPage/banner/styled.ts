@@ -48,6 +48,11 @@ export const BannerStyled = styled.div`
         object-fit: cover;
       }
     }
+
+    .Banner_ing {
+      margin-top: 50px;
+      text-align: center;
+    }
   }
 
   @media (max-width: 768px) {

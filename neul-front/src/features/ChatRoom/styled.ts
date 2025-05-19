@@ -67,7 +67,25 @@ export const ChatRoomStyled = styled.div`
       display: flex;
       flex-direction: column;
 
+      .chatroom_bottom_button {
+        position: fixed;
+        bottom: 100px;
+        right: 50px;
+        background-color: ${(props) => props.theme.colors.pointGreen};
+        color: white;
+        padding: 13px;
+        border-radius: 50%;
+        font-size: 16px;
+        z-index: 1000;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        &:hover {
+          background-color: ${(props) => props.theme.colors.softGreen};
+          cursor: pointer;
+        }
+      }
+
       .chatroom_content.scrollable {
+        margin-bottom: 1px;
         overflow-y: auto;
         white-space: pre-wrap;
         word-break: break-word;
@@ -83,8 +101,8 @@ export const ChatRoomStyled = styled.div`
           width: 20px;
         }
         &::-webkit-scrollbar-thumb {
-          background-color: ${(props) => props.theme.colors.softGreen};
-          /* background-color: #bbb; */
+          /* background-color: ${(props) => props.theme.colors.softGreen}; */
+          background-color: #bbb;
           border-radius: 10px;
 
           border: 7px solid white; /* 스크롤을 적용할 영역 색깔과 border 색상을 똑같이 맞춘다 */

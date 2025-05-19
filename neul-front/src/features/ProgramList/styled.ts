@@ -41,6 +41,9 @@ export const ProgramListStyled = styled.div`
       //border-top: 1px solid #ccc;
     }
 
+    .ProgramList_empty_message {
+    }
+
     .ProgramList_pagination {
       /* 페이지 번호 버튼 테두리 */
       .ant-pagination-item {
