@@ -39,7 +39,7 @@ export const useAuthStore = create<AuthState>()(
         // 로그아웃 시 장바구니 초기화
         useCartStore.setState({ cartCount: 0 });
 
-        set({ user: null, isLoggedIn: false });
+        set({ user: null, isLoggedIn: false, adminId: null });
         console.log("zustand logout 쿠키 및 상태 초기화");
       },
 
