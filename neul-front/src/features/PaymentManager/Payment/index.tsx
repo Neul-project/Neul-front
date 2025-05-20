@@ -26,6 +26,8 @@ interface Program {
 const PaymentFeature = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [programs, setPrograms] = useState<Program[]>([]);
+  // 처음 실행 시에만 전체선택 되도록 제어하는 state
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   console.log("결제페이지 프로그램", programs);
 
@@ -59,6 +61,17 @@ const PaymentFeature = () => {
 
     fetchMyInfo();
   }, []);
+
+  // 처음 페이지 진입 시 모든 프로그램 체크표시
+  useEffect(() => {
+    if (isInitialLoad && programs.length > 0) {
+      const allIds = programs
+        .filter((p) => p.payment_status !== "결제 완료")
+        .map((p) => p.id);
+      setSelectedProgramIds(allIds);
+      setIsInitialLoad(false);
+    }
+  }, [programs, isInitialLoad]);
 
   // 토스 결제
   const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
@@ -100,14 +113,6 @@ const PaymentFeature = () => {
     }
   };
 
-  // 처음 페이지 진입 시 모든 프로그램 체크표시
-  useEffect(() => {
-    if (programs.length > 0) {
-      const allIds = programs.map((p) => p.id);
-      setSelectedProgramIds(allIds);
-    }
-  }, [programs]);
-
   // 체크박스 핸들러
   const toggleProgramSelection = (id: number) => {
     setSelectedProgramIds((prev) =>
@@ -137,8 +142,6 @@ const PaymentFeature = () => {
 
   // 3. 삭제 실행
   const handleDeleteSelected = async () => {
-    console.log(deletableIds);
-
     if (isDeleteDisabled) {
       alert("삭제할 프로그램을 선택해주세요.");
       return;
@@ -160,6 +163,12 @@ const PaymentFeature = () => {
 
         // 5. 선택 초기화
         setSelectedProgramIds([]);
+
+        // 6. 장바구니 개수 동기화
+        const prevCount = useCartStore.getState().cartCount;
+        const newCount = Math.max(0, prevCount - deletableIds.length);
+        console.log("newCount", newCount);
+        useCartStore.getState().setCartCount(newCount);
       }
     } catch (err) {
       console.error("선택 삭제 실패:", err);

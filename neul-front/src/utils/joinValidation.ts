@@ -46,20 +46,53 @@ export const joinValidationSchema = Yup.object({
   }),
 
   birthYear: Yup.string().when("role", {
-    is: "user",
+    is: (role: string) => role === "user" || role === "admin",
     then: (schema) => schema.required("생년 입력").length(4, "4자리 연도"),
     otherwise: (schema) => schema.notRequired(),
   }),
   birthMonth: Yup.string().when("role", {
-    is: "user",
+    is: (role: string) => role === "user" || role === "admin",
     then: (schema) => schema.required("월 입력").length(2, "2자리 월"),
     otherwise: (schema) => schema.notRequired(),
   }),
   birthDay: Yup.string().when("role", {
-    is: "user",
+    is: (role: string) => role === "user" || role === "admin",
     then: (schema) => schema.required("일 입력").length(2, "2자리 일"),
     otherwise: (schema) => schema.notRequired(),
   }),
+  // 도우미 조건 추가
+  // 희망 일당
+  desiredPay: Yup.string().when("role", {
+    is: "admin",
+    then: (schema) => schema.required("희망 일당은 필수입니다."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  // 경력 사항
+  experience: Yup.string().when("role", {
+    is: "admin",
+    then: (schema) => schema.required("경력 사항은 필수입니다."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  // 자격증 파일
+  certificate: Yup.mixed()
+    .required("자격증 업로드는 필수입니다.")
+    .test(
+      "fileFormat",
+      "자격증은 PDF, JPG, PNG 형식만 가능합니다.",
+      (value) =>
+        value instanceof File &&
+        ["application/pdf", "image/jpeg", "image/png"].includes(value.type)
+    ),
+  // 프로필 이미지
+  profileImage: Yup.mixed()
+    .required("프로필 사진 업로드는 필수입니다.")
+    .test(
+      "fileFormat",
+      "이미지는 JPG, PNG 형식만 가능합니다.",
+      (value) =>
+        value instanceof File &&
+        ["image/jpeg", "image/png"].includes(value.type)
+    ),
 });
 
 // 로그인 유효성 검사
