@@ -35,7 +35,10 @@ const FeedBackAudio = (props: { activityid: string; onClose: () => void }) => {
     //console.log("user", userId);
 
     if (!mediaBlobUrl) {
-      console.error("mediaBlobUrl이 없습니다. 먼저 녹음을 해주세요");
+      notification.info({
+        message: "먼저 녹음을 해주세요",
+      });
+      //console.error("mediaBlobUrl이 없습니다. 먼저 녹음을 해주세요");
       return;
     }
 
