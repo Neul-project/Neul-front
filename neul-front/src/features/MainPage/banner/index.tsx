@@ -73,7 +73,16 @@ const Banner = () => {
           ))}
         </Swiper>
       ) : (
-        <div className="Banner_ing">프로그램 준비 중 입니다...</div>
+        <div className="Banner_empty">
+          <div className="empty_img">
+            <img
+              className="Banner_imgstyle"
+              src="/empty.svg"
+              alt="emptyImage"
+            />
+          </div>
+          <div className="Banner_ing">프로그램 준비 중 입니다</div>
+        </div>
       )}
     </BannerStyled>
   );

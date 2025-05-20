@@ -45,7 +45,11 @@ const Advertising = () => {
         ) : (
           <div className="Advertising_empty">
             <div className="empty_img">
-              <img src="/empty.svg" alt="emptyImage" />
+              <img
+                className="empty_imgstyle"
+                src="/empty.svg"
+                alt="emptyImage"
+              />
             </div>
             <div className="Advertising_text">광고 준비 중 입니다</div>
           </div>
