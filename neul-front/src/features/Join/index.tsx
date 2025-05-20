@@ -189,7 +189,7 @@ const JoinPage = () => {
 
           // 도우미 프로필 정보 전송
           const helperRes = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/helper/signup`,
+            `${process.env.NEXT_PUBLIC_API_URL}/user/helper-signup`,
             formData,
             {
               headers: {
