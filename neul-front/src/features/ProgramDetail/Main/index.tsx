@@ -199,14 +199,14 @@ const ProgramDetail = (props: { detailid: string }) => {
       if (alreadyApplied) {
         //이미 결제한 경우
         //console.log("in", incart[0].id);
-        if (incart && incart[0].id === Number(detailid)) {
+        if (incart.length > 0 && incart[0].id === Number(detailid)) {
           notification.info({
             message: `신청 완료`,
             description: `이미 신청한 프로그램 입니다. 결제를 진행해 주세요.`,
           });
           setIsModalOpen(false);
           setIsDirectModalOpen(false);
-        } else if (endpay && endpay[0].id === Number(detailid)) {
+        } else if (endpay.length > 0 && endpay[0].id === Number(detailid)) {
           //이미 구매한 경우
           notification.info({
             message: `신청 완료`,
@@ -237,10 +237,10 @@ const ProgramDetail = (props: { detailid: string }) => {
   const DirecthandleOk = () => {
     //handleOk();
 
-    //장바구니 내역
+    //결제 내역
     axiosInstance.get("/program/histories").then((res) => {
       const list = res.data;
-      //console.log("list", list);
+      console.log("list", list);
 
       /*해당 프로그램 아이디와 같은 행을 찾아서 그 행에 해당하는 
       list.payment_status가 결제 대기인 경우에는 장바구니로 이동할것
@@ -262,11 +262,11 @@ const ProgramDetail = (props: { detailid: string }) => {
       );
 
       //alreadyApplied가 true이면 이미 신청한거임
-      //console.log("incart", alreadyApplied);
+      console.log("incart", incart);
 
       if (alreadyApplied) {
         //이미 결제한 경우
-        if (incart && incart[0].id === Number(detailid)) {
+        if (incart.length > 0 && incart[0].id === Number(detailid)) {
           //장바구니에 있는 경우 - 결제 대기 상태
           notification.info({
             message: `신청 완료`,
@@ -275,7 +275,7 @@ const ProgramDetail = (props: { detailid: string }) => {
           setIsModalOpen(false);
           setIsDirectModalOpen(false);
           router.push("/payment");
-        } else if (endpay && endpay[0].id === Number(detailid)) {
+        } else if (endpay.length > 0 && endpay[0].id === Number(detailid)) {
           //이미 구매한 경우
           notification.info({
             message: `신청 완료`,
