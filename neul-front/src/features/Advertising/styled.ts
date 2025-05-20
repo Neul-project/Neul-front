@@ -14,6 +14,7 @@ export const AdvertisingStyled = styled.div`
       margin-bottom: 15px;
       //margin-left: 20px;
       margin-top: 60px;
+      letter-spacing: -1.5px;
     }
     .Advertising_adimg {
       display: flex;
@@ -56,7 +57,7 @@ export const AdvertisingStyled = styled.div`
       height: 100%;
 
       .Advertising_title_text {
-        font-size: 25px;
+        font-size: 23px;
         color: #000;
         margin-bottom: 15px;
         //margin-left: 20px;

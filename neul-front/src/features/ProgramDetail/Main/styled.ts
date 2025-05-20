@@ -41,6 +41,7 @@ export const ProgramDetailStyled = styled.div`
         height: 64px;
         background: #5da487;
         color: #fff;
+        justify-content: center;
         font-size: 13px;
       }
       .ProgramDetail_ing_end {
