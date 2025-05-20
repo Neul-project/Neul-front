@@ -66,11 +66,6 @@ const ProgramDetail = (props: { detailid: string }) => {
   }, []);
 
   const kakaoShare = () => {
-    // console.log(
-    //   "img",
-    //   process.env.NEXT_PUBLIC_API_URL + "/uploads/image/" + img[0]
-    // );
-    //console.log("Link", window.location.href);
     if (!window.Kakao) return;
     const url = window.location.href;
     window.Kakao.Share.sendDefault({
@@ -80,8 +75,8 @@ const ProgramDetail = (props: { detailid: string }) => {
         description: "",
         imageUrl: process.env.NEXT_PUBLIC_BASE_URL + "/uploads/image/" + img[0],
         link: {
-          mobileWebUrl: window.location.href,
-          webUrl: window.location.href,
+          mobileWebUrl: url,
+          webUrl: url,
         },
       },
 
@@ -89,8 +84,8 @@ const ProgramDetail = (props: { detailid: string }) => {
         {
           title: "웹으로 이동",
           link: {
-            mobileWebUrl: window.location.href,
-            webUrl: window.location.href,
+            mobileWebUrl: url,
+            webUrl: url,
           },
         },
       ],
@@ -240,7 +235,7 @@ const ProgramDetail = (props: { detailid: string }) => {
     //결제 내역
     axiosInstance.get("/program/histories").then((res) => {
       const list = res.data;
-      console.log("list", list);
+      //console.log("list", list);
 
       /*해당 프로그램 아이디와 같은 행을 찾아서 그 행에 해당하는 
       list.payment_status가 결제 대기인 경우에는 장바구니로 이동할것
@@ -262,7 +257,7 @@ const ProgramDetail = (props: { detailid: string }) => {
       );
 
       //alreadyApplied가 true이면 이미 신청한거임
-      console.log("incart", incart);
+      //console.log("incart", incart);
 
       if (alreadyApplied) {
         //이미 결제한 경우
