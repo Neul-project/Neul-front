@@ -97,6 +97,7 @@ const JoinPage = () => {
       desiredPay: "", // 희망 일당
       experience: "", // 경력사항
       certificate: null, // 자격증 파일
+      certificateName: "", // 자격증명
       profileImage: null, // 이미지 파일
     },
     validationSchema: joinValidationSchema,
@@ -174,6 +175,7 @@ const JoinPage = () => {
             `${values.birthYear}-${values.birthMonth}-${values.birthDay}`
           );
           formData.append("gender", values.gender);
+          formData.append("certificateName", values.certificateName);
 
           // 파일 추가
           if (values.profileImage) {
@@ -605,6 +607,29 @@ const JoinPage = () => {
                       {formik.errors.certificate}
                     </div>
                   )}
+                </div>
+
+                {/* 자격증 명 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    자격증 명<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <div className="Join_width">
+                    <input
+                      type="text"
+                      name="certificateName"
+                      placeholder="자격증 이름을 입력하세요"
+                      className="MoreInfo_input"
+                      onChange={formik.handleChange}
+                      value={formik.values.certificateName}
+                    />
+                    {formik.touched.certificateName &&
+                      formik.errors.certificateName && (
+                        <div className="Join_validation">
+                          {formik.errors.certificateName}
+                        </div>
+                      )}
+                  </div>
                 </div>
 
                 {/* 희망 일당 */}

@@ -73,6 +73,12 @@ export const joinValidationSchema = Yup.object({
     then: (schema) => schema.required("경력 사항은 필수입니다."),
     otherwise: (schema) => schema.notRequired(),
   }),
+  // 자격증 명
+  certificateName: Yup.string().when("role", {
+    is: "admin",
+    then: (schema) => schema.required("자격증 명은 필수입니다."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   // 자격증 파일
   certificate: Yup.mixed()
     .required("자격증 업로드는 필수입니다.")
@@ -83,6 +89,7 @@ export const joinValidationSchema = Yup.object({
         value instanceof File &&
         ["application/pdf", "image/jpeg", "image/png"].includes(value.type)
     ),
+
   // 프로필 이미지
   profileImage: Yup.mixed()
     .required("프로필 사진 업로드는 필수입니다.")
