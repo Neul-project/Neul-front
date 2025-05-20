@@ -46,8 +46,17 @@ export const ProgramListStyled = styled.div`
       //border-top: 1px solid #ccc;
     }
 
+    .empty_img {
+      margin: 200px auto 30px auto;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .ProgramList_empty_message {
-      height: calc(100vh - 120px);
+      height: 500px;
+      align-items: center;
     }
 
     .ProgramList_pagination {
