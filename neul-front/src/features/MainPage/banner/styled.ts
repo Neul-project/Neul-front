@@ -51,9 +51,22 @@ export const BannerStyled = styled.div`
       }
     }
 
-    .Banner_ing {
-      margin-top: 50px;
+    .Banner_empty {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px;
       text-align: center;
+      .empty_img {
+        .Banner_imgstyle {
+          width: 55px;
+          height: 55px;
+        }
+      }
+    }
+    .Banner_ing {
     }
   }
 

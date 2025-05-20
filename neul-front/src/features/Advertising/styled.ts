@@ -77,9 +77,9 @@ export const AdvertisingStyled = styled.div`
             display: flex;
             justify-content: center;
 
-            .empty_img {
-              width: 70px;
-              height: 70px;
+            .empty_imgstyle {
+              width: 55px;
+              height: 55px;
             }
           }
         }
