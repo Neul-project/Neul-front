@@ -36,12 +36,12 @@ export const ProgramDetailStyled = styled.div`
         display: flex;
         align-items: center;
         text-align: center;
-        padding: 0 10px;
+        padding: 0 8px;
         width: 64px;
         height: 64px;
         background: #5da487;
         color: #fff;
-        font-size: 15px;
+        font-size: 13px;
       }
       .ProgramDetail_ing_end {
         background-color: #f0f0f0;
@@ -161,12 +161,12 @@ export const ProgramDetailStyled = styled.div`
           display: flex;
           align-items: center;
           text-align: center;
-          padding: 0 10px;
+          padding: 0 8px;
           width: 64px;
           height: 30px;
           background: #5da487;
           color: #fff;
-          font-size: 14px;
+          font-size: 12px;
         }
         .ProgramDetail_ing_end {
           background-color: #f0f0f0;
@@ -288,12 +288,12 @@ export const ProgramDetailStyled = styled.div`
           display: flex;
           align-items: center;
           text-align: center;
-          padding: 0 10px;
+          padding: 0 8px;
           width: 55px;
-          height: 30px;
+          height: 28px;
           background: #5da487;
           color: #fff;
-          font-size: 12px;
+          font-size: 10px;
         }
         .ProgramDetail_ing_end {
           background-color: #f0f0f0;
