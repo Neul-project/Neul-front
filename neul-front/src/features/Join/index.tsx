@@ -97,7 +97,9 @@ const JoinPage = () => {
       desiredPay: "", // 희망 일당
       experience: "", // 경력사항
       certificate: null, // 자격증 파일
-      certificateName: "", // 자격증명
+      certificateName_01: "", // 자격증명
+      certificateName_02: "",
+      certificateName_03: "",
       profileImage: null, // 이미지 파일
     },
     validationSchema: joinValidationSchema,
@@ -175,7 +177,15 @@ const JoinPage = () => {
             `${values.birthYear}-${values.birthMonth}-${values.birthDay}`
           );
           formData.append("gender", values.gender);
-          formData.append("certificateName", values.certificateName);
+          formData.append("certificateName_01", values.certificateName_01);
+          formData.append(
+            "certificateName_02",
+            values.certificateName_02 || ""
+          );
+          formData.append(
+            "certificateName_03",
+            values.certificateName_03 || ""
+          );
 
           // 파일 추가
           if (values.profileImage) {
@@ -617,18 +627,48 @@ const JoinPage = () => {
                   <div className="Join_width">
                     <input
                       type="text"
-                      name="certificateName"
-                      placeholder="자격증 이름을 입력하세요"
+                      name="certificateName_01"
+                      placeholder="(필수) 자격증 이름을 입력하세요"
                       className="MoreInfo_input"
                       onChange={formik.handleChange}
-                      value={formik.values.certificateName}
+                      value={formik.values.certificateName_01}
                     />
-                    {formik.touched.certificateName &&
-                      formik.errors.certificateName && (
+                    {formik.touched.certificateName_01 &&
+                      formik.errors.certificateName_01 && (
                         <div className="Join_validation">
-                          {formik.errors.certificateName}
+                          {formik.errors.certificateName_01}
                         </div>
                       )}
+                  </div>
+                </div>
+
+                {/* 자격증 명02_선택 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">자격증 명_2</label>
+                  <div className="Join_width">
+                    <input
+                      type="text"
+                      name="certificateName_02"
+                      placeholder="(선택) 자격증 이름을 입력하세요"
+                      className="MoreInfo_input"
+                      onChange={formik.handleChange}
+                      value={formik.values.certificateName_02}
+                    />
+                  </div>
+                </div>
+
+                {/* 자격증 명03_선택 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">자격증 명_3</label>
+                  <div className="Join_width">
+                    <input
+                      type="text"
+                      name="certificateName_03"
+                      placeholder="(선택) 자격증 이름을 입력하세요"
+                      className="MoreInfo_input"
+                      onChange={formik.handleChange}
+                      value={formik.values.certificateName_03}
+                    />
                   </div>
                 </div>
 
