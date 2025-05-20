@@ -93,6 +93,11 @@ const JoinPage = () => {
       gender: "male",
       note: "",
       role: "user",
+      // 도우미 전용 필드
+      desiredPay: "", // 희망 일당
+      experience: "", // 경력사항
+      certificate: null, // 자격증 파일
+      profileImage: null, // 이미지 파일
     },
     validationSchema: joinValidationSchema,
     onSubmit: async (values) => {
@@ -142,7 +147,7 @@ const JoinPage = () => {
           return;
         }
 
-        // 2. 일반 사용자일 경우에만 피보호자 정보 요청 전송
+        // 2-1. 일반 사용자일 경우에만 피보호자 정보 요청 전송
         if (values.role === "user") {
           const wardRes = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/patient/signup`,
@@ -155,6 +160,44 @@ const JoinPage = () => {
             }
           );
           console.log("피보호자 정보 저장여부 확인", wardRes.data);
+        }
+
+        // 2-2. 도우미일 경우 상세정보 전송
+        if (values.role === "admin") {
+          // FormData 구성
+          const formData = new FormData();
+          formData.append("userId", String(userId));
+          formData.append("desiredPay", values.desiredPay);
+          formData.append("experience", values.experience);
+          formData.append(
+            "birth",
+            `${values.birthYear}-${values.birthMonth}-${values.birthDay}`
+          );
+          formData.append("gender", values.gender);
+
+          // 파일 추가
+          if (values.profileImage) {
+            formData.append("profileImage", values.profileImage);
+          }
+          if (values.certificate) {
+            formData.append("certificate", values.certificate);
+          }
+
+          for (const [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+          }
+
+          // 도우미 프로필 정보 전송
+          const helperRes = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/helper/signup`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          console.log("도우미 회원가입 응답", helperRes.data);
         }
 
         // 약관 동의 항목 추출
@@ -226,7 +269,7 @@ const JoinPage = () => {
             {/* 보호자 정보 */}
             <div className="MoreInfo_section">
               <h4 className="MoreInfo_sectionTitle">
-                {formik.values.role === "admin" ? "관리자 정보" : "보호자 정보"}
+                {formik.values.role === "admin" ? "도우미 정보" : "보호자 정보"}
               </h4>
 
               <div className="MoreInfo_inputGroup">
@@ -498,16 +541,192 @@ const JoinPage = () => {
 
                 <div className="MoreInfo_inputGroup">
                   <label className="MoreInfo_label">특이사항</label>
-                  <textarea
-                    name="note"
-                    className="MoreInfo_textarea"
-                    placeholder="특이사항이 있다면 작성해주세요"
-                    value={formik.values.note}
-                    onChange={formik.handleChange}
-                    rows={4}
-                  />
+                  <div className="Join_width">
+                    <textarea
+                      name="note"
+                      className="MoreInfo_textarea"
+                      placeholder="특이사항이 있다면 작성해주세요"
+                      value={formik.values.note}
+                      onChange={formik.handleChange}
+                      rows={4}
+                    />
+                  </div>
                 </div>
               </div>
+            )}
+
+            {/* 도우미 정보 */}
+            {formik.values.role === "admin" && (
+              <>
+                <h4 className="MoreInfo_sectionTitle">상세정보</h4>
+
+                {/* 프로필 사진 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    프로필 사진<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <input
+                    type="file"
+                    name="profileImage"
+                    accept="image/*"
+                    onChange={(event) =>
+                      formik.setFieldValue(
+                        "profileImage",
+                        event.currentTarget.files?.[0]
+                      )
+                    }
+                  />
+                  {formik.touched.profileImage &&
+                    formik.errors.profileImage && (
+                      <div className="Join_validation">
+                        {formik.errors.profileImage}
+                      </div>
+                    )}
+                </div>
+
+                {/* 자격증 파일 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    자격증 사본<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <input
+                    type="file"
+                    name="certificate"
+                    accept=".pdf,image/*"
+                    onChange={(event) =>
+                      formik.setFieldValue(
+                        "certificate",
+                        event.currentTarget.files?.[0]
+                      )
+                    }
+                  />
+                  {formik.touched.certificate && formik.errors.certificate && (
+                    <div className="Join_validation">
+                      {formik.errors.certificate}
+                    </div>
+                  )}
+                </div>
+
+                {/* 희망 일당 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    희망 일당<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <div className="Join_width">
+                    <input
+                      type="number"
+                      name="desiredPay"
+                      placeholder="희망 일당을 입력하세요"
+                      className="MoreInfo_input"
+                      onChange={formik.handleChange}
+                      value={formik.values.desiredPay || ""}
+                    />
+                    {formik.touched.desiredPay && formik.errors.desiredPay && (
+                      <div className="Join_validation">
+                        {formik.errors.desiredPay}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* 생년월일 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    생년월일<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <div className="Join_width">
+                    <div className="MoreInfo_birth">
+                      <input
+                        type="text"
+                        name="birthYear"
+                        placeholder="YYYY"
+                        className="MoreInfo_inputSmall"
+                        maxLength={4}
+                        value={formik.values.birthYear}
+                        onChange={formik.handleChange}
+                      />
+                      <span>/</span>
+                      <input
+                        type="text"
+                        name="birthMonth"
+                        placeholder="MM"
+                        className="MoreInfo_inputSmall"
+                        maxLength={2}
+                        value={formik.values.birthMonth}
+                        onChange={formik.handleChange}
+                      />
+                      <span>/</span>
+                      <input
+                        type="text"
+                        name="birthDay"
+                        placeholder="DD"
+                        className="MoreInfo_inputSmall"
+                        maxLength={2}
+                        value={formik.values.birthDay}
+                        onChange={formik.handleChange}
+                      />
+                    </div>
+                    {(formik.errors.birthYear ||
+                      formik.errors.birthMonth ||
+                      formik.errors.birthDay) && (
+                      <div className="Join_validation">
+                        생년월일을 올바르게 입력하세요
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* 성별 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    성별<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <div className="MoreInfo_radioGroup">
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="male"
+                        checked={formik.values.gender === "male"}
+                        onChange={formik.handleChange}
+                      />{" "}
+                      남자
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="female"
+                        checked={formik.values.gender === "female"}
+                        onChange={formik.handleChange}
+                      />{" "}
+                      여자
+                    </label>
+                  </div>
+                </div>
+
+                {/* 경력사항 */}
+                <div className="MoreInfo_inputGroup">
+                  <label className="MoreInfo_label">
+                    경력사항<span className="MoreInfo_essential">*</span>
+                  </label>
+                  <div className="Join_width">
+                    <textarea
+                      name="experience"
+                      className="MoreInfo_textarea"
+                      placeholder="관련 경력을 입력하세요"
+                      value={formik.values.experience || ""}
+                      onChange={formik.handleChange}
+                      rows={4}
+                    />
+                    {formik.touched.experience && formik.errors.experience && (
+                      <div className="Join_validation">
+                        {formik.errors.experience}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
             )}
 
             <hr />

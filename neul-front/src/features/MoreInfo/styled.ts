@@ -209,8 +209,8 @@ export const MoreInfoStyled = styled.div`
   }
 
   .MoreInfo_textarea {
-    width: 55%;
-    resize: vertical;
+    width: 100%;
+    resize: none;
     padding: 10px 11px 10px 15px;
     border-radius: 4px;
     border: 1px solid rgb(221, 221, 221);
