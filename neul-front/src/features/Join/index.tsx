@@ -577,23 +577,25 @@ const JoinPage = () => {
                   <label className="MoreInfo_label">
                     프로필 사진<span className="MoreInfo_essential">*</span>
                   </label>
-                  <input
-                    type="file"
-                    name="profileImage"
-                    accept="image/*"
-                    onChange={(event) =>
-                      formik.setFieldValue(
-                        "profileImage",
-                        event.currentTarget.files?.[0]
-                      )
-                    }
-                  />
-                  {formik.touched.profileImage &&
-                    formik.errors.profileImage && (
-                      <div className="Join_validation">
-                        {formik.errors.profileImage}
-                      </div>
-                    )}
+                  <div className="Join_width">
+                    <input
+                      type="file"
+                      name="profileImage"
+                      accept="image/*"
+                      onChange={(event) =>
+                        formik.setFieldValue(
+                          "profileImage",
+                          event.currentTarget.files?.[0]
+                        )
+                      }
+                    />
+                    {formik.touched.profileImage &&
+                      formik.errors.profileImage && (
+                        <div className="Join_validation">
+                          {formik.errors.profileImage}
+                        </div>
+                      )}
+                  </div>
                 </div>
 
                 {/* 자격증 파일 */}
@@ -601,22 +603,25 @@ const JoinPage = () => {
                   <label className="MoreInfo_label">
                     자격증 사본<span className="MoreInfo_essential">*</span>
                   </label>
-                  <input
-                    type="file"
-                    name="certificate"
-                    accept=".pdf,image/*"
-                    onChange={(event) =>
-                      formik.setFieldValue(
-                        "certificate",
-                        event.currentTarget.files?.[0]
-                      )
-                    }
-                  />
-                  {formik.touched.certificate && formik.errors.certificate && (
-                    <div className="Join_validation">
-                      {formik.errors.certificate}
-                    </div>
-                  )}
+                  <div className="Join_width">
+                    <input
+                      type="file"
+                      name="certificate"
+                      accept=".pdf,image/*"
+                      onChange={(event) =>
+                        formik.setFieldValue(
+                          "certificate",
+                          event.currentTarget.files?.[0]
+                        )
+                      }
+                    />
+                    {formik.touched.certificate &&
+                      formik.errors.certificate && (
+                        <div className="Join_validation">
+                          {formik.errors.certificate}
+                        </div>
+                      )}
+                  </div>
                 </div>
 
                 {/* 자격증 명 */}
