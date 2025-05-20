@@ -23,6 +23,13 @@ const FeedBackText = (props: { activityid: string; onClose: () => void }) => {
     if (!user?.id) return;
     const userId = user?.id;
 
+    if (content === "") {
+      notification.info({
+        message: "피드백을 작성해주세요.",
+      });
+      return;
+    }
+
     axiosInstance
       .post(`/activity/feedback`, {
         message: content,
@@ -35,7 +42,7 @@ const FeedBackText = (props: { activityid: string; onClose: () => void }) => {
           message: `피드백 등록 완료`,
           description: "피드백을 등록하였습니다.",
         });
-
+        setContent("");
         onClose();
       });
   };
@@ -45,6 +52,7 @@ const FeedBackText = (props: { activityid: string; onClose: () => void }) => {
       <ConfigProvider theme={AntdGlobalTheme}>
         <TextArea
           rows={8}
+          value={content}
           onChange={onChange}
           className="FeedbackText_textarea"
         />

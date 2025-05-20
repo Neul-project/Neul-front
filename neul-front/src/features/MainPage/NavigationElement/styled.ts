@@ -17,6 +17,7 @@ export const NavigationElementStyled = styled.div`
       color: #000;
       font-weight: bold;
       margin-bottom: 15px;
+      letter-spacing: -1.5px;
     }
     .NavigationElement_rows {
       width: 100%;
@@ -78,7 +79,7 @@ export const NavigationElementStyled = styled.div`
       place-items: center;
 
       .NavigationElement_title {
-        font-size: 20px;
+        font-size: 23px;
         color: #000;
         font-weight: bold;
         margin-bottom: 15px;

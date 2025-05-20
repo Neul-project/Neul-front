@@ -82,8 +82,7 @@ export default function App({ Component, pageProps }: AppProps) {
             paddingTop: isChatPage ? "0px" : "64px",
           }}
         >
-          {isLoading && <Loading />}
-          <Component {...pageProps} />
+          {isLoading ? <Loading /> : <Component {...pageProps} />}
         </div>
 
         <Footer />

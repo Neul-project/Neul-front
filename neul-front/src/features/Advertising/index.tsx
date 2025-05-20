@@ -43,7 +43,12 @@ const Advertising = () => {
             return <AdElement key={index} el={element} url={url[index]} />;
           })
         ) : (
-          <div className="Advertising_text">광고 준비 중 입니다</div>
+          <div className="Advertising_empty">
+            <div className="empty_img">
+              <img src="/empty.svg" alt="emptyImage" />
+            </div>
+            <div className="Advertising_text">광고 준비 중 입니다</div>
+          </div>
         )}
       </div>
     </AdvertisingStyled>

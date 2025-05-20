@@ -84,6 +84,8 @@ const Header = () => {
 
   // 해당 user의 알림 내용 가져오기
   const getAlert = async () => {
+    console.log("유저id", userId);
+
     if (!userId) return;
     try {
       const res = await axiosInstance.get("alert/alarm");
@@ -101,12 +103,33 @@ const Header = () => {
   // 담당 관리자 id 불러오기
   const getAdminId = async () => {
     try {
-      const res = await axiosInstance.get("/user/admin");
+      const res = await axiosInstance.get("/user/admin", {
+        params: { userId },
+      });
+
+      console.log("야야야야야", res.status);
+
+      // 204 No Content 응답일 경우도 고려
+      if (res.status === 204 || !res.data) {
+        setAdminId(null);
+        console.warn("관리자 정보 없음 (204 No Content)");
+        return;
+      }
+
       setAdminId(res.data);
-    } catch (err) {
-      // 일반 회원이거나 admin 아님 → 무시
-      setAdminId(null);
-      console.warn("관리자 정보 없음 (일반회원일 수 있음)");
+    } catch (e: any) {
+      const status = e.response?.status;
+
+      console.log("왜ㅐㅐㅐㅐ", status);
+
+      if (status === 401 || status === 403) {
+        // 인증되지 않았거나 권한이 없음 → 일반 사용자일 수 있음
+        setAdminId(null);
+        console.warn("관리자 정보 없음 (401 또는 403)");
+      } else {
+        // 그 외 에러는 로그로 확인
+        console.error("관리자 정보 요청 중 오류:", e);
+      }
     }
   };
 
@@ -144,8 +167,9 @@ const Header = () => {
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
+    if (!userId) return;
     getAdminId();
-  }, [matchAlertNum]);
+  }, [matchAlertNum, userId]);
 
   // 메뉴 이미지 클릭
   const MoveMain = () => {

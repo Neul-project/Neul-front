@@ -130,21 +130,26 @@ const ProgramList = () => {
         </ConfigProvider>
       </div>
 
-      <div className="ProgramList_grid_wrap">
-        {filteredList && filteredList.length > 0 ? (
-          paginatedList?.map((element: any) => (
+      {filteredList && filteredList.length > 0 ? (
+        <div className="ProgramList_grid_wrap">
+          {paginatedList?.map((element: any) => (
             <ProgramElement
               key={element.id}
               list={element}
               filterStatus={filterStatus}
             />
-          ))
-        ) : (
+          ))}
+        </div>
+      ) : (
+        <div className="ProgramList_empty_wrap">
+          <div className="empty_img">
+            <img src="/empty.svg" alt="emptyImage" />
+          </div>
           <div className="ProgramList_empty_message">
             프로그램 준비 중입니다.
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <Pagination
         align="center"
         style={{

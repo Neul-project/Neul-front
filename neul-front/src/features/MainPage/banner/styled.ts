@@ -11,6 +11,7 @@ export const BannerStyled = styled.div`
       color: #000;
       font-weight: bold;
       margin-bottom: 15px;
+      letter-spacing: -1.5px;
     }
 
     .swiper-pagination {
@@ -40,6 +41,7 @@ export const BannerStyled = styled.div`
       border-radius: 15px;
       overflow: hidden;
       cursor: pointer;
+      background-color: #fef6d4;
 
       .Banner_imgstyle {
         width: 100%;
@@ -62,7 +64,7 @@ export const BannerStyled = styled.div`
       //padding: 0px 40px;
 
       .Banner_text {
-        font-size: 20px;
+        font-size: 23px;
         color: #000;
         font-weight: bold;
         margin-bottom: 15px;
