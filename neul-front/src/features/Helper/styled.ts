@@ -29,10 +29,11 @@ export const HelperStyled = styled.div`
 
   .Helper_SwiperContainer {
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     padding: 20px;
+    margin-bottom: 20px;
   }
 
   .Helper_card {
@@ -59,6 +60,46 @@ export const HelperStyled = styled.div`
 
       &:hover {
         font-weight: 700;
+      }
+    }
+  }
+
+  .Helper_select_container {
+  }
+
+  .Helper_select {
+  }
+
+  .Helper_select_title {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .Helper_datePicker {
+    width: 300px;
+    margin-bottom: 8px;
+  }
+
+  .Helper_select_btn {
+    display: flex;
+    gap: 10px;
+
+    button {
+      cursor: pointer;
+      padding: 6px 14px;
+      border: 1px solid #dfe4eb;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+
+    .Ok_btn {
+      color: #fff;
+      background-color: ${(props) => props.theme.colors.pointGreen};
+      border: none;
+
+      &:hover {
+        background-color: ${(props) => props.theme.colors.softGreen};
       }
     }
   }
