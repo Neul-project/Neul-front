@@ -11,7 +11,10 @@ import { InfoCircleFilled } from "@ant-design/icons";
 import { useState } from "react";
 import { HelperStyled } from "./styled";
 import Image from "next/image";
-import { truncate } from "fs";
+
+import { DatePicker } from "antd";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
 
 interface HelperInfo {
   id: number;
@@ -25,6 +28,11 @@ interface HelperInfo {
   certificateName_01: string;
   certificateName_02: string | null;
   certificateName_03: string | null;
+}
+
+interface HelperTime {
+  availableFrom: string; // "2024-06-01"
+  availableTo: string; // "2024-06-30"
 }
 
 const helpers: HelperInfo[] = [
@@ -70,6 +78,36 @@ const helpers: HelperInfo[] = [
 ];
 
 const HelperFeat = () => {
+  const [activeHelper, setActiveHelper] = useState<HelperInfo | null>(null);
+  const [helperTime, setHelperTime] = useState<HelperTime | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [loadingTime, setLoadingTime] = useState(false);
+
+  console.log(helperTime);
+
+  // 해당 도우미의 일정 불러오기
+  const fetchHelperTime = async (helperId: number) => {
+    setLoadingTime(true);
+    try {
+      // 예: 실제 API 요청
+      // const res = await fetch(`/api/helper-time/${helperId}`);
+      // const data: HelperTime = await res.json();
+
+      // 더미 테스트용
+      const data: HelperTime = {
+        availableFrom: "2024-05-10",
+        availableTo: "2024-06-25",
+      };
+
+      setHelperTime(data);
+    } catch (error) {
+      console.error("근무 가능 날짜 불러오기 실패:", error);
+      setHelperTime(null);
+    } finally {
+      setLoadingTime(false);
+    }
+  };
+
   return (
     <HelperStyled>
       <div className="Helper_S_container">
@@ -141,7 +179,14 @@ const HelperFeat = () => {
                     </div>
 
                     <div className="Helper_Btn">
-                      <button>신청하기</button>
+                      <button
+                        onClick={async () => {
+                          setActiveHelper(helper);
+                          await fetchHelperTime(helper.id);
+                        }}
+                      >
+                        신청하기
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -149,6 +194,53 @@ const HelperFeat = () => {
             ))}
           </Swiper>
         </div>
+
+        {/* 캘린더 로딩 */}
+        {loadingTime && (
+          <div className="modal-backdrop">
+            <div className="modal-content">근무 가능 날짜를 불러오는 중...</div>
+          </div>
+        )}
+
+        {/* 선택된 도우미의 가능 날짜 표시 */}
+        {activeHelper && helperTime && (
+          <div className="modal-backdrop">
+            <div className="modal-content">
+              <h3>{activeHelper.name} 도우미 방문 날짜 선택</h3>
+
+              <DatePicker
+                value={selectedDate ? dayjs(selectedDate) : null}
+                onChange={(date) => {
+                  setSelectedDate(date ? date.toDate() : null);
+                }}
+                disabledDate={(current) => {
+                  if (!current || !helperTime) return true;
+
+                  const from = dayjs(helperTime.availableFrom, "YYYY-MM-DD");
+                  const to = dayjs(helperTime.availableTo, "YYYY-MM-DD");
+
+                  return (
+                    current.isBefore(from, "day") || current.isAfter(to, "day")
+                  );
+                }}
+                style={{ width: "100%" }}
+                placeholder="날짜 선택"
+              />
+
+              <button
+                onClick={() => {
+                  console.log("신청 날짜:", selectedDate);
+                  setActiveHelper(null);
+                  setHelperTime(null);
+                  setSelectedDate(null);
+                }}
+              >
+                신청 확정
+              </button>
+              <button onClick={() => setActiveHelper(null)}>닫기</button>
+            </div>
+          </div>
+        )}
       </div>
     </HelperStyled>
   );

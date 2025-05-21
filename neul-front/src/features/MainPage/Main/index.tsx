@@ -39,7 +39,7 @@ const MainPage = () => {
 
         // 3. 유저 정보 요청
         axiosInstance.get("/auth/me").then((res) => {
-          console.log("소셜로그인 zustand", res.data);
+          // console.log("소셜로그인 zustand", res.data);
 
           const userData = res.data;
           login(res.data); // zustand 저장
