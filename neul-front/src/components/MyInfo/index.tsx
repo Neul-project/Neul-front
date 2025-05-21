@@ -3,7 +3,6 @@ import ModalCompo from "../ModalCompo";
 import Address from "../Address";
 import * as S from "@/components/ModalCompo/ModalContent";
 
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axiosInstance from "@/lib/axios";
 import { useState, useEffect } from "react";

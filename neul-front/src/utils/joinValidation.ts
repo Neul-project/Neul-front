@@ -127,3 +127,44 @@ export const moreInfoValidation = Yup.object({
   birthDay: Yup.string().required("일 입력").length(2, "2자리 일"),
   note: Yup.string(), // 선택 항목
 });
+
+// 도우미 '승인 반려' 후 정보 수정 시 유효성 검사
+export const editHelperValidationSchema = Yup.object({
+  desiredPay: Yup.number()
+    .typeError("희망 일당은 숫자만 입력 가능합니다.")
+    .required("희망 일당을 입력해주세요.")
+    .min(0, "0원 이상 입력해주세요."),
+
+  experience: Yup.string()
+    .required("경력 사항을 입력해주세요.")
+    .max(1000, "경력 사항은 1000자 이내로 입력해주세요."),
+
+  certificateName_01: Yup.string()
+    .required("자격증 명을 입력해주세요.")
+    .max(30, "자격증 명은 30자 이내로 입력해주세요."),
+
+  certificateName_02: Yup.string().notRequired(), // 선택 항목
+  certificateName_03: Yup.string().notRequired(), // 선택 항목
+
+  // 자격증 파일
+  certificate: Yup.mixed()
+    .required("자격증 업로드는 필수입니다.")
+    .test(
+      "fileFormat",
+      "자격증은 PDF, JPG, PNG 형식만 가능합니다.",
+      (value) =>
+        value instanceof File &&
+        ["application/pdf", "image/jpeg", "image/png"].includes(value.type)
+    ),
+
+  // 프로필 이미지
+  profileImage: Yup.mixed()
+    .required("프로필 사진 업로드는 필수입니다.")
+    .test(
+      "fileFormat",
+      "이미지는 JPG, PNG 형식만 가능합니다.",
+      (value) =>
+        value instanceof File &&
+        ["image/jpeg", "image/png"].includes(value.type)
+    ),
+});
