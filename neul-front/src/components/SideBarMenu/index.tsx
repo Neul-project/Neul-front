@@ -2,7 +2,7 @@
 import { SideBarMenuStyled } from "./styled";
 import clsx from "clsx";
 
-type TabType = "myinfo" | "wardinfo" | "program";
+import type { TabType } from "@/features/MyPage";
 
 interface SidebarMenuProps {
   currentTab: TabType;
@@ -27,6 +27,7 @@ const SidebarMenu = ({
         >
           내 정보관리
         </div>
+
         <div
           className={clsx("SideBarMenu_item", {
             active: currentTab === "wardinfo",
@@ -35,6 +36,7 @@ const SidebarMenu = ({
         >
           피보호자 정보관리
         </div>
+
         <div
           className={clsx("SideBarMenu_item", {
             active: currentTab === "program",
@@ -42,6 +44,24 @@ const SidebarMenu = ({
           onClick={() => onTabChange("program")}
         >
           프로그램 신청내역
+        </div>
+
+        <div
+          className={clsx("SideBarMenu_item", {
+            active: currentTab === "helper_application",
+          })}
+          onClick={() => onTabChange("helper_application")}
+        >
+          도우미 신청내역
+        </div>
+
+        <div
+          className={clsx("SideBarMenu_item", {
+            active: currentTab === "approval_history",
+          })}
+          onClick={() => onTabChange("approval_history")}
+        >
+          가입승인 내역(도우미)
         </div>
       </div>
       <div className="SideBarMenu_logout">

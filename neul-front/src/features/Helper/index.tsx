@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -17,7 +16,6 @@ const { RangePicker } = DatePicker;
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import axiosInstance from "@/lib/axios";
-import { resolve } from "path/win32";
 
 interface HelperInfo {
   id: number;
@@ -114,7 +112,9 @@ const HelperFeat = () => {
       console.log("도우미 신청 결과:", res.data);
 
       if (res.data.ok) {
-        alert("신청이 완료되었습니다!");
+        alert(
+          "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
+        );
 
         // 초기화
         // setActiveHelper(null);
@@ -206,7 +206,7 @@ const HelperFeat = () => {
                           await fetchHelperTime(helper.id);
                         }}
                       >
-                        신청하기
+                        날짜선택
                       </button>
                     </div>
                   </div>
@@ -273,7 +273,7 @@ const HelperFeat = () => {
                     }
                   }}
                 >
-                  신청 확정
+                  신청하기
                 </button>
                 <button onClick={() => setActiveHelper(null)}>닫기</button>
               </div>
