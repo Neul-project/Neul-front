@@ -319,6 +319,11 @@ export const SubContentStyled = styled.div`
           width: 100%;
           height: 350px;
           overflow-y: auto;
+
+          /* word-break: break-word; // 긴 단어 잘라주기
+          overflow-wrap: break-word; // 줄 바꿈 가능한 위치에서 줄바꿈
+          white-space: pre-wrap; // 줄바꿈 + 공백 유지
+          overflow-x: hidden; // 수평 스크롤 제거 */
         }
       }
     }

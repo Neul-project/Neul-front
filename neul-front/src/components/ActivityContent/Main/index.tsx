@@ -10,6 +10,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 const ActivityContent = (props: { id: string }) => {
   //변수 선언
   const { id } = props;
+
   const { user } = useAuthStore();
   const [rehabilitation, setRehabilitation] = useState("");
   const [title, setTitle] = useState(""); //제목
@@ -23,8 +24,9 @@ const ActivityContent = (props: { id: string }) => {
   //useEffect
   useEffect(() => {
     if (!user?.id) return;
+    if (!id) return;
     const userId = user?.id;
-
+    console.log("userid", userId, id);
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
     axiosInstance
       .get(`/activity/detail`, {
