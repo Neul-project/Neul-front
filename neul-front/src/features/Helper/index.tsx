@@ -20,16 +20,18 @@ import { resolve } from "path/win32";
 
 interface HelperInfo {
   id: number;
-  name: string;
   gender: string;
   birth: string;
   profileImage: string;
   certificate: string; // 자격증 pdf파일
   desiredPay: number; // 희망 일당
   experience: string; // 경력사항
-  certificateName_01: string;
-  certificateName_02: string | null;
-  certificateName_03: string | null;
+  certificateName: string;
+  certificateName2: string | null;
+  certificateName3: string | null;
+  user: {
+    name: string;
+  };
 }
 
 interface HelperTime {
@@ -37,51 +39,9 @@ interface HelperTime {
   availableTo: string; // "2024-06-30"
 }
 
-const helpers: HelperInfo[] = [
-  {
-    id: 1,
-    name: "김가나",
-    profileImage: "/cute_cat.jpg",
-    certificate: "/cert1.pdf",
-    desiredPay: 100000,
-    experience: "5년간 재가활동보조",
-    gender: "여성",
-    birth: "1985-06-14",
-    certificateName_01: "장애인활동지원사",
-    certificateName_02: "사회복지사 1급",
-    certificateName_03: null,
-  },
-  {
-    id: 2,
-    name: "박금자",
-    profileImage: "/cute_dog.jpg",
-    certificate: "/cert2.pdf",
-    desiredPay: 90000,
-    experience: "3년 요양원 근무",
-    gender: "남성",
-    birth: "1980-01-25",
-    certificateName_01: "사회복지사 2급",
-    certificateName_02: "요양보호사",
-    certificateName_03: "장애인활동지원사",
-  },
-  {
-    id: 3,
-    name: "이세인",
-    profileImage: "/cute_pup.jpg",
-    certificate: "/cert3.pdf",
-    desiredPay: 70000,
-    experience: "장애인 돌봄 경험 있음",
-    gender: "여성",
-    birth: "1990-09-01",
-    certificateName_01: "요양보호사",
-    certificateName_02: null,
-    certificateName_03: null,
-  },
-];
-
 const HelperFeat = () => {
   // 도우미 리스트
-  // const [helpers, setHelpers] = useState<HelperInfo[]>([]);
+  const [helpers, setHelpers] = useState<HelperInfo[]>([]);
 
   const [activeHelper, setActiveHelper] = useState<HelperInfo | null>(null);
   const [helperTime, setHelperTime] = useState<HelperTime | null>(null);
@@ -89,20 +49,20 @@ const HelperFeat = () => {
   const [loadingTime, setLoadingTime] = useState(false);
 
   // 도우미 리스트 요청
-  // useEffect(() => {
-  //   const fetchHelpers = async () => {
-  //     try {
-  //       const res = await axiosInstance.get("/helper/info");
-  //       console.log("도우미 리스트 응답",res.data);
+  useEffect(() => {
+    const fetchHelpers = async () => {
+      try {
+        const res = await axiosInstance.get("helper/approveduser");
+        console.log("도우미 리스트 응답", res.data);
 
-  //       setHelpers(res.data);
-  //     } catch (error) {
-  //       console.error("도우미 목록 불러오기 실패:", error);
-  //     }
-  //   };
+        setHelpers(res.data);
+      } catch (error) {
+        console.error("도우미 목록 불러오기 실패:", error);
+      }
+    };
 
-  //   fetchHelpers();
-  // }, []);
+    fetchHelpers();
+  }, []);
 
   // 해당 도우미의 일정 불러오기
   const fetchHelperTime = async (helperId: number) => {
@@ -126,20 +86,34 @@ const HelperFeat = () => {
     }
   };
 
-  // 날짜 최종신청 요청
+  // 날짜선택 후 도우미 최종신청 요청
   const submitHelperRequest = async (
     helperId: number,
     selectedDate: Date
   ): Promise<void> => {
+    if (!activeHelper || !selectedDate) {
+      alert("날짜를 선택해주세요.");
+      return;
+    }
+
     try {
-      const res = await axiosInstance.post("/submit-helper-request", {
+      const day = dayjs(selectedDate).format("YYYY-MM-DD");
+
+      const res = await axiosInstance.post("/helper/submit-request", {
         helperId,
-        date: selectedDate.toISOString().split("T")[0], // "YYYY-MM-DD" 형식
+        date: day, // "YYYY-MM-DD"
       });
 
       console.log("도우미 신청 결과:", res.data);
 
-      // alert("신청이 완료되었습니다!");
+      if (res.data.ok) {
+        alert("신청이 완료되었습니다!");
+
+        // 초기화
+        // setActiveHelper(null);
+        // setHelperTime(null);
+        // setSelectedDate(null);
+      }
     } catch (error) {
       console.error("도우미 신청 중 오류 발생:", error);
       alert("신청 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -178,14 +152,14 @@ const HelperFeat = () => {
               <SwiperSlide key={helper.id}>
                 <div className="Helper_card">
                   <Image
-                    src={helper.profileImage}
-                    alt={helper.name}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/image/${helper.profileImage}`}
+                    alt={helper.user.name}
                     width={250}
                     height={250}
                   />
                   <div className="Helper_content">
                     <div className="Helper_one">
-                      <strong>이름:</strong> {helper.name}
+                      <strong>이름:</strong> {helper.user.name}
                     </div>
                     <div className="Helper_one">
                       <strong>성별:</strong> {helper.gender}
@@ -197,19 +171,19 @@ const HelperFeat = () => {
                       <strong>희망 일당:</strong> {helper.desiredPay}원
                     </div>
                     <div className="Helper_one">
-                      <strong>자격증:</strong> {helper.certificateName_01}
+                      <strong>자격증:</strong> {helper.certificateName}
                     </div>
                     <div className="Helper_one">
-                      {helper.certificateName_02 && (
+                      {helper.certificateName2 && (
                         <>
-                          <strong>자격증2:</strong> {helper.certificateName_02}
+                          <strong>자격증2:</strong> {helper.certificateName2}
                         </>
                       )}
                     </div>
                     <div className="Helper_one">
-                      {helper.certificateName_03 && (
+                      {helper.certificateName3 && (
                         <>
-                          <strong>자격증3:</strong> {helper.certificateName_03}
+                          <strong>자격증3:</strong> {helper.certificateName3}
                         </>
                       )}
                     </div>
@@ -247,7 +221,7 @@ const HelperFeat = () => {
           <div className="Helper_select_container">
             <div className="Helper_select">
               <div className="Helper_select_title">
-                <strong>{activeHelper.name}</strong> 도우미 예약일 선택
+                <strong>{activeHelper.user.name}</strong> 도우미 예약일 선택
               </div>
 
               <DatePicker
@@ -256,14 +230,14 @@ const HelperFeat = () => {
                   setSelectedDate(date ? date.toDate() : null);
                 }}
                 disabledDate={(current) => {
-                  console.log("helperTime:", helperTime, current);
+                  // console.log("helperTime:", helperTime, current);
 
                   if (!current || !helperTime) return true;
 
                   const from = dayjs(helperTime.availableFrom);
                   const to = dayjs(helperTime.availableTo);
 
-                  console.log("from,to", from, to);
+                  // console.log("from,to", from, to);
                   return (
                     current.isBefore(from, "day") || current.isAfter(to, "day")
                   );
@@ -276,17 +250,9 @@ const HelperFeat = () => {
                 <button
                   className="Ok_btn"
                   onClick={() => {
-                    console.log("신청 날짜:", selectedDate);
-
-                    if (!activeHelper || !selectedDate) {
-                      alert("도우미와 날짜를 선택해주세요.");
-                      return;
+                    if (selectedDate) {
+                      submitHelperRequest(activeHelper.id, selectedDate);
                     }
-
-                    // 초기화
-                    setActiveHelper(null);
-                    setHelperTime(null);
-                    setSelectedDate(null);
                   }}
                 >
                   신청 확정
