@@ -13,6 +13,7 @@ import { HelperStyled } from "./styled";
 import Image from "next/image";
 
 import { DatePicker } from "antd";
+const { RangePicker } = DatePicker;
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import axiosInstance from "@/lib/axios";
@@ -45,7 +46,9 @@ const HelperFeat = () => {
 
   const [activeHelper, setActiveHelper] = useState<HelperInfo | null>(null);
   const [helperTime, setHelperTime] = useState<HelperTime | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  // 유저가 도우미 신청하는 날짜 범위
+  const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
+  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [loadingTime, setLoadingTime] = useState(false);
 
   // 도우미 리스트 요청
@@ -86,22 +89,26 @@ const HelperFeat = () => {
     }
   };
 
-  // 날짜선택 후 도우미 최종신청 요청
+  // 날짜 범위 선택 후 도우미 최종신청 요청
   const submitHelperRequest = async (
     helperId: number,
-    selectedDate: Date
+    startDate: Date,
+    endDate: Date
   ): Promise<void> => {
-    if (!activeHelper || !selectedDate) {
-      alert("날짜를 선택해주세요.");
-      return;
-    }
-
     try {
-      const day = dayjs(selectedDate).format("YYYY-MM-DD");
+      const formattedStart = dayjs(startDate).format("YYYY-MM-DD");
+      const formattedEnd = dayjs(endDate).format("YYYY-MM-DD");
+
+      console.log({
+        helperId,
+        startDate: formattedStart,
+        endDate: formattedEnd,
+      });
 
       const res = await axiosInstance.post("/helper/submit-request", {
         helperId,
-        date: day, // "YYYY-MM-DD"
+        startDate: formattedStart,
+        endDate: formattedEnd,
       });
 
       console.log("도우미 신청 결과:", res.data);
@@ -112,7 +119,7 @@ const HelperFeat = () => {
         // 초기화
         // setActiveHelper(null);
         // setHelperTime(null);
-        // setSelectedDate(null);
+        // setSelectedRange(null);
       }
     } catch (error) {
       console.error("도우미 신청 중 오류 발생:", error);
@@ -224,34 +231,45 @@ const HelperFeat = () => {
                 <strong>{activeHelper.user.name}</strong> 도우미 예약일 선택
               </div>
 
-              <DatePicker
-                value={selectedDate ? dayjs(selectedDate) : null}
-                onChange={(date) => {
-                  setSelectedDate(date ? date.toDate() : null);
+              <RangePicker
+                value={
+                  selectedRange
+                    ? [dayjs(selectedRange[0]), dayjs(selectedRange[1])]
+                    : null
+                }
+                onChange={(dates) => {
+                  if (dates && dates[0] && dates[1]) {
+                    setSelectedRange([dates[0].toDate(), dates[1].toDate()]);
+                  } else {
+                    setSelectedRange(null);
+                  }
                 }}
                 disabledDate={(current) => {
-                  // console.log("helperTime:", helperTime, current);
-
                   if (!current || !helperTime) return true;
 
                   const from = dayjs(helperTime.availableFrom);
                   const to = dayjs(helperTime.availableTo);
 
-                  // console.log("from,to", from, to);
                   return (
                     current.isBefore(from, "day") || current.isAfter(to, "day")
                   );
                 }}
                 className="Helper_datePicker"
-                placeholder="날짜 선택"
+                placeholder={["시작일", "종료일"]}
               />
 
               <div className="Helper_select_btn">
                 <button
                   className="Ok_btn"
                   onClick={() => {
-                    if (selectedDate) {
-                      submitHelperRequest(activeHelper.id, selectedDate);
+                    if (selectedRange && activeHelper) {
+                      submitHelperRequest(
+                        activeHelper.id,
+                        selectedRange[0],
+                        selectedRange[1]
+                      );
+                    } else {
+                      alert("날짜를 선택해주세요.");
                     }
                   }}
                 >
