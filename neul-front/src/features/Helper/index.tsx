@@ -16,6 +16,7 @@ import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import axiosInstance from "@/lib/axios";
+import { resolve } from "path/win32";
 
 interface HelperInfo {
   id: number;
@@ -29,7 +30,6 @@ interface HelperInfo {
   certificateName_01: string;
   certificateName_02: string | null;
   certificateName_03: string | null;
-  // availableTime: HelperTime;
 }
 
 interface HelperTime {
@@ -50,10 +50,6 @@ const helpers: HelperInfo[] = [
     certificateName_01: "장애인활동지원사",
     certificateName_02: "사회복지사 1급",
     certificateName_03: null,
-    // availableTime: {
-    //   availableFrom: "2025-05-22",
-    //   availableTo: "2025-06-10",
-    // },
   },
   {
     id: 2,
@@ -67,10 +63,6 @@ const helpers: HelperInfo[] = [
     certificateName_01: "사회복지사 2급",
     certificateName_02: "요양보호사",
     certificateName_03: "장애인활동지원사",
-    // availableTime: {
-    //   availableFrom: "2025-05-25",
-    //   availableTo: "2025-06-15",
-    // },
   },
   {
     id: 3,
@@ -84,10 +76,6 @@ const helpers: HelperInfo[] = [
     certificateName_01: "요양보호사",
     certificateName_02: null,
     certificateName_03: null,
-    // availableTime: {
-    //   availableFrom: "2025-05-28",
-    //   availableTo: "2025-06-20",
-    // },
   },
 ];
 
@@ -101,16 +89,16 @@ const HelperFeat = () => {
   const fetchHelperTime = async (helperId: number) => {
     setLoadingTime(true);
     try {
-      // const res = await fetch(`/api/helper-time/${helperId}`);
+      // const res = await axiosInstance.get(`/helper/time/${helperId}`);
       // console.log("도우미 일정 응답",res.data)
 
       // 더미 테스트용
-      const data: HelperTime = {
+      const res: HelperTime = {
         availableFrom: "2025-05-10",
         availableTo: "2025-06-25",
       };
 
-      setHelperTime(data);
+      setHelperTime(res);
     } catch (error) {
       console.error("근무 가능 날짜 불러오기 실패:", error);
       setHelperTime(null);

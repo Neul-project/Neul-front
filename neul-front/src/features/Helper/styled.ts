@@ -5,7 +5,7 @@ export const HelperStyled = styled.div`
   height: 100%;
 
   .Helper_S_container {
-    padding: 20px;
+    padding: 30px 20px 40px 20px;
     max-width: 1000px;
     margin: 0 auto;
   }
@@ -28,7 +28,7 @@ export const HelperStyled = styled.div`
   }
 
   .Helper_SwiperContainer {
-    border: 1px solid #ddd;
+    border: 1px solid #d9d9d9;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -77,7 +77,7 @@ export const HelperStyled = styled.div`
   }
 
   .Helper_datePicker {
-    width: 300px;
+    width: 304px;
     margin-bottom: 8px;
   }
 
@@ -102,6 +102,10 @@ export const HelperStyled = styled.div`
         background-color: ${(props) => props.theme.colors.softGreen};
       }
     }
+  }
+
+  .ant-picker {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .swiper-slide {
