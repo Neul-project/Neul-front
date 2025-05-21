@@ -34,7 +34,7 @@ const JoinPage = () => {
 
   const option = [
     { value: "user", label: "일반사용자" },
-    { value: "admin", label: "관리자" },
+    { value: "admin", label: "도우미" },
   ];
 
   // 이메일, 전화번호 중복 검사
