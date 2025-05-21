@@ -8,7 +8,7 @@ import { EffectCoverflow, Pagination } from "swiper/modules";
 
 import { InfoCircleFilled } from "@ant-design/icons";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HelperStyled } from "./styled";
 import Image from "next/image";
 
@@ -80,10 +80,29 @@ const helpers: HelperInfo[] = [
 ];
 
 const HelperFeat = () => {
+  // 도우미 리스트
+  const [helpers, setHelpers] = useState<HelperInfo[]>([]);
+
   const [activeHelper, setActiveHelper] = useState<HelperInfo | null>(null);
   const [helperTime, setHelperTime] = useState<HelperTime | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [loadingTime, setLoadingTime] = useState(false);
+
+  // 도우미 리스트 요청
+  // useEffect(() => {
+  //   const fetchHelpers = async () => {
+  //     try {
+  //       const res = await axiosInstance.get("/helper/info");
+  //       console.log("도우미 리스트 응답",res.data);
+
+  //       setHelpers(res.data);
+  //     } catch (error) {
+  //       console.error("도우미 목록 불러오기 실패:", error);
+  //     }
+  //   };
+
+  //   fetchHelpers();
+  // }, []);
 
   // 해당 도우미의 일정 불러오기
   const fetchHelperTime = async (helperId: number) => {
