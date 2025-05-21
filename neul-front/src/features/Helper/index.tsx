@@ -25,7 +25,7 @@ interface HelperInfo {
   birth: string;
   profileImage: string;
   certificate: string; // 자격증 pdf파일
-  desiredPay: string; // 희망 일당
+  desiredPay: number; // 희망 일당
   experience: string; // 경력사항
   certificateName_01: string;
   certificateName_02: string | null;
@@ -43,7 +43,7 @@ const helpers: HelperInfo[] = [
     name: "김가나",
     profileImage: "/cute_cat.jpg",
     certificate: "/cert1.pdf",
-    desiredPay: "100,000",
+    desiredPay: 100000,
     experience: "5년간 재가활동보조",
     gender: "여성",
     birth: "1985-06-14",
@@ -56,7 +56,7 @@ const helpers: HelperInfo[] = [
     name: "박금자",
     profileImage: "/cute_dog.jpg",
     certificate: "/cert2.pdf",
-    desiredPay: "90,000",
+    desiredPay: 90000,
     experience: "3년 요양원 근무",
     gender: "남성",
     birth: "1980-01-25",
@@ -69,7 +69,7 @@ const helpers: HelperInfo[] = [
     name: "이세인",
     profileImage: "/cute_pup.jpg",
     certificate: "/cert3.pdf",
-    desiredPay: "85,000",
+    desiredPay: 70000,
     experience: "장애인 돌봄 경험 있음",
     gender: "여성",
     birth: "1990-09-01",
@@ -81,7 +81,7 @@ const helpers: HelperInfo[] = [
 
 const HelperFeat = () => {
   // 도우미 리스트
-  const [helpers, setHelpers] = useState<HelperInfo[]>([]);
+  // const [helpers, setHelpers] = useState<HelperInfo[]>([]);
 
   const [activeHelper, setActiveHelper] = useState<HelperInfo | null>(null);
   const [helperTime, setHelperTime] = useState<HelperTime | null>(null);
