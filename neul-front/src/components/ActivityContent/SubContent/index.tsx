@@ -14,16 +14,10 @@ import dynamic from "next/dynamic";
 import clsx from "clsx";
 import { AntdGlobalTheme } from "@/utils/antdtheme";
 import SwiperImg from "../SwiperImg";
-
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
 });
-
-const Viewer = dynamic(
-  () => import("@toast-ui/react-editor").then((mod) => mod.Viewer),
-  { ssr: false }
-);
 
 const { TextArea } = Input;
 
@@ -86,7 +80,7 @@ const SubContent = (props: {
         <div className="SubContent_row  SubContent_row_note">
           <div className="SubContent_text">특이사항</div>
           <div className="SubContent_re_text SubContent_re_text_note">
-            <Viewer height="100%" initialValue={note} />
+            {note}
           </div>
         </div>
 
