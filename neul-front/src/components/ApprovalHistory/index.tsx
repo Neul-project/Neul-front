@@ -42,7 +42,7 @@ const ApprovalHistory = () => {
   useEffect(() => {
     const fetchHelpers = async () => {
       try {
-        const res = await axiosInstance.get("helper/approveduser");
+        const res = await axiosInstance.get("helper/info");
         setHelpers(res.data);
       } catch (error) {
         console.error("도우미 목록 불러오기 실패:", error);
@@ -52,46 +52,53 @@ const ApprovalHistory = () => {
     fetchHelpers();
   }, []);
 
-  // const onEdit = (id: number) => {
-  //   alert(`도우미 ID ${id} 수정 화면으로 이동합니다.`);
-  //   // 혹은 모달 열기, 페이지 이동 등 원하는 액션
-  // };
+  const onEdit = (id: number) => {
+    alert(`도우미 ID ${id} 수정 화면으로 이동합니다.`);
+    // 혹은 모달 열기, 페이지 이동 등 원하는 액션
+  };
 
-  // // 테이블 컬럼 구성
-  // const columns: ColumnsType<HelperInfo> = [
-  //   {
-  //     title: "이름",
-  //     dataIndex: ["user", "name"],
-  //     key: "name",
-  //   },
-  //   {
-  //     title: "상태",
-  //     dataIndex: "status",
-  //     key: "status",
-  //   },
+  // 테이블 컬럼 구성
+  const columns: ColumnsType<HelperInfo> = [
+    {
+      title: "이름",
+      dataIndex: ["user", "name"],
+      key: "name",
+    },
+    {
+      title: "상태",
+      dataIndex: "status",
+      key: "status",
+    },
 
-  //   {
-  //     title: "가입일",
-  //     dataIndex: ["user", "created_at"],
-  //     key: "created_at",
-  //     render: (date: string) => dayjs(date).format("YYYY-MM-DD"),
-  //   },
-  //   {
-  //     title: "정보수정",
-  //     key: "action",
-  //     render: (_, record) =>
-  //       record.status === "승인 반려" ? (
-  //         <Button onClick={() => onEdit(record.id)}>수정</Button>
-  //       ) : null,
-  //   },
-  // ];
+    {
+      title: "가입일",
+      dataIndex: ["user", "created_at"],
+      key: "created_at",
+      render: (date: string) => dayjs(date).format("YYYY-MM-DD"),
+    },
+    {
+      title: "정보수정",
+      key: "action",
+      render: (_, record) =>
+        record.status === "승인 반려" ? (
+          <Button onClick={() => onEdit(record.id)}>수정</Button>
+        ) : null,
+    },
+  ];
 
   return (
     <ApprovalHistoryStyled>
       <div className="ApprovalHistory_container">
         <div className="ApprovalHistory_title">가입승인 내역(도우미)</div>
 
-        <div className="ApprovalHistory_infoBox">ㅇㅇ</div>
+        <div className="ApprovalHistory_infoBox">
+          <Table
+            rowKey="id"
+            columns={columns}
+            dataSource={helpers}
+            pagination={{ pageSize: 10 }}
+          />
+        </div>
       </div>
     </ApprovalHistoryStyled>
   );
