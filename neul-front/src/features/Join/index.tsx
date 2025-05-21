@@ -201,7 +201,7 @@ const JoinPage = () => {
 
           // 도우미 프로필 정보 전송
           const helperRes = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/user/helper-signup`,
+            `${process.env.NEXT_PUBLIC_API_URL}/helper/helper-signup`,
             formData,
             {
               headers: {
@@ -227,7 +227,13 @@ const JoinPage = () => {
         );
 
         if (agreementsRes.data?.ok) {
-          alert("회원가입이 완료되었습니다!");
+          if (values.role === "admin") {
+            alert(
+              "회원가입이 완료되었습니다.\n관리자의 최종 승인이 완료되면 서비스를 이용하실 수 있습니다."
+            );
+          } else {
+            alert("회원가입이 완료되었습니다!");
+          }
           router.push("/");
         } else {
           alert("약관 동의 처리 중 문제가 발생했습니다.");
