@@ -134,7 +134,7 @@ const HelperFeat = () => {
       // 3. 서버 요청
       // const res = await axiosInstance.post("/helper/submit-request", {
       //   helperId,
-      //   dates: validDates, // 배열로 보냄
+      //   dates: validDates, // ['2025-05-12', '2025-05-13'...]
       // });
 
       // console.log("도우미 신청 결과:", res.data);
