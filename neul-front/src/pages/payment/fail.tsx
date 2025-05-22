@@ -1,7 +1,7 @@
-import PaymentSuccess from "@/features/PaymentManager/Fail";
+import PaymentFail from "@/features/PaymentManager/Fail";
 
-const Success = () => {
-  return <PaymentSuccess />;
+const Fail = () => {
+  return <PaymentFail />;
 };
 
-export default Success;
+export default Fail;

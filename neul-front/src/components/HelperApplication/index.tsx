@@ -140,24 +140,25 @@ const HelperApplication = () => {
     }
 
     try {
-      // 1. 결제 준비 요청
-      const res = await axiosInstance.post("/helpers/create", {
+      const orderId = `order-${Date.now()}`;
+      const orderName = "도우미 신청 결제";
+
+      // 서버에 결제내역 전송
+      const res = await axiosInstance.post("/matching/create-payment", {
         amount,
-        helperId: helperId, // 12
+        helperId: helperId,
+        orderId,
       });
-      console.log("orderId", res.data);
-      const orderId = res.data;
 
       // 2. 받은 orderId로 토스 결제창 띄우기
       const tossPayments = await loadTossPayments(tossClientKey);
 
       await tossPayments.requestPayment({
-        amount: amount,
-        orderId: orderId,
-        orderName: `${amount}원 결제`,
-
-        // successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success`,
-        // failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
+        amount,
+        orderId,
+        orderName,
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/confirm`,
+        failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
       });
     } catch (error) {
       console.error("결제 요청 중 오류:", error);
@@ -181,7 +182,7 @@ const HelperApplication = () => {
               <div className="HelperApp_btn">
                 <button
                   onClick={() => {
-                    // 희망 일당 * 사용자가 신청한 일수 계산
+                    // (희망 일당 * 사용자가 신청한 일수) 계산
                     const applyDates = helper.apply_dates;
                     const dateArray = applyDates.split(",");
                     const dateCount = dateArray.length;

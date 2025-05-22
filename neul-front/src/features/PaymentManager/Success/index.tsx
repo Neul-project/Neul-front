@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "@/lib/axios";
 import { useCartStore } from "@/stores/useCartStore";
 
+// 프로그램 최종 결제완료 페이지
 const PaymentSucessFeat = () => {
   const router = useRouter();
   const { orderId, amount, paymentKey } = router.query;
