@@ -13,6 +13,7 @@ interface HelperInfo {
   certificateName: string;
   certificateName2: string | null;
   certificateName3: string | null;
+  status: string;
   user: {
     id: number;
     name: string;
