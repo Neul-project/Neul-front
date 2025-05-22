@@ -8,6 +8,7 @@ type User = {
   id: number;
   name: string;
   provider?: string;
+  role: string;
 };
 
 type AuthState = {

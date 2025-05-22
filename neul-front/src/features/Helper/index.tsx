@@ -14,7 +14,10 @@ import Image from "next/image";
 import { DatePicker } from "antd";
 const { RangePicker } = DatePicker;
 import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+dayjs.extend(isSameOrBefore);
 import "dayjs/locale/ko";
+
 import axiosInstance from "@/lib/axios";
 
 interface HelperInfo {
@@ -36,6 +39,7 @@ interface HelperInfo {
 interface HelperTime {
   availableFrom: string; // "2024-06-01"
   availableTo: string; // "2024-06-30"
+  availableDays: string[];
 }
 
 const HelperFeat = () => {
@@ -76,7 +80,9 @@ const HelperFeat = () => {
       const res: HelperTime = {
         availableFrom: "2025-05-10",
         availableTo: "2025-06-25",
+        availableDays: ["mon", "tue", "wed"],
       };
+      // "sun","mon", "tue", "wed", "thu", "fri", "sat",
 
       setHelperTime(res);
     } catch (error) {
@@ -94,33 +100,55 @@ const HelperFeat = () => {
     endDate: Date
   ): Promise<void> => {
     try {
-      const formattedStart = dayjs(startDate).format("YYYY-MM-DD");
-      const formattedEnd = dayjs(endDate).format("YYYY-MM-DD");
+      if (!helperTime) return;
 
-      console.log({
-        helperId,
-        startDate: formattedStart,
-        endDate: formattedEnd,
-      });
+      const dayMap: { [key: number]: string } = {
+        0: "sun",
+        1: "mon",
+        2: "tue",
+        3: "wed",
+        4: "thu",
+        5: "fri",
+        6: "sat",
+      };
 
-      const res = await axiosInstance.post("/helper/submit-request", {
-        helperId,
-        startDate: formattedStart,
-        endDate: formattedEnd,
-      });
+      // 1. 시작 ~ 종료 날짜까지 반복하며 가능한 요일만 필터링
+      const validDates: string[] = [];
+      let cursor = dayjs(startDate);
 
-      console.log("도우미 신청 결과:", res.data);
-
-      if (res.data.ok) {
-        alert(
-          "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
-        );
-
-        // 초기화
-        // setActiveHelper(null);
-        // setHelperTime(null);
-        // setSelectedRange(null);
+      while (cursor.isSameOrBefore(dayjs(endDate), "day")) {
+        const weekday = dayMap[cursor.day()];
+        if (helperTime.availableDays.includes(weekday)) {
+          validDates.push(cursor.format("YYYY-MM-DD"));
+        }
+        cursor = cursor.add(1, "day");
       }
+
+      // 2. 선택된 날짜가 하나도 없으면 중단
+      if (validDates.length === 0) {
+        alert("도우미가 선택한 기간 내에서 근무 가능한 요일이 없습니다.");
+        return;
+      }
+
+      console.log("validDates: ", validDates);
+      // 3. 서버 요청
+      // const res = await axiosInstance.post("/helper/submit-request", {
+      //   helperId,
+      //   dates: validDates, // 배열로 보냄
+      // });
+
+      // console.log("도우미 신청 결과:", res.data);
+
+      // if (res.data.ok) {
+      //   alert(
+      //     "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
+      //   );
+
+      //   // 초기화 (선택)
+      //   // setActiveHelper(null);
+      //   // setHelperTime(null);
+      //   // setSelectedRange(null);
+      // }
     } catch (error) {
       console.error("도우미 신청 중 오류 발생:", error);
       alert("신청 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -244,15 +272,32 @@ const HelperFeat = () => {
                     setSelectedRange(null);
                   }
                 }}
+                // 비활성화 날짜 범위 체크
                 disabledDate={(current) => {
                   if (!current || !helperTime) return true;
 
                   const from = dayjs(helperTime.availableFrom);
                   const to = dayjs(helperTime.availableTo);
+                  const dayOfWeek = current.day(); // 0: Sunday, 1: Monday ...
 
-                  return (
-                    current.isBefore(from, "day") || current.isAfter(to, "day")
+                  const dayMap: { [key: number]: string } = {
+                    0: "sun",
+                    1: "mon",
+                    2: "tue",
+                    3: "wed",
+                    4: "thu",
+                    5: "fri",
+                    6: "sat",
+                  };
+
+                  const isInRange =
+                    !current.isBefore(from, "day") &&
+                    !current.isAfter(to, "day");
+                  const isValidDay = helperTime.availableDays.includes(
+                    dayMap[dayOfWeek]
                   );
+
+                  return !(isInRange && isValidDay);
                 }}
                 className="Helper_datePicker"
                 placeholder={["시작일", "종료일"]}
