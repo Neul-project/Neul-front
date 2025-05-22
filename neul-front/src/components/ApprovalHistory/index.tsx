@@ -19,6 +19,7 @@ interface HelperInfo {
   certificateName2: string | null;
   certificateName3: string | null;
   status: string;
+  description: string;
   user: {
     id: number;
     name: string;
@@ -35,8 +36,8 @@ interface HelperInfo {
 // 가입승인 내역(도우미)
 const ApprovalHistory = () => {
   // zustand 로그인 유저 정보, admin 정보 가져오기
-  const { user } = useAuthStore();
-  const userId = user?.id;
+  const userId = useAuthStore((state) => state.user?.id);
+  console.log(userId);
 
   // 도우미 내역
   const [helper, setHelper] = useState<HelperInfo | null>(null);
@@ -60,7 +61,7 @@ const ApprovalHistory = () => {
 
         setHelper(res.data);
       } catch (error) {
-        console.error("도우미 목록 불러오기 실패:", error);
+        console.error("도우미 불러오기 실패:", error);
       }
     };
 
@@ -99,14 +100,14 @@ const ApprovalHistory = () => {
           console.log(`${key}:`, value);
         }
 
-        // const res = await axiosInstance.patch("/helper/edit-profile", formData);
+        const res = await axiosInstance.patch("/helper/edit-profile", formData);
 
-        // if (res.data?.ok) {
-        //   alert("재승인 요청이 완료되었습니다.");
-        //   setShowEditForm(false);
-        // } else {
-        //   alert("재승인 요청이 실패했습니다.");
-        // }
+        if (res.data?.ok) {
+          alert("재승인 요청이 완료되었습니다.");
+          setShowEditForm(false);
+        } else {
+          alert("재승인 요청이 실패했습니다.");
+        }
       } catch (error) {
         console.error("재승인 요청 실패:", error);
         alert("서버 오류가 발생했습니다.");
