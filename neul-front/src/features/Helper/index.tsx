@@ -77,18 +77,18 @@ const HelperFeat = () => {
   const fetchHelperTime = async (helperId: number) => {
     setLoadingTime(true);
     try {
-      // const res = await axiosInstance.get(`/helper/time/${helperId}`);
-      // console.log("도우미 일정 응답",res.data)
+      const res = await axiosInstance.get(`/helper/time/${helperId}`);
+      console.log("도우미 일정 응답", res.data);
 
       // 더미 테스트용
-      const res: HelperTime = {
-        startDate: "2025-05-10",
-        endDate: "2025-06-25",
-        week: ["mon", "tue", "wed"],
-      };
+      // const res: HelperTime = {
+      //   startDate: "2025-05-10",
+      //   endDate: "2025-06-25",
+      //   week: ["mon", "tue", "wed"],
+      // };
       // "sun","mon", "tue", "wed", "thu", "fri", "sat",
 
-      setHelperTime(res);
+      setHelperTime(res.data);
     } catch (error) {
       console.error("근무 가능 날짜 불러오기 실패:", error);
       setHelperTime(null);
@@ -136,23 +136,23 @@ const HelperFeat = () => {
 
       console.log("validDates: ", helperId, validDates);
       // 3. 서버 요청
-      // const res = await axiosInstance.post("/matching/submit-request", {
-      //   helperId,
-      //   dates: validDates, // ['2025-05-12', '2025-05-13'...]
-      // });
+      const res = await axiosInstance.post("/matching/submit-request", {
+        helperId,
+        dates: validDates, // ['2025-05-12', '2025-05-13'...]
+      });
 
-      // console.log("도우미 신청 결과:", res.data);
+      console.log("도우미 신청 결과:", res.data);
 
-      // if (res.data.ok) {
-      //   alert(
-      //     "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
-      //   );
+      if (res.data.ok) {
+        alert(
+          "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
+        );
 
-      //   // 초기화 (선택)
-      //   // setActiveHelper(null);
-      //   // setHelperTime(null);
-      //   // setSelectedRange(null);
-      // }
+        // 초기화 (선택)
+        setActiveHelper(null);
+        setHelperTime(null);
+        setSelectedRange(null);
+      }
     } catch (error) {
       console.error("도우미 신청 중 오류 발생:", error);
       alert("신청 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -268,7 +268,11 @@ const HelperFeat = () => {
 
               <RangePicker
                 className="Helper_datePicker"
-                popupClassName="custom-datepicker-popup"
+                classNames={{
+                  popup: {
+                    root: "custom-datepicker-popup",
+                  },
+                }}
                 value={
                   selectedRange
                     ? [dayjs(selectedRange[0]), dayjs(selectedRange[1])]

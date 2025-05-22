@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { formatPhoneNumber } from "@/utils/formatter";
 import { useFormik } from "formik";
 import { editHelperValidationSchema } from "@/utils/joinValidation";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 interface HelperInfo {
   id: number;
@@ -33,6 +34,10 @@ interface HelperInfo {
 
 // 가입승인 내역(도우미)
 const ApprovalHistory = () => {
+  // zustand 로그인 유저 정보, admin 정보 가져오기
+  const { user } = useAuthStore();
+  const userId = user?.id;
+
   // 도우미 내역
   const [helper, setHelper] = useState<HelperInfo | null>(null);
   // 승인 반려 hover 모달
@@ -44,9 +49,15 @@ const ApprovalHistory = () => {
 
   // 도우미 정보 요청
   useEffect(() => {
+    if (!userId) return;
+
+    console.log("ddddd", userId);
     const fetchHelpers = async () => {
       try {
-        const res = await axiosInstance.get("helper/userlist");
+        const res = await axiosInstance.get("helper/userlist", {
+          params: { id: userId },
+        });
+
         setHelper(res.data);
       } catch (error) {
         console.error("도우미 목록 불러오기 실패:", error);
@@ -54,7 +65,7 @@ const ApprovalHistory = () => {
     };
 
     fetchHelpers();
-  }, []);
+  }, [userId]);
 
   // 도우미 정보 보완 후 재승인 요청
   const formik = useFormik({
@@ -104,7 +115,7 @@ const ApprovalHistory = () => {
   });
 
   // 날짜 포맷
-  const formatted = dayjs(helper?.user.created_at).format("YYYY-MM-DD HH:mm");
+  const formatted = dayjs(helper?.user?.created_at).format("YYYY-MM-DD HH:mm");
 
   return (
     <ApprovalHistoryStyled>
@@ -115,7 +126,7 @@ const ApprovalHistory = () => {
           <div className="wrap">
             <div className="Approval_box">
               <div className="box1">이름</div>
-              <div className="content1">{helper?.user.name}</div>
+              <div className="content1">{helper?.user?.name}</div>
             </div>
 
             <div className="Approval_box">
@@ -182,7 +193,7 @@ const ApprovalHistory = () => {
             <div className="wrap">
               <div className="Approval_box">
                 <div className="box1">이메일</div>
-                <div className="content1">{helper?.user.email}</div>
+                <div className="content1">{helper?.user?.email}</div>
               </div>
 
               <div className="Approval_box">
@@ -202,7 +213,7 @@ const ApprovalHistory = () => {
               <div className="Approval_box">
                 <div className="box1">휴대폰</div>
                 <div className="content1">
-                  {formatPhoneNumber(helper?.user.phone!)}
+                  {formatPhoneNumber(helper?.user?.phone!)}
                 </div>
               </div>
             </div>

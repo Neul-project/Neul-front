@@ -52,7 +52,9 @@ const HelperApplication = () => {
       <div className="HelperApp_container">
         <div className="HelperApp_title">도우미 신청내역</div>
 
-        <div>ddd</div>
+        <div className="HelperApp_btn">
+          <button>결제</button>
+        </div>
       </div>
     </HelperAppStyled>
   );
