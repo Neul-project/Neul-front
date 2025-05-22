@@ -10,6 +10,8 @@ import plus from "@/assets/images/plus.png";
 import chat from "@/assets/images/ic-event-survey.png";
 import test from "@/assets/images/ic-event-test.png";
 import relay from "@/assets/images/ic-event-relay.png";
+import helper from "@/assets/images/helper.png";
+
 import { useMessageStore } from "@/stores/useMessageStore";
 import { Badge, message, notification } from "antd";
 import { useEffect } from "react";
@@ -99,6 +101,11 @@ const NavigationElement = () => {
     router.push("/program");
   };
 
+  //도우미 신청 페이지 이동
+  const HelperPage = () => {
+    router.push("/helper");
+  };
+
   return (
     <NavigationElementStyled className={clsx("NavigationElement_main_wrap")}>
       <div className="NavigationElement_title">바로가기</div>
@@ -151,6 +158,17 @@ const NavigationElement = () => {
               />
             </div>
             <div className="NavigationElement_text">프로그램</div>
+          </div>
+
+          <div className="NavigationElement_ele" onClick={HelperPage}>
+            <div className="NavigationElement_img">
+              <img
+                className="NavigationElement_imgstyle"
+                src={helper.src}
+                alt="puls"
+              />
+            </div>
+            <div className="NavigationElement_text">도우미 신청</div>
           </div>
 
           <div className="NavigationElement_ele" onClick={MyPage}>

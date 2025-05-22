@@ -69,11 +69,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/* <Script
-        src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
-        integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6"
-        strategy="beforeInteractive"
-      /> */}
       <ThemeProvider theme={theme}>
         <Header />
 
