@@ -6,7 +6,7 @@ import axiosInstance from "@/lib/axios";
 // 도우미 최종 결제완료 페이지
 const PaymentConfirmFeat = () => {
   const router = useRouter();
-  const { orderId, amount, paymentKey } = router.query;
+  const { helperId, orderId, amount, paymentKey } = router.query;
 
   const [orderInfo, setOrderInfo] = useState<any>(null);
 
@@ -15,19 +15,22 @@ const PaymentConfirmFeat = () => {
   // 최종 결제승인 요청
   useEffect(() => {
     // 쿼리 다 로드되기 전이면 아무것도 하지 않음
-    if (!orderId || !amount || !paymentKey) return;
+    if (!helperId || !orderId || !amount || !paymentKey) return;
 
     const confirmPayment = async () => {
       try {
         // 1. 백엔드에 결제 승인 요청
         const res = await axiosInstance.post("/matching/confirm", {
+          helperId,
           orderId,
-          amount,
           paymentKey,
         });
 
-        // 2. 응답 받은 주문 정보 저장
-        setOrderInfo(res.data);
+        console.log("도우미 최종결제 완료", res.data);
+
+        if (res.data.ok) {
+          alert("도우미 신청 결제가 완료되었습니다!");
+        }
       } catch (err) {
         console.error("도우미 결제 승인 실패:", err);
         // router.replace("/payment/fail");
@@ -35,7 +38,7 @@ const PaymentConfirmFeat = () => {
     };
 
     confirmPayment();
-  }, [orderId, amount, paymentKey]);
+  }, [helperId, orderId, amount, paymentKey]);
 
   return (
     <ComfirmStyled>

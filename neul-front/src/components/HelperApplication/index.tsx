@@ -144,11 +144,11 @@ const HelperApplication = () => {
       const orderName = "도우미 신청 결제";
 
       // 서버에 결제내역 전송
-      const res = await axiosInstance.post("/matching/create-payment", {
-        amount,
-        helperId: helperId,
-        orderId,
-      });
+      // const res = await axiosInstance.post("/matching/create-payment", {
+      //   amount,
+      //   helperId: helperId,
+      //   orderId,
+      // });
 
       // 2. 받은 orderId로 토스 결제창 띄우기
       const tossPayments = await loadTossPayments(tossClientKey);
@@ -157,7 +157,7 @@ const HelperApplication = () => {
         amount,
         orderId,
         orderName,
-        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/confirm`,
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/confirm?&helperId=${helperId}`,
         failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
       });
     } catch (error) {
