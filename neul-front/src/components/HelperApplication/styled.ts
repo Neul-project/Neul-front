@@ -20,18 +20,22 @@ export const HelperAppStyled = styled.div`
     border-bottom: 2px solid rgb(51, 51, 51);
   }
 
+  .HelperApp_Content {
+    margin-bottom: 20px;
+  }
+
   .HelperApp_btn {
     button {
       cursor: pointer;
       border-radius: 4px;
-      background-color: #f6f6f8;
-      border: none;
-      padding: 9px 12px;
+      background-color: #fff;
+      border: 1px solid ${(props) => props.theme.colors.pointGreen};
+      padding: 7px 14px;
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
       letter-spacing: -1px;
-      color: #747783;
+      color: ${(props) => props.theme.colors.pointGreen};
     }
   }
 `;
