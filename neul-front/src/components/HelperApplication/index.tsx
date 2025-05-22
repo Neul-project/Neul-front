@@ -28,24 +28,24 @@ interface HelperInfo {
 
 // 도우미 신청내역(사용자)
 const HelperApplication = () => {
-  // 도우미 리스트
+  // 신청한 도우미 리스트
   const [helpers, setHelpers] = useState<HelperInfo[]>([]);
 
-  // 도우미 리스트 요청
-  useEffect(() => {
-    const fetchHelpers = async () => {
-      try {
-        const res = await axiosInstance.get("helper/approveduser");
-        console.log("도우미 리스트 응답", res.data);
+  // 신청한 도우미 리스트 요청
+  // useEffect(() => {
+  //   const fetchHelpers = async () => {
+  //     try {
+  //       const res = await axiosInstance.get("matching/myapplication-list");
+  //       console.log("신청한 도우미 리스트 응답", res.data);
 
-        setHelpers(res.data);
-      } catch (error) {
-        console.error("도우미 목록 불러오기 실패:", error);
-      }
-    };
+  //       setHelpers(res.data);
+  //     } catch (error) {
+  //       console.error("신청한 도우미 목록 불러오기 실패:", error);
+  //     }
+  //   };
 
-    fetchHelpers();
-  }, []);
+  //   fetchHelpers();
+  // }, []);
 
   return (
     <HelperAppStyled>

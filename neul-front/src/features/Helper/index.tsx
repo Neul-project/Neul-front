@@ -22,6 +22,7 @@ dayjs.extend(isSameOrBefore);
 import "dayjs/locale/ko";
 
 import axiosInstance from "@/lib/axios";
+import { useRouter } from "next/router";
 
 interface HelperInfo {
   id: number;
@@ -47,6 +48,8 @@ interface HelperTime {
 }
 
 const HelperFeat = () => {
+  const router = useRouter();
+
   // 도우미 리스트
   const [helpers, setHelpers] = useState<HelperInfo[]>([]);
 
@@ -80,12 +83,6 @@ const HelperFeat = () => {
       const res = await axiosInstance.get(`/helper/time/${helperId}`);
       console.log("도우미 일정 응답", res.data);
 
-      // 더미 테스트용
-      // const res: HelperTime = {
-      //   startDate: "2025-05-10",
-      //   endDate: "2025-06-25",
-      //   week: ["mon", "tue", "wed"],
-      // };
       // "sun","mon", "tue", "wed", "thu", "fri", "sat",
 
       setHelperTime(res.data);
@@ -147,6 +144,8 @@ const HelperFeat = () => {
         alert(
           "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
         );
+
+        router.push("/");
 
         // 초기화 (선택)
         setActiveHelper(null);
