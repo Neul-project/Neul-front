@@ -52,13 +52,13 @@ const HelperFeat = () => {
 
   // 도우미 리스트
   const [helpers, setHelpers] = useState<HelperInfo[]>([]);
-
   const [activeHelper, setActiveHelper] = useState<HelperInfo | null>(null);
   const [helperTime, setHelperTime] = useState<HelperTime | null>(null);
   // 유저가 도우미 신청하는 날짜 범위
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
-  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [loadingTime, setLoadingTime] = useState(false);
+  // 도우미 신청하기 hover 모달
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 도우미 리스트 요청
   useEffect(() => {
@@ -164,7 +164,38 @@ const HelperFeat = () => {
         <div className="Helper_title_container">
           <div className="Helper_title">도우미 신청하기</div>
           <div className="Helper_icon">
-            <InfoCircleFilled style={{ fontSize: "16px", color: "#c9c9c9" }} />
+            <InfoCircleFilled
+              style={{ fontSize: "16px", color: "#c9c9c9" }}
+              onClick={() => setIsModalOpen((prev) => !prev)}
+              onMouseEnter={() => setIsModalOpen(true)}
+              onMouseLeave={() => setIsModalOpen(false)}
+            />
+            {/* 도우미 신청하기 안내 모달 */}
+            {isModalOpen && (
+              <div className="custom_modal_container">
+                <div className="custom-modal">
+                  <div className="modal-title">
+                    <strong>※ 도우미 신청하기 안내</strong>
+                  </div>
+                  <div>
+                    경력 인증이 완료된 도우미 목록이 표시됩니다.
+                    <br />
+                    1. 신청을 원하는 도우미를 선택해주세요.
+                    <br />
+                    2. 신청가능한 날짜 중 원하는 범위를 선택한 후 신청하기
+                    버튼을 눌러주세요.
+                    <br />
+                    <div className="custom_content">
+                      * 도우미의 검토 및 승인 → 보호자 결제까지 완료되어야 최종
+                      신청됩니다.
+                      <br />* 진행사항 및 결제는{" "}
+                      <span>[마이페이지] → [도우미 신청내역]</span>에서 확인하실
+                      수 있습니다.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

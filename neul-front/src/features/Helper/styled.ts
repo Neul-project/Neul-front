@@ -24,6 +24,7 @@ export const HelperStyled = styled.div`
   }
 
   .Helper_icon {
+    position: relative;
     cursor: pointer;
   }
 
@@ -75,7 +76,32 @@ export const HelperStyled = styled.div`
     text-align: center;
   }
 
-  .Helper_select {
+  .custom_modal_container {
+    position: absolute;
+    z-index: 10;
+    left: -15px;
+    top: 30px;
+    width: 310px;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 20px;
+    line-height: 20px;
+
+    @media (max-width: 632px) {
+      left: -171px;
+    }
+  }
+
+  .custom_content {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 5px;
+
+    span {
+      font-weight: bolder;
+    }
   }
 
   .Helper_select_title {
