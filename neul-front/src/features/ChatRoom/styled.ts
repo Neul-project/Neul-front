@@ -5,7 +5,6 @@ export const ChatRoomStyled = styled.div`
     background-color: rgb(242, 245, 248);
     height: 100vh;
     overflow: hidden;
-
     /* 채팅 헤더 */
     .chatroom_header {
       top: 0px;
@@ -28,52 +27,161 @@ export const ChatRoomStyled = styled.div`
             cursor: pointer;
           }
         }
-      }
-      /* 1:1채팅 */
+      } /* 1:1채팅 */
       .chatroom_title {
         width: 100%;
         text-align: center;
         font-size: large;
         font-weight: 700;
       }
+    }
+    .chatroom_select {
+      overflow-y: scroll;
+      width: 35%;
+      border-radius: 10px 0 0 10px;
+      background-color: white;
+      /* border-top: 1.5px solid #ccc;
+      border-left: 1.5px solid #ccc;
+      border-bottom: 1.5px solid #ccc; */
+      .chatroom_unpeople {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+      }
+      .chatroom_item {
+        height: 65.3px;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
 
-      /* 메시지 전체 삭제 */
-      .chatroom_more_btn {
-        width: 50px;
-        padding-right: 20px;
-        .chatroom_moreicon {
-          width: 100%;
-          height: 100%;
-          &:hover {
-            cursor: pointer;
+        &.selected {
+          background-color: #f5f5f5;
+        }
+        .chatroom_name_box {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .chatroom_name {
+            display: flex;
+            font-weight: bold;
+            width: 180px;
+            .chatroom_stick {
+              margin: 0 5px;
+            }
+            .chatroom_patientname,
+            .chatroom_username {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              word-break: break-all;
+
+              display: -webkit-box;
+              -webkit-line-clamp: 1; // 원하는 라인수
+              -webkit-box-orient: vertical;
+            }
+
+            span {
+              font-size: 14px;
+            }
           }
+          .chatroom_lasttime {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 2px;
+          }
+        }
+
+        .chatroom_lastmessage_box {
+          color: #555;
+          font-size: 0.9rem;
+          margin-top: 4px;
+          display: flex;
+          justify-content: space-between;
+
+          .chatroom_lastmessage {
+            width: 250px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            word-break: break-all;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 1; // 원하는 라인수
+            -webkit-box-orient: vertical;
+          }
+          .chatroom_unread {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: red;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    /* 채팅 전체 */
+    .chatroom_box {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -45%, 0);
+      border-radius: 20px;
+      max-width: 1028px;
+      width: 100%;
+      max-height: 600px;
+      height: 100%;
+      margin: 0 auto;
+
+      @media (max-width: 1035px) {
+        .close {
+          display: none;
+        }
+        .chatroom_select {
+          width: 100%;
+          border-radius: 0;
+        }
+        .chatroom_content_box {
+          width: 100%;
+          border-radius: 0;
         }
       }
     }
 
     /* 채팅 내용 */
     .chatroom_content_box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -45%, 0);
-      border-radius: 10px;
-      background-color: white;
-      max-width: 1028px;
-      width: 100%;
-      max-height: 600px;
-      height: 100%;
-      margin: 0 auto;
+      border-radius: 0 10px 10px 0;
+      position: relative;
+      width: 65%;
       display: flex;
       flex-direction: column;
+      background-color: white;
+      /* border: 0.7px solid #ccc; */
+      overflow: hidden;
+
+      /* 채팅방 헤더 */
+      .chatroom_content_header {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        .chatroom_moreicon,
+        .chatroom_backicon {
+          cursor: pointer;
+        }
+      }
 
       .chatroom_bottom_button {
-        position: fixed;
-        bottom: 100px;
+        position: absolute;
+        bottom: 90px;
         right: 50px;
         background-color: ${(props) => props.theme.colors.pointGreen};
         color: white;
-        padding: 13px;
+        padding: 10px 13px;
         border-radius: 50%;
         font-size: 16px;
         z-index: 1000;
@@ -84,37 +192,34 @@ export const ChatRoomStyled = styled.div`
         }
       }
 
-      .chatroom_content.scrollable {
-        margin-bottom: 1px;
-        overflow-y: auto;
-        white-space: pre-wrap;
-        word-break: break-word;
+      .chatroom_content {
         flex: 1;
+        overflow-y: auto;
+
+        /* Firefox */
+        /* scrollbar-width: none; */
+        /* IE 10+ */
+        /* -ms-overflow-style: none; */
+
         padding: 10px;
         box-sizing: border-box;
         .chatroom_date {
           text-align: center;
           color: #ccc;
-          margin: 18px 0 22px 0;
+          margin-top: 20px;
         }
-        &::-webkit-scrollbar {
-          width: 20px;
+        .chatroom_uncontent {
+          color: #999;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
-        &::-webkit-scrollbar-thumb {
-          /* background-color: ${(props) => props.theme.colors.softGreen}; */
-          background-color: #bbb;
-          border-radius: 10px;
+      }
 
-          border: 7px solid white; /* 스크롤을 적용할 영역 색깔과 border 색상을 똑같이 맞춘다 */
-        }
-        &::-webkit-scrollbar-track {
-          background-color: rgba(
-            0,
-            0,
-            0,
-            0
-          ); /* 스크롤바 뒷 배경을 투명 처리한다 */
-        }
+      .chatroom_content::-webkit-scrollbar {
+        /* Chrome, Safari, Edge */
+        /* display: none; */
       }
 
       /* 메시지 보내는 부분 */
@@ -150,14 +255,6 @@ export const ChatRoomStyled = styled.div`
           opacity: 0.4;
           pointer-events: none;
         }
-      }
-    }
-
-    @media (max-width: 1029px) {
-      .chatroom_content_box {
-        transform: translate3d(-50%, -46.5%, 0);
-        max-height: 93vh;
-        border-radius: 0%;
       }
     }
   }
