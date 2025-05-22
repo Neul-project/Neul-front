@@ -132,7 +132,7 @@ const HelperFeat = () => {
 
       console.log("validDates: ", validDates);
       // 3. 서버 요청
-      // const res = await axiosInstance.post("/helper/submit-request", {
+      // const res = await axiosInstance.post("/matching/submit-request", {
       //   helperId,
       //   dates: validDates, // ['2025-05-12', '2025-05-13'...]
       // });
