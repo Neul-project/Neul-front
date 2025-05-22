@@ -14,7 +14,6 @@ import dynamic from "next/dynamic";
 import clsx from "clsx";
 import { AntdGlobalTheme } from "@/utils/antdtheme";
 import SwiperImg from "../SwiperImg";
-import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
 });
