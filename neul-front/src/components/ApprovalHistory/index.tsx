@@ -88,7 +88,7 @@ const ApprovalHistory = () => {
           console.log(`${key}:`, value);
         }
 
-        // const res = await axiosInstance.patch("/helper/edit", formData);
+        // const res = await axiosInstance.patch("/helper/edit-profile", formData);
 
         // if (res.data?.ok) {
         //   alert("재승인 요청이 완료되었습니다.");
