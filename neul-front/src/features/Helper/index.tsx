@@ -4,8 +4,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import { EffectCoverflow, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 
 import { InfoCircleFilled } from "@ant-design/icons";
+
+import { formatAge } from "@/utils/formatter";
 
 import { useEffect, useState } from "react";
 import { HelperStyled } from "./styled";
@@ -167,6 +170,7 @@ const HelperFeat = () => {
 
         <div className="Helper_SwiperContainer">
           <Swiper
+            navigation
             effect={"coverflow"}
             grabCursor={true}
             centeredSlides={true}
@@ -180,7 +184,7 @@ const HelperFeat = () => {
               slideShadows: false, // 그림자 제거
             }}
             pagination={true}
-            modules={[EffectCoverflow, Pagination]}
+            modules={[EffectCoverflow, Pagination, Navigation]}
             className="mySwiper"
           >
             {helpers.map((helper) => (
@@ -200,10 +204,12 @@ const HelperFeat = () => {
                       <strong>성별:</strong> {helper.gender}
                     </div>
                     <div className="Helper_one">
-                      <strong>생년월일:</strong> {helper.birth}
+                      <strong>생년월일:</strong> {helper.birth} (
+                      {formatAge(helper.birth)})
                     </div>
                     <div className="Helper_one">
-                      <strong>희망 일당:</strong> {helper.desiredPay}원
+                      <strong>희망 일당:</strong>{" "}
+                      {helper.desiredPay.toLocaleString()}원
                     </div>
                     <div className="Helper_one">
                       <strong>자격증:</strong> {helper.certificateName}

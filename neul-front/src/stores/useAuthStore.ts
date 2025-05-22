@@ -29,7 +29,7 @@ export const useAuthStore = create<AuthState>()(
       adminId: null,
 
       login: (user) => {
-        console.log("zustand user:", user);
+        // console.log("zustand user:", user);
         set({ user, isLoggedIn: true });
       },
 

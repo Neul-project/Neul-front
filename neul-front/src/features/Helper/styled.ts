@@ -51,6 +51,8 @@ export const HelperStyled = styled.div`
   }
 
   .Helper_Btn {
+    margin-top: 8px;
+
     button {
       cursor: pointer;
       padding: 6px 14px;
@@ -65,6 +67,12 @@ export const HelperStyled = styled.div`
   }
 
   .Helper_select_container {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #d9d9d9;
+    text-align: center;
   }
 
   .Helper_select {
@@ -73,17 +81,22 @@ export const HelperStyled = styled.div`
   .Helper_select_title {
     font-size: 19px;
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   .Helper_datePicker {
     width: 304px;
     margin-bottom: 8px;
+
+    @media (max-width: 632px) {
+      width: 100%;
+    }
   }
 
   .Helper_select_btn {
     display: flex;
-    gap: 10px;
+    justify-content: center;
+    gap: 13px;
 
     button {
       cursor: pointer;
@@ -133,5 +146,33 @@ export const HelperStyled = styled.div`
 
   .swiper-pagination-bullet-active {
     background: ${(props) => props.theme.colors.pointGreen};
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 27px !important;
+    height: 27px !important;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.504);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 632px) {
+      width: 23px !important;
+      height: 23px !important;
+    }
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: rgba(216, 216, 216, 0.797) !important;
+
+    @media (max-width: 632px) {
+      font-size: 13px !important;
+    }
   }
 `;

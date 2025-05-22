@@ -109,7 +109,7 @@ const ApprovalHistory = () => {
   return (
     <ApprovalHistoryStyled>
       <div className="ApprovalHistory_container">
-        <div className="ApprovalHistory_title">가입승인 내역(도우미)</div>
+        <div className="ApprovalHistory_title">도우미 가입승인 내역</div>
 
         <div className="ApprovalHistory_infoBox">
           <div className="wrap">
