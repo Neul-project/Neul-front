@@ -99,7 +99,7 @@ const HelperFeat = () => {
 
   // 날짜 범위 선택 후 도우미 최종신청 요청
   const submitHelperRequest = async (
-    userId: number,
+    helperId: number,
     startDate: Date,
     endDate: Date
   ): Promise<void> => {
@@ -134,10 +134,10 @@ const HelperFeat = () => {
         return;
       }
 
-      console.log("validDates: ", userId, validDates);
+      console.log("validDates: ", helperId, validDates);
       // 3. 서버 요청
       // const res = await axiosInstance.post("/matching/submit-request", {
-      //   userId,
+      //   helperId,
       //   dates: validDates, // ['2025-05-12', '2025-05-13'...]
       // });
 
@@ -238,7 +238,7 @@ const HelperFeat = () => {
                         onClick={async () => {
                           console.log("helper", helper);
                           setActiveHelper(helper);
-                          await fetchHelperTime(helper.id);
+                          await fetchHelperTime(helper.user.id);
                         }}
                       >
                         날짜선택
