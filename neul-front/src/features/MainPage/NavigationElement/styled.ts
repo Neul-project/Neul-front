@@ -89,29 +89,24 @@ export const NavigationElementStyled = styled.div`
         width: 100%;
         height: 100%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
-        gap: 15px;
+        gap: 20px;
       }
 
-      .NavigationElement_row1 {
-        display: flex;
-        width: 60%;
-        gap: 15px;
-        justify-content: right;
-      }
+      .NavigationElement_row1,
       .NavigationElement_row2 {
         display: flex;
-        width: 40%;
-        gap: 15px;
-        justify-content: left;
+        width: 100%;
+        gap: 20px;
+        justify-content: center;
       }
 
       .NavigationElement_ele {
         display: flex;
         flex-direction: column;
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: 110px;
         align-items: center;
         justify-content: center;
         border-radius: 15px;
