@@ -35,14 +35,15 @@ interface HelperInfo {
   certificateName2: string | null;
   certificateName3: string | null;
   user: {
+    id: number;
     name: string;
   };
 }
 
 interface HelperTime {
-  availableFrom: string; // "2024-06-01"
-  availableTo: string; // "2024-06-30"
-  availableDays: string[];
+  startDate: string; // "2024-06-01"
+  endDate: string; // "2024-06-30"
+  week: string[];
 }
 
 const HelperFeat = () => {
@@ -81,9 +82,9 @@ const HelperFeat = () => {
 
       // 더미 테스트용
       const res: HelperTime = {
-        availableFrom: "2025-05-10",
-        availableTo: "2025-06-25",
-        availableDays: ["mon", "tue", "wed"],
+        startDate: "2025-05-10",
+        endDate: "2025-06-25",
+        week: ["mon", "tue", "wed"],
       };
       // "sun","mon", "tue", "wed", "thu", "fri", "sat",
 
@@ -98,7 +99,7 @@ const HelperFeat = () => {
 
   // 날짜 범위 선택 후 도우미 최종신청 요청
   const submitHelperRequest = async (
-    helperId: number,
+    userId: number,
     startDate: Date,
     endDate: Date
   ): Promise<void> => {
@@ -121,7 +122,7 @@ const HelperFeat = () => {
 
       while (cursor.isSameOrBefore(dayjs(endDate), "day")) {
         const weekday = dayMap[cursor.day()];
-        if (helperTime.availableDays.includes(weekday)) {
+        if (helperTime.week.includes(weekday)) {
           validDates.push(cursor.format("YYYY-MM-DD"));
         }
         cursor = cursor.add(1, "day");
@@ -133,10 +134,10 @@ const HelperFeat = () => {
         return;
       }
 
-      console.log("validDates: ", validDates);
+      console.log("validDates: ", userId, validDates);
       // 3. 서버 요청
       // const res = await axiosInstance.post("/matching/submit-request", {
-      //   helperId,
+      //   userId,
       //   dates: validDates, // ['2025-05-12', '2025-05-13'...]
       // });
 
@@ -266,6 +267,8 @@ const HelperFeat = () => {
               </div>
 
               <RangePicker
+                className="Helper_datePicker"
+                popupClassName="custom-datepicker-popup"
                 value={
                   selectedRange
                     ? [dayjs(selectedRange[0]), dayjs(selectedRange[1])]
@@ -282,8 +285,8 @@ const HelperFeat = () => {
                 disabledDate={(current) => {
                   if (!current || !helperTime) return true;
 
-                  const from = dayjs(helperTime.availableFrom);
-                  const to = dayjs(helperTime.availableTo);
+                  const from = dayjs(helperTime.startDate);
+                  const to = dayjs(helperTime.endDate);
                   const dayOfWeek = current.day(); // 0: Sunday, 1: Monday ...
 
                   const dayMap: { [key: number]: string } = {
@@ -299,13 +302,12 @@ const HelperFeat = () => {
                   const isInRange =
                     !current.isBefore(from, "day") &&
                     !current.isAfter(to, "day");
-                  const isValidDay = helperTime.availableDays.includes(
+                  const isValidDay = helperTime.week.includes(
                     dayMap[dayOfWeek]
                   );
 
                   return !(isInRange && isValidDay);
                 }}
-                className="Helper_datePicker"
                 placeholder={["시작일", "종료일"]}
               />
 
@@ -315,7 +317,7 @@ const HelperFeat = () => {
                   onClick={() => {
                     if (selectedRange && activeHelper) {
                       submitHelperRequest(
-                        activeHelper.id,
+                        activeHelper.user.id,
                         selectedRange[0],
                         selectedRange[1]
                       );

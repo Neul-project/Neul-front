@@ -93,6 +93,14 @@ export const HelperStyled = styled.div`
     }
   }
 
+  .custom-datepicker-popup .ant-picker-range-wrapper {
+    width: 100px !important;
+  }
+
+  .custom-datepicker-popup .ant-picker-panel-container {
+    width: 100px !important;
+  }
+
   .Helper_select_btn {
     display: flex;
     justify-content: center;
