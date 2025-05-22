@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
 export const HelperAppStyled = styled.div`
+  @media (max-width: 632px) {
+    padding: 20px;
+  }
+
   .HelperApp_container {
-    width: 650px;
+    /* width: 650px; */
     padding: 20px 20px;
     border-radius: 16px;
     border: none;
@@ -11,6 +15,7 @@ export const HelperAppStyled = styled.div`
 
     @media (max-width: 632px) {
       width: 100%;
+      padding: 20px;
     }
   }
 

@@ -6,11 +6,8 @@ import axiosInstance from "@/lib/axios";
 // 도우미 최종 결제완료 페이지
 const PaymentConfirmFeat = () => {
   const router = useRouter();
+
   const { helperId, orderId, amount, paymentKey } = router.query;
-
-  const [orderInfo, setOrderInfo] = useState<any>(null);
-
-  console.log("도우미 결제성공: ", orderInfo);
 
   // 최종 결제승인 요청
   useEffect(() => {
@@ -33,7 +30,6 @@ const PaymentConfirmFeat = () => {
         }
       } catch (err) {
         console.error("도우미 결제 승인 실패:", err);
-        // router.replace("/payment/fail");
       }
     };
 
@@ -42,7 +38,25 @@ const PaymentConfirmFeat = () => {
 
   return (
     <ComfirmStyled>
-      <div>도우미 신청 결제 성공 페이지</div>
+      <div className="Confirm_container">
+        <div className="Confirm_title">도우미 신청 결제성공!</div>
+
+        <div className="Confirm_content">
+          도우미 매칭이 완료되었습니다.
+          <br />
+          매칭이 완료된 도우미와 <strong>채팅</strong>을 이용하실 수 있습니다.
+        </div>
+
+        <div className="Confirm_btn">
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            홈으로 가기
+          </button>
+        </div>
+      </div>
     </ComfirmStyled>
   );
 };

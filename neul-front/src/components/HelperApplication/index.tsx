@@ -35,84 +35,6 @@ const HelperApplication = () => {
   // 신청한 도우미 리스트
   const [helpers, setHelpers] = useState<HelperInfo[]>([]);
 
-  // const dummyHelpers: HelperInfo[] = [
-  //   {
-  //     id: 1,
-  //     gender: "female",
-  //     birth: "1990-06-15",
-  //     profileImage: "profile1.jpg",
-  //     certificate: "cert1.pdf",
-  //     desiredPay: 120000,
-  //     experience: "노인 요양보호사 경력 3년",
-  //     certificateName: "요양보호사 1급",
-  //     certificateName2: null,
-  //     certificateName3: null,
-  //     status: "승인 대기",
-  //     dates: "2025-06-25,2025-06-26,2025-06-27",
-  //     user: {
-  //       id: 101,
-  //       name: "김영희",
-  //       email: "younghee@example.com",
-  //       phone: "01012345678",
-  //       address: "서울특별시 강남구",
-  //       created_at: "2024-12-01T10:30:00Z",
-  //       password: "hashed_password_1",
-  //       provider: "local",
-  //       role: "user",
-  //     },
-  //   },
-  //   {
-  //     id: 2,
-  //     gender: "male",
-  //     birth: "1985-03-22",
-  //     profileImage: "profile2.jpg",
-  //     certificate: "cert2.pdf",
-  //     desiredPay: 100000,
-  //     experience: "장애인 활동보조 경력 5년",
-  //     certificateName: "사회복지사 2급",
-  //     certificateName2: "장애인활동지원사",
-  //     certificateName3: null,
-  //     status: "결제 완료",
-  //     dates: "2025-06-25,2025-06-26,2025-06-27",
-  //     user: {
-  //       id: 102,
-  //       name: "이철수",
-  //       email: "chulsoo@example.com",
-  //       phone: "01023456789",
-  //       address: "경기도 성남시 분당구",
-  //       created_at: "2024-10-20T14:15:00Z",
-  //       password: "hashed_password_2",
-  //       provider: "local",
-  //       role: "user",
-  //     },
-  //   },
-  //   {
-  //     id: 3,
-  //     gender: "female",
-  //     birth: "1995-12-05",
-  //     profileImage: "profile3.jpg",
-  //     certificate: "cert3.pdf",
-  //     desiredPay: 110000,
-  //     experience: "요양보호 및 가사도우미 경력 2년",
-  //     certificateName: "요양보호사 2급",
-  //     certificateName2: "가사관리사 자격증",
-  //     certificateName3: "심리상담사 1급",
-  //     status: "결제 대기",
-  //     dates: "2025-06-25,2025-06-26,2025-06-27",
-  //     user: {
-  //       id: 103,
-  //       name: "더미데이터 도우미명",
-  //       email: "minjung@example.com",
-  //       phone: "01034567890",
-  //       address: "부산광역시 해운대구",
-  //       created_at: "2025-01-10T09:00:00Z",
-  //       password: "hashed_password_3",
-  //       provider: "local",
-  //       role: "user",
-  //     },
-  //   },
-  // ];
-
   // 신청한 도우미 리스트 요청
   useEffect(() => {
     const fetchHelpers = async () => {
@@ -144,11 +66,11 @@ const HelperApplication = () => {
       const orderName = "도우미 신청 결제";
 
       // 서버에 결제내역 전송
-      // const res = await axiosInstance.post("/matching/create-payment", {
-      //   amount,
-      //   helperId: helperId,
-      //   orderId,
-      // });
+      const res = await axiosInstance.post("/matching/create-payment", {
+        amount,
+        helperId: helperId,
+        orderId,
+      });
 
       // 2. 받은 orderId로 토스 결제창 띄우기
       const tossPayments = await loadTossPayments(tossClientKey);

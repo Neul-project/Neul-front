@@ -6,7 +6,7 @@ export const ProgramHistoryStyled = styled.div`
   }
 
   .ProgramHistory_container {
-    width: 650px;
+    /* width: 650px; */
     padding: 20px 20px;
     border-radius: 16px;
     border: none;

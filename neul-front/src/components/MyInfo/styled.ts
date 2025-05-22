@@ -6,7 +6,7 @@ export const MyInfoStyled = styled.div`
   }
 
   .MyInfo_container {
-    width: 650px;
+    /* width: 650px; */
     padding: 20px 29px;
     border-radius: 16px;
     border: none;
