@@ -116,12 +116,9 @@ const Header = () => {
 
   // 해당 user의 알림 내용 가져오기
   const getAlert = async () => {
-    console.log("유저id", userId);
-
     if (!userId) return;
     try {
       const res = await axiosInstance.get("alert/alarm");
-      console.log(res.data);
       setAlertContent(res.data.filter((item: any) => !item.isChecked)); // 알림 내용
       setMatchAlertNum(
         res.data.filter((item: any) => item.message?.includes("match")).length // 매칭 관련 알림 개수
