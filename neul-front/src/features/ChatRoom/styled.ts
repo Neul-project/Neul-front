@@ -38,11 +38,10 @@ export const ChatRoomStyled = styled.div`
     .chatroom_select {
       overflow-y: scroll;
       width: 35%;
-      border-radius: 10px 0 0 10px;
       background-color: white;
-      /* border-top: 1.5px solid #ccc;
-      border-left: 1.5px solid #ccc;
-      border-bottom: 1.5px solid #ccc; */
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
       .chatroom_unpeople {
         height: 100%;
         display: flex;
@@ -131,7 +130,6 @@ export const ChatRoomStyled = styled.div`
       top: 50%;
       left: 50%;
       transform: translate3d(-50%, -45%, 0);
-      border-radius: 20px;
       max-width: 1028px;
       width: 100%;
       max-height: 600px;
@@ -144,24 +142,21 @@ export const ChatRoomStyled = styled.div`
         }
         .chatroom_select {
           width: 100%;
-          border-radius: 0;
         }
         .chatroom_content_box {
           width: 100%;
-          border-radius: 0;
         }
       }
     }
 
     /* 채팅 내용 */
     .chatroom_content_box {
-      border-radius: 0 10px 10px 0;
       position: relative;
       width: 65%;
       display: flex;
       flex-direction: column;
       background-color: white;
-      /* border: 0.7px solid #ccc; */
+      border: 0.7px solid #ccc;
       overflow: hidden;
 
       /* 채팅방 헤더 */
