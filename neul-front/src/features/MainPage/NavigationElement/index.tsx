@@ -33,7 +33,7 @@ const NavigationElement = () => {
 
     try {
       const res = await axiosInstance.get("/chat/unreadCount");
-      console.log(res.data);
+      console.log(res.data, "dkdkdkdkddkdkk");
       setUnreadCount(res.data);
     } catch (e: any) {
       console.error("안 읽은 채팅 개수 가져오기 실패:", e);
