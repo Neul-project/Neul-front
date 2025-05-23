@@ -35,13 +35,14 @@ interface Chatting {
   room: any;
 }
 interface ChatRoomPreview {
-  id: number;
+  id: number; // 방id
   adminId: number; // 도우미 id
   adminName: string; // 도우미 이름
   lastMessage: string;
   lastTime: string; // "2025-04-29 17:09"
   unreadCount?: number;
   isMatched?: boolean;
+  roomDel?: boolean; // 삭제한 채팅방인지 확인
 }
 
 // 채팅 전체 화면
@@ -169,9 +170,14 @@ const ChatRoom = () => {
         params: { userId, page: pageToFetch, limit: chatRoomLimit },
       });
 
-      setChatRoomList((prev) =>
-        pageToFetch === 1 ? res.data : [...prev, ...res.data]
-      );
+      console.log("!!!!!!!!!!!!1", res.data);
+
+      setChatRoomList((prev) => {
+        const filteredRooms = res.data.filter(
+          (room: ChatRoomPreview) => !room.roomDel
+        );
+        return pageToFetch === 1 ? filteredRooms : [...prev, ...filteredRooms];
+      });
 
       // hasMore는 데이터 개수가 limit보다 작으면 false
       setHasMoreRoom(res.data.length >= chatRoomLimit);
@@ -226,6 +232,8 @@ const ChatRoom = () => {
           };
         })
         .filter((chat: Chatting) => !chat.userDel); // 삭제된 메시지는 한번더 걸러주기(메모리에서)
+
+      console.log("채팅창", parsedChats);
 
       setChattings((prev) =>
         pageToFetch === 1 ? parsedChats : [...parsedChats, ...prev]
@@ -404,6 +412,49 @@ const ChatRoom = () => {
     });
   };
 
+  const onClickDeleteChattingRoom = (
+    e: React.MouseEvent<HTMLDivElement>,
+    roomId: number
+  ) => {
+    e.preventDefault();
+
+    console.log(roomId, "삭제할 방");
+
+    Modal.confirm({
+      title: "채팅방을 나가겠습니까?",
+      content: "채팅방을 나가면 채팅내용을 복구할 수 없습니다.",
+      okText: "나가기",
+      cancelText: "취소",
+      okButtonProps: {
+        style: { backgroundColor: "#5DA487" },
+      },
+      cancelButtonProps: {
+        style: { color: "#5DA487" },
+      },
+      async onOk() {
+        if (roomId == null) return;
+        try {
+          await axiosInstance.patch(`/chat/exitRoom`, { roomId, type: "user" });
+          notification.success({
+            message: `채팅방 삭제완료`,
+            description: `해당 채팅방이 삭제되었습니다.`,
+          });
+          fetchChatRoomList();
+          setSelectedRoomId(null);
+          if (selectedRoomId === roomId) {
+            setChattings([]);
+          }
+        } catch (e) {
+          console.error("해당 채팅방 삭제 실패: ", e);
+          notification.error({
+            message: `채팅방 삭제실패`,
+            description: `해당 채팅방 삭제에 실패하였습니다.`,
+          });
+        }
+      },
+    });
+  };
+
   const itemDelete: MenuProps["items"] = [
     {
       label: <div onClick={deleteAllChat}>전체 삭제</div>,
@@ -444,6 +495,11 @@ const ChatRoom = () => {
                     selectedRoomId === room.id ? "selected" : ""
                   }`}
                   onClick={() => handleSelectRoom(1, room.id)}
+                  onContextMenu={
+                    room.isMatched
+                      ? undefined
+                      : (e) => onClickDeleteChattingRoom(e, room.id)
+                  }
                 >
                   <div className="chatroom_name_box">
                     <div className="chatroom_name">
@@ -540,7 +596,9 @@ const ChatRoom = () => {
                       return (
                         <ChatMessage
                           key={i}
-                          name={i === 0 || shouldShowTime ? chat.user.name : ""}
+                          name={
+                            i === 0 || shouldShowTime ? chat.admin.name : ""
+                          }
                           message={chat.message}
                           time={shouldShowTime ? chat.time : ""}
                           sender={chat.sender}

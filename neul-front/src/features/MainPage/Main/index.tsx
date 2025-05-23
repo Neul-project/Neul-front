@@ -17,11 +17,16 @@ import { useAuthStore } from "@/stores/useAuthStore";
 //main page component
 const MainPage = () => {
   const router = useRouter();
-  const { login } = useAuthStore();
-
+  const { login, user } = useAuthStore();
   const [isTokenProcessed, setIsTokenProcessed] = useState(false);
-
   const [listIndex, setListIndex] = useState(0);
+
+  //현재 날짜 가지고 오기
+  const today = new Date();
+  //yyyy-mm-dd 형식
+  const formattedDate = `${today.getFullYear()}-${String(
+    today.getMonth() + 1
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
   // 소셜로그인 토큰 저장
   useEffect(() => {
@@ -58,6 +63,7 @@ const MainPage = () => {
     }
   }, [router.isReady, router.query, isTokenProcessed]);
 
+  //상위 멘트 변경
   useEffect(() => {
     const interval = setInterval(() => {
       setListIndex((prevIndex) => (prevIndex + 1) % list.length);
@@ -65,6 +71,22 @@ const MainPage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  //현재 날짜와 비교하여 요청 보내기
+  useEffect(() => {
+    console.log("for", formattedDate);
+    const userId = user?.id;
+
+    if (!userId) return;
+
+    axiosInstance
+      .get("/matching/usercheck", { params: { userId: userId } })
+      .then((res) => {
+        console.log("res", res.data);
+      });
+
+    console.log("uesrid", userId);
+  }, [formattedDate]);
 
   return (
     <>

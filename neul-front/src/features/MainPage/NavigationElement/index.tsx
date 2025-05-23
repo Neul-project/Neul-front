@@ -11,11 +11,11 @@ import chat from "@/assets/images/ic-event-survey.png";
 import test from "@/assets/images/ic-event-test.png";
 import relay from "@/assets/images/ic-event-relay.png";
 import helper from "@/assets/images/helper.png";
+import { useEffect } from "react";
+import axiosInstance from "@/lib/axios";
 
 import { useMessageStore } from "@/stores/useMessageStore";
 import { Badge, message, notification } from "antd";
-import { useEffect } from "react";
-import axiosInstance from "@/lib/axios";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 //네비게이션 컴포넌트
@@ -33,13 +33,9 @@ const NavigationElement = () => {
 
     try {
       const res = await axiosInstance.get("/chat/unreadCount");
+      console.log(res.data, "dkdkdkdkddkdkk");
       setUnreadCount(res.data);
     } catch (e: any) {
-      if (e.response?.status === 401) {
-        // 인증 안 된 사용자니까 무시
-        setAdminId(null);
-        return;
-      }
       console.error("안 읽은 채팅 개수 가져오기 실패:", e);
     }
   };
@@ -79,16 +75,7 @@ const NavigationElement = () => {
   };
   //채팅방 이동
   const ChatRoom = () => {
-    if (adminId) {
-      router.push("/chat");
-    } else if (!adminId && !user?.id) {
-      router.push("/login");
-      message.info("로그인이 필요합니다.");
-    } else {
-      notification.info({
-        message: "담당 도우미가 없어 채팅이 불가합니다.",
-      });
-    }
+    router.push("/chat");
   };
 
   //마이페이지 이동
