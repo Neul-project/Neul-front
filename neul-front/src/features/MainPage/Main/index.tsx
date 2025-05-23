@@ -80,10 +80,12 @@ const MainPage = () => {
 
     if (!userId) return;
 
+    //user id에 해당하는 apply행 전체 가지고 오기
     axiosInstance
       .get("/matching/usercheck", { params: { userId: userId } })
       .then((res) => {
         const data = res.data || [];
+
         // const data = [
         //   {
         //     id: 1,
@@ -103,6 +105,8 @@ const MainPage = () => {
               const datasarr = data.split(",");
               const lastday = datasarr[datasarr.length - 1];
 
+              //현제 날짜와 마지막 날을 비교해서 오늘 날짜가 더 클 경우 삭제 요청
+              // const isPast = new Date(formattedDate) > new Date(lastday); 오류일 경우 사용
               if (formattedDate > lastday) {
                 const id = element.id;
                 const adminId = element.adminId;
