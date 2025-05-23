@@ -29,7 +29,8 @@ type AlertType =
   | "pay_program" // 프로그램 결제 완료
   | "refund_program" //프로그램 환불 완료
   | "helper_ok" //총관리자가 도우미 승인(도우미 페이지 링크 보내기)
-  | "helper_cancel"; //총관리자가 승인 반려(사유도 보내기+마이페이지에서 정보 수정해서 다시 제출하세요 알림)
+  | "helper_cancel" //총관리자가 승인 반려(사유도 보내기+마이페이지에서 정보 수정해서 다시 제출하세요 알림)
+  | "match_end"; // 매칭 완료
 
 type alertType = {
   id: number;
@@ -71,6 +72,10 @@ const messageMap: Record<AlertType, { title: string; desc: string }> = {
   helper_cancel: {
     title: "도우미 승인 반려",
     desc: "도우미 승인이 반려되었습니다. 마이페이지에서 정보 수정 후 다시 제출해주세요.",
+  },
+  match_end: {
+    title: "매칭 종료",
+    desc: "매칭이 종료되었습니다.",
   },
 };
 
@@ -136,8 +141,6 @@ const Header = () => {
         params: { userId },
       });
 
-      console.log("야야야야야", res.status);
-
       // 204 No Content 응답일 경우도 고려
       if (res.status === 204 || !res.data) {
         setAdminId(null);
@@ -148,8 +151,6 @@ const Header = () => {
       setAdminId(res.data);
     } catch (e: any) {
       const status = e.response?.status;
-
-      console.log("왜ㅐㅐㅐㅐ", status);
 
       if (status === 401 || status === 403) {
         // 인증되지 않았거나 권한이 없음 → 일반 사용자일 수 있음
