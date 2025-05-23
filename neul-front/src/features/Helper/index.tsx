@@ -175,7 +175,7 @@ const HelperFeat = () => {
               <div className="custom_modal_container">
                 <div className="custom-modal">
                   <div className="modal-title">
-                    <strong>※ 도우미 신청하기 안내</strong>
+                    <strong>※ 도우미 신청하기</strong>
                   </div>
                   <div>
                     경력 인증이 완료된 도우미 목록이 표시됩니다.

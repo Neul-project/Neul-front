@@ -90,6 +90,11 @@ export const AddressStyled = styled.div`
       border-radius: 4px;
       font-size: 14px;
       cursor: pointer;
+
+      @media (max-width: 632px) {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
     }
   }
 

@@ -94,6 +94,10 @@ export const HelperStyled = styled.div`
     }
   }
 
+  .modal-title {
+    margin-bottom: 5px;
+  }
+
   .custom_content {
     font-size: 12px;
     font-weight: 500;
