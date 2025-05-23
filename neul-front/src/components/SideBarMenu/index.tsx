@@ -2,13 +2,13 @@
 import { SideBarMenuStyled } from "./styled";
 import clsx from "clsx";
 
-import type { TabType } from "@/features/MyPage";
+// import type { TabType } from "@/features/MyPage";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
 interface SidebarMenuProps {
-  currentTab: TabType;
-  onTabChange: (tab: TabType) => void;
+  currentTab: string;
+  onTabChange: (tab: string) => void;
   onLogout?: () => void;
 }
 
