@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HelperAppStyled = styled.div`
   @media (max-width: 632px) {
-    padding: 20px;
+    padding: 0 20px;
   }
 
   .HelperApp_container {
@@ -119,5 +119,15 @@ export const HelperAppStyled = styled.div`
 
   .HelperApp_container2 {
     font-size: 13px;
+    line-height: 21px;
+  }
+
+  .stress {
+    font-size: 14px;
+    color: ${(props) => props.theme.colors.pointGreen};
+
+    strong {
+      font-size: 15px;
+    }
   }
 `;

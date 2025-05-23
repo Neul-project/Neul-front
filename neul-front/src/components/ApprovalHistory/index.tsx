@@ -19,7 +19,7 @@ interface HelperInfo {
   certificateName2: string | null;
   certificateName3: string | null;
   status: string;
-  description: string;
+  reason: string | null;
   user: {
     id: number;
     name: string;
@@ -362,9 +362,7 @@ const ApprovalHistory = () => {
                 <div className="box1">
                   <strong>반려사유</strong>
                 </div>
-                <div className="content1">
-                  더미데이터임(추가필요)ㅇㅇㅇㅇㅇㅇㅇ
-                </div>
+                <div className="content1">{helper?.reason}</div>
               </div>
             </div>
 

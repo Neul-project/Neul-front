@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
 export const ApprovalHistoryStyled = styled.div`
+  @media (max-width: 632px) {
+    padding: 0 20px;
+  }
+
   .ApprovalHistory_container {
-    width: 650px;
+    /* width: 650px; */
     padding: 20px 20px;
     border-radius: 16px;
     border: none;
@@ -30,25 +34,44 @@ export const ApprovalHistoryStyled = styled.div`
     line-height: 32px;
     border-top: 1px solid rgb(242, 245, 248);
     border-bottom: 1px solid rgb(242, 245, 248);
+
+    @media (max-width: 632px) {
+      display: block;
+      border-bottom: none;
+    }
   }
 
   .Approval_box {
     display: flex;
+    width: 49%;
     /* align-items: center; */
+
+    @media (max-width: 632px) {
+      width: 100%;
+      border-bottom: 1px solid rgb(242, 245, 248);
+    }
   }
 
   .box1 {
-    width: 100px;
+    width: 33%;
     padding: 9px 14px;
     background-color: rgb(237, 242, 247);
     font-size: 14px;
+
+    @media (max-width: 632px) {
+      width: 23%;
+    }
   }
 
   .content1 {
     position: relative;
-    width: 200px;
+    width: 68%;
     padding: 9px 14px;
     font-size: 14px;
+
+    @media (max-width: 632px) {
+      width: 73%;
+    }
   }
 
   .input1 {

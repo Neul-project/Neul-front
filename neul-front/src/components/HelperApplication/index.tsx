@@ -151,8 +151,21 @@ const HelperApplication = () => {
             </div>
 
             <div className="HelperApp_container2">
-              <p>희망 일당: {helper.desiredPay.toLocaleString()}원</p>
               <p>경력: {helper.experience}</p>
+              <p>희망 일당: {helper.desiredPay.toLocaleString()}원</p>
+              <p>
+                신청 일수:{" "}
+                {helper.apply_dates.split(",").filter(Boolean).length}일
+              </p>
+              <p className="stress">
+                <span>결제예정 금액: </span>
+                <strong>
+                  {(
+                    helper.desiredPay * helper.apply_dates.split(",").length
+                  ).toLocaleString()}
+                </strong>
+                원
+              </p>
             </div>
           </div>
         ))}
