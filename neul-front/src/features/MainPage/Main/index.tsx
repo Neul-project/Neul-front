@@ -20,6 +20,7 @@ const MainPage = () => {
   const { login, user } = useAuthStore();
   const [isTokenProcessed, setIsTokenProcessed] = useState(false);
   const [listIndex, setListIndex] = useState(0);
+  const [dateslist, setDateslist] = useState([]); //유저에 해당하는 apply 테이블 리스트
 
   //현재 날짜 가지고 오기
   const today = new Date();
@@ -74,7 +75,7 @@ const MainPage = () => {
 
   //현재 날짜와 비교하여 요청 보내기
   useEffect(() => {
-    console.log("for", formattedDate);
+    //console.log("for", formattedDate);
     const userId = user?.id;
 
     if (!userId) return;
@@ -82,11 +83,46 @@ const MainPage = () => {
     axiosInstance
       .get("/matching/usercheck", { params: { userId: userId } })
       .then((res) => {
-        console.log("res", res.data);
+        const data = res.data || [];
+        // const data = [
+        //   {
+        //     id: 1,
+        //     dates: "2025-05-04,2025-05-05,2025-05-25",
+        //     status: "승인 완료",
+        //     created_at: "2025-05-23 17:05:53.470257",
+        //     userId: 1,
+        //     adminId: 2,
+        //   },
+        // ];
+
+        if (data.length === 0) {
+          return;
+        } else {
+          data.forEach((element: any) => {
+            if (element.dates) {
+              const datasarr = data.split(",");
+              const lastday = datasarr[datasarr.length - 1];
+
+              if (formattedDate > lastday) {
+                const id = element.id;
+                const adminId = element.adminId;
+
+                axiosInstance
+                  .delete("/matching/deletematch", {
+                    data: { userId: userId, adminId, id },
+                  })
+                  .then((res) => {
+                    console.log("요청 성공");
+                  });
+              }
+            }
+          });
+          setDateslist(data);
+        }
       });
 
-    console.log("uesrid", userId);
-  }, [formattedDate]);
+    //console.log("uesrid", userId);
+  }, [user]);
 
   return (
     <>
