@@ -35,7 +35,7 @@ interface Chatting {
   room: any;
 }
 interface ChatRoomPreview {
-  id: number;
+  id: number; // 방id
   adminId: number; // 도우미 id
   adminName: string; // 도우미 이름
   lastMessage: string;
@@ -213,6 +213,8 @@ const ChatRoom = () => {
       const res = await axiosInstance.get(`/chat/list`, {
         params: { roomId, page: pageToFetch, limit: chatLimit },
       });
+
+      console.log("채팅창", res.data);
 
       // 데이터 가공
       const parsedChats: Chatting[] = res.data
@@ -406,6 +408,51 @@ const ChatRoom = () => {
     });
   };
 
+  const onClickDeleteChattingRoom = (
+    e: React.MouseEvent<HTMLDivElement>,
+    roomId: number
+  ) => {
+    e.preventDefault();
+
+    console.log(roomId, "삭제할 방");
+
+    Modal.confirm({
+      title: "채팅방을 나가겠습니까?",
+      content: "채팅방을 나가면 채팅내용을 복구할 수 없습니다.",
+      okText: "나가기",
+      cancelText: "취소",
+      okButtonProps: {
+        style: { backgroundColor: "#5DA487" },
+      },
+      cancelButtonProps: {
+        style: { color: "#5DA487" },
+      },
+      async onOk() {
+        if (roomId == null) return;
+        try {
+          await axiosInstance.delete(`/chat/exitRoom`, {
+            params: { roomId, type: "user" },
+          });
+          notification.success({
+            message: `채팅방 삭제완료`,
+            description: `해당 채팅방이 삭제되었습니다.`,
+          });
+          fetchChatRoomList();
+          setSelectedRoomId(null);
+          if (selectedRoomId === roomId) {
+            setChattings([]);
+          }
+        } catch (e) {
+          console.error("해당 채팅방 삭제 실패: ", e);
+          notification.error({
+            message: `채팅방 삭제실패`,
+            description: `해당 채팅방 삭제에 실패하였습니다.`,
+          });
+        }
+      },
+    });
+  };
+
   const itemDelete: MenuProps["items"] = [
     {
       label: <div onClick={deleteAllChat}>전체 삭제</div>,
@@ -446,6 +493,11 @@ const ChatRoom = () => {
                     selectedRoomId === room.id ? "selected" : ""
                   }`}
                   onClick={() => handleSelectRoom(1, room.id)}
+                  onContextMenu={
+                    room.isMatched
+                      ? undefined
+                      : (e) => onClickDeleteChattingRoom(e, room.id)
+                  }
                 >
                   <div className="chatroom_name_box">
                     <div className="chatroom_name">

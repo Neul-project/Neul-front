@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { NavigationElementStyled } from "./styled";
 import { useRouter } from "next/router";
+import io from "socket.io-client";
 //component
 
 //image
@@ -10,6 +11,8 @@ import chat from "@/assets/images/ic-event-survey.png";
 import test from "@/assets/images/ic-event-test.png";
 import relay from "@/assets/images/ic-event-relay.png";
 import helper from "@/assets/images/helper.png";
+import { useEffect } from "react";
+import axiosInstance from "@/lib/axios";
 
 import { useMessageStore } from "@/stores/useMessageStore";
 import { Badge, message, notification } from "antd";
@@ -17,9 +20,53 @@ import { useAuthStore } from "@/stores/useAuthStore";
 
 //네비게이션 컴포넌트
 const NavigationElement = () => {
-  const { adminId, user } = useAuthStore();
+  const { setAdminId, adminId, user } = useAuthStore();
+
+  const { setUnreadCount, increaseUnreadCount, clearUnreadCount } =
+    useMessageStore();
 
   const router = useRouter();
+
+  // 안 읽은 채팅 개수 가져오기
+  const fetchUnreadCount = async () => {
+    if (!adminId || !user?.id) return;
+
+    try {
+      const res = await axiosInstance.get("/chat/unreadCount");
+      setUnreadCount(res.data);
+    } catch (e: any) {
+      if (e.response?.status === 401) {
+        // 인증 안 된 사용자니까 무시
+        setAdminId(null);
+        return;
+      }
+      console.error("안 읽은 채팅 개수 가져오기 실패:", e);
+    }
+  };
+
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 개수 가져오기
+    if (!adminId) return;
+    fetchUnreadCount();
+
+    // 소켓 연결
+    const socket = io(process.env.NEXT_PUBLIC_API_URL, {
+      withCredentials: true,
+    });
+
+    // 다른 사람이 채팅 보내면 알림 개수 증가
+    socket.on("receive_message", (data: any) => {
+      // 현재 userid랑 받은 아이디와 같은지 확인
+      if (user?.id === data.user.id) {
+        increaseUnreadCount(); // unreadCount 증가
+      }
+    });
+
+    // 컴포넌트 언마운트 시 소켓 연결 종료
+    return () => {
+      socket.disconnect();
+    };
+  }, [adminId, increaseUnreadCount, clearUnreadCount]);
 
   //상태확인 페이지 이동
   const stateCheck = () => {
