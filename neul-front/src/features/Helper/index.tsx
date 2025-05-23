@@ -59,6 +59,8 @@ const HelperFeat = () => {
   const [loadingTime, setLoadingTime] = useState(false);
   // 도우미 신청하기 hover 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // 사용자가 신청한 날짜 막기
+  const [disabledDates, setDisabledDates] = useState<string[]>([]);
 
   // 도우미 리스트 요청
   useEffect(() => {
@@ -144,6 +146,9 @@ const HelperFeat = () => {
         alert(
           "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
         );
+
+        // validDates를 비활성화 날짜로 추가
+        setDisabledDates((prev) => [...prev, ...validDates]);
 
         router.push("/");
 
@@ -333,12 +338,17 @@ const HelperFeat = () => {
                     6: "sat",
                   };
 
+                  const currentDateStr = current.format("YYYY-MM-DD");
+
                   const isInRange =
                     !current.isBefore(from, "day") &&
                     !current.isAfter(to, "day");
                   const isValidDay = helperTime.week.includes(
                     dayMap[dayOfWeek]
                   );
+                  // 사용자가 신청한 날짜 막기(프론트)
+                  const isAlreadySelected =
+                    disabledDates.includes(currentDateStr);
 
                   return !(isInRange && isValidDay);
                 }}

@@ -141,6 +141,11 @@ const HelperApplication = () => {
             <div className="HelperApp_flexbox">
               <div>
                 {helper.user.name} <span className="helper">도우미 </span>
+                {helper?.gender === "male" ? (
+                  <i className="fa-solid fa-mars man" />
+                ) : (
+                  <i className="fa-solid fa-venus woman" />
+                )}{" "}
                 <span className="helper">({formatAge(helper.birth)})</span>
               </div>
 

@@ -24,10 +24,6 @@ const PaymentConfirmFeat = () => {
         });
 
         console.log("도우미 최종결제 완료", res.data);
-
-        if (res.data.ok) {
-          alert("도우미 신청 결제가 완료되었습니다!");
-        }
       } catch (err) {
         console.error("도우미 결제 승인 실패:", err);
       }

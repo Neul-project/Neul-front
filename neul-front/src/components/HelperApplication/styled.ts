@@ -131,6 +131,16 @@ export const HelperAppStyled = styled.div`
     }
   }
 
+  .man {
+    font-size: 14px;
+    color: #4a4aff;
+  }
+
+  .woman {
+    font-size: 14px;
+    color: #ff5470;
+  }
+
   .pagination {
     display: flex;
     justify-content: center;

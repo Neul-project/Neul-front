@@ -115,12 +115,17 @@ const ApprovalHistory = () => {
           console.log(`${key}:`, value);
         }
 
+        // 요청 전송
         const res = await axiosInstance.patch("/helper/edit-profile", formData);
 
-        // console.log("resdata", res.data);
+        console.log("resdata", res.data);
 
         if (res.data?.ok) {
           alert("재승인 요청이 완료되었습니다.");
+
+          // '승인 대기'로 프론트에서 임시 변경
+          setHelper((prev) => (prev ? { ...prev, status: "승인 대기" } : prev));
+
           setShowEditForm(false);
         } else {
           alert("재승인 요청이 실패했습니다.");
