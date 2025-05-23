@@ -165,7 +165,7 @@ const ChatRoom = () => {
     const prevScrollHeightRoom = containerRoom?.scrollHeight ?? 0;
     try {
       // 해당 user의 채팅방 불러오기
-      const res = await axiosInstance.get("/chat/rooms", {
+      const res = await axiosInstance.get("/chat/user/rooms", {
         params: { userId, page: pageToFetch, limit: chatRoomLimit },
       });
 
