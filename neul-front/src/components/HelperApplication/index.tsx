@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { HelperAppStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
 
+import { formatAge } from "@/utils/formatter";
+
+import clsx from "clsx";
+
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
 interface HelperInfo {
@@ -36,6 +40,19 @@ const HelperApplication = () => {
   const [helpers, setHelpers] = useState<HelperInfo[]>([]);
   // 도우미 신청내역 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // 페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const [visiblePageGroup, setVisiblePageGroup] = useState(1);
+  const pageSize = 5;
+
+  const totalPages = Math.ceil(helpers.length / pageSize);
+  const visiblePages = 5; // 한 번에 보여줄 페이지 수 (1~5)
+
+  const paginatedHelpers = helpers.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   // 신청한 도우미 리스트 요청
   useEffect(() => {
@@ -119,11 +136,12 @@ const HelperApplication = () => {
           </i>
         </div>
 
-        {helpers.map((helper) => (
+        {paginatedHelpers.map((helper) => (
           <div className="HelperApp_Content" key={helper.id}>
             <div className="HelperApp_flexbox">
               <div>
-                {helper.user.name} <span className="helper">도우미</span>
+                {helper.user.name} <span className="helper">도우미 </span>
+                <span className="helper">({formatAge(helper.birth)})</span>
               </div>
 
               <div className="flex">
@@ -169,6 +187,49 @@ const HelperApplication = () => {
             </div>
           </div>
         ))}
+
+        <div className="pagination">
+          <button
+            className="number_btn start"
+            onClick={() => {
+              if (visiblePageGroup > 1) {
+                setVisiblePageGroup(visiblePageGroup - 1);
+                setCurrentPage((visiblePageGroup - 2) * visiblePages + 1);
+              }
+            }}
+            disabled={visiblePageGroup === 1}
+          >
+            <img src="/left_icon.png" alt="left_icon" />
+          </button>
+
+          {Array.from({ length: visiblePages }, (_, idx) => {
+            const page = (visiblePageGroup - 1) * visiblePages + (idx + 1);
+            if (page > totalPages) return null;
+
+            return (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={clsx("number_btn", { active: currentPage === page })}
+              >
+                {page}
+              </button>
+            );
+          })}
+
+          <button
+            className="number_btn"
+            onClick={() => {
+              if (visiblePageGroup * visiblePages < totalPages) {
+                setVisiblePageGroup(visiblePageGroup + 1);
+                setCurrentPage(visiblePageGroup * visiblePages + 1);
+              }
+            }}
+            disabled={visiblePageGroup * visiblePages >= totalPages}
+          >
+            <img src="/right_icon.png" alt="right_icon" />
+          </button>
+        </div>
       </div>
     </HelperAppStyled>
   );

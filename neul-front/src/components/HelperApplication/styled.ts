@@ -130,4 +130,41 @@ export const HelperAppStyled = styled.div`
       font-size: 15px;
     }
   }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+
+    .number_btn {
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-top: 1px solid rgb(221, 221, 221);
+      border-right: 1px solid rgb(221, 221, 221);
+      border-bottom: 1px solid rgb(221, 221, 221);
+      border-image: initial;
+      border-left: none;
+      cursor: pointer;
+
+      @media (max-width: 632px) {
+        width: 26px;
+        height: 26px;
+      }
+    }
+
+    .number_btn.start {
+      border-left: 1px solid rgb(221, 221, 221);
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+  }
 `;
