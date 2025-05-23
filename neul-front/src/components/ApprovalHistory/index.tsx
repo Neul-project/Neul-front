@@ -115,7 +115,7 @@ const ApprovalHistory = () => {
           console.log(`${key}:`, value);
         }
 
-        // 요청 전송
+        // 재승인 요청 전송
         const res = await axiosInstance.patch("/helper/edit-profile", formData);
 
         console.log("resdata", res.data);
