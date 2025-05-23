@@ -430,9 +430,7 @@ const ChatRoom = () => {
       async onOk() {
         if (roomId == null) return;
         try {
-          await axiosInstance.delete(`/chat/exitRoom`, {
-            params: { roomId, type: "user" },
-          });
+          await axiosInstance.patch(`/chat/exitRoom`, { roomId, type: "user" });
           notification.success({
             message: `채팅방 삭제완료`,
             description: `해당 채팅방이 삭제되었습니다.`,
