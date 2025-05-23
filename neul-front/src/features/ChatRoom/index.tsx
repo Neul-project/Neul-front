@@ -42,6 +42,7 @@ interface ChatRoomPreview {
   lastTime: string; // "2025-04-29 17:09"
   unreadCount?: number;
   isMatched?: boolean;
+  roomDel?: boolean; // 삭제한 채팅방인지 확인
 }
 
 // 채팅 전체 화면
@@ -171,9 +172,12 @@ const ChatRoom = () => {
 
       console.log("!!!!!!!!!!!!1", res.data);
 
-      setChatRoomList((prev) =>
-        pageToFetch === 1 ? res.data : [...prev, ...res.data]
-      );
+      setChatRoomList((prev) => {
+        const filteredRooms = res.data.filter(
+          (room: ChatRoomPreview) => !room.roomDel
+        );
+        return pageToFetch === 1 ? filteredRooms : [...prev, ...filteredRooms];
+      });
 
       // hasMore는 데이터 개수가 limit보다 작으면 false
       setHasMoreRoom(res.data.length >= chatRoomLimit);
@@ -214,8 +218,6 @@ const ChatRoom = () => {
         params: { roomId, page: pageToFetch, limit: chatLimit },
       });
 
-      console.log("채팅창", res.data);
-
       // 데이터 가공
       const parsedChats: Chatting[] = res.data
         .map((chat: any) => {
@@ -230,6 +232,8 @@ const ChatRoom = () => {
           };
         })
         .filter((chat: Chatting) => !chat.userDel); // 삭제된 메시지는 한번더 걸러주기(메모리에서)
+
+      console.log("채팅창", parsedChats);
 
       setChattings((prev) =>
         pageToFetch === 1 ? parsedChats : [...parsedChats, ...prev]
@@ -592,7 +596,9 @@ const ChatRoom = () => {
                       return (
                         <ChatMessage
                           key={i}
-                          name={i === 0 || shouldShowTime ? chat.user.name : ""}
+                          name={
+                            i === 0 || shouldShowTime ? chat.admin.name : ""
+                          }
                           message={chat.message}
                           time={shouldShowTime ? chat.time : ""}
                           sender={chat.sender}

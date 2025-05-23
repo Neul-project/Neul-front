@@ -29,7 +29,7 @@ const ChatMessage = ({
         }`}
       >
         {sender === "admin" && (
-          <div className="chatmessage_name">{name} 도우미</div>
+          <div className="chatmessage_name">{name ? `${name}도우미` : ``}</div>
         )}
 
         <div className="chatmessage_chat">
