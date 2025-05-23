@@ -59,8 +59,10 @@ const HelperFeat = () => {
   const [loadingTime, setLoadingTime] = useState(false);
   // 도우미 신청하기 hover 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // 사용자가 신청한 날짜 막기
-  // const [disabledDates, setDisabledDates] = useState<string[]>([]);
+  // 도우미별로 비활성화된 날짜 관리
+  const [disabledDatesMap, setDisabledDatesMap] = useState<
+    Record<number, string[]>
+  >({});
 
   // 도우미 리스트 요청
   useEffect(() => {
@@ -78,7 +80,7 @@ const HelperFeat = () => {
     fetchHelpers();
   }, []);
 
-  // 해당 도우미의 일정 불러오기
+  // 해당 도우미의 일정 요청
   const fetchHelperTime = async (helperId: number) => {
     setLoadingTime(true);
     try {
@@ -137,20 +139,27 @@ const HelperFeat = () => {
       // 3. 최종신청 서버 요청
       const res = await axiosInstance.post("/matching/submit-request", {
         helperId,
-        dates: validDates, // '2025-05-12', '2025-05-13'...
+        dates: validDates, // ['2025-05-12', '2025-05-13'...]
       });
 
       console.log("도우미 신청 결과:", res.data);
 
-      if (res.data.ok) {
+      if (res.data.ok && res.data.confirmedDates) {
+        const confirmed = res.data.confirmedDates.split(","); // 문자열 → 배열
+
+        setDisabledDatesMap((prev) => {
+          const prevDates = prev[helperId] || [];
+          return {
+            ...prev,
+            [helperId]: [...new Set([...prevDates, ...confirmed])], // 중복 제거
+          };
+        });
+
         alert(
           "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
         );
 
-        // validDates를 비활성화 날짜로 추가
-        // setDisabledDates((prev) => [...prev, ...validDates]);
-
-        router.push("/");
+        // router.push("/");
 
         // 초기화 (선택)
         setActiveHelper(null);
@@ -322,11 +331,10 @@ const HelperFeat = () => {
                 }}
                 // 비활성화 날짜 범위 체크
                 disabledDate={(current) => {
-                  if (!current || !helperTime) return true;
+                  if (!current || !helperTime || !activeHelper) return true;
 
                   const from = dayjs(helperTime.startDate);
                   const to = dayjs(helperTime.endDate);
-                  const dayOfWeek = current.day(); // 0: Sunday, 1: Monday ...
 
                   const dayMap: { [key: number]: string } = {
                     0: "sun",
@@ -343,14 +351,17 @@ const HelperFeat = () => {
                   const isInRange =
                     !current.isBefore(from, "day") &&
                     !current.isAfter(to, "day");
-                  const isValidDay = helperTime.week.includes(
-                    dayMap[dayOfWeek]
-                  );
-                  // 사용자가 신청한 날짜 막기(프론트)
-                  // const isAlreadySelected =
-                  //   disabledDates.includes(currentDateStr);
 
-                  return !(isInRange && isValidDay);
+                  const isValidDay = helperTime.week.includes(
+                    dayMap[current.day()]
+                  );
+                  // 서버 응답으로 받은 날짜 비활성화
+                  const isAlreadyDisabled =
+                    disabledDatesMap[activeHelper.user.id]?.includes(
+                      currentDateStr
+                    ) ?? false;
+
+                  return !(isInRange && isValidDay) || isAlreadyDisabled;
                 }}
                 placeholder={["시작일", "종료일"]}
               />
