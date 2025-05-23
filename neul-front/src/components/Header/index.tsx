@@ -14,31 +14,63 @@ import { useCartStore } from "@/stores/useCartStore";
 import axiosInstance from "@/lib/axios";
 import { notification } from "antd";
 
-type AlertType = "match" | "match_cancel" | "pay" | "refund";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
+
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
+
+type AlertType =
+  | "match_apply" // 도우미에게 매칭 신청
+  | "match_ok" // 도우미 매칭 수락하면 승인완료(결제 요청하기->마이페이지)
+  | "pay_match" // 사용자가 결제함
+  | "match_cancel" // 도우미가 매칭을 거절(거절 사유도 함께 보내주기)
+  | "pay_program" // 프로그램 결제 완료
+  | "refund_program" //프로그램 환불 완료
+  | "helper_ok" //총관리자가 도우미 승인(도우미 페이지 링크 보내기)
+  | "helper_cancel"; //총관리자가 승인 반려(사유도 보내기+마이페이지에서 정보 수정해서 다시 제출하세요 알림)
 
 type alertType = {
   id: number;
   message: AlertType;
   isChecked: boolean;
+  reason: string;
   created_at: string; // 몇분 전 이렇게 바꾸기
 };
 
-const messageMap = {
-  match: {
-    title: "담당 도우미 매칭완료",
-    desc: "도우미와 매칭완료되었습니다.",
+const messageMap: Record<AlertType, { title: string; desc: string }> = {
+  match_apply: {
+    title: "매칭 신청 완료",
+    desc: "매칭 신청이 완료 되었습니다. 승인될 때까지 기다려주세요.",
+  },
+  match_ok: {
+    title: "매칭 수락 완료",
+    desc: "도우미가 매칭을 수락했습니다. 마이페이지에서 결제를 진행해주세요.",
+  },
+  pay_match: {
+    title: "매칭 결제 완료",
+    desc: "최종 매칭 되었습니다. 문의사항은 채팅을 활용해주세요.",
   },
   match_cancel: {
-    title: "담당 도우미 매칭취소",
-    desc: "도우미와 매칭취소되었습니다.",
+    title: "매칭 거절",
+    desc: "도우미가 매칭을 거절했습니다.",
   },
-  pay: {
-    title: "프로그램 결제완료",
-    desc: "신청하신 프로그램 결제가 완료되었습니다.",
+  pay_program: {
+    title: "프로그램 결제 완료",
+    desc: "프로그램 결제가 완료되었습니다.",
   },
-  refund: {
+  refund_program: {
     title: "프로그램 환불 완료",
-    desc: "신청하신 프로그램 환불이 완료되었습니다.",
+    desc: "프로그램 환불이 완료되었습니다.",
+  },
+  helper_ok: {
+    title: "도우미 승인 완료",
+    desc: "도우미 승인이 완료되었습니다. 관련 정보를 확인해주세요.",
+  },
+  helper_cancel: {
+    title: "도우미 승인 반려",
+    desc: "도우미 승인이 반려되었습니다. 마이페이지에서 정보 수정 후 다시 제출해주세요.",
   },
 };
 
@@ -84,12 +116,9 @@ const Header = () => {
 
   // 해당 user의 알림 내용 가져오기
   const getAlert = async () => {
-    console.log("유저id", userId);
-
     if (!userId) return;
     try {
       const res = await axiosInstance.get("alert/alarm");
-
       setAlertContent(res.data.filter((item: any) => !item.isChecked)); // 알림 내용
       setMatchAlertNum(
         res.data.filter((item: any) => item.message?.includes("match")).length // 매칭 관련 알림 개수
@@ -143,10 +172,44 @@ const Header = () => {
     // 알림 notification
     alertContent?.map((item: alertType, i: number) => {
       const { title, desc } = messageMap[item.message] || {};
+      dayjs.locale("ko");
+      const timeAgo = dayjs(item.created_at).fromNow(); // 몇분전
+
+      let description = `${desc} (${timeAgo})`;
+
+      // reason이 있으면 추가
+      if (item.reason) {
+        description += `\n거절 사유: ${item.reason}`;
+      }
+
+      // helper_ok인 경우 링크 추가
+      if (item.message === "helper_ok") {
+        description += `\n[도우미 페이지로 이동]`;
+      }
+
       notification.info({
         key: i,
         message: title,
-        description: desc,
+        description: (
+          <div>
+            {description.split("\n").map((line, index) => {
+              if (line === "[도우미 페이지로 이동]") {
+                return (
+                  <div key={index}>
+                    <a
+                      href="http://localhost:4000/"
+                      style={{ color: "#1677ff" }}
+                    >
+                      도우미 페이지로 이동
+                    </a>
+                  </div>
+                );
+              }
+              return <div key={index}>{line}</div>;
+            })}
+          </div>
+        ),
+        duration: 10,
       });
     });
   };
