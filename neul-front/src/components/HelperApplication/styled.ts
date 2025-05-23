@@ -20,9 +20,46 @@ export const HelperAppStyled = styled.div`
   }
 
   .HelperApp_title {
+    position: relative;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-size: 19px;
     padding-bottom: 20px;
     border-bottom: 2px solid rgb(51, 51, 51);
+    line-height: 31px;
+  }
+
+  .info {
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    color: #c9c9c9;
+  }
+
+  .custom_modal_container {
+    position: absolute;
+    z-index: 1;
+    left: -11px;
+    top: 21px;
+    width: 240px;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 20px;
+    line-height: 20px;
+    color: #333;
+    font-weight: 400;
+
+    @media (max-width: 785px) {
+      left: -100px;
+    }
+  }
+
+  .mainColor {
+    color: ${(props) => props.theme.colors.pointGreen};
   }
 
   .HelperApp_Content {
@@ -30,7 +67,7 @@ export const HelperAppStyled = styled.div`
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   .HelperApp_flexbox {

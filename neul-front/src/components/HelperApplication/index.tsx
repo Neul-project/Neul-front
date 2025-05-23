@@ -34,6 +34,8 @@ interface HelperInfo {
 const HelperApplication = () => {
   // 신청한 도우미 리스트
   const [helpers, setHelpers] = useState<HelperInfo[]>([]);
+  // 도우미 신청내역 모달
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 신청한 도우미 리스트 요청
   useEffect(() => {
@@ -90,7 +92,32 @@ const HelperApplication = () => {
   return (
     <HelperAppStyled>
       <div className="HelperApp_container">
-        <div className="HelperApp_title">도우미 신청내역</div>
+        <div className="HelperApp_title">
+          <div>도우미 신청내역</div>
+          <i
+            className="fa-solid fa-circle-info info"
+            onClick={() => setIsModalOpen((prev) => !prev)}
+            onMouseEnter={() => setIsModalOpen(true)}
+            onMouseLeave={() => setIsModalOpen(false)}
+            title="반려 사유 보기"
+          >
+            {/* 안내 모달 */}
+            {isModalOpen && (
+              <div className="custom_modal_container">
+                <div className="custom-modal">
+                  <div className="modal-title">
+                    <strong>※ 도우미 신청내역</strong>
+                  </div>
+                  <div>
+                    <strong className="mainColor">'결제 대기'</strong> 상태일
+                    경우 결제를 반드시 진행하셔야 도우미 신청이 완료됩니다.
+                    <br />
+                  </div>
+                </div>
+              </div>
+            )}
+          </i>
+        </div>
 
         {helpers.map((helper) => (
           <div className="HelperApp_Content" key={helper.id}>
