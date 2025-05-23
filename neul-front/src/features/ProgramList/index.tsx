@@ -101,8 +101,6 @@ const ProgramList = () => {
     startIndex + itemsPerPage
   );
 
-  //console.log("pa", paginatedList);
-
   return (
     <ProgramListStyled className={clsx("ProgramList_main_wrap")}>
       <div className="ProgramList_title">프로그램 리스트</div>
