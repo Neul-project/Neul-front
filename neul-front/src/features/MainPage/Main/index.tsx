@@ -74,59 +74,59 @@ const MainPage = () => {
   }, []);
 
   //현재 날짜와 비교하여 요청 보내기
-  useEffect(() => {
-    //console.log("for", formattedDate);
-    const userId = user?.id;
+  // useEffect(() => {
+  //   //console.log("for", formattedDate);
+  //   const userId = user?.id;
 
-    if (!userId) return;
+  //   if (!userId) return;
 
-    //user id에 해당하는 apply행 전체 가지고 오기
-    axiosInstance
-      .get("/matching/usercheck", { params: { userId: userId } })
-      .then((res) => {
-        const data = res.data || [];
+  //   //user id에 해당하는 apply행 전체 가지고 오기
+  //   axiosInstance
+  //     .get("/matching/usercheck", { params: { userId: userId } })
+  //     .then((res) => {
+  //       const data = res.data || [];
 
-        // const data = [
-        //   {
-        //     id: 1,
-        //     dates: "2025-05-04,2025-05-05,2025-05-25",
-        //     status: "승인 완료",
-        //     created_at: "2025-05-23 17:05:53.470257",
-        //     userId: 1,
-        //     adminId: 2,
-        //   },
-        // ];
+  //       // const data = [
+  //       //   {
+  //       //     id: 1,
+  //       //     dates: "2025-05-04,2025-05-05,2025-05-25",
+  //       //     status: "승인 완료",
+  //       //     created_at: "2025-05-23 17:05:53.470257",
+  //       //     userId: 1,
+  //       //     adminId: 2,
+  //       //   },
+  //       // ];
 
-        if (data.length === 0) {
-          return;
-        } else {
-          data.forEach((element: any) => {
-            if (element.dates) {
-              const datasarr = data.split(",");
-              const lastday = datasarr[datasarr.length - 1];
+  //       if (data.length === 0) {
+  //         return;
+  //       } else {
+  //         data.forEach((element: any) => {
+  //           if (element.dates) {
+  //             const datasarr = data.split(",");
+  //             const lastday = datasarr[datasarr.length - 1];
 
-              //현제 날짜와 마지막 날을 비교해서 오늘 날짜가 더 클 경우 삭제 요청
-              // const isPast = new Date(formattedDate) > new Date(lastday); 오류일 경우 사용
-              if (formattedDate > lastday) {
-                const id = element.id;
-                const adminId = element.adminId;
+  //             //현제 날짜와 마지막 날을 비교해서 오늘 날짜가 더 클 경우 삭제 요청
+  //             // const isPast = new Date(formattedDate) > new Date(lastday); 오류일 경우 사용
+  //             if (formattedDate > lastday) {
+  //               const id = element.id;
+  //               const adminId = element.adminId;
 
-                axiosInstance
-                  .delete("/matching/deletematch", {
-                    data: { userId: userId, adminId, id },
-                  })
-                  .then((res) => {
-                    console.log("요청 성공");
-                  });
-              }
-            }
-          });
-          setDateslist(data);
-        }
-      });
+  //               axiosInstance
+  //                 .delete("/matching/deletematch", {
+  //                   data: { userId: userId, adminId, id },
+  //                 })
+  //                 .then((res) => {
+  //                   console.log("요청 성공");
+  //                 });
+  //             }
+  //           }
+  //         });
+  //         setDateslist(data);
+  //       }
+  //     });
 
-    //console.log("uesrid", userId);
-  }, [user]);
+  //   //console.log("uesrid", userId);
+  // }, [user]);
 
   return (
     <>
