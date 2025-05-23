@@ -169,6 +169,8 @@ const ChatRoom = () => {
         params: { userId, page: pageToFetch, limit: chatRoomLimit },
       });
 
+      console.log("!!!!!!!!!!!!1", res.data);
+
       setChatRoomList((prev) =>
         pageToFetch === 1 ? res.data : [...prev, ...res.data]
       );
