@@ -12,7 +12,7 @@ import Advertising from "@/features/Advertising";
 
 // zustand
 import { useAuthStore } from "@/stores/useAuthStore";
-import { useCartStore } from "@/stores/useCartStore";
+// import { useCartStore } from "@/stores/useCartStore";
 
 //main page component
 const MainPage = () => {

@@ -46,7 +46,7 @@ const ApprovalHistory = () => {
   // 수정 버튼 클릭 시
   const [showEditForm, setShowEditForm] = useState(false);
 
-  console.log("도우미 가입내역 승인여부", helper);
+  // console.log("도우미 가입내역 승인여부", helper);
 
   // 도우미 정보 요청
   useEffect(() => {
@@ -91,16 +91,33 @@ const ApprovalHistory = () => {
         const formData = new FormData();
 
         Object.entries(values).forEach(([key, val]) => {
-          if (val !== undefined && val !== null) {
-            formData.append(key, val as string | Blob);
+          if (typeof val === "object" && val instanceof File) {
+            formData.append(key, val);
+          } else if (val !== undefined && val !== null && val !== "") {
+            formData.append(key, String(val));
           }
         });
+
+        // 사용자 id같이 전송
+        if (helper?.user?.id) {
+          formData.append("userId", String(helper.user.id));
+        }
+
+        // 파일을 새로 업로드하지 않은 경우 기존 파일명 유지
+        if (!values.profileImage && helper?.profileImage) {
+          formData.append("existingProfileImage", helper.profileImage);
+        }
+        if (!values.certificate && helper?.certificate) {
+          formData.append("existingCertificate", helper.certificate);
+        }
 
         for (const [key, value] of formData.entries()) {
           console.log(`${key}:`, value);
         }
 
         const res = await axiosInstance.patch("/helper/edit-profile", formData);
+
+        // console.log("resdata", res.data);
 
         if (res.data?.ok) {
           alert("재승인 요청이 완료되었습니다.");

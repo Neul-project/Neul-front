@@ -157,25 +157,29 @@ export const editHelperValidationSchema = Yup.object({
   certificateName_02: Yup.string().notRequired(), // 선택 항목
   certificateName_03: Yup.string().notRequired(), // 선택 항목
 
-  // 자격증 파일
-  certificate: Yup.mixed()
-    .required("자격증 업로드는 필수입니다.")
-    .test(
-      "fileFormat",
-      "자격증은 PDF, JPG, PNG 형식만 가능합니다.",
-      (value) =>
+  // 자격증 파일 유효성: 있으면 형식 검사, 없으면 통과
+  certificate: Yup.mixed().test(
+    "fileFormat",
+    "자격증은 PDF, JPG, PNG 형식만 가능합니다.",
+    (value) => {
+      if (!value) return true;
+      return (
         value instanceof File &&
         ["application/pdf", "image/jpeg", "image/png"].includes(value.type)
-    ),
+      );
+    }
+  ),
 
-  // 프로필 이미지
-  profileImage: Yup.mixed()
-    .required("프로필 사진 업로드는 필수입니다.")
-    .test(
-      "fileFormat",
-      "이미지는 JPG, PNG 형식만 가능합니다.",
-      (value) =>
+  // 프로필 이미지 유효성: 있으면 형식 검사, 없으면 통과
+  profileImage: Yup.mixed().test(
+    "fileFormat",
+    "이미지는 JPG, PNG 형식만 가능합니다.",
+    (value) => {
+      if (!value) return true;
+      return (
         value instanceof File &&
         ["image/jpeg", "image/png"].includes(value.type)
-    ),
+      );
+    }
+  ),
 });

@@ -103,8 +103,8 @@ const WardInfo = () => {
 
           <div className="WardInfo_cont">
             <div className="WardInfo_wardName">
-              피보호자명: <span>{userInfo?.ward.name} </span>
-              {userInfo?.ward.gender === "male" ? (
+              피보호자명: <span>{userInfo?.ward?.name} </span>
+              {userInfo?.ward?.gender === "male" ? (
                 <i className="fa-solid fa-mars man" />
               ) : (
                 <i className="fa-solid fa-venus woman" />
