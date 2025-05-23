@@ -60,7 +60,7 @@ const HelperFeat = () => {
   // 도우미 신청하기 hover 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 사용자가 신청한 날짜 막기
-  const [disabledDates, setDisabledDates] = useState<string[]>([]);
+  // const [disabledDates, setDisabledDates] = useState<string[]>([]);
 
   // 도우미 리스트 요청
   useEffect(() => {
@@ -134,10 +134,10 @@ const HelperFeat = () => {
       }
 
       console.log("validDates: ", helperId, validDates);
-      // 3. 서버 요청
+      // 3. 최종신청 서버 요청
       const res = await axiosInstance.post("/matching/submit-request", {
         helperId,
-        dates: validDates, // ['2025-05-12', '2025-05-13'...]
+        dates: validDates.join(","), // '2025-05-12', '2025-05-13'...
       });
 
       console.log("도우미 신청 결과:", res.data);
@@ -148,7 +148,7 @@ const HelperFeat = () => {
         );
 
         // validDates를 비활성화 날짜로 추가
-        setDisabledDates((prev) => [...prev, ...validDates]);
+        // setDisabledDates((prev) => [...prev, ...validDates]);
 
         router.push("/");
 
@@ -347,8 +347,8 @@ const HelperFeat = () => {
                     dayMap[dayOfWeek]
                   );
                   // 사용자가 신청한 날짜 막기(프론트)
-                  const isAlreadySelected =
-                    disabledDates.includes(currentDateStr);
+                  // const isAlreadySelected =
+                  //   disabledDates.includes(currentDateStr);
 
                   return !(isInRange && isValidDay);
                 }}
