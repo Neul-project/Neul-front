@@ -123,28 +123,37 @@ export const ChatRoomStyled = styled.div`
       }
     }
 
-    /* 채팅 전체 */
-    .chatroom_box {
-      display: flex;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -45%, 0);
-      max-width: 1028px;
-      width: 100%;
-      max-height: 600px;
+    .chatroom_wrap_box {
       height: 100%;
-      margin: 0 auto;
+      overflow-y: auto;
+      background: #f5f5f5;
+      padding: 0.5rem 0.5rem;
 
-      @media (max-width: 1035px) {
-        .close {
-          display: none;
-        }
-        .chatroom_select {
+      .chatroom_box_wrap {
+        padding: 1.5rem 1.5rem;
+        border-radius: 10px;
+        background: white;
+        height: 91%;
+        margin-top: 69px;
+
+        /* 채팅 전체 */
+        .chatroom_box {
+          display: flex;
           width: 100%;
-        }
-        .chatroom_content_box {
-          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+
+          @media (max-width: 1035px) {
+            .close {
+              display: none;
+            }
+            .chatroom_select {
+              width: 100%;
+            }
+            .chatroom_content_box {
+              width: 100%;
+            }
+          }
         }
       }
     }
@@ -158,25 +167,53 @@ export const ChatRoomStyled = styled.div`
       background-color: white;
       border: 0.7px solid #ccc;
       overflow: hidden;
+      height: 100%;
 
-      /* 채팅방 헤더 */
-      .chatroom_content_header {
+      .chatroom_scroll_wrapper {
         display: flex;
-        justify-content: space-between;
-        padding: 15px;
-        .chatroom_moreicon,
-        .chatroom_backicon {
-          cursor: pointer;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+        background-color: white;
+        /* 채팅방 헤더 */
+        .chatroom_content_header {
+          position: sticky;
+          display: flex;
+          justify-content: space-between;
+          top: 0;
+          z-index: 10;
+          background-color: white;
+          padding: 15px;
+          .chatroom_moreicon,
+          .chatroom_backicon {
+            cursor: pointer;
+          }
+          .chatroom_header_name {
+            display: flex;
+            align-items: flex-start;
+            font-weight: bold;
+
+            .chatroom_backicon {
+              margin-right: 15px;
+            }
+          }
+        }
+
+        /* 채팅창 내용 */
+        .chatroom_scroll_body {
+          overflow-y: auto;
+          flex-grow: 1;
+          padding: 10px;
         }
       }
 
       .chatroom_bottom_button {
         position: absolute;
         bottom: 90px;
-        right: 50px;
+        right: 30px;
         background-color: ${(props) => props.theme.colors.pointGreen};
         color: white;
-        padding: 10px 13px;
+        padding: 13px 13px 12px 13px;
         border-radius: 50%;
         font-size: 16px;
         z-index: 1000;
@@ -190,13 +227,6 @@ export const ChatRoomStyled = styled.div`
       .chatroom_content {
         flex: 1;
         overflow-y: auto;
-
-        /* Firefox */
-        /* scrollbar-width: none; */
-        /* IE 10+ */
-        /* -ms-overflow-style: none; */
-
-        padding: 10px;
         box-sizing: border-box;
         .chatroom_date {
           text-align: center;
@@ -210,11 +240,6 @@ export const ChatRoomStyled = styled.div`
           justify-content: center;
           align-items: center;
         }
-      }
-
-      .chatroom_content::-webkit-scrollbar {
-        /* Chrome, Safari, Edge */
-        /* display: none; */
       }
 
       /* 메시지 보내는 부분 */
