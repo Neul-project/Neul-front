@@ -30,7 +30,7 @@ export const HeaderStyled = styled.div`
       }
 
       .Header_logo_img {
-        /* width: 100px; */
+        width: 100px;
         height: 66%;
         cursor: pointer;
         padding-left: 20px;

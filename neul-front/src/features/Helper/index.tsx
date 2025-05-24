@@ -71,7 +71,9 @@ const HelperFeat = () => {
   useEffect(() => {
     const fetchHelpers = async () => {
       try {
-        const res = await axiosInstance.get("helper/approveduser");
+        const res = await axiosInstance.get("helper/info", {
+          params: { type: "approve" },
+        });
         console.log("도우미 리스트 응답", res.data);
 
         setHelpers(res.data);

@@ -13,6 +13,8 @@ import { formatPhoneNumber } from "@/utils/formatter";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
+import Script from "next/script";
+
 type UserInfoType = {
   name: string;
   email: string;
@@ -105,112 +107,121 @@ const MyInfo = () => {
   };
 
   return (
-    <MyInfoStyled>
-      <div className="MyInfo_container">
-        <div className="MyInfo_flex">
-          <div className="MyInfo_cont">
-            <div className="MyInfo_name">
-              <span>{userInfo?.name}</span>님
+    <>
+      <Script
+        src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+        strategy="lazyOnload"
+      />
+
+      <MyInfoStyled>
+        <div className="MyInfo_container">
+          <div className="MyInfo_flex">
+            <div className="MyInfo_cont">
+              <div className="MyInfo_name">
+                <span>{userInfo?.name}</span>님
+              </div>
+              <div className="MyInfo_email">{userInfo?.email}</div>
             </div>
-            <div className="MyInfo_email">{userInfo?.email}</div>
+
+            {/* 로컬로그인일 경우만 보임 */}
+            {user?.provider === "local" && (
+              <div className="MyInfo_changePw">
+                <button type="button" onClick={() => setPwOpen(true)}>
+                  비밀번호 변경
+                </button>
+              </div>
+            )}
           </div>
 
-          {/* 로컬로그인일 경우만 보임 */}
-          {user?.provider === "local" && (
+          {/* 비밀번호 변경 모달 */}
+          {pwOpen && (
+            <ModalCompo onClose={() => setPwOpen(false)}>
+              <S.ModalFormWrap onSubmit={formik.handleSubmit}>
+                <S.ModalTitle>비밀번호 변경</S.ModalTitle>
+
+                <S.ModalInputDiv>
+                  <S.ModalInput
+                    type="password"
+                    name="password"
+                    placeholder="새로운 비밀번호를 입력해주세요"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.password && formik.errors.password && (
+                    <div className="error">{formik.errors.password}</div>
+                  )}
+                </S.ModalInputDiv>
+                <S.ModalInputDiv>
+                  <S.ModalInput
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="비밀번호를 확인해주세요"
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword && (
+                      <div className="error">
+                        {formik.errors.confirmPassword}
+                      </div>
+                    )}
+                </S.ModalInputDiv>
+
+                <div>
+                  <S.ModalButton type="submit">변경하기</S.ModalButton>
+                </div>
+              </S.ModalFormWrap>
+            </ModalCompo>
+          )}
+
+          <div className="MyInfo_phone">
+            <div className="title">휴대전화번호</div>
+            <div className="phone">
+              {userInfo?.phone ? formatPhoneNumber(userInfo.phone) : ""}
+            </div>
+          </div>
+
+          <div className="MyInfo_flex MyInfo_address">
+            <div>
+              <div>
+                주소 관리
+                <span className="MyInfo_address_exist">
+                  {userInfo?.address
+                    ? userInfo.address
+                    : "등록된 주소가 없습니다"}
+                </span>
+              </div>
+            </div>
             <div className="MyInfo_changePw">
-              <button type="button" onClick={() => setPwOpen(true)}>
-                비밀번호 변경
+              <button type="button" onClick={() => setIsOpen(true)}>
+                {userInfo?.address ? "주소 수정" : "주소 등록"}
               </button>
             </div>
-          )}
+          </div>
         </div>
 
-        {/* 비밀번호 변경 모달 */}
-        {pwOpen && (
-          <ModalCompo onClose={() => setPwOpen(false)}>
-            <S.ModalFormWrap onSubmit={formik.handleSubmit}>
-              <S.ModalTitle>비밀번호 변경</S.ModalTitle>
-
-              <S.ModalInputDiv>
-                <S.ModalInput
-                  type="password"
-                  name="password"
-                  placeholder="새로운 비밀번호를 입력해주세요"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.password && formik.errors.password && (
-                  <div className="error">{formik.errors.password}</div>
-                )}
-              </S.ModalInputDiv>
-              <S.ModalInputDiv>
-                <S.ModalInput
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="비밀번호를 확인해주세요"
-                  value={formik.values.confirmPassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.confirmPassword &&
-                  formik.errors.confirmPassword && (
-                    <div className="error">{formik.errors.confirmPassword}</div>
-                  )}
-              </S.ModalInputDiv>
-
-              <div>
-                <S.ModalButton type="submit">변경하기</S.ModalButton>
-              </div>
-            </S.ModalFormWrap>
-          </ModalCompo>
+        {/* 주소 등록 버튼 */}
+        {isOpen && (
+          <Address
+            onClose={() => setIsOpen(false)}
+            onAddressSaved={fetchMyInfo}
+            addressProps={userInfo?.address || ""}
+          />
         )}
 
-        <div className="MyInfo_phone">
-          <div className="title">휴대전화번호</div>
-          <div className="phone">
-            {userInfo?.phone ? formatPhoneNumber(userInfo.phone) : ""}
-          </div>
+        <div>
+          <button
+            className="MyInfo_withDraw"
+            type="button"
+            onClick={handleWithdraw}
+          >
+            회원탈퇴
+          </button>
         </div>
-
-        <div className="MyInfo_flex MyInfo_address">
-          <div>
-            <div>
-              주소 관리
-              <span className="MyInfo_address_exist">
-                {userInfo?.address
-                  ? userInfo.address
-                  : "등록된 주소가 없습니다"}
-              </span>
-            </div>
-          </div>
-          <div className="MyInfo_changePw">
-            <button type="button" onClick={() => setIsOpen(true)}>
-              {userInfo?.address ? "주소 수정" : "주소 등록"}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 주소 등록 버튼 */}
-      {isOpen && (
-        <Address
-          onClose={() => setIsOpen(false)}
-          onAddressSaved={fetchMyInfo}
-          addressProps={userInfo?.address || ""}
-        />
-      )}
-
-      <div>
-        <button
-          className="MyInfo_withDraw"
-          type="button"
-          onClick={handleWithdraw}
-        >
-          회원탈퇴
-        </button>
-      </div>
-    </MyInfoStyled>
+      </MyInfoStyled>
+    </>
   );
 };
 
