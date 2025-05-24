@@ -15,15 +15,14 @@ import { useEffect } from "react";
 import axiosInstance from "@/lib/axios";
 
 import { useMessageStore } from "@/stores/useMessageStore";
-import { Badge, message, notification } from "antd";
+import { Badge } from "antd";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 //네비게이션 컴포넌트
 const NavigationElement = () => {
-  const { setAdminId, adminId, user } = useAuthStore();
+  const { adminId, user } = useAuthStore();
 
-  const { setUnreadCount, increaseUnreadCount, clearUnreadCount } =
-    useMessageStore();
+  const { setUnreadCount } = useMessageStore();
 
   const router = useRouter();
 
@@ -33,7 +32,6 @@ const NavigationElement = () => {
 
     try {
       const res = await axiosInstance.get("/chat/unreadCount");
-      console.log(res.data, "dkdkdkdkddkdkk");
       setUnreadCount(res.data);
     } catch (e: any) {
       console.error("안 읽은 채팅 개수 가져오기 실패:", e);
@@ -43,26 +41,30 @@ const NavigationElement = () => {
   useEffect(() => {
     // 컴포넌트가 마운트될 때 개수 가져오기
     if (!adminId) return;
-    fetchUnreadCount();
+
+    fetchUnreadCount(); // 최초 안읽은 개수 가져오기
 
     // 소켓 연결
     const socket = io(process.env.NEXT_PUBLIC_API_URL, {
       withCredentials: true,
     });
 
-    // 다른 사람이 채팅 보내면 알림 개수 증가
-    socket.on("receive_message", (data: any) => {
+    const handleReceiveMessage = (data: any) => {
       // 현재 userid랑 받은 아이디와 같은지 확인
       if (user?.id === data.user.id) {
-        increaseUnreadCount(); // unreadCount 증가
+        useMessageStore.getState().increaseUnreadCount(); // unreadCount 증가
       }
-    });
+    };
+
+    // 다른 사람이 채팅 보내면 알림 개수 증가
+    socket.on("receive_message", handleReceiveMessage);
 
     // 컴포넌트 언마운트 시 소켓 연결 종료
     return () => {
+      socket.off("receive_message", handleReceiveMessage);
       socket.disconnect();
     };
-  }, [adminId, increaseUnreadCount, clearUnreadCount]);
+  }, [adminId]);
 
   //상태확인 페이지 이동
   const stateCheck = () => {
@@ -120,6 +122,7 @@ const NavigationElement = () => {
           </div>
           <div className="NavigationElement_ele" onClick={ChatRoom}>
             <Badge
+              className="NavigationElement_chat_num"
               count={useMessageStore.getState().unreadCount}
               size="small"
               offset={[-2, 20]}

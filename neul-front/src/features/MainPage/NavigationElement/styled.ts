@@ -12,6 +12,16 @@ export const NavigationElementStyled = styled.div`
     //place-items: center;
     //padding: 0px 15px;
 
+    .NavigationElement_chat_num .ant-scroll-number {
+      min-width: 18px;
+      height: 18px;
+      line-height: 18px;
+      border-radius: 50% !important;
+      padding: 0;
+      text-align: center;
+      display: inline-block;
+    }
+
     .NavigationElement_title {
       font-size: 25px;
       color: #000;

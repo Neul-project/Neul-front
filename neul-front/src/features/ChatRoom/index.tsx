@@ -158,7 +158,7 @@ const ChatRoom = () => {
     return () => {
       container.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [scrollContainerRef.current]);
 
   // 채팅방 목록 불러오기
   const fetchChatRoomList = async (pageToFetch = 1) => {
@@ -479,168 +479,193 @@ const ChatRoom = () => {
 
         <div className="chatroom_title">1:1 채팅</div>
       </div>
-      <div className="chatroom_box">
-        {/* 채팅 상대 선택 */}
-        <div
-          className={`chatroom_select ${
-            selectedRoomId === null ? "" : "close"
-          }`}
-        >
-          {chatRoomList.length !== 0 ? (
-            <>
-              {chatRoomList.map((room) => (
-                <div
-                  key={room.id}
-                  className={`chatroom_item ${
-                    selectedRoomId === room.id ? "selected" : ""
-                  }`}
-                  onClick={() => handleSelectRoom(1, room.id)}
-                  onContextMenu={
-                    room.isMatched
-                      ? undefined
-                      : (e) => onClickDeleteChattingRoom(e, room.id)
-                  }
-                >
-                  <div className="chatroom_name_box">
-                    <div className="chatroom_name">
-                      <span className="chatroom_patientname">
-                        {room.adminName} 도우미
-                      </span>
-                    </div>
-                    <div className="chatroom_lasttime">
-                      {(() => {
-                        const now = dayjs();
-                        const last = dayjs(room.lastTime, "YYYY-MM-DD HH:mm");
-                        return last.isSame(now, "day")
-                          ? last.format("A h:mm") // 오후 5:09
-                          : last.format("YYYY-MM-DD");
-                      })()}
-                    </div>
-                  </div>
-                  <div className="chatroom_lastmessage_box">
-                    <span className="chatroom_lastmessage">
-                      {room.lastMessage}
-                    </span>
-                    {room.unreadCount ? (
-                      <span className="chatroom_unread">
-                        {room.unreadCount}
-                      </span>
-                    ) : null}
-                  </div>
-                  <div ref={targetRoomRef}></div>
-                </div>
-              ))}
-            </>
-          ) : (
-            <div className="chatroom_unpeople">담당 도우미가 없습니다.</div>
-          )}
-        </div>
-        {/* 채팅 내용 */}
-        <div
-          className={`chatroom_content_box ${
-            selectedRoomId !== null ? "" : "close"
-          }`}
-        >
-          {showBottomButton && (
-            <div className="chatroom_bottom_button" onClick={scrollToBottom}>
-              <DownOutlined />
-            </div>
-          )}
-          <div className="chatroom_content" ref={scrollContainerRef}>
-            {selectedRoomId ? (
-              <div className="chat-scroll-wrapper">
-                <div className="chatroom_content_header">
-                  <Image
-                    onClick={() => {
-                      setSelectedRoomId(null);
-                    }}
-                    className="chatroom_backicon"
-                    src={arrow_back}
-                    alt="뒤로가기"
-                  />
-                  <Dropdown
-                    menu={{
-                      items: itemDelete,
-                    }}
-                    trigger={["click"]}
-                  >
-                    <a onClick={(e) => e.preventDefault()}>
-                      <div className="chatroom_more_btn">
-                        <Image
-                          className="chatroom_moreicon"
-                          src={MoreBtn}
-                          alt="더보기"
-                        />
+
+      <div className="chatroom_wrap_box">
+        <div className="chatroom_box_wrap">
+          <div className="chatroom_box">
+            {/* 채팅 상대 선택 */}
+            <div
+              className={`chatroom_select ${
+                selectedRoomId === null ? "" : "close"
+              }`}
+            >
+              {chatRoomList.length !== 0 ? (
+                <>
+                  {chatRoomList.map((room) => (
+                    <div
+                      key={room.id}
+                      className={`chatroom_item ${
+                        selectedRoomId === room.id ? "selected" : ""
+                      }`}
+                      onClick={() => handleSelectRoom(1, room.id)}
+                      onContextMenu={
+                        room.isMatched
+                          ? undefined
+                          : (e) => onClickDeleteChattingRoom(e, room.id)
+                      }
+                    >
+                      <div className="chatroom_name_box">
+                        <div className="chatroom_name">
+                          <span className="chatroom_patientname">
+                            {room.adminName} 도우미
+                          </span>
+                        </div>
+                        <div className="chatroom_lasttime">
+                          {(() => {
+                            const now = dayjs();
+                            const last = dayjs(
+                              room.lastTime,
+                              "YYYY-MM-DD HH:mm"
+                            );
+                            return last.isSame(now, "day")
+                              ? last.format("A h:mm") // 오후 5:09
+                              : last.format("YYYY-MM-DD");
+                          })()}
+                        </div>
                       </div>
-                    </a>
-                  </Dropdown>
-                </div>
-                {/* 채팅창 위쪽 감지 */}
-                {hasMore && (
-                  <div
-                    ref={targetRef}
-                    style={{
-                      height: 1,
-                    }}
-                  />
-                )}
-                {Object.entries(groupDate).map(([date, messages]) => (
-                  <div key={date}>
-                    <div className="chatroom_date">{date}</div>
-                    {messages.map((chat, i) => {
-                      const currentTime = chat.time;
-                      const nextTime = messages[i + 1]?.time;
-                      const nextSender = messages[i + 1]?.sender;
-                      const shouldShowTime =
-                        chat.sender !== nextSender || currentTime !== nextTime;
-                      return (
-                        <ChatMessage
-                          key={i}
-                          name={
-                            i === 0 || shouldShowTime ? chat.admin.name : ""
-                          }
-                          message={chat.message}
-                          time={shouldShowTime ? chat.time : ""}
-                          sender={chat.sender}
-                          userDel={chat.userDel}
-                        />
-                      );
-                    })}
-                  </div>
-                ))}
-                <div ref={bottomRef} />
-              </div>
-            ) : (
-              <div className="chatroom_uncontent">채팅방을 선택해주세요.</div>
-            )}
-          </div>
-          {/* 보내는 메시지 */}
-          {selectedRoomId && (
-            <div className="chatroom_message_box">
-              <div className="chatroom_message">
-                <input
-                  type="text"
-                  placeholder={
-                    currentRoom?.isMatched
-                      ? "메시지 입력"
-                      : "매칭이 끊겨 더 이상의 채팅은 불가능합니다."
-                  }
-                  value={inputValue}
-                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                  onChange={(e) => {
-                    setInputValue(e.target.value);
-                  }}
-                  readOnly={!currentRoom?.isMatched}
-                />
-              </div>
-              <SendOutlined
-                className={`chatroom_sendbtn ${
-                  inputValue.trim() === "" ? "chatroom_disabled" : ""
-                }`}
-                onClick={sendMessage}
-              />
+                      <div className="chatroom_lastmessage_box">
+                        <span className="chatroom_lastmessage">
+                          {room.lastMessage}
+                        </span>
+                        {room.unreadCount ? (
+                          <span className="chatroom_unread">
+                            {room.unreadCount}
+                          </span>
+                        ) : null}
+                      </div>
+                      <div ref={targetRoomRef}></div>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <div className="chatroom_unpeople">담당 도우미가 없습니다.</div>
+              )}
             </div>
-          )}
+            {/* 채팅 내용 */}
+            <div
+              className={`chatroom_content_box ${
+                selectedRoomId !== null ? "" : "close"
+              }`}
+            >
+              <div className="chatroom_content">
+                {selectedRoomId ? (
+                  <div className="chatroom_scroll_wrapper">
+                    <div className="chatroom_content_header">
+                      <div className="chatroom_header_name">
+                        <Image
+                          onClick={() => {
+                            setSelectedRoomId(null);
+                          }}
+                          className="chatroom_backicon"
+                          src={arrow_back}
+                          alt="뒤로가기"
+                        />
+                        <span>{currentRoom?.adminName} 도우미</span>
+                      </div>
+                      <Dropdown
+                        menu={{
+                          items: itemDelete,
+                        }}
+                        trigger={["click"]}
+                      >
+                        <a onClick={(e) => e.preventDefault()}>
+                          <div className="chatroom_more_btn">
+                            <Image
+                              className="chatroom_moreicon"
+                              src={MoreBtn}
+                              alt="더보기"
+                            />
+                          </div>
+                        </a>
+                      </Dropdown>
+                    </div>
+
+                    <div
+                      className="chatroom_scroll_body"
+                      ref={scrollContainerRef}
+                    >
+                      {showBottomButton && (
+                        <div
+                          className="chatroom_bottom_button"
+                          onClick={scrollToBottom}
+                        >
+                          <DownOutlined />
+                        </div>
+                      )}
+                      {/* 채팅창 위쪽 감지 */}
+                      {hasMore && (
+                        <div
+                          ref={targetRef}
+                          style={{
+                            height: 1,
+                          }}
+                        />
+                      )}
+                      {Object.entries(groupDate).map(([date, messages]) => (
+                        <div key={date}>
+                          <div className="chatroom_date">{date}</div>
+                          {messages.map((chat, i) => {
+                            const currentTime = chat.time;
+                            const nextTime = messages[i + 1]?.time;
+                            const nextSender = messages[i + 1]?.sender;
+                            const shouldShowTime =
+                              chat.sender !== nextSender ||
+                              currentTime !== nextTime;
+                            return (
+                              <ChatMessage
+                                key={i}
+                                name={
+                                  i === 0 || shouldShowTime
+                                    ? chat.admin.name
+                                    : ""
+                                }
+                                message={chat.message}
+                                time={shouldShowTime ? chat.time : ""}
+                                sender={chat.sender}
+                                userDel={chat.userDel}
+                              />
+                            );
+                          })}
+                        </div>
+                      ))}
+                      <div ref={bottomRef} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="chatroom_uncontent">
+                    채팅방을 선택해주세요.
+                  </div>
+                )}
+              </div>
+              {/* 보내는 메시지 */}
+              {selectedRoomId && (
+                <div className="chatroom_message_box">
+                  <div className="chatroom_message">
+                    <input
+                      type="text"
+                      placeholder={
+                        currentRoom?.isMatched
+                          ? "메시지 입력"
+                          : "매칭이 끊겨 더 이상의 채팅은 불가능합니다."
+                      }
+                      value={inputValue}
+                      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                      onChange={(e) => {
+                        setInputValue(e.target.value);
+                      }}
+                      readOnly={!currentRoom?.isMatched}
+                    />
+                  </div>
+                  <SendOutlined
+                    className={`chatroom_sendbtn ${
+                      inputValue.trim() === "" ? "chatroom_disabled" : ""
+                    }`}
+                    onClick={sendMessage}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </ChatRoomStyled>
