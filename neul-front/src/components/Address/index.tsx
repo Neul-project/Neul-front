@@ -25,13 +25,13 @@ const Address = ({ onClose, onAddressSaved, addressProps }: AddressProps) => {
   const [addressDetail, setAddressDetail] = useState("");
 
   // 카카오 주소 API 스크립트 load
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src =
+  //     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+  //   script.async = true;
+  //   document.body.appendChild(script);
+  // }, []);
 
   // 주소 검색 핸들러
   const handleAddressSearch = () => {
