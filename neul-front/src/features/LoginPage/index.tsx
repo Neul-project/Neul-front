@@ -50,7 +50,7 @@ const LoginPage = () => {
         console.log("유저 정보:", meRes.data);
 
         // 3. zustand에 로그인 상태 저장
-        login(meRes.data); // user: { id, name, provider }
+        login(meRes.data); // user: { id, name, provider, role }
 
         // admin 정보가 있을 경우에만 상태 저장
         try {
