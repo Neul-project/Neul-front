@@ -13,6 +13,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 
 import Loading from "@/components/Loading";
 import Script from "next/script";
+import RoleGuard from "@/components/RoleGuard";
 
 // _app.tsx
 export default function App({ Component, pageProps }: AppProps) {
@@ -67,6 +68,23 @@ export default function App({ Component, pageProps }: AppProps) {
     };
   }, [isLoggedIn, logout]);
 
+  // 도우미 접근 불가 경로
+  const protectedPathsForHelper = ["/activity", "/helper", "/status"];
+
+  // 현재 경로가 보호 대상인지 확인
+  const isProtected = protectedPathsForHelper.some((path) =>
+    router.pathname.startsWith(path)
+  );
+
+  // 보호 대상이면 <RoleGuard>로 감싸서 차단
+  const guardedComponent = isProtected ? (
+    <RoleGuard blockedRoles={["admin"]}>
+      <Component {...pageProps} />
+    </RoleGuard>
+  ) : (
+    <Component {...pageProps} />
+  );
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -77,7 +95,7 @@ export default function App({ Component, pageProps }: AppProps) {
             paddingTop: isChatPage ? "0px" : "64px",
           }}
         >
-          {isLoading ? <Loading /> : <Component {...pageProps} />}
+          {isLoading ? <Loading /> : guardedComponent}
         </div>
 
         <Footer />
