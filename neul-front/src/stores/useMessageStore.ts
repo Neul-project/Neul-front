@@ -10,7 +10,7 @@ type MessageState = {
 
 export const useMessageStore = create<MessageState>((set) => ({
   unreadCount: 0,
-  setUnreadCount: (count) => set({ unreadCount: count }),
+  setUnreadCount: (count) => set({ unreadCount: Number(count) }),
   increaseUnreadCount: () =>
     set((state) => ({ unreadCount: state.unreadCount + 1 })),
   clearUnreadCount: () => set({ unreadCount: 0 }),
