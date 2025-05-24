@@ -8,7 +8,7 @@ import { Navigation } from "swiper/modules";
 
 import { InfoCircleFilled } from "@ant-design/icons";
 
-import { formatAge } from "@/utils/formatter";
+import { formatAge, formatPhoneNumber } from "@/utils/formatter";
 
 import { useEffect, useState } from "react";
 import { HelperStyled } from "./styled";
@@ -39,6 +39,7 @@ interface HelperInfo {
   user: {
     id: number;
     name: string;
+    phone: string;
   };
 }
 
@@ -93,6 +94,13 @@ const HelperFeat = () => {
       console.log("도우미 일정 응답", res.data);
       console.log(res.status);
 
+      // 데이터가 없을 때 예외 처리
+      if (!res.data || res.data.length === 0) {
+        alert(
+          "도우미의 근무 가능 일정이 아직 등록되지 않았습니다.\n자세한 내용은 도우미에게 문의해 주세요."
+        );
+        return;
+      }
       // "sun","mon", "tue", "wed", "thu", "fri", "sat",
 
       setHelperTime(res.data);
@@ -257,6 +265,10 @@ const HelperFeat = () => {
                     <div className="Helper_one">
                       <strong>생년월일:</strong> {helper.birth} (
                       {formatAge(helper.birth)})
+                    </div>
+                    <div className="Helper_one">
+                      <strong>전화번호:</strong>{" "}
+                      {formatPhoneNumber(helper.user.phone)}
                     </div>
                     <div className="Helper_one">
                       <strong>희망 일당:</strong>{" "}
