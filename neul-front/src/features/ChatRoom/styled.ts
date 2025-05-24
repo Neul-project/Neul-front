@@ -149,6 +149,7 @@ export const ChatRoomStyled = styled.div`
             }
             .chatroom_select {
               width: 100%;
+              border-right: 1px solid #ccc;
             }
             .chatroom_content_box {
               width: 100%;
