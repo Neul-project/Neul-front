@@ -90,7 +90,7 @@ const ApprovalHistory = () => {
       try {
         const formData = new FormData();
 
-        Object.entries(values).forEach(([key, val]) => {
+        Object.entries(values).forEach(([key, val]: [string, unknown]) => {
           if (typeof val === "object" && val instanceof File) {
             formData.append(key, val);
           } else if (val !== undefined && val !== null && val !== "") {

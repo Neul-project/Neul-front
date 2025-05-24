@@ -23,6 +23,7 @@ import "dayjs/locale/ko";
 
 import axiosInstance from "@/lib/axios";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface HelperInfo {
   id: number;
@@ -63,6 +64,8 @@ const HelperFeat = () => {
   const [disabledDatesMap, setDisabledDatesMap] = useState<
     Record<number, string[]>
   >({});
+  // 반응형
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   // 도우미 리스트 요청
   useEffect(() => {
@@ -86,6 +89,7 @@ const HelperFeat = () => {
     try {
       const res = await axiosInstance.get(`/helper/time/${helperId}`);
       console.log("도우미 일정 응답", res.data);
+      console.log(res.status);
 
       // "sun","mon", "tue", "wed", "thu", "fri", "sat",
 
