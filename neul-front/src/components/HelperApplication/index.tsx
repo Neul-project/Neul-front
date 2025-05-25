@@ -137,33 +137,33 @@ const HelperApplication = () => {
         </div>
 
         {paginatedHelpers.map((helper) => (
-          <div className="HelperApp_Content" key={helper?.id}>
+          <div className="HelperApp_Content" key={helper.id}>
             <div className="HelperApp_flexbox">
               <div>
-                {helper?.user.name} <span className="helper">도우미 </span>
-                {helper?.gender === "male" ? (
+                {helper.user.name} <span className="helper">도우미 </span>
+                {helper.gender === "male" ? (
                   <i className="fa-solid fa-mars man" />
                 ) : (
                   <i className="fa-solid fa-venus woman" />
                 )}{" "}
-                <span className="helper">({formatAge(helper?.birth)})</span>
+                <span className="helper">({formatAge(helper.birth)})</span>
               </div>
 
               <div className="flex">
-                <div className="status">{helper?.apply_status} </div>
-                {helper?.apply_status == "결제 대기" && (
+                <div className="status">{helper.apply_status} </div>
+                {helper.apply_status == "결제 대기" && (
                   <div className="HelperApp_btn">
                     <button
                       onClick={() => {
                         // (희망 일당 * 사용자가 신청한 일수) 계산
-                        const applyDates = helper?.apply_dates;
+                        const applyDates = helper.apply_dates;
                         const dateArray = applyDates.split(",");
                         const dateCount = dateArray.length;
 
-                        const desiredPay = helper?.desiredPay ?? 0;
+                        const desiredPay = helper.desiredPay ?? 0;
                         const totalAmount = desiredPay * dateCount;
 
-                        handlePayment(totalAmount, helper?.user.id);
+                        handlePayment(totalAmount, helper.user.id);
                       }}
                     >
                       결제
