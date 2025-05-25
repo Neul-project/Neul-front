@@ -3,7 +3,7 @@ import { StatusCheckStyled } from "./styled";
 import koKR from "antd/lib/locale/ko_KR";
 import dayjs from "dayjs";
 import axiosInstance from "@/lib/axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 import { useAuthStore } from "@/stores/useAuthStore";
 import clip from "@/assets/images/clip.png";
@@ -31,27 +31,23 @@ const StatusCheck = () => {
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(today);
 
   // 선택된 날짜로 상태 기록 받기
-  const SelectDate = (date: dayjs.Dayjs | null) => {
-    if (!date) return;
+  const selectDate = useCallback(
+    async (date: dayjs.Dayjs | null) => {
+      if (!date || !userId) return;
 
-    const formattedDate = date.format("YYYY-MM-DD");
-    // userId와 날짜(2025-04-30)를 보내면 상태 기록 받기
-    axiosInstance
-      .get("/status/selectList", {
-        params: {
-          userId,
-          date: String(formattedDate),
-        },
-      })
-      .then((res) => {
-        console.log("상태", res.data);
+      try {
+        const formattedDate = date.format("YYYY-MM-DD");
+        const res = await axiosInstance.get("/status/selectList", {
+          params: { userId, date: formattedDate },
+        });
         setStatus(res.data);
-      })
-      .catch((e) => {
+      } catch (e) {
         console.error("상태 불러오기 실패:", e);
         setStatus(null);
-      });
-  };
+      }
+    },
+    [userId]
+  );
 
   // 날짜 선택시
   const handleDateChange = (date: dayjs.Dayjs | null) => {
@@ -60,15 +56,12 @@ const StatusCheck = () => {
   };
 
   useEffect(() => {
-    // 선택된 날짜로 상태 불러오기
-    SelectDate(selectedDate);
-  }, [selectedDate]);
+    if (userId && selectedDate) {
+      selectDate(selectedDate);
+    }
+  }, [userId, selectedDate, selectDate]);
 
-  useEffect(() => {
-    if (!userId) return;
-    // 오늘 날짜 상태 요청
-    SelectDate(today);
-  }, [userId]);
+  const mealParts = status?.[0]?.meal?.split(",") || [];
 
   return (
     // 달력 한글로
@@ -95,9 +88,9 @@ const StatusCheck = () => {
             <div className="statuscheck_info">
               {[
                 { title: "컨디션", value: status[0].condition },
-                { title: "아침 식사량", value: status[0].meal?.split(",")[0] },
-                { title: "점심 식사량", value: status[0].meal?.split(",")[1] },
-                { title: "저녁 식사량", value: status[0].meal?.split(",")[2] },
+                { title: "아침 식사량", value: mealParts[0] },
+                { title: "점심 식사량", value: mealParts[1] },
+                { title: "저녁 식사량", value: mealParts[2] },
                 {
                   title: "약 복용 여부",
                   value:
