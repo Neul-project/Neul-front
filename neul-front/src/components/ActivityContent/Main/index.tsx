@@ -34,18 +34,18 @@ const ActivityContent = (props: { id: string }) => {
         params: { userId: userId, activityId: id },
       })
       .then((res) => {
-        console.log("res", res.data);
+        const data = res.data[0];
+        console.log("res", data);
 
-        const data = res.data;
         const imgarr = data.img.split(",");
         setTitle(data.title);
         setRehabilitation(data.rehabilitation);
         setType(data.type);
         setNote(data.note);
         setImg(imgarr);
-        setPatientName(data.patient.name);
+        setPatientName(data.patient?.name);
       });
-  }, [user]);
+  }, [user, id]);
 
   return (
     <>
