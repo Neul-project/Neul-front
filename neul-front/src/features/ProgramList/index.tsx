@@ -56,7 +56,7 @@ const ProgramList = () => {
     setSearchValue(value);
     //프로그램 : 프로그램 제목(title) 검색에 따른 행(피드백) 반환 요청
     axiosInstance
-      .get("/program/search", { params: { data: value } })
+      .get("/program/list", { params: { search: value } })
       .then((res) => {
         const data = res.data.reverse();
         //console.log("data", data);

@@ -1,4 +1,4 @@
-import { SubContentStyled, theme } from "./styled";
+import { SubContentStyled } from "./styled";
 import {
   getActivityLabel,
   getRehabilitation,

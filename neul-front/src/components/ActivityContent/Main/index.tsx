@@ -25,7 +25,7 @@ const ActivityContent = (props: { id: string }) => {
     if (!user?.id) return;
     if (!id) return;
     const userId = user?.id;
-    //console.log("userid", userId, id);
+    console.log("userid", userId, id);
 
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
     axiosInstance
@@ -34,7 +34,7 @@ const ActivityContent = (props: { id: string }) => {
         params: { userId: userId, activityId: id },
       })
       .then((res) => {
-        //console.log("res", res.data);
+        console.log("res", res.data);
 
         const data = res.data;
         const imgarr = data.img.split(",");

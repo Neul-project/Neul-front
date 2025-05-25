@@ -95,10 +95,10 @@ const ProgramDetail = (props: { detailid: string }) => {
     if (!detailid) return;
     //id에 해당하는 프로그램 상세 전체 보기
     axiosInstance
-      .get(`/program/detail`, { params: { detailid: Number(detailid) } })
+      .get(`/program/list`, { params: { detailid: Number(detailid) } })
       .then((res) => {
         const data = res.data;
-        //console.log("Data", data);
+        console.log("Data", data);
         const imgarr = data.img.split(",");
         setTitle(data.name);
         setCall(data.call);
