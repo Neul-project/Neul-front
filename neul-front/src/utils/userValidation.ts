@@ -25,3 +25,13 @@ export const findIdValidationSchema = Yup.object({
     .matches(/^01[016789][0-9]{7,8}$/, "올바른 전화번호 형식이 아닙니다.")
     .required("전화번호를 입력해주세요."),
 });
+
+// 비밀번호 찾기 유효성 검사
+export const findPwValidationSchema = Yup.object({
+  email: Yup.string()
+    .email("올바른 이메일 형식이 아닙니다.")
+    .required("이메일을 입력해주세요."),
+  phone: Yup.string()
+    .matches(/^01[016789][0-9]{7,8}$/, "올바른 전화번호 형식이 아닙니다.")
+    .required("전화번호를 입력해주세요."),
+});
