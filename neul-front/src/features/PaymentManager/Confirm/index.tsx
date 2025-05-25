@@ -2,12 +2,26 @@ import { useEffect, useState } from "react";
 import { ComfirmStyled } from "./styled";
 import { useRouter } from "next/router";
 import axiosInstance from "@/lib/axios";
+import dayjs from "dayjs";
+
+type ConfirmType = {
+  adminName: string;
+  charge: {
+    created_at: string;
+    orderId: string;
+    price: number;
+  };
+  dates: string;
+  userName: string;
+};
 
 // 도우미 최종 결제완료 페이지
 const PaymentConfirmFeat = () => {
   const router = useRouter();
-
   const { helperId, orderId, amount, paymentKey } = router.query;
+  const [data, setData] = useState<ConfirmType | null>(null);
+
+  console.log("도우미 최종결제 완료", data);
 
   // 최종 결제승인 요청
   useEffect(() => {
@@ -23,7 +37,7 @@ const PaymentConfirmFeat = () => {
           paymentKey,
         });
 
-        console.log("도우미 최종결제 완료", res.data);
+        setData(res.data);
       } catch (err) {
         console.error("도우미 결제 승인 실패:", err);
       }
@@ -38,9 +52,42 @@ const PaymentConfirmFeat = () => {
         <div className="Confirm_title">도우미 신청 결제성공!</div>
 
         <div className="Confirm_content">
-          도우미 매칭이 완료되었습니다.
-          <br />
-          매칭이 완료된 도우미와 <strong>채팅</strong>을 이용하실 수 있습니다.
+          <p className="content">
+            <div className="name">신청자:</div>
+            <div>{data?.userName}</div>
+          </p>
+          <p className="content">
+            <div className="name">담당 도우미:</div>
+            <div>{data?.adminName}</div>
+          </p>
+          <p className="content">
+            <div className="name">승인번호:</div>{" "}
+            <div>{data?.charge.orderId}</div>
+          </p>
+
+          <p className="content">
+            <div className="name">승인일시:</div>{" "}
+            <div>
+              {dayjs(data?.charge.created_at).format("YYYY.MM.DD HH:mm:ss")}
+            </div>
+          </p>
+
+          <div className="content">
+            <div className="name">예약 날짜:</div>
+            <p>
+              {data?.dates.split(",").map((date, idx) => (
+                <div key={idx}>{date}</div>
+              ))}
+            </p>
+          </div>
+
+          <p className="content amount">
+            <div className="name">결제 금액:</div>{" "}
+            <div>
+              <span className="pay">{data?.charge.price.toLocaleString()}</span>
+              원
+            </div>
+          </p>
         </div>
 
         <div className="Confirm_btn">
