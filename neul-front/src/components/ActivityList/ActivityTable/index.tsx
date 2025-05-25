@@ -8,6 +8,7 @@ import type { TableProps } from "antd";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { formatDate } from "@/utils/formatter";
 
 interface DataType {
   key: string;
@@ -52,7 +53,7 @@ const ActivityTable = () => {
 
     axiosInstance
       .get(`/activity/selectlist`, {
-        params: { type: "user", userId: user.id },
+        params: { userId: user.id },
       })
       .then((res) => {
         //console.log("data res", res.data);
@@ -63,7 +64,7 @@ const ActivityTable = () => {
             number: index + 1,
             id: item.id,
             title: item.title,
-            date: item.recorded_at,
+            date: formatDate(item.recorded_at),
           })
         );
 

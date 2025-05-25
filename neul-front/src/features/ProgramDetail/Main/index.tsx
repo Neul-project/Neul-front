@@ -50,7 +50,6 @@ const ProgramDetail = (props: { detailid: string }) => {
     const loadKakaoSdk = () => {
       if (window.Kakao && !window.Kakao.isInitialized()) {
         window.Kakao.init(KAKAO_JS_KEY);
-        //console.log("Kakao SDK initialized");
       }
     };
 
@@ -130,12 +129,6 @@ const ProgramDetail = (props: { detailid: string }) => {
     if (!recruitment) return;
 
     const result = getRecruitmentState(recruitment);
-    //if (result) setState(result);
-    // if (total >= capacity) {
-    //   setState("모집완료");
-    // } else if (result) {
-    //   setState(result);
-    // }
     setState(result!);
   }, [recruitment, total]);
 
@@ -175,7 +168,7 @@ const ProgramDetail = (props: { detailid: string }) => {
     //장바구니에 있는 지 확인용
     axiosInstance.get("/program/histories").then((res: any) => {
       const list = res.data;
-
+      console.log("his", list);
       //장바구니에 있는지 확인
       const incart = list.filter((item: any) => {
         return item.payment_status === "결제 대기";
@@ -211,8 +204,10 @@ const ProgramDetail = (props: { detailid: string }) => {
           setIsDirectModalOpen(false);
         }
       } else {
+        console.log("die", detailid);
+
         axiosInstance
-          .post("/program/apply", { programId: Number(detailid) })
+          .post("/program/apply", { id: Number(detailid) })
           .then(async (res) => {
             //console.log("신청 성공");
 

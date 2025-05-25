@@ -7,12 +7,11 @@ import clip from "@/assets/images/clip.png";
 import Image from "next/image";
 
 //antd
-import { Select, Radio, Input, Button, Modal, ConfigProvider } from "antd";
+import { Input, Modal } from "antd";
 import type { CheckboxGroupProps } from "antd/es/checkbox";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import clsx from "clsx";
-import { AntdGlobalTheme } from "@/utils/antdtheme";
 import SwiperImg from "../SwiperImg";
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
@@ -46,7 +45,8 @@ const SubContent = (props: {
     setIsModalOpen(true);
   };
 
-  console.log("note", note);
+  //console.log("note", note);
+
   return (
     <SubContentStyled className={clsx("SubContent_main_wrap")}>
       <div className="SubContent_clip_box">
