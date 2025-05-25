@@ -15,11 +15,12 @@ export const ChatRoomStyled = styled.div`
       align-items: center;
       height: 70px;
       box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.07);
-      background-color: white;
+      color: white;
+      background-color: ${(props) => props.theme.colors.pointGreen};
       /* 뒤로가기 버튼 */
       .chatroom_backicon_box {
-        width: 40px;
-        margin-left: 10px;
+        width: 30px;
+        margin-left: 20px;
         .chatroom_backicon {
           width: 100%;
           height: 100%;

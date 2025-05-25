@@ -17,6 +17,7 @@ import Image from "next/image";
 import MoreBtn from "@/assets/images/more.svg";
 import Dropdown from "antd/es/dropdown";
 import arrow_back from "@/assets/images/arrow_back.svg";
+import arrow_back_mini from "@/assets/images/arrow_back_mini.svg";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("ko"); // 로케일 설정
@@ -557,7 +558,7 @@ const ChatRoom = () => {
                             setSelectedRoomId(null);
                           }}
                           className="chatroom_backicon"
-                          src={arrow_back}
+                          src={arrow_back_mini}
                           alt="뒤로가기"
                         />
                         <span>{currentRoom?.adminName} 도우미</span>

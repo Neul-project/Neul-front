@@ -26,7 +26,6 @@ const StatusCheck = () => {
   const [status, setStatus] = useState<StatusType[] | null>(null);
   const [name, setName] = useState<string>(""); // 피보호자 이름
   const userId = useAuthStore((state) => state.user?.id);
-  console.log("유저 id", userId);
   const today = dayjs(); // 오늘 날짜
 
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(today);
@@ -67,22 +66,9 @@ const StatusCheck = () => {
 
   useEffect(() => {
     if (!userId) return;
-    // 피보호자 이름은 1번만 불러옴
-    // axiosInstance
-    //   .get("/patient/name", {
-    //     params: { userId },
-    //   })
-    //   .then((res) => {
-    //     setName(res.data.name);
-    //     console.log("피보호자이름", res.data.name);
-    //   })
-    //   .catch((e) => {
-    //     console.error("피보호자 이름 불러오기 실패:", e);
-    //   });
-
     // 오늘 날짜 상태 요청
     SelectDate(today);
-  }, []);
+  }, [userId]);
 
   return (
     // 달력 한글로
