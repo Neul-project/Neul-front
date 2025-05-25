@@ -33,8 +33,9 @@ const FindId = () => {
         console.log("아이디찾기 데이터", values);
 
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/find-email`,
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/find`,
           {
+            type: "email",
             name: values.name,
             phone: values.phone,
           }

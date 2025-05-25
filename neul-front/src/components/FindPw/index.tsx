@@ -33,8 +33,9 @@ const FindPw = () => {
         console.log("비밀번호찾기 데이터", values);
 
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/find-pw`,
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/find`,
           {
+            type: "pw",
             email: values.email,
             phone: values.phone,
           }
