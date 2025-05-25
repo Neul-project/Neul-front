@@ -49,21 +49,26 @@ const ActivityTable = () => {
   useEffect(() => {
     if (!user?.id) return;
     //화면 로드 시 테이블 내용 요청
-    axiosInstance.get(`/activity/list/${user?.id}`).then((res) => {
-      //console.log("data res", res.data);
 
-      const formatdata: DataType[] = res.data.map(
-        (item: any, index: number) => ({
-          key: String(item.id),
-          number: index + 1,
-          id: item.id,
-          title: item.title,
-          date: item.recorded_at,
-        })
-      );
+    axiosInstance
+      .get(`/activity/selectlist`, {
+        params: { type: "user", userId: user.id },
+      })
+      .then((res) => {
+        //console.log("data res", res.data);
 
-      setDataList(formatdata);
-    });
+        const formatdata: DataType[] = res.data.map(
+          (item: any, index: number) => ({
+            key: String(item.id),
+            number: index + 1,
+            id: item.id,
+            title: item.title,
+            date: item.recorded_at,
+          })
+        );
+
+        setDataList(formatdata);
+      });
   }, [user?.id]);
 
   return (

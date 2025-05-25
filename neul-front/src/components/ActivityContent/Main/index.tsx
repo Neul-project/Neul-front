@@ -26,10 +26,12 @@ const ActivityContent = (props: { id: string }) => {
     if (!id) return;
     const userId = user?.id;
     //console.log("userid", userId, id);
+
     //활동기록리스트 id와 userId에 따른 내용 전체 확인
     axiosInstance
-      .get(`/activity/detail`, {
-        params: { userId: userId, id: id },
+      .get(`/activity/selectlist`, {
+        //userid : 보호자id, activityId : 해당 활동기록 아이디
+        params: { userId: userId, activityId: id },
       })
       .then((res) => {
         //console.log("res", res.data);
