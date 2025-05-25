@@ -73,7 +73,9 @@ const FindPw = () => {
         );
 
         if (res.data.ok) {
-          alert("비밀번호가 성공적으로 변경되었습니다.");
+          alert(
+            "비밀번호가 성공적으로 변경되었습니다.\n로그인 페이지로 이동합니다."
+          );
           router.push("/login");
         }
       } catch (err) {
