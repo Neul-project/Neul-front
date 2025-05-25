@@ -62,6 +62,21 @@ export const HelperAppStyled = styled.div`
     color: ${(props) => props.theme.colors.pointGreen};
   }
 
+  .ProgramHistory_item_container {
+    padding: 20px 0px;
+
+    .ProgramHistory_empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .empty_img {
+        margin-top: 10px;
+        margin-bottom: 7px;
+      }
+    }
+  }
+
   .HelperApp_Content {
     margin-top: 12px;
     border: 1px solid #ddd;

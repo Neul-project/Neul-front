@@ -144,6 +144,14 @@ const LoginPage = () => {
           >
             아이디 찾기
           </li>
+          <span></span>
+          <li
+            onClick={() => {
+              router.push("/findpw");
+            }}
+          >
+            비밀번호 찾기
+          </li>
         </ul>
 
         {/* 소셜 로그인 */}

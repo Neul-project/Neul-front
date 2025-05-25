@@ -21,38 +21,15 @@ export default function App({ Component, pageProps }: AppProps) {
   const isChatPage = router.pathname === "/chat";
 
   // // 로딩중 컴포넌트 추가
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // // router가 변경될때 Loading 컴포넌트 표시
-  // useEffect(() => {
-  //   let timer: NodeJS.Timeout | null = null;
-
-  //   const start = () => {
-  //     // 항상 초기화
-  //     if (timer) clearTimeout(timer);
-  //     timer = setTimeout(() => {
-  //       setIsLoading(true);
-  //     }, 500); // 500ms 이상이면 로딩 보여주기
-  //   };
-
-  //   const end = () => {
-  //     if (timer) {
-  //       clearTimeout(timer);
-  //       timer = null;
-  //     }
-  //     setIsLoading(false); // 무조건 꺼주기
-  //   };
-
-  //   router.events.on("routeChangeStart", start); // 이동 시작 감지
-  //   router.events.on("routeChangeComplete", end); // 이동 완료 감지
-  //   router.events.on("routeChangeError", end); // 이동 실패 감지
-
-  //   return () => {
-  //     router.events.off("routeChangeStart", start);
-  //     router.events.off("routeChangeComplete", end);
-  //     router.events.off("routeChangeError", end);
-  //   };
-  // }, [router]);
+  // router가 변경될때 Loading 컴포넌트 표시
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [router]);
 
   // 로그인 상태 확인 및 자동 로그아웃 처리
   const logout = useAuthStore((state) => state.logout);
@@ -111,8 +88,8 @@ export default function App({ Component, pageProps }: AppProps) {
             paddingTop: isChatPage ? "0px" : "64px",
           }}
         >
-          {/* {isLoading ? <Loading /> : guardedComponent} */}
-          {guardedComponent}
+          {loading ? <Loading /> : guardedComponent}
+          {/* {guardedComponent} */}
         </div>
 
         <Footer />

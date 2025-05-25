@@ -61,7 +61,8 @@ const HelperApplication = () => {
         const res = await axiosInstance.get("matching/myapplication-list");
         console.log("신청한 도우미 리스트 응답", res.data);
 
-        setHelpers(res.data);
+        // null값이 포함되어있다면 제거
+        setHelpers(res.data.filter((item: any) => item !== null));
       } catch (error) {
         console.error("신청한 도우미 목록 불러오기 실패:", error);
       }
@@ -136,105 +137,122 @@ const HelperApplication = () => {
           </i>
         </div>
 
-        {paginatedHelpers.map((helper) => (
-          <div className="HelperApp_Content" key={helper.id}>
-            <div className="HelperApp_flexbox">
-              <div>
-                {helper.user.name} <span className="helper">도우미 </span>
-                {helper.gender === "male" ? (
-                  <i className="fa-solid fa-mars man" />
-                ) : (
-                  <i className="fa-solid fa-venus woman" />
-                )}{" "}
-                <span className="helper">({formatAge(helper.birth)})</span>
+        {/* 도우미 신청내역 */}
+        <div className="ProgramHistory_item_container">
+          {helpers.length === 0 ? (
+            <div className="ProgramHistory_empty">
+              <div className="empty_img">
+                <img src="/empty.svg" alt="emptyImage" />
               </div>
-
-              <div className="flex">
-                <div className="status">{helper.apply_status} </div>
-                {helper.apply_status == "결제 대기" && (
-                  <div className="HelperApp_btn">
-                    <button
-                      onClick={() => {
-                        // (희망 일당 * 사용자가 신청한 일수) 계산
-                        const applyDates = helper.apply_dates;
-                        const dateArray = applyDates.split(",");
-                        const dateCount = dateArray.length;
-
-                        const desiredPay = helper.desiredPay ?? 0;
-                        const totalAmount = desiredPay * dateCount;
-
-                        handlePayment(totalAmount, helper.user.id);
-                      }}
-                    >
-                      결제
-                    </button>
+              <div>도우미 신청내역이 없습니다.</div>
+            </div>
+          ) : (
+            paginatedHelpers.map((helper) => (
+              <div className="HelperApp_Content" key={helper?.id}>
+                <div className="HelperApp_flexbox">
+                  <div>
+                    {helper?.user.name} <span className="helper">도우미 </span>
+                    {helper?.gender === "male" ? (
+                      <i className="fa-solid fa-mars man" />
+                    ) : (
+                      <i className="fa-solid fa-venus woman" />
+                    )}{" "}
+                    <span className="helper">({formatAge(helper?.birth)})</span>
                   </div>
-                )}
+
+                  <div className="flex">
+                    <div className="status">{helper?.apply_status} </div>
+                    {helper?.apply_status == "결제 대기" && (
+                      <div className="HelperApp_btn">
+                        <button
+                          onClick={() => {
+                            // (희망 일당 * 사용자가 신청한 일수) 계산
+                            const applyDates = helper.apply_dates;
+                            const dateArray = applyDates.split(",");
+                            const dateCount = dateArray.length;
+
+                            const desiredPay = helper.desiredPay ?? 0;
+                            const totalAmount = desiredPay * dateCount;
+
+                            handlePayment(totalAmount, helper.user.id);
+                          }}
+                        >
+                          결제
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="HelperApp_container2">
+                  <p>경력: {helper?.experience}</p>
+                  <p>희망 일당: {helper?.desiredPay.toLocaleString()}원</p>
+                  <p>
+                    신청 일수:{" "}
+                    {helper?.apply_dates.split(",").filter(Boolean).length}일
+                  </p>
+                  <p className="stress">
+                    <span>결제예정 금액: </span>
+                    <strong>
+                      {(
+                        helper?.desiredPay *
+                        helper?.apply_dates.split(",").length
+                      ).toLocaleString()}
+                    </strong>
+                    원
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="HelperApp_container2">
-              <p>경력: {helper.experience}</p>
-              <p>희망 일당: {helper.desiredPay.toLocaleString()}원</p>
-              <p>
-                신청 일수:{" "}
-                {helper.apply_dates.split(",").filter(Boolean).length}일
-              </p>
-              <p className="stress">
-                <span>결제예정 금액: </span>
-                <strong>
-                  {(
-                    helper.desiredPay * helper.apply_dates.split(",").length
-                  ).toLocaleString()}
-                </strong>
-                원
-              </p>
-            </div>
-          </div>
-        ))}
-
-        <div className="pagination">
-          <button
-            className="number_btn start"
-            onClick={() => {
-              if (visiblePageGroup > 1) {
-                setVisiblePageGroup(visiblePageGroup - 1);
-                setCurrentPage((visiblePageGroup - 2) * visiblePages + 1);
-              }
-            }}
-            disabled={visiblePageGroup === 1}
-          >
-            <img src="/left_icon.png" alt="left_icon" />
-          </button>
-
-          {Array.from({ length: visiblePages }, (_, idx) => {
-            const page = (visiblePageGroup - 1) * visiblePages + (idx + 1);
-            if (page > totalPages) return null;
-
-            return (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={clsx("number_btn", { active: currentPage === page })}
-              >
-                {page}
-              </button>
-            );
-          })}
-
-          <button
-            className="number_btn"
-            onClick={() => {
-              if (visiblePageGroup * visiblePages < totalPages) {
-                setVisiblePageGroup(visiblePageGroup + 1);
-                setCurrentPage(visiblePageGroup * visiblePages + 1);
-              }
-            }}
-            disabled={visiblePageGroup * visiblePages >= totalPages}
-          >
-            <img src="/right_icon.png" alt="right_icon" />
-          </button>
+            ))
+          )}
         </div>
+
+        {helpers.length !== 0 && (
+          <div className="pagination">
+            <button
+              className="number_btn start"
+              onClick={() => {
+                if (visiblePageGroup > 1) {
+                  setVisiblePageGroup(visiblePageGroup - 1);
+                  setCurrentPage((visiblePageGroup - 2) * visiblePages + 1);
+                }
+              }}
+              disabled={visiblePageGroup === 1}
+            >
+              <img src="/left_icon.png" alt="left_icon" />
+            </button>
+
+            {Array.from({ length: visiblePages }, (_, idx) => {
+              const page = (visiblePageGroup - 1) * visiblePages + (idx + 1);
+              if (page > totalPages) return null;
+
+              return (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={clsx("number_btn", {
+                    active: currentPage === page,
+                  })}
+                >
+                  {page}
+                </button>
+              );
+            })}
+
+            <button
+              className="number_btn"
+              onClick={() => {
+                if (visiblePageGroup * visiblePages < totalPages) {
+                  setVisiblePageGroup(visiblePageGroup + 1);
+                  setCurrentPage(visiblePageGroup * visiblePages + 1);
+                }
+              }}
+              disabled={visiblePageGroup * visiblePages >= totalPages}
+            >
+              <img src="/right_icon.png" alt="right_icon" />
+            </button>
+          </div>
+        )}
       </div>
     </HelperAppStyled>
   );

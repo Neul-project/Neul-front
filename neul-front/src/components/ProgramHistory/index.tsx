@@ -176,48 +176,52 @@ const ProgramHistory = () => {
           )}
         </div>
 
-        <div className="pagination">
-          <button
-            className="number_btn start"
-            onClick={() => {
-              if (visiblePageGroup > 1) {
-                setVisiblePageGroup(visiblePageGroup - 1);
-                setCurrentPage((visiblePageGroup - 2) * visiblePages + 1);
-              }
-            }}
-            disabled={visiblePageGroup === 1}
-          >
-            <img src="/left_icon.png" alt="left_icon" />
-          </button>
+        {programs.length !== 0 && (
+          <div className="pagination">
+            <button
+              className="number_btn start"
+              onClick={() => {
+                if (visiblePageGroup > 1) {
+                  setVisiblePageGroup(visiblePageGroup - 1);
+                  setCurrentPage((visiblePageGroup - 2) * visiblePages + 1);
+                }
+              }}
+              disabled={visiblePageGroup === 1}
+            >
+              <img src="/left_icon.png" alt="left_icon" />
+            </button>
 
-          {Array.from({ length: visiblePages }, (_, idx) => {
-            const page = (visiblePageGroup - 1) * visiblePages + (idx + 1);
-            if (page > totalPages) return null;
+            {Array.from({ length: visiblePages }, (_, idx) => {
+              const page = (visiblePageGroup - 1) * visiblePages + (idx + 1);
+              if (page > totalPages) return null;
 
-            return (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={clsx("number_btn", { active: currentPage === page })}
-              >
-                {page}
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={clsx("number_btn", {
+                    active: currentPage === page,
+                  })}
+                >
+                  {page}
+                </button>
+              );
+            })}
 
-          <button
-            className="number_btn"
-            onClick={() => {
-              if (visiblePageGroup * visiblePages < totalPages) {
-                setVisiblePageGroup(visiblePageGroup + 1);
-                setCurrentPage(visiblePageGroup * visiblePages + 1);
-              }
-            }}
-            disabled={visiblePageGroup * visiblePages >= totalPages}
-          >
-            <img src="/right_icon.png" alt="right_icon" />
-          </button>
-        </div>
+            <button
+              className="number_btn"
+              onClick={() => {
+                if (visiblePageGroup * visiblePages < totalPages) {
+                  setVisiblePageGroup(visiblePageGroup + 1);
+                  setCurrentPage(visiblePageGroup * visiblePages + 1);
+                }
+              }}
+              disabled={visiblePageGroup * visiblePages >= totalPages}
+            >
+              <img src="/right_icon.png" alt="right_icon" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 환불 모달 */}
