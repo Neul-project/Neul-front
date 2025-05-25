@@ -38,7 +38,7 @@ const StatusCheck = () => {
     const formattedDate = date.format("YYYY-MM-DD");
     // userId와 날짜(2025-04-30)를 보내면 상태 기록 받기
     axiosInstance
-      .get("/status/day", {
+      .get("/status/selectList", {
         params: {
           userId,
           date: String(formattedDate),
