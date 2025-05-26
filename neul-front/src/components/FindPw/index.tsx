@@ -65,8 +65,8 @@ const FindPw = () => {
     validationSchema: changePwValidation,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
+        const res = await axios.patch(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/password`,
           {
             email: formik.values.email,
             newPassword: values.password,
@@ -168,7 +168,7 @@ const FindPw = () => {
               <input
                 className="FindId_input"
                 type="text"
-                name="name"
+                name="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

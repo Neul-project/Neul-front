@@ -2,7 +2,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // 로그인 없이 접근 가능한 경로 목록
-const PUBLIC_PATHS = ["/", "/login", "/join"];
+const PUBLIC_PATHS = [
+  "/",
+  "/login",
+  "/join",
+  "/findid",
+  "/findpw",
+  "/moreinfo",
+];
 
 // 정적 파일이나 API 요청인지 확인
 function isPublicFile(pathname: string) {

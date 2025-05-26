@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 const Footer = () => {
   const router = useRouter();
 
-  // 헤더 제외할 페이지
+  // 푸터 제외할 페이지
   const notPage = ["/join", "/login", "/chat"];
 
   const isHiddenStyle = notPage.includes(router.pathname);
