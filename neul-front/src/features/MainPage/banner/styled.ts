@@ -36,7 +36,7 @@ export const BannerStyled = styled.div`
 
     .Banner_slide {
       width: 100%;
-      height: 400px;
+      height: 460px;
       //border: 1px solid black;
       border-radius: 15px;
       overflow: hidden;
