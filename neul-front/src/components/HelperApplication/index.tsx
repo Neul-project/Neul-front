@@ -111,7 +111,7 @@ const HelperApplication = () => {
         amount,
         orderId,
         orderName,
-        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/confirm?&helperId=${helperId}`,
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/confirm?&helperId=${helperId}?&applyId=${applyId}`,
         failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
       });
     } catch (error) {

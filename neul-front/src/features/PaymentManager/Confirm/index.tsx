@@ -18,7 +18,7 @@ type ConfirmType = {
 // 도우미 최종 결제완료 페이지
 const PaymentConfirmFeat = () => {
   const router = useRouter();
-  const { helperId, orderId, amount, paymentKey } = router.query;
+  const { applyId, helperId, orderId, amount, paymentKey } = router.query;
   const [data, setData] = useState<ConfirmType | null>(null);
 
   console.log("도우미 최종결제 완료", data);
@@ -26,7 +26,7 @@ const PaymentConfirmFeat = () => {
   // 최종 결제승인 요청
   useEffect(() => {
     // 쿼리 다 로드되기 전이면 아무것도 하지 않음
-    if (!helperId || !orderId || !amount || !paymentKey) return;
+    if (!applyId || !helperId || !orderId || !amount || !paymentKey) return;
 
     const confirmPayment = async () => {
       try {
@@ -35,6 +35,7 @@ const PaymentConfirmFeat = () => {
           helperId,
           orderId,
           paymentKey,
+          applyId,
         });
 
         setData(res.data);
@@ -44,7 +45,7 @@ const PaymentConfirmFeat = () => {
     };
 
     confirmPayment();
-  }, [helperId, orderId, amount, paymentKey]);
+  }, [applyId, helperId, orderId, amount, paymentKey]);
 
   return (
     <ComfirmStyled>

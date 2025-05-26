@@ -15,10 +15,8 @@ const FindPw = () => {
 
   // 검색 시도 여부
   const [isSearched, setIsSearched] = useState(false);
-
   // 비밀번호 없음 여부
   const [notFound, setNotFound] = useState(false);
-
   const [isVerified, setIsVerified] = useState(false); // 사용자 인증 여부
 
   // 비밀번호 찾기 전 유저 검증 요청
@@ -48,6 +46,8 @@ const FindPw = () => {
           setIsVerified(true);
         } else {
           setIsVerified(false);
+          setNotFound(true);
+          setIsSearched(true);
         }
       } catch (error) {
         console.error("비밀번호 찾기 실패:", error);
@@ -78,6 +78,7 @@ const FindPw = () => {
             "비밀번호가 성공적으로 변경되었습니다.\n로그인 페이지로 이동합니다."
           );
           router.push("/login");
+        } else {
         }
       } catch (err) {
         console.error("비밀번호 재설정 실패:", err);
