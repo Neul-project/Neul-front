@@ -37,6 +37,7 @@ interface HelperInfo {
   certificateName2: string | null;
   certificateName3: string | null;
   user: {
+    applyRequests: string[];
     id: number;
     name: string;
     phone: string;
@@ -72,12 +73,38 @@ const HelperFeat = () => {
   useEffect(() => {
     const fetchHelpers = async () => {
       try {
-        const res = await axiosInstance.get("helper/info", {
+        const res = await axiosInstance.get("/helper/info", {
           params: { type: "approve" },
         });
         console.log("도우미 리스트 응답", res.data);
 
+        const helperList: HelperInfo[] = res.data;
+
+        // helperList.user.applyRequests 내 dates를 disabledDatesMap에 반영
+        const updatedDisabledMap: Record<number, string[]> = {};
+
+        //
+        helperList.forEach((helper) => {
+          const appliedDates: string[] = [];
+
+          helper.user.applyRequests?.forEach((request: any) => {
+            if (request.dates) {
+              // 문자열로 받은 날짜를 배열로 나눔
+              const splitDates = request.dates
+                .split(",")
+                .map((date: any) => date.trim());
+              // ["2025-06-05", "2025-06-06", "2025-06-07"]
+
+              appliedDates.push(...splitDates);
+            }
+          });
+          // 기존과 동일한 형식으로 저장
+          updatedDisabledMap[helper.user.id] = appliedDates;
+        });
+
         setHelpers(res.data);
+        setDisabledDatesMap(updatedDisabledMap);
+        console.log("비활성화된 날짜 맵:", updatedDisabledMap);
       } catch (error) {
         console.error("도우미 목록 불러오기 실패:", error);
       }
@@ -86,7 +113,7 @@ const HelperFeat = () => {
     fetchHelpers();
   }, []);
 
-  // 해당 도우미의 일정 요청
+  // 선택한 도우미의 일정 요청
   const fetchHelperTime = async (helperId: number) => {
     setLoadingTime(true);
     try {
