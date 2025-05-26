@@ -197,6 +197,7 @@ const Header = () => {
               if (line === "[도우미 페이지로 이동]") {
                 return (
                   <div key={index}>
+                    <br />
                     <a
                       href="http://localhost:4000/"
                       style={{ color: "#1677ff" }}
