@@ -66,6 +66,7 @@ const MyInfo = () => {
 
       try {
         const res = await axiosInstance.patch("/auth/password", {
+          email: userInfo?.email,
           newPassword: values.password,
         });
 
