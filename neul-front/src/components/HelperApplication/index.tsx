@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
 interface ApplyItem {
+  id: number;
   dates: string;
   status: string;
 }
@@ -79,8 +80,12 @@ const HelperApplication = () => {
   // 도우미 신청 - 토스 결제
   const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
 
-  const handlePayment = async (amount: number, helperId: number) => {
-    console.log("도우미 신청결제: ", amount, helperId);
+  const handlePayment = async (
+    amount: number,
+    helperId: number,
+    applyId: number
+  ) => {
+    console.log("도우미 신청결제: ", amount, helperId, applyId);
 
     if (!tossClientKey) {
       console.error("Toss client key가 없습니다.");
@@ -96,6 +101,7 @@ const HelperApplication = () => {
         amount,
         helperId: helperId,
         orderId,
+        applyId,
       });
 
       // 2. 받은 orderId로 토스 결제창 띄우기
@@ -205,7 +211,11 @@ const HelperApplication = () => {
                               <button
                                 className="HelperApp_btn"
                                 onClick={() =>
-                                  handlePayment(totalAmount, helper.user.id)
+                                  handlePayment(
+                                    totalAmount,
+                                    helper.user.id,
+                                    apply.id
+                                  )
                                 }
                               >
                                 결제

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FindPwStyled = styled.div`
-  height: 80vh;
+  height: 70vh;
   background-color: ${(props) => props.theme.colors.backColor};
 
   .FindId_container {

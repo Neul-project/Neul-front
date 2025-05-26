@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ComfirmStyled = styled.div`
-  height: 100vh;
+  height: 70vh;
   background-color: rgb(242, 245, 248);
   padding-top: 40px;
 
