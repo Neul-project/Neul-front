@@ -20,7 +20,7 @@ export const ProgramListStyled = styled.div`
       padding: 20px 0;
       align-items: center;
       font-size: 30px;
-      //margin-bottom: 60px;
+      color: #333;
       font-weight: bolder;
       letter-spacing: -1.5px;
     }
@@ -96,7 +96,7 @@ export const ProgramListStyled = styled.div`
         padding: 20px 0;
         align-items: center;
         font-size: 25px;
-        //margin-bottom: 60px;
+        color: #333;
         font-weight: bolder;
       }
 
@@ -138,18 +138,15 @@ export const ProgramListStyled = styled.div`
 
       .ProgramList_title {
         display: flex;
-        //align-items: flex-end;
         align-items: center;
         justify-content: space-between;
-        //margin-bottom: 30px;
         padding: 20px 0;
         align-items: center;
         font-size: 20px;
-        //margin-bottom: 60px;
+        color: #333;
         font-weight: bolder;
       }
       .ProgramList_subtitle {
-        //border-top: 1px solid #ccc;
         display: flex;
         flex-direction: column;
         align-items: start;

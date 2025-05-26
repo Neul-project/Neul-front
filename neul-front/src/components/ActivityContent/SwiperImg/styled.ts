@@ -12,11 +12,12 @@ export const SwiperStyled = styled.div`
       width: 100%;
       height: 400px;
       z-index: 50;
+      padding-right: 20px;
 
       .SwiperImg_swperimg {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
 
