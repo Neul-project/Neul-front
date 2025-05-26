@@ -90,7 +90,7 @@ const ChatRoom = () => {
   const chatRoomLimit = 12;
 
   // 채팅창
-  const chatLimit = 20;
+  const chatLimit = 14;
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isFetching = useRef(false);
