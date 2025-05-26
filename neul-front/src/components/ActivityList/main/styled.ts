@@ -12,7 +12,8 @@ export const ActivityListStyled = styled.div`
 
     .ActivityList_title {
       padding: 50px 10px 7px 10px;
-      font-size: 25px;
+      font-size: 24px;
+      color: #333;
       font-weight: bold;
       margin-bottom: 20px;
       display: inline-block;
@@ -35,6 +36,7 @@ export const ActivityListStyled = styled.div`
       .ActivityList_title {
         padding: 30px 10px 0px 10px;
         font-size: 20px;
+        color: #333;
         font-weight: bold;
         margin-bottom: 20px;
         display: inline-block;
@@ -58,6 +60,7 @@ export const ActivityListStyled = styled.div`
       .ActivityList_title {
         padding: 20px 10px 0px 10px;
         font-size: 17px;
+        color: #333;
         font-weight: bold;
         margin-bottom: 20px;
         display: inline-block;

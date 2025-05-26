@@ -199,7 +199,7 @@ const Header = () => {
                   <div key={index}>
                     <br />
                     <a
-                      href="http://localhost:4000/"
+                      href="http://localhost:4000/login"
                       style={{ color: "#1677ff" }}
                     >
                       도우미 페이지로 이동

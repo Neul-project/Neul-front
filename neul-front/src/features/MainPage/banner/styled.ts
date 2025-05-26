@@ -7,8 +7,8 @@ export const BannerStyled = styled.div`
     //padding: 0px 40px;
 
     .Banner_text {
-      font-size: 25px;
-      color: #000;
+      font-size: 24px;
+      color: #333;
       font-weight: bold;
       margin-bottom: 15px;
       letter-spacing: -1.5px;
@@ -78,7 +78,7 @@ export const BannerStyled = styled.div`
 
       .Banner_text {
         font-size: 23px;
-        color: #000;
+        color: #333;
         font-weight: bold;
         margin-bottom: 15px;
       }
@@ -129,7 +129,7 @@ export const BannerStyled = styled.div`
 
       .Banner_text {
         font-size: 19px;
-        color: #000;
+        color: #333;
         font-weight: bold;
         margin-bottom: 10px;
       }
