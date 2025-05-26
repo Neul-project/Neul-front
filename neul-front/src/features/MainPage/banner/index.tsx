@@ -21,7 +21,7 @@ const Banner = () => {
 
   useEffect(() => {
     axiosInstance.get("/program/list").then((res) => {
-      const data = res.data.reverse().slice(0, 5);
+      const data = res.data.slice(0, 5);
       //console.log("data", data);
       const items = data.map((element: any) => ({
         id: element.id,
