@@ -27,7 +27,7 @@ const WardInfo = () => {
 
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
-  console.log("보호자+피보호자 : ", userInfo);
+  // console.log("보호자+피보호자 : ", userInfo);
 
   // 보호자 + 피보호자 정보 요청
   useEffect(() => {
@@ -51,7 +51,7 @@ const WardInfo = () => {
       note: "",
     },
     onSubmit: async (values) => {
-      console.log("피보호자 정보 수정:", values);
+      // console.log("피보호자 정보 수정:", values);
 
       try {
         const res = await axiosInstance.patch("/patient/info", {

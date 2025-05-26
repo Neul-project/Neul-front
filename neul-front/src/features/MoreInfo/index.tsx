@@ -50,8 +50,8 @@ const MoreInfoCompo = () => {
         note: values.note,
       };
 
-      console.log(guardian);
-      console.log(ward);
+      // console.log(guardian);
+      // console.log(ward);
 
       try {
         const [guardianRes, wardRes] = await Promise.all([
@@ -59,8 +59,8 @@ const MoreInfoCompo = () => {
           axiosInstance.post("/patient/info", ward),
         ]);
 
-        console.log("MoreInfo guardianRes", guardianRes.data);
-        console.log("MoreInfo wardRes", wardRes.data);
+        // console.log("MoreInfo guardianRes", guardianRes.data);
+        // console.log("MoreInfo wardRes", wardRes.data);
 
         if (guardianRes.data?.ok === true && wardRes.data?.ok === true) {
           alert("등록이 완료되었습니다.");

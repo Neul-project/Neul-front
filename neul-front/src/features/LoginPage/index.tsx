@@ -26,7 +26,7 @@ const LoginPage = () => {
     validationSchema: loginSchema,
 
     onSubmit: async (values) => {
-      console.log("로그인 요청 데이터:", values);
+      // console.log("로그인 요청 데이터:", values);
 
       try {
         const res = await axios.post(
@@ -37,7 +37,7 @@ const LoginPage = () => {
           }
         );
 
-        console.log("로그인 응답 데이터", res.data);
+        // console.log("로그인 응답 데이터", res.data);
 
         const { user, token } = res.data;
 
@@ -47,7 +47,7 @@ const LoginPage = () => {
         // 2. 토큰 기반 유저 정보 요청
         const meRes = await axiosInstance.get("/auth/me");
 
-        console.log("유저 정보:", meRes.data);
+        // console.log("유저 정보:", meRes.data);
 
         // 3. zustand에 로그인 상태 저장
         login(meRes.data); // user: { id, name, provider, role }

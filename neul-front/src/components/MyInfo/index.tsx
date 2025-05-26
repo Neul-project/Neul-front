@@ -25,7 +25,7 @@ type UserInfoType = {
 const MyInfo = () => {
   // zustand 로그인 유저 정보 가져오기
   const { user } = useAuthStore();
-  console.log(user); // {id, name, provider}
+  // console.log(user); // {id, name, provider}
 
   const router = useRouter();
 
@@ -34,7 +34,7 @@ const MyInfo = () => {
 
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
-  console.log("userInfo", userInfo);
+  // console.log("userInfo", userInfo);
 
   // 내 정보 요청
   const fetchMyInfo = async () => {
@@ -62,7 +62,7 @@ const MyInfo = () => {
     },
     validationSchema: changePwValidation,
     onSubmit: async (values) => {
-      console.log("비밀번호 변경요청", values);
+      // console.log("비밀번호 변경요청", values);
 
       try {
         const res = await axiosInstance.patch("/auth/password", {
@@ -91,7 +91,7 @@ const MyInfo = () => {
     try {
       const res = await axiosInstance.delete("/user/withdraw");
 
-      console.log("회원탈퇴", res.data);
+      // console.log("회원탈퇴", res.data);
 
       if (res.data) {
         // access_token, refresh_token 제거 및 zustand 상태 초기화

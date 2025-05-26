@@ -28,7 +28,7 @@ const FindPw = () => {
     validationSchema: findPwValidationSchema,
     onSubmit: async (values) => {
       try {
-        console.log("비밀번호찾기 데이터", values);
+        // console.log("비밀번호찾기 데이터", values);
 
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/find`,
@@ -38,7 +38,7 @@ const FindPw = () => {
             phone: values.phone,
           }
         );
-        console.log("비밀번호 찾기 응답", res.data);
+        // console.log("비밀번호 찾기 응답", res.data);
 
         if (res.data?.ok) {
           setIsSearched(true);

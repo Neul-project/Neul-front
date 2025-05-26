@@ -21,7 +21,7 @@ const PaymentConfirmFeat = () => {
   const { applyId, helperId, orderId, amount, paymentKey } = router.query;
   const [data, setData] = useState<ConfirmType | null>(null);
 
-  console.log("도우미 최종결제 완료", data);
+  // console.log("도우미 최종결제 완료", data);
 
   // 최종 결제승인 요청
   useEffect(() => {

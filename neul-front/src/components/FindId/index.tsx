@@ -12,14 +12,12 @@ const FindId = () => {
 
   // 아이디 있을때
   const [foundEmail, setFoundEmail] = useState<string | null>(null);
-
   // 검색 시도 여부
   const [isSearched, setIsSearched] = useState(false);
-
   // 아이디 없음 여부
   const [notFound, setNotFound] = useState(false);
 
-  console.log("foundEmail", foundEmail);
+  // console.log("foundEmail", foundEmail);
 
   // 아이디 찾기 요청
   const formik = useFormik({
@@ -30,7 +28,7 @@ const FindId = () => {
     validationSchema: findIdValidationSchema,
     onSubmit: async (values) => {
       try {
-        console.log("아이디찾기 데이터", values);
+        // console.log("아이디찾기 데이터", values);
 
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/find`,
@@ -40,7 +38,7 @@ const FindId = () => {
             phone: values.phone,
           }
         );
-        console.log("아이디 찾기 응답", res.data);
+        // console.log("아이디 찾기 응답", res.data);
 
         setIsSearched(true); // 검색 시도 상태 기록
 

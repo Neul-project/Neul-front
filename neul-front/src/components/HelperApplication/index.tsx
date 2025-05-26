@@ -66,7 +66,7 @@ const HelperApplication = () => {
     const fetchHelpers = async () => {
       try {
         const res = await axiosInstance.get("matching/myapplication-list");
-        console.log("신청한 도우미 리스트 응답", res.data);
+        // console.log("신청한 도우미 리스트 응답", res.data);
 
         // null값이 포함되어있다면 제거
         setHelpers(res.data.filter((item: any) => item !== null));
@@ -85,7 +85,7 @@ const HelperApplication = () => {
     helperId: number,
     applyId: number
   ) => {
-    console.log("도우미 신청결제: ", amount, helperId, applyId);
+    // console.log("도우미 신청결제: ", amount, helperId, applyId);
 
     if (!tossClientKey) {
       console.error("Toss client key가 없습니다.");

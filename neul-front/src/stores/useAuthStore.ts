@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthState>()(
         useCartStore.setState({ cartCount: 0 });
 
         set({ user: null, isLoggedIn: false, adminId: null });
-        console.log("zustand logout 쿠키 및 상태 초기화");
+        // console.log("zustand logout 쿠키 및 상태 초기화");
       },
 
       setAdminId: (id: number | null) => set({ adminId: id }),

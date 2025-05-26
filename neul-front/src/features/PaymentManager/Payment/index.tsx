@@ -29,7 +29,7 @@ const PaymentFeature = () => {
   // 처음 실행 시에만 전체선택 되도록 제어하는 state
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-  console.log("결제페이지 프로그램", programs);
+  // console.log("결제페이지 프로그램", programs);
 
   // 선택된 프로그램의 id만 저장
   const [selectedProgramIds, setSelectedProgramIds] = useState<number[]>([]);
@@ -152,7 +152,7 @@ const PaymentFeature = () => {
         programIds: deletableIds,
       });
 
-      console.log("장바구니 삭제", res.data);
+      // console.log("장바구니 삭제", res.data);
 
       if (res.data.ok) {
         // 4. 삭제된 항목 프론트에서 제거

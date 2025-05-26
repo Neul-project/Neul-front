@@ -37,7 +37,7 @@ interface HelperInfo {
 const ApprovalHistory = () => {
   // zustand 로그인 유저 정보, admin 정보 가져오기
   const userId = useAuthStore((state) => state.user?.id);
-  console.log(userId);
+  // console.log(userId);
 
   // 도우미 내역
   const [helper, setHelper] = useState<HelperInfo | null>(null);
@@ -51,8 +51,6 @@ const ApprovalHistory = () => {
   // 도우미 정보 요청
   useEffect(() => {
     if (!userId) return;
-
-    console.log("ddddd", userId);
     const fetchHelpers = async () => {
       try {
         const res = await axiosInstance.get("helper/userlist", {
@@ -111,14 +109,14 @@ const ApprovalHistory = () => {
           formData.append("existingCertificate", helper.certificate);
         }
 
-        for (const [key, value] of formData.entries()) {
-          console.log(`${key}:`, value);
-        }
+        // for (const [key, value] of formData.entries()) {
+        //   console.log(`${key}:`, value);
+        // }
 
         // 재승인 요청 전송
         const res = await axiosInstance.patch("/helper/edit-profile", formData);
 
-        console.log("resdata", res.data);
+        // console.log("resdata", res.data);
 
         if (res.data?.ok) {
           alert("재승인 요청이 완료되었습니다.");

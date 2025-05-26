@@ -30,7 +30,7 @@ const ProgramHistory = () => {
     null
   );
 
-  console.log("프로그램 신청목록: ", programs);
+  // console.log("프로그램 신청목록: ", programs);
 
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,7 +85,7 @@ const ProgramHistory = () => {
         note: values.refundReason,
       };
 
-      console.log("환불신청 데이터: ", payload);
+      // console.log("환불신청 데이터: ", payload);
 
       try {
         const res = await axiosInstance.post("/program/refund", payload);

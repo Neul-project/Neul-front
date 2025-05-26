@@ -77,7 +77,7 @@ const HelperFeat = () => {
         const res = await axiosInstance.get("/helper/info", {
           params: { type: "approve" },
         });
-        console.log("도우미 리스트 응답", res.data);
+        // console.log("도우미 리스트 응답", res.data);
 
         const helperList: HelperInfo[] = res.data;
 
@@ -105,7 +105,7 @@ const HelperFeat = () => {
 
         setHelpers(res.data);
         setDisabledDatesMap(updatedDisabledMap);
-        console.log("비활성화된 날짜 맵:", updatedDisabledMap);
+        // console.log("비활성화된 날짜 맵:", updatedDisabledMap);
       } catch (error) {
         console.error("도우미 목록 불러오기 실패:", error);
       }
@@ -119,8 +119,8 @@ const HelperFeat = () => {
     setLoadingTime(true);
     try {
       const res = await axiosInstance.get(`/helper/time/${helperId}`);
-      console.log("도우미 일정 응답", res.data);
-      console.log(res.status);
+      // console.log("도우미 일정 응답", res.data);
+      // console.log(res.status);
 
       // 데이터가 없을 때 예외 처리
       if (!res.data || res.data.length === 0) {
@@ -187,7 +187,7 @@ const HelperFeat = () => {
 
       if (!isConfirmed) return;
 
-      console.log("validDates: ", helperId, validDates);
+      // console.log("validDates: ", helperId, validDates);
 
       // 3. 최종신청 서버 요청
       const res = await axiosInstance.post("/matching/submit-request", {
@@ -195,7 +195,7 @@ const HelperFeat = () => {
         dates: validDates, // ['2025-05-12', '2025-05-13'...]
       });
 
-      console.log("도우미 신청 결과:", res.data);
+      // console.log("도우미 신청 결과:", res.data);
 
       if (res.data.ok && res.data.confirmedDates) {
         const confirmed = res.data.confirmedDates.split(","); // 문자열 → 배열
@@ -337,7 +337,7 @@ const HelperFeat = () => {
                     <div className="Helper_Btn">
                       <button
                         onClick={async () => {
-                          console.log("helper", helper);
+                          // console.log("helper", helper);
                           setActiveHelper(helper);
                           await fetchHelperTime(helper.user.id);
                         }}

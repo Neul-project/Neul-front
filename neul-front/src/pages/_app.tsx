@@ -54,7 +54,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const checkToken = () => {
       const token = Cookies.get("access_token");
       if (!token && isLoggedIn) {
-        console.log("access_token 없음 → 자동 로그아웃");
+        // console.log("access_token 없음 → 자동 로그아웃");
         logout();
       }
     };
