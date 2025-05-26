@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { ProgramDetailStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
 import clsx from "clsx";
-import { useAuthStore } from "@/stores/useAuthStore";
 import { Button, ConfigProvider, Modal, notification } from "antd";
 import ProgramImg from "../ProgramImg";
 import ProgramContent from "../ProgramContent";
@@ -23,7 +22,7 @@ declare global {
 const ProgramDetail = (props: { detailid: string }) => {
   //변수 선언
   const { detailid } = props;
-  const { user } = useAuthStore();
+  //const { user } = useAuthStore();
   const [isModalOpen, setIsModalOpen] = useState(false); //신청하기 모달
   const [isDirectModalOpen, setIsDirectModalOpen] = useState(false); //바로 결제하기 모달
   const router = useRouter();
@@ -98,7 +97,7 @@ const ProgramDetail = (props: { detailid: string }) => {
       .get(`/program/list`, { params: { detailid: Number(detailid) } })
       .then((res) => {
         const data = res.data;
-        console.log("Data", data);
+        //console.log("Data", data);
         const imgarr = data.img.split(",");
         setTitle(data.name);
         setCall(data.call);
@@ -168,7 +167,7 @@ const ProgramDetail = (props: { detailid: string }) => {
     //장바구니에 있는 지 확인용
     axiosInstance.get("/program/histories").then((res: any) => {
       const list = res.data;
-      console.log("his", list);
+      //console.log("his", list);
       //장바구니에 있는지 확인
       const incart = list.filter((item: any) => {
         return item.payment_status === "결제 대기";
@@ -204,7 +203,7 @@ const ProgramDetail = (props: { detailid: string }) => {
           setIsDirectModalOpen(false);
         }
       } else {
-        console.log("die", detailid);
+        //console.log("die", detailid);
 
         axiosInstance
           .post("/program/apply", { id: Number(detailid) })

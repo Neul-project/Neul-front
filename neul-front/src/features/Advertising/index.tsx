@@ -29,7 +29,7 @@ const Advertising = () => {
         }
       })
       .catch((error: string) => {
-        console.log("광고 error");
+        //console.log("광고 error");
       });
   }, []);
 

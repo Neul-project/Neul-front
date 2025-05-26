@@ -68,7 +68,7 @@ export const MyInfoStyled = styled.div`
     padding-right: 10px;
 
     @media (max-width: 632px) {
-      margin-top: 5px;
+      margin-bottom: 15px;
       padding-right: 0px;
       text-align: end;
     }

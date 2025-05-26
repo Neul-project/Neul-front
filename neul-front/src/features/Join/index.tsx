@@ -692,7 +692,7 @@ const JoinPage = () => {
                     <input
                       type="number"
                       name="desiredPay"
-                      placeholder="희망 일당을 입력하세요"
+                      placeholder="숫자만 입력하세요"
                       className="MoreInfo_input"
                       onChange={formik.handleChange}
                       value={formik.values.desiredPay || ""}

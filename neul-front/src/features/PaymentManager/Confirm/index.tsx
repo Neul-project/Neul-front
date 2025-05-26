@@ -52,42 +52,42 @@ const PaymentConfirmFeat = () => {
         <div className="Confirm_title">도우미 신청 결제성공!</div>
 
         <div className="Confirm_content">
-          <p className="content">
+          <div className="content">
             <div className="name">신청자:</div>
             <div>{data?.userName}</div>
-          </p>
-          <p className="content">
+          </div>
+          <div className="content">
             <div className="name">담당 도우미:</div>
             <div>{data?.adminName}</div>
-          </p>
-          <p className="content">
+          </div>
+          <div className="content">
             <div className="name">승인번호:</div>{" "}
             <div>{data?.charge.orderId}</div>
-          </p>
+          </div>
 
-          <p className="content">
+          <div className="content">
             <div className="name">승인일시:</div>{" "}
             <div>
               {dayjs(data?.charge.created_at).format("YYYY.MM.DD HH:mm:ss")}
             </div>
-          </p>
+          </div>
 
           <div className="content">
             <div className="name">예약 날짜:</div>
-            <p>
+            <div>
               {data?.dates.split(",").map((date, idx) => (
                 <div key={idx}>{date}</div>
               ))}
-            </p>
+            </div>
           </div>
 
-          <p className="content amount">
+          <div className="content amount">
             <div className="name">결제 금액:</div>{" "}
             <div>
               <span className="pay">{data?.charge.price.toLocaleString()}</span>
               원
             </div>
-          </p>
+          </div>
         </div>
 
         <div className="Confirm_btn">
