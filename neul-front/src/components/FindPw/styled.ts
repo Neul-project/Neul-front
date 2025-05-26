@@ -4,6 +4,10 @@ export const FindPwStyled = styled.div`
   height: 70vh;
   background-color: ${(props) => props.theme.colors.backColor};
 
+  @media (max-width: 632px) {
+    height: 100vh;
+  }
+
   .FindId_container {
     width: 375px;
     margin: 0 auto;
@@ -83,7 +87,7 @@ export const FindPwStyled = styled.div`
   }
 
   .FindId_title {
-    padding: 50px 0 48px;
+    padding: 50px 0 30px;
     font-size: 26px;
     font-weight: 500;
   }

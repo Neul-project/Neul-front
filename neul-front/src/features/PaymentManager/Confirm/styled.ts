@@ -6,6 +6,7 @@ export const ComfirmStyled = styled.div`
   padding-top: 40px;
 
   @media (max-width: 632px) {
+    height: 100vh;
     padding: 50px 20px 20px 20px;
   }
 

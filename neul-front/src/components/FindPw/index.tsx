@@ -94,45 +94,55 @@ const FindPw = () => {
 
         {isVerified ? (
           // 비밀번호 재설정 UI
-          <form
-            onSubmit={resetFormik.handleSubmit}
-            className="FindPw_ResetContainer"
-          >
-            <p className="guide1">새로운 비밀번호를 입력해주세요.</p>
+          <div className="FindId_ResultContainer">
+            <form
+              onSubmit={resetFormik.handleSubmit}
+              className="FindPw_ResetContainer"
+            >
+              <p className="guide1">입력하신 정보로 사용자가 확인되었습니다.</p>
+              <p className="guide2">새로운 비밀번호를 입력해주세요.</p>
 
-            <input
-              className="FindPw_input"
-              type="password"
-              name="password"
-              placeholder="새 비밀번호"
-              value={resetFormik.values.password}
-              onChange={resetFormik.handleChange}
-              onBlur={resetFormik.handleBlur}
-            />
-            {resetFormik.touched.password && resetFormik.errors.password && (
-              <div className="error">{resetFormik.errors.password}</div>
-            )}
+              <div className="input_subContainer">
+                <div className="FindId_name"></div>
+                <input
+                  className="FindId_input"
+                  type="password"
+                  name="password"
+                  placeholder="새 비밀번호"
+                  value={resetFormik.values.password}
+                  onChange={resetFormik.handleChange}
+                  onBlur={resetFormik.handleBlur}
+                />
 
-            <input
-              className="FindPw_input"
-              type="password"
-              name="confirmPassword"
-              placeholder="비밀번호 확인"
-              value={resetFormik.values.confirmPassword}
-              onChange={resetFormik.handleChange}
-              onBlur={resetFormik.handleBlur}
-            />
-            {resetFormik.touched.confirmPassword &&
-              resetFormik.errors.confirmPassword && (
-                <div className="error">
-                  {resetFormik.errors.confirmPassword}
-                </div>
-              )}
+                {resetFormik.touched.password &&
+                  resetFormik.errors.password && (
+                    <div className="error">{resetFormik.errors.password}</div>
+                  )}
+              </div>
 
-            <button type="submit" className="FindPw_submitBtn">
-              비밀번호 변경하기
-            </button>
-          </form>
+              <div className="input_subContainer">
+                <input
+                  className="FindId_input"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="비밀번호 확인"
+                  value={resetFormik.values.confirmPassword}
+                  onChange={resetFormik.handleChange}
+                  onBlur={resetFormik.handleBlur}
+                />
+                {resetFormik.touched.confirmPassword &&
+                  resetFormik.errors.confirmPassword && (
+                    <div className="error">
+                      {resetFormik.errors.confirmPassword}
+                    </div>
+                  )}
+              </div>
+
+              <button type="submit" className="FindId_ResultBtn">
+                비밀번호 변경하기
+              </button>
+            </form>
+          </div>
         ) : notFound && isSearched ? (
           <div className="FindId_ResultContainer">
             <p>입력하신 정보로 계정을 확인할 수 없습니다.</p>

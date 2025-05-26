@@ -14,7 +14,8 @@ import { useEffect, useState } from "react";
 import { HelperStyled } from "./styled";
 import Image from "next/image";
 
-import { DatePicker } from "antd";
+import { DatePicker, ConfigProvider } from "antd";
+import { GreenTheme } from "@/utils/antdtheme";
 const { RangePicker } = DatePicker;
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
@@ -211,7 +212,7 @@ const HelperFeat = () => {
           "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
         );
 
-        // router.push("/");
+        router.push("/");
 
         // 초기화 (선택)
         setActiveHelper(null);
@@ -366,61 +367,63 @@ const HelperFeat = () => {
                 <strong>{activeHelper.user.name}</strong> 도우미 예약일 선택
               </div>
 
-              <RangePicker
-                className="Helper_datePicker"
-                classNames={{
-                  popup: {
-                    root: "custom-datepicker-popup",
-                  },
-                }}
-                value={
-                  selectedRange
-                    ? [dayjs(selectedRange[0]), dayjs(selectedRange[1])]
-                    : null
-                }
-                onChange={(dates) => {
-                  if (dates && dates[0] && dates[1]) {
-                    setSelectedRange([dates[0].toDate(), dates[1].toDate()]);
-                  } else {
-                    setSelectedRange(null);
+              <ConfigProvider theme={GreenTheme}>
+                <RangePicker
+                  className="Helper_datePicker"
+                  classNames={{
+                    popup: {
+                      root: "custom-datepicker-popup",
+                    },
+                  }}
+                  value={
+                    selectedRange
+                      ? [dayjs(selectedRange[0]), dayjs(selectedRange[1])]
+                      : null
                   }
-                }}
-                // 비활성화 날짜 범위 체크
-                disabledDate={(current) => {
-                  if (!current || !helperTime || !activeHelper) return true;
+                  onChange={(dates) => {
+                    if (dates && dates[0] && dates[1]) {
+                      setSelectedRange([dates[0].toDate(), dates[1].toDate()]);
+                    } else {
+                      setSelectedRange(null);
+                    }
+                  }}
+                  // 비활성화 날짜 범위 체크
+                  disabledDate={(current) => {
+                    if (!current || !helperTime || !activeHelper) return true;
 
-                  const from = dayjs(helperTime.startDate);
-                  const to = dayjs(helperTime.endDate);
+                    const from = dayjs(helperTime.startDate);
+                    const to = dayjs(helperTime.endDate);
 
-                  const dayMap: { [key: number]: string } = {
-                    0: "sun",
-                    1: "mon",
-                    2: "tue",
-                    3: "wed",
-                    4: "thu",
-                    5: "fri",
-                    6: "sat",
-                  };
+                    const dayMap: { [key: number]: string } = {
+                      0: "sun",
+                      1: "mon",
+                      2: "tue",
+                      3: "wed",
+                      4: "thu",
+                      5: "fri",
+                      6: "sat",
+                    };
 
-                  const currentDateStr = current.format("YYYY-MM-DD");
+                    const currentDateStr = current.format("YYYY-MM-DD");
 
-                  const isInRange =
-                    !current.isBefore(from, "day") &&
-                    !current.isAfter(to, "day");
+                    const isInRange =
+                      !current.isBefore(from, "day") &&
+                      !current.isAfter(to, "day");
 
-                  const isValidDay = helperTime.week.includes(
-                    dayMap[current.day()]
-                  );
-                  // 서버 응답으로 받은 날짜 비활성화
-                  const isAlreadyDisabled =
-                    disabledDatesMap[activeHelper.user.id]?.includes(
-                      currentDateStr
-                    ) ?? false;
+                    const isValidDay = helperTime.week.includes(
+                      dayMap[current.day()]
+                    );
+                    // 서버 응답으로 받은 날짜 비활성화
+                    const isAlreadyDisabled =
+                      disabledDatesMap[activeHelper.user.id]?.includes(
+                        currentDateStr
+                      ) ?? false;
 
-                  return !(isInRange && isValidDay) || isAlreadyDisabled;
-                }}
-                placeholder={["시작일", "종료일"]}
-              />
+                    return !(isInRange && isValidDay) || isAlreadyDisabled;
+                  }}
+                  placeholder={["시작일", "종료일"]}
+                />
+              </ConfigProvider>
 
               <div className="Helper_select_btn">
                 <button
