@@ -43,7 +43,7 @@ type alertType = {
 const messageMap: Record<AlertType, { title: string; desc: string }> = {
   match_apply: {
     title: "매칭 신청 완료",
-    desc: "매칭 신청이 완료 되었습니다. 승인될 때까지 기다려주세요.",
+    desc: "매칭 신청이 완료 되었습니다. 도우미의 승인이 완료될 때까지 기다려주세요.",
   },
   match_ok: {
     title: "매칭 수락 완료",
