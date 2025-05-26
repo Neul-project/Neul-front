@@ -199,7 +199,7 @@ const Header = () => {
                   <div key={index}>
                     <br />
                     <a
-                      href="http://localhost:4000/login"
+                      href={process.env.NEXT_PUBLIC_HELPER_URL + "/login"}
                       style={{ color: "#1677ff" }}
                     >
                       도우미 페이지로 이동
