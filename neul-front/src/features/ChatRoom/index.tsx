@@ -90,7 +90,7 @@ const ChatRoom = () => {
   const chatRoomLimit = 12;
 
   // 채팅창
-  const chatLimit = 20;
+  const chatLimit = 14;
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isFetching = useRef(false);
@@ -171,8 +171,6 @@ const ChatRoom = () => {
         params: { userId, page: pageToFetch, limit: chatRoomLimit },
       });
 
-      console.log("!!!!!!!!!!!!1", res.data);
-
       setChatRoomList((prev) => {
         const filteredRooms = res.data.filter(
           (room: ChatRoomPreview) => !room.roomDel
@@ -212,7 +210,6 @@ const ChatRoom = () => {
     // 선택된 방 정보
     const selectedRoom = chatRoomList.find((room) => room.id === roomId);
     setCurrentRoom(selectedRoom);
-    console.log(roomId, "선택한 방의 id");
 
     try {
       const res = await axiosInstance.get(`/chat/list`, {
@@ -233,8 +230,6 @@ const ChatRoom = () => {
           };
         })
         .filter((chat: Chatting) => !chat.userDel); // 삭제된 메시지는 한번더 걸러주기(메모리에서)
-
-      console.log("채팅창", parsedChats);
 
       setChattings((prev) =>
         pageToFetch === 1 ? parsedChats : [...parsedChats, ...prev]
@@ -403,6 +398,7 @@ const ChatRoom = () => {
             params: { roomId: selectedRoomId },
           });
           message.success("모든 채팅 내용이 삭제되었습니다.");
+          fetchChatRoomList();
           setSelectedRoomId(null);
           scrollToBottom();
         } catch (e) {
@@ -418,8 +414,6 @@ const ChatRoom = () => {
     roomId: number
   ) => {
     e.preventDefault();
-
-    console.log(roomId, "삭제할 방");
 
     Modal.confirm({
       title: "채팅방을 나가겠습니까?",

@@ -31,6 +31,7 @@ export const ChatRoomStyled = styled.div`
       } /* 1:1채팅 */
       .chatroom_title {
         width: 100%;
+        margin-right: 28.78px;
         text-align: center;
         font-size: large;
         font-weight: 700;

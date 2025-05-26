@@ -41,7 +41,6 @@ const StatusCheck = () => {
           params: { userId, date: formattedDate },
         });
 
-        console.log(res.data, "!!!!!!!!!!!1");
         setStatus(res.data);
       } catch (e) {
         console.error("상태 불러오기 실패:", e);
