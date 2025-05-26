@@ -133,7 +133,7 @@ export const StatusCheckStyled = styled.div`
       margin-bottom: 18px;
     }
     .statuscheck_value.scrollable {
-      max-height: 3em;
+      max-height: 4em;
       overflow-y: auto;
       white-space: pre-wrap;
       word-break: break-word;
