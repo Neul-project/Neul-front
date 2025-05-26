@@ -23,8 +23,8 @@ export const NavigationElementStyled = styled.div`
     }
 
     .NavigationElement_title {
-      font-size: 25px;
-      color: #000;
+      font-size: 24px;
+      color: #333;
       font-weight: bold;
       margin-bottom: 15px;
       letter-spacing: -1.5px;
@@ -90,7 +90,7 @@ export const NavigationElementStyled = styled.div`
 
       .NavigationElement_title {
         font-size: 23px;
-        color: #000;
+        color: #333;
         font-weight: bold;
         margin-bottom: 15px;
       }
@@ -157,7 +157,7 @@ export const NavigationElementStyled = styled.div`
 
       .NavigationElement_title {
         font-size: 19px;
-        color: #000;
+        color: #333;
         font-weight: bold;
         margin-bottom: 10px;
       }

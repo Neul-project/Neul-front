@@ -7,10 +7,11 @@ export const AdvertisingStyled = styled.div`
     padding: 0px 20px;
     width: 100%;
     height: 100%;
+    margin-bottom: 50px;
 
     .Advertising_title_text {
-      font-size: 25px;
-      color: #000;
+      font-size: 24px;
+      color: #333;
       margin-bottom: 15px;
       //margin-left: 20px;
       margin-top: 60px;
@@ -58,7 +59,7 @@ export const AdvertisingStyled = styled.div`
 
       .Advertising_title_text {
         font-size: 23px;
-        color: #000;
+        color: #333;
         margin-bottom: 15px;
         //margin-left: 20px;
         margin-top: 60px;
@@ -105,7 +106,7 @@ export const AdvertisingStyled = styled.div`
 
       .Advertising_title_text {
         font-size: 19px;
-        color: #000;
+        color: #333;
         margin-bottom: 15px;
         //margin-left: 20px;
         margin-top: 60px;
