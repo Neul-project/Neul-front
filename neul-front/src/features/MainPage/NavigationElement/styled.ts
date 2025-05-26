@@ -93,6 +93,8 @@ export const NavigationElementStyled = styled.div`
         color: #333;
         font-weight: bold;
         margin-bottom: 15px;
+        text-align: left;
+        align-self: flex-start;
       }
 
       .NavigationElement_rows {
