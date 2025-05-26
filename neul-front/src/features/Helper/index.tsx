@@ -176,7 +176,18 @@ const HelperFeat = () => {
         return;
       }
 
+      // 신청 전 사용자 확인
+      const confirmMessage = `선택된 날짜 (${
+        validDates.length
+      }일):\n${validDates.join(
+        ", "
+      )}\n\n해당 일정으로 도우미를 신청하시겠습니까?`;
+      const isConfirmed = window.confirm(confirmMessage);
+
+      if (!isConfirmed) return;
+
       console.log("validDates: ", helperId, validDates);
+
       // 3. 최종신청 서버 요청
       const res = await axiosInstance.post("/matching/submit-request", {
         helperId,

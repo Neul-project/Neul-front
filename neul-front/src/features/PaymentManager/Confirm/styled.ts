@@ -15,7 +15,7 @@ export const ComfirmStyled = styled.div`
     text-align: center;
     background-color: #fff;
     /* border-radius: 16px; */
-    padding: 30px 45px;
+    padding: 30px 43px;
 
     @media (max-width: 632px) {
       width: 100%;

@@ -8,6 +8,11 @@ import clsx from "clsx";
 
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
+interface ApplyItem {
+  dates: string;
+  status: string;
+}
+
 interface HelperInfo {
   id: number;
   gender: string;
@@ -21,6 +26,7 @@ interface HelperInfo {
   certificateName3: string | null;
   apply_status: string;
   apply_dates: string;
+  apply_list: ApplyItem[];
   user: {
     id: number;
     name: string;
@@ -147,66 +153,83 @@ const HelperApplication = () => {
               <div>도우미 신청내역이 없습니다.</div>
             </div>
           ) : (
-            paginatedHelpers.map((helper) => (
-              <div className="HelperApp_Content" key={helper?.id}>
-                <div className="HelperApp_flexbox">
-                  <div>
-                    {helper?.user.name} <span className="helper">도우미 </span>
-                    {helper?.gender === "male" ? (
-                      <i className="fa-solid fa-mars man" />
-                    ) : (
-                      <i className="fa-solid fa-venus woman" />
-                    )}{" "}
-                    <span className="helper">({formatAge(helper?.birth)})</span>
+            paginatedHelpers.map((helper) => {
+              const apply = helper.apply_list?.[0]; // 첫 번째 신청 내역
+              const applyDates = apply?.dates || "";
+              const dateArray = applyDates.split(",").filter(Boolean);
+              const dateCount = dateArray.length;
+              const status = apply?.status || "신청 정보 없음";
+              const totalAmount = helper.desiredPay * dateCount;
+
+              return (
+                <div className="HelperApp_Content" key={helper?.id}>
+                  <div className="HelperApp_flexbox">
+                    <div>
+                      {helper?.user.name}{" "}
+                      <span className="helper">도우미 </span>
+                      {helper?.gender === "male" ? (
+                        <i className="fa-solid fa-mars man" />
+                      ) : (
+                        <i className="fa-solid fa-venus woman" />
+                      )}{" "}
+                      <span className="helper">
+                        ({formatAge(helper?.birth)})
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="flex">
-                    <div className="status">{helper?.apply_status} </div>
-                    {helper?.apply_status == "결제 대기" && (
-                      <div className="HelperApp_btn">
-                        <button
-                          onClick={() => {
-                            // (희망 일당 * 사용자가 신청한 일수) 계산
-                            const applyDates = helper.apply_dates;
-                            const dateArray = applyDates.split(",");
-                            const dateCount = dateArray.length;
+                  {/* 도우미 기본 정보 */}
+                  <div className="HelperApp_container2">
+                    <p>경력: {helper?.experience}</p>
+                    <p>희망 일당: {helper?.desiredPay.toLocaleString()}원</p>
+                  </div>
 
-                            const desiredPay = helper.desiredPay ?? 0;
-                            const totalAmount = desiredPay * dateCount;
+                  {/* 여러 개의 신청내역을 반복 출력 */}
+                  {helper.apply_list?.map((apply, idx) => {
+                    const dates = apply.dates?.split(",").filter(Boolean);
+                    const dateCount = dates.length;
+                    const totalAmount = helper.desiredPay * dateCount;
 
-                            handlePayment(totalAmount, helper.user.id);
-                          }}
-                        >
-                          결제
-                        </button>
+                    return (
+                      <div
+                        key={idx}
+                        className="HelperApp_AppContainer HelperApp_container2"
+                      >
+                        <p>
+                          ※ <strong>신청 내역{idx + 1}</strong>
+                        </p>
+                        <div className="flex_01">
+                          <p>상태: {apply.status}</p>
+                          <div className="btn_box">
+                            {apply.status === "결제 대기" && (
+                              <button
+                                className="HelperApp_btn"
+                                onClick={() =>
+                                  handlePayment(totalAmount, helper.user.id)
+                                }
+                              >
+                                결제
+                              </button>
+                            )}
+                          </div>
+                        </div>
+
+                        <p>신청 날짜: {dates.join(", ")}</p>
+                        <p>신청 일수: {dateCount}일</p>
+                        <p className="stress">
+                          <span>결제예정 금액: </span>
+                          <strong>{totalAmount.toLocaleString()}</strong>원
+                        </p>
                       </div>
-                    )}
-                  </div>
+                    );
+                  })}
                 </div>
-
-                <div className="HelperApp_container2">
-                  <p>경력: {helper?.experience}</p>
-                  <p>희망 일당: {helper?.desiredPay.toLocaleString()}원</p>
-                  <p>
-                    신청 일수:{" "}
-                    {helper?.apply_dates.split(",").filter(Boolean).length}일
-                  </p>
-                  <p className="stress">
-                    <span>결제예정 금액: </span>
-                    <strong>
-                      {(
-                        helper?.desiredPay *
-                        helper?.apply_dates.split(",").length
-                      ).toLocaleString()}
-                    </strong>
-                    원
-                  </p>
-                </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
 
+        {/* 페이지네이션 */}
         {helpers.length !== 0 && (
           <div className="pagination">
             <button

@@ -63,7 +63,7 @@ export const HelperAppStyled = styled.div`
   }
 
   .ProgramHistory_item_container {
-    padding: 20px 0px;
+    /* padding: 20px 0px; */
 
     .ProgramHistory_empty {
       display: flex;
@@ -93,8 +93,9 @@ export const HelperAppStyled = styled.div`
     margin-bottom: 10px;
   }
 
-  .flex {
+  .flex_01 {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 8px;
   }
@@ -111,25 +112,29 @@ export const HelperAppStyled = styled.div`
   }
 
   .HelperApp_btn {
-    button {
-      cursor: pointer;
-      border-radius: 4px;
-      background-color: #fff;
-      border: 1px solid ${(props) => props.theme.colors.pointGreen};
-      padding: 3px 11px;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 20px;
-      letter-spacing: -1px;
-      color: ${(props) => props.theme.colors.pointGreen};
-      transition: 0.2s;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid ${(props) => props.theme.colors.pointGreen};
+    padding: 2px 11px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -1px;
+    color: ${(props) => props.theme.colors.pointGreen};
+    transition: 0.2s;
 
-      &:hover {
-        border: 1px solid ${(props) => props.theme.colors.pointGreen};
-        color: #fff;
-        background-color: ${(props) => props.theme.colors.pointGreen};
-      }
+    &:hover {
+      border: 1px solid ${(props) => props.theme.colors.pointGreen};
+      color: #fff;
+      background-color: ${(props) => props.theme.colors.pointGreen};
     }
+  }
+
+  .HelperApp_AppContainer {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
   }
 
   .HelperApp_container2 {

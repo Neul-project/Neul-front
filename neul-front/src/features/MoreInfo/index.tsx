@@ -8,8 +8,12 @@ import { moreInfoValidation } from "@/utils/joinValidation";
 import axiosInstance from "@/lib/axios";
 import axios from "axios";
 
+import { useAuthStore } from "@/stores/useAuthStore";
+
 const MoreInfoCompo = () => {
   const router = useRouter();
+
+  const { login } = useAuthStore();
 
   const [isPhoneChecked, setIsPhoneChecked] = useState(false);
 
@@ -60,6 +64,24 @@ const MoreInfoCompo = () => {
 
         if (guardianRes.data?.ok === true && wardRes.data?.ok === true) {
           alert("등록이 완료되었습니다.");
+
+          // 사용자가 입력한 이름 즉시 헤더에 반영
+          // const meRes = await axiosInstance.get("/auth/me");
+
+          // console.log("소셜유저 정보:", meRes.data);
+
+          // // 3. zustand에 로그인 상태 저장
+          // login(meRes.data);
+
+          // const { user, login } = useAuthStore.getState();
+
+          // if (user) {
+          //   login({
+          //     ...user,
+          //     name: guardian.name,
+          //   });
+          // }
+
           router.push("/");
         } else {
           alert("등록에 실패했습니다. 다시 시도해주세요.");
