@@ -11,7 +11,7 @@ import chat from "@/assets/images/ic-event-survey.png";
 import test from "@/assets/images/ic-event-test.png";
 import relay from "@/assets/images/ic-event-relay.png";
 import helper from "@/assets/images/helper.png";
-import back from "@/assets/images/main01_deco.gif";
+//import back from "@/assets/images/main01_deco.gif";
 
 import { useEffect } from "react";
 import axiosInstance from "@/lib/axios";
@@ -174,9 +174,9 @@ const NavigationElement = () => {
           </div>
         </div>
       </div>
-      <div className="NavigationElement_backimg">
+      {/* <div className="NavigationElement_backimg">
         <img className="NavigationElement_imgstyle" src={back.src} alt="back" />
-      </div>
+      </div> */}
     </NavigationElementStyled>
   );
 };
