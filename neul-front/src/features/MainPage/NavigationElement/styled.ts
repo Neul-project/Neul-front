@@ -12,6 +12,17 @@ export const NavigationElementStyled = styled.div`
     //place-items: center;
     //padding: 0px 15px;
 
+    .NavigationElement_backimg {
+      width: 87%;
+      display: flex;
+      margin: 0px auto;
+
+      .NavigationElement_imgstyle {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     .NavigationElement_chat_num .ant-scroll-number {
       min-width: 18px;
       height: 18px;
@@ -93,6 +104,8 @@ export const NavigationElementStyled = styled.div`
         color: #333;
         font-weight: bold;
         margin-bottom: 15px;
+        text-align: left;
+        align-self: flex-start;
       }
 
       .NavigationElement_rows {
