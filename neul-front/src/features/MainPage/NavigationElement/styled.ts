@@ -8,9 +8,6 @@ export const NavigationElementStyled = styled.div`
     flex-direction: column;
     text-align: left;
     justify-content: center;
-    //gap: 15px;
-    //place-items: center;
-    //padding: 0px 15px;
 
     .NavigationElement_backimg {
       width: 87%;
@@ -85,6 +82,9 @@ export const NavigationElementStyled = styled.div`
         font-size: 15px;
       }
     }
+  }
+
+  @media (max-width: 1200px) {
   }
 
   @media (max-width: 768px) {
