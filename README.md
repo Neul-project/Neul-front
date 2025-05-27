@@ -60,7 +60,7 @@
 #### 팀원 이름은 기여순이 아닌 가나다 순으로 정렬 하였습니다.
 
 ### 권태연
-- 로그인 기능 구현
+- GitHub Project 활용한 진행 상황 관리
 - 댓글기능
 - 게시글 랜더링 , 수정 , 삭제 , 생성 기능
 
@@ -75,7 +75,7 @@
 - 프로필 수정 기능 구현
 
 ### 최승연
-- GitHub Project 활용한 진행 상황 관리
+- 로그인 기능 구현
 - 회원 가입 기능 구현
 - 프로필 수정 기능 구현
 
@@ -167,7 +167,7 @@ npm run dev
 
 <br />
 
-👉 **도우미 레포지토리**: [neul_admin](https://github.com/Neul-project/Neul-manager) <br>
-👉 **관리자 레포지토리**: [neul_admin](https://github.com/Neul-project/Neul-manager) <br>
+👉 **도우미 레포지토리**: [neul_admin](https://github.com/Neul-project/Neul-admin) <br>
+👉 **관리자 레포지토리**: [neul_manager](https://github.com/Neul-project/Neul-manager) <br>
 👉 **백엔드 레포지토리**: [neul_back](https://github.com/Neul-project/Neul-back) <br><br> 
 
