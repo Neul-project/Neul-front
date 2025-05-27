@@ -1,5 +1,5 @@
 # 🙋‍♂️ 장애인 & 가족을 위한 기록 관리 서비스 Neul
-![표지](https://github.com/user-attachments/assets/c65a51ee-1f6a-4d0e-bee9-5bc01e6c123d)
+![표지](https://github.com/user-attachments/assets/7496762e-5829-4a70-a1aa-40a6ca09c163)
 
 
 ## 프로젝트 소개
