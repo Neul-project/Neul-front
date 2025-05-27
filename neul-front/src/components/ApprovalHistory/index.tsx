@@ -101,6 +101,9 @@ const ApprovalHistory = () => {
           formData.append("userId", String(helper.user.id));
         }
 
+        // type추가 (승인 반려 -> 승인 대기로 변경 요청)
+        formData.append("type", "reject");
+
         // 파일을 새로 업로드하지 않은 경우 기존 파일명 유지
         if (!values.profileImage && helper?.profileImage) {
           formData.append("existingProfileImage", helper.profileImage);
