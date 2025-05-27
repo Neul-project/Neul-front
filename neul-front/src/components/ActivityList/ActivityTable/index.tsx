@@ -58,15 +58,15 @@ const ActivityTable = () => {
       .then((res) => {
         //console.log("data res", res.data);
 
-        const formatdata: DataType[] = res.data.map(
-          (item: any, index: number) => ({
+        const formatdata: DataType[] = res.data
+          .reverse()
+          .map((item: any, index: number) => ({
             key: String(item.id),
             number: index + 1,
             id: item.id,
             title: item.title,
             date: formatDate(item.recorded_at),
-          })
-        );
+          }));
 
         setDataList(formatdata);
       });
