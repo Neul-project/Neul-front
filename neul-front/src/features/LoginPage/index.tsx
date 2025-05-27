@@ -5,6 +5,9 @@ import axios from "axios";
 import axiosInstance from "@/lib/axios";
 import Cookies from "js-cookie";
 
+import { useState } from "react";
+import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
+
 // 로그인 유효성 검사 yup
 import { loginSchema } from "@/utils/joinValidation";
 
@@ -16,6 +19,8 @@ const LoginPage = () => {
   const router = useRouter();
 
   const { login, setAdminId } = useAuthStore();
+
+  const [visible, setVisible] = useState(false);
 
   // 로그인 유효성 검사
   const formik = useFormik({
@@ -105,13 +110,18 @@ const LoginPage = () => {
             </div>
             <div className="Login_inputWrap">
               <input
-                type="password"
+                type={visible ? "text" : "password"}
                 name="password"
                 placeholder="비밀번호"
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
+
+              {/* password eye */}
+              <span className="Login_eye" onClick={() => setVisible(!visible)}>
+                {visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+              </span>
             </div>
 
             {/* 유효성 검사 */}

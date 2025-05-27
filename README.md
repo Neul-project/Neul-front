@@ -60,7 +60,7 @@
 #### 팀원 이름은 기여순이 아닌 가나다 순으로 정렬 하였습니다.
 
 ### 권태연
-- 로그인 기능 구현
+- GitHub Project 활용한 진행 상황 관리
 - 댓글기능
 - 게시글 랜더링 , 수정 , 삭제 , 생성 기능
 
@@ -75,7 +75,7 @@
 - 프로필 수정 기능 구현
 
 ### 최승연
-- GitHub Project 활용한 진행 상황 관리
+- 로그인 기능 구현
 - 회원 가입 기능 구현
 - 프로필 수정 기능 구현
 
@@ -93,8 +93,8 @@ npm run dev
 ## 기능구현
 
 <table>
-  <th>dddd</th>
-  <th>ssss</th>
+  <th>도우미</th>
+  <th>보호자</th>
   <tr>
     <td align="center">
       <strong>메인 페이지</strong><br><br>
@@ -125,6 +125,17 @@ npm run dev
     <td align="center">
       <strong>결제하기</strong><br><br>
       <img src="https://github.com/user-attachments/assets/c4f46d4d-906a-4c81-b165-a230cb200dd6" alt="pay-page" width="250" height="250">
+    </td>
+  </tr>
+
+   <tr>
+    <td align="center">
+      <strong>상태기록</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/18880832-74b8-41d0-a8e7-a871c981a595" alt="status" width="500">
+    </td>
+    <td align="center">
+      <strong>상태확인</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/6e2273a8-c8c7-477b-96ad-9970e82ae72d" alt="status-check" width="500">
     </td>
   </tr>
 </table>
@@ -167,7 +178,7 @@ npm run dev
 
 <br />
 
-👉 **도우미 레포지토리**: [neul_admin](https://github.com/Neul-project/Neul-manager) <br>
-👉 **관리자 레포지토리**: [neul_admin](https://github.com/Neul-project/Neul-manager) <br>
+👉 **도우미 레포지토리**: [neul_admin](https://github.com/Neul-project/Neul-admin) <br>
+👉 **관리자 레포지토리**: [neul_manager](https://github.com/Neul-project/Neul-manager) <br>
 👉 **백엔드 레포지토리**: [neul_back](https://github.com/Neul-project/Neul-back) <br><br> 
 

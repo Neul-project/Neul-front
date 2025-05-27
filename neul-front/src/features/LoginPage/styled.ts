@@ -4,7 +4,7 @@ export const LoginPageStyled = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 49px;
   margin-bottom: 60px;
   color: rgb(136, 136, 136);
 
@@ -25,6 +25,10 @@ export const LoginPageStyled = styled.div`
     @media (max-width: 632px) {
       border: none;
     }
+  }
+
+  .Login_eye {
+    cursor: pointer;
   }
 
   .Login_logoCont {
@@ -51,6 +55,8 @@ export const LoginPageStyled = styled.div`
   }
 
   .Login_inputWrap {
+    position: relative;
+
     input {
       width: 100%;
       padding: 12px 14px;
@@ -62,6 +68,13 @@ export const LoginPageStyled = styled.div`
       &:focus {
         outline: 2px solid #fef6d4;
       }
+    }
+
+    .Login_eye {
+      cursor: pointer;
+      position: absolute;
+      top: 13px;
+      right: 17px;
     }
   }
 
