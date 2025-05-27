@@ -61,6 +61,18 @@ const WardInfo = () => {
         if (res.data?.ok) {
           alert("피보호자 정보가 성공적으로 수정되었습니다.");
           setwardOpen(false);
+          // 특이사항 즉시 반영
+          setUserInfo((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  ward: {
+                    ...prev.ward,
+                    note: values.note, // 새로 입력한 특이사항 반영
+                  },
+                }
+              : prev
+          );
         } else {
           alert("피보호자 정보 수정에 실패했습니다.");
         }

@@ -129,7 +129,6 @@ const HelperApplication = () => {
             onClick={() => setIsModalOpen((prev) => !prev)}
             onMouseEnter={() => setIsModalOpen(true)}
             onMouseLeave={() => setIsModalOpen(false)}
-            title="반려 사유 보기"
           >
             {/* 안내 모달 */}
             {isModalOpen && (

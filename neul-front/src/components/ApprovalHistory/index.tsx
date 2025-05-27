@@ -163,7 +163,6 @@ const ApprovalHistory = () => {
                     onClick={() => setIsModalOpen((prev) => !prev)}
                     onMouseEnter={() => setIsModalOpen(true)}
                     onMouseLeave={() => setIsModalOpen(false)}
-                    title="반려 사유 보기"
                   />
                 )}
                 {/* 승인 반려 시 안내 모달 */}
