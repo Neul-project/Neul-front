@@ -77,7 +77,7 @@ const HelperFeat = () => {
         const res = await axiosInstance.get("/helper/info", {
           params: { type: "approve" },
         });
-        // console.log("도우미 리스트 응답", res.data);
+        console.log("도우미 리스트 응답", res.data);
 
         const helperList: HelperInfo[] = res.data;
 
@@ -299,7 +299,8 @@ const HelperFeat = () => {
                       <strong>이름:</strong> {helper.user.name}
                     </div>
                     <div className="Helper_one">
-                      <strong>성별:</strong> {helper.gender}
+                      <strong>성별:</strong>{" "}
+                      {helper.gender === "male" ? "남성" : "여성"}
                     </div>
                     <div className="Helper_one">
                       <strong>생년월일:</strong> {helper.birth} (
