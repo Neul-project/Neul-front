@@ -2,17 +2,18 @@ import styled from "styled-components";
 
 export const SwiperStyled = styled.div`
   &.SwiperImg_main_wrap {
-    padding: 125px 10px 10px 60px;
+    padding: 125px 40px 10px 40px;
+
     .SwiperImg_title {
       font-size: 30px;
       font-weight: bolder;
+      padding-left: 20px;
     }
 
     .SwiperImg_swiper {
-      width: 100%;
+      width: 90%;
       height: 400px;
       z-index: 50;
-      padding-right: 20px;
 
       .SwiperImg_swperimg {
         width: 100%;
@@ -34,8 +35,7 @@ export const SwiperStyled = styled.div`
   }
   @media (max-width: 1330px) {
     &.SwiperImg_main_wrap {
-      padding: 125px 10px 10px 30px;
-
+      padding: 125px 40px 10px 40px;
       .SwiperImg_title {
         font-size: 25px;
         font-weight: bolder;
@@ -49,7 +49,7 @@ export const SwiperStyled = styled.div`
         .SwiperImg_swperimg {
           width: 100%;
           height: 100%;
-          object-fit: contain;
+          object-fit: cover;
         }
       }
 
@@ -69,6 +69,7 @@ export const SwiperStyled = styled.div`
   @media (max-width: 768px) {
     &.SwiperImg_main_wrap {
       padding: 125px 10px 10px 30px;
+
       .SwiperImg_title {
         font-size: 20px;
         font-weight: bolder;
@@ -82,7 +83,7 @@ export const SwiperStyled = styled.div`
         .SwiperImg_swperimg {
           width: 100%;
           height: 100%;
-          object-fit: contain;
+          object-fit: cover;
         }
       }
 
