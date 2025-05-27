@@ -58,7 +58,7 @@ const ProgramList = () => {
     axiosInstance
       .get("/program/list", { params: { search: value } })
       .then((res) => {
-        const data = res.data;
+        const data = res.data.reverse();
         //console.log("data", data);
         setList(data);
         setSearchValue("");

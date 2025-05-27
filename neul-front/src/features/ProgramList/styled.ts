@@ -125,7 +125,7 @@ export const ProgramListStyled = styled.div`
     }
   }
 
-  @media (max-width: 486px) {
+  @media (max-width: 600px) {
     &.ProgramList_main_wrap {
       max-width: 1280px;
       width: 100%;
