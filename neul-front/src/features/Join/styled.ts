@@ -59,6 +59,12 @@ export const JoinStyled = styled.div`
     }
   }
 
+  .Join_tip {
+    font-size: 12px;
+    margin-top: 5px;
+    color: ${(props) => props.theme.colors.pointGreen};
+  }
+
   .Join_width {
     position: relative;
     width: 330px;

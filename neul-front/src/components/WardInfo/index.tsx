@@ -68,7 +68,7 @@ const WardInfo = () => {
                   ...prev,
                   ward: {
                     ...prev.ward,
-                    note: values.note, // 새로 입력한 특이사항 반영
+                    note: values.note,
                   },
                 }
               : prev

@@ -595,6 +595,10 @@ const JoinPage = () => {
                         )
                       }
                     />
+                    <div className="Join_tip">
+                      ※ JPG 또는 PNG 형식만 가능하며, 500KB 이하의 이미지만
+                      업로드 가능합니다.
+                    </div>
                     {formik.touched.profileImage &&
                       formik.errors.profileImage && (
                         <div className="Join_validation">
@@ -621,6 +625,9 @@ const JoinPage = () => {
                         )
                       }
                     />
+                    <div className="Join_tip">
+                      ※ 자격증은 PDF, JPG, PNG 형식만 업로드 가능합니다.
+                    </div>
                     {formik.touched.certificate &&
                       formik.errors.certificate && (
                         <div className="Join_validation">

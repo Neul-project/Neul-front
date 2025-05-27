@@ -110,6 +110,11 @@ export const joinValidationSchema = Yup.object({
           (value) =>
             value instanceof File &&
             ["image/jpeg", "image/png"].includes(value.type)
+        )
+        .test(
+          "fileSize",
+          "이미지 크기는 500KB 이하만 가능합니다.",
+          (value) => value instanceof File && value.size <= 500 * 1024 // 500KB 제한
         ),
     otherwise: (schema) => schema.notRequired(),
   }),
