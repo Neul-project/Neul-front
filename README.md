@@ -93,8 +93,8 @@ npm run dev
 ## 기능구현
 
 <table>
-  <th>dddd</th>
-  <th>ssss</th>
+  <th>도우미</th>
+  <th>보호자</th>
   <tr>
     <td align="center">
       <strong>메인 페이지</strong><br><br>
@@ -125,6 +125,17 @@ npm run dev
     <td align="center">
       <strong>결제하기</strong><br><br>
       <img src="https://github.com/user-attachments/assets/c4f46d4d-906a-4c81-b165-a230cb200dd6" alt="pay-page" width="250" height="250">
+    </td>
+  </tr>
+
+   <tr>
+    <td align="center">
+      <strong>상태기록</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/18880832-74b8-41d0-a8e7-a871c981a595" alt="status" width="500">
+    </td>
+    <td align="center">
+      <strong>상태확인</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/6e2273a8-c8c7-477b-96ad-9970e82ae72d" alt="status-check" width="500">
     </td>
   </tr>
 </table>
