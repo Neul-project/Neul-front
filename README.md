@@ -4,7 +4,7 @@
 
 ## 프로젝트 소개
 
-- 기록 관리 서비스 'Neul'은 장애인 보호자와 장애인 돌봄 기관 간의 원활한 연결 및 기록 관리 시스템을 구축하여 장애인 복지의 효율성과 신뢰성을 높이기 위해 기획된 장애인 기록관리 통합 서비스입니다.<br/>
+- 기록 관리 서비스 'Neul'은 장애인 보호자와 장애인 돌봄 기관 간의 원활한 연결 및 기록 관리 시스템을 구축하여 장애인 복지의 효율성과 신뢰성을 높이기 위해 기획된 **장애인 기록관리 통합 서비스**입니다.<br/>
 - 배포: [Neul](http://3.38.125.252)
 <br/>
 
@@ -31,16 +31,16 @@
 
 | FE. 권태연                          | FE. 이정민                                  | FE. 최승연                              | BE. 김예지                              |
 | ----------------------------------- | ------------------------------------------- | --------------------------------------- | --------------------------------------- |
-| [ounjuu](https://github.com/ounjuu) | [werther901](https://github.com/werther901) | [yujeen02](https://github.com/yujeen02) | [yujeen02](https://github.com/yujeen02) |
+| [Taetea1](https://github.com/Taetea1) | [ihoek](https://github.com/ihoek) | [werther901](https://github.com/werther901) | [Yzoraa](https://github.com/Yzoraa) |
 
 <br />
 
 ## 기술 스택
 
-- **🛠️ Frontend**: Next.js, TypeScript, Redux-toolkit, React Query, styled-components
-- **🛠️ Backend**: Nest.js, TypeORM, MySQL, JWT
+- **🛠️ Frontend**: Next.js, TypeScript, Zustand, Socket.io-client, styled-components
+- **🛠️ Backend**: Nest.js, TypeORM, MySQL, JWT, Socket.io
 - **🛠️ DevOps**: AWS EC2, Nginx, PM2
-- **🛠️ Others**: OAuth (Kakao, Naver, Google), Formik, Yup, Figma, Notion
+- **🛠️ Others**: OAuth (Kakao, Naver), Formik, Yup, Notion
 
 <br />
 
