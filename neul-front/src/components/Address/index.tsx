@@ -57,7 +57,7 @@ const Address = ({ onClose, onAddressSaved, addressProps }: AddressProps) => {
 
     const fullAddress = `${address} ${addressDetail}`.trim();
 
-    // console.log("fullAddress:", fullAddress);
+    console.log("fullAddress:", fullAddress);
 
     try {
       const res = await axiosInstance.post("/user/address", {

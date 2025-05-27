@@ -46,7 +46,7 @@ const ApprovalHistory = () => {
   // 수정 버튼 클릭 시
   const [showEditForm, setShowEditForm] = useState(false);
 
-  // console.log("도우미 가입내역 승인여부", helper);
+  console.log("도우미 가입내역 승인여부", helper);
 
   // 도우미 정보 요청
   useEffect(() => {
@@ -112,9 +112,9 @@ const ApprovalHistory = () => {
           formData.append("existingCertificate", helper.certificate);
         }
 
-        // for (const [key, value] of formData.entries()) {
-        //   console.log(`${key}:`, value);
-        // }
+        for (const [key, value] of formData.entries()) {
+          console.log(`${key}:`, value);
+        }
 
         // 재승인 요청 전송
         const res = await axiosInstance.patch("/helper/edit-profile", formData);

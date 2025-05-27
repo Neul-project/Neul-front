@@ -104,7 +104,7 @@ const JoinPage = () => {
     },
     validationSchema: joinValidationSchema,
     onSubmit: async (values) => {
-      // console.log("회원가입 데이터:", values);
+      console.log("회원가입 데이터:", values);
 
       // 요청 전 관리자 이메일 값 구성
       const emailToSend =
@@ -195,9 +195,9 @@ const JoinPage = () => {
             formData.append("certificate", values.certificate);
           }
 
-          // for (const [key, value] of formData.entries()) {
-          //   console.log(`${key}:`, value);
-          // }
+          for (const [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+          }
 
           // 도우미 프로필 정보 전송
           const helperRes = await axios.post(
@@ -209,7 +209,7 @@ const JoinPage = () => {
               },
             }
           );
-          // console.log("도우미 회원가입 응답", helperRes.data);
+          console.log("도우미 회원가입 응답", helperRes.data);
         }
 
         // 약관 동의 항목 추출
@@ -815,7 +815,7 @@ const JoinPage = () => {
               <button
                 type="submit"
                 onClick={() => {
-                  // console.log("formik.errors:", formik.errors);
+                  console.log("formik.errors:", formik.errors);
                 }}
               >
                 회원가입
