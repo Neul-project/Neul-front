@@ -10,6 +10,8 @@ import { useFormik } from "formik";
 
 import { changePwValidation } from "@/utils/userValidation";
 import { formatPhoneNumber } from "@/utils/formatter";
+import { useRef } from "react";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 import { useAuthStore } from "@/stores/useAuthStore";
 
@@ -35,6 +37,12 @@ const MyInfo = () => {
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
   // console.log("userInfo", userInfo);
+
+  // 모달 DOM 참조용
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // 외부 클릭 시 닫기
+  useOutsideClick(modalRef, () => setPwOpen(false));
 
   // 내 정보 요청
   const fetchMyInfo = async () => {
@@ -141,43 +149,45 @@ const MyInfo = () => {
           {/* 비밀번호 변경 모달 */}
           {pwOpen && (
             <ModalCompo onClose={() => setPwOpen(false)}>
-              <S.ModalFormWrap onSubmit={formik.handleSubmit}>
-                <S.ModalTitle>비밀번호 변경</S.ModalTitle>
+              <div ref={modalRef}>
+                <S.ModalFormWrap onSubmit={formik.handleSubmit}>
+                  <S.ModalTitle>비밀번호 변경</S.ModalTitle>
 
-                <S.ModalInputDiv>
-                  <S.ModalInput
-                    type="password"
-                    name="password"
-                    placeholder="새로운 비밀번호를 입력해주세요"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.password && formik.errors.password && (
-                    <div className="error">{formik.errors.password}</div>
-                  )}
-                </S.ModalInputDiv>
-                <S.ModalInputDiv>
-                  <S.ModalInput
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="비밀번호를 확인해주세요"
-                    value={formik.values.confirmPassword}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword && (
-                      <div className="error">
-                        {formik.errors.confirmPassword}
-                      </div>
+                  <S.ModalInputDiv>
+                    <S.ModalInput
+                      type="password"
+                      name="password"
+                      placeholder="새로운 비밀번호를 입력해주세요"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.password && formik.errors.password && (
+                      <div className="error">{formik.errors.password}</div>
                     )}
-                </S.ModalInputDiv>
+                  </S.ModalInputDiv>
+                  <S.ModalInputDiv>
+                    <S.ModalInput
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="비밀번호를 확인해주세요"
+                      value={formik.values.confirmPassword}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword && (
+                        <div className="error">
+                          {formik.errors.confirmPassword}
+                        </div>
+                      )}
+                  </S.ModalInputDiv>
 
-                <div>
-                  <S.ModalButton type="submit">변경하기</S.ModalButton>
-                </div>
-              </S.ModalFormWrap>
+                  <div>
+                    <S.ModalButton type="submit">변경하기</S.ModalButton>
+                  </div>
+                </S.ModalFormWrap>
+              </div>
             </ModalCompo>
           )}
 

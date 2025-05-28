@@ -58,6 +58,7 @@ export const HelperStyled = styled.div`
 
   .Helper_Btn {
     margin-top: 8px;
+    text-align: center;
 
     button {
       cursor: pointer;
@@ -176,6 +177,7 @@ export const HelperStyled = styled.div`
 
   .Helper_content {
     padding: 15px;
+    text-align: left;
   }
 
   .swiper-slide {

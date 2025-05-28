@@ -13,6 +13,7 @@ export const MyPageStyled = styled.div`
     @media (max-width: 632px) {
       display: block;
       padding: 18px 0 80px;
+      height: 100vh;
     }
   }
 

@@ -109,7 +109,7 @@ const WardInfo = () => {
       </div>
 
       {/* 피보호자 정보 */}
-      <div className="WardInfo_container">
+      <div className="WardInfo_container WardInfo">
         <div className="WardInfo_wardContainer">
           <div className="WardInfo_wardTitle">피보호자 정보</div>
 
