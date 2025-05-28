@@ -71,7 +71,7 @@ const ProgramList = () => {
 
     axiosInstance.get("/program/list").then((res: any) => {
       //console.log("program list res", res.data);
-      setList(res.data);
+      setList(res.datareverse());
     });
 
     setFilterStatus(value);
