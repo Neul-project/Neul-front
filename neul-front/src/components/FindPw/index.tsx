@@ -38,7 +38,7 @@ const FindPw = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/send-code`,
+        `${process.env.NEXT_PUBLIC_API_URL}/mail/send-code`,
         {
           email: formik.values.email,
         }
@@ -59,7 +59,7 @@ const FindPw = () => {
   const verifyCode = async () => {
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/verify-code`,
+        `${process.env.NEXT_PUBLIC_API_URL}/mail/verify-code`,
         {
           email: formik.values.email,
           code: authCode,
