@@ -166,6 +166,15 @@ const Header = () => {
 
   // 해당 알림 읽기
   const readAlert = async () => {
+    if (!alertContent || alertContent.length === 0) {
+      notification.info({
+        message: "알림",
+        description: "새로운 알림이 없습니다.",
+        duration: 3,
+      });
+      return;
+    }
+
     setAlertNum(0); // 알림 0개
     setAlertContent(null);
 
