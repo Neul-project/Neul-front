@@ -82,38 +82,31 @@
 
 
 <br />
-  
-### 프로젝트 실행
-
-```
-npm install
-npm run dev
-```
-<br />
 
 ## 기능구현
 
 <table>
   <th>도우미</th>
   <th>보호자</th>
+  
   <tr>
     <td align="center">
-      <strong>메인 페이지</strong><br><br>
+      <strong>회원가입</strong><br><br>
       <img src="https://github.com/user-attachments/assets/9ee8d7db-5647-4c46-92b0-14316b3d3949" alt="mainpage" width="500" height="500">
     </td>
     <td align="center">
-      <strong>전체 게시물</strong><br><br>
+      <strong>로그인</strong><br><br>
       <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="all-post" width="500" height="500">
     </td>
   </tr>
   
   <tr>
     <td align="center">
-      <strong>채팅하기</strong><br><br>
+      <strong>도우미 신청승인<br><br>
       <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="chat" width="500" height="500">
     </td>
     <td align="center">
-      <strong>내 정보 보기</strong><br><br>
+      <strong>도우미 신청</strong><br><br>
       <img src="https://github.com/user-attachments/assets/6288bde7-1dcf-485b-9c98-f0d051e8786e" alt="my-profile" width="500" height="500">
     </td>
   </tr>
