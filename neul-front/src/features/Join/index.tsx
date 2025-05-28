@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Logo from "@/assets/images/logo_small.png";
 
-import { Select } from "antd";
+import { Select, message } from "antd";
 import { useFormik } from "formik";
 
 // 회원가입 유효성 검사 yup
@@ -23,6 +23,9 @@ const JoinPage = () => {
   // 중복 확인 여부
   const [isEmailChecked, setIsEmailChecked] = useState(false);
   const [isPhoneChecked, setIsPhoneChecked] = useState(false);
+
+  // 생년월일 상태
+  const [submitAttempted, setSubmitAttempted] = useState(false);
 
   // 약관 동의 상태
   const [agreements, setAgreements] = useState({
@@ -457,7 +460,10 @@ const JoinPage = () => {
                     type="text"
                     name="phone"
                     className="MoreInfo_input"
-                    onChange={formik.handleChange}
+                    onChange={(e) => {
+                      const onlyNums = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 남김
+                      formik.setFieldValue("phone", onlyNums);
+                    }}
                     onBlur={formik.handleBlur}
                     value={formik.values.phone}
                     placeholder="숫자만 입력해주세요"
@@ -526,7 +532,13 @@ const JoinPage = () => {
                           placeholder="YYYY"
                           className="MoreInfo_inputSmall"
                           value={formik.values.birthYear}
-                          onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            formik.setFieldValue("birthYear", onlyNums);
+                          }}
                           maxLength={4}
                         />
                         <span>/</span>
@@ -536,7 +548,13 @@ const JoinPage = () => {
                           placeholder="MM"
                           className="MoreInfo_inputSmall"
                           value={formik.values.birthMonth}
-                          onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            formik.setFieldValue("birthMonth", onlyNums);
+                          }}
                           maxLength={2}
                         />
                         <span>/</span>
@@ -546,25 +564,34 @@ const JoinPage = () => {
                           placeholder="DD"
                           className="MoreInfo_inputSmall"
                           value={formik.values.birthDay}
-                          onChange={formik.handleChange}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            formik.setFieldValue("birthDay", onlyNums);
+                          }}
                           maxLength={2}
                         />
                       </div>
-                      {formik.errors.birthYear && (
-                        <div className="Join_validation">
-                          {formik.errors.birthYear}
-                        </div>
-                      )}
-                      {formik.errors.birthMonth && (
-                        <div className="Join_validation">
-                          {formik.errors.birthMonth}
-                        </div>
-                      )}
-                      {formik.errors.birthDay && (
-                        <div className="Join_validation">
-                          {formik.errors.birthDay}
-                        </div>
-                      )}
+                      {(submitAttempted || formik.touched.birthYear) &&
+                        formik.errors.birthYear && (
+                          <div className="Join_validation">
+                            {formik.errors.birthYear}
+                          </div>
+                        )}
+                      {(submitAttempted || formik.touched.birthMonth) &&
+                        formik.errors.birthMonth && (
+                          <div className="Join_validation">
+                            {formik.errors.birthMonth}
+                          </div>
+                        )}
+                      {(submitAttempted || formik.touched.birthDay) &&
+                        formik.errors.birthDay && (
+                          <div className="Join_validation">
+                            {formik.errors.birthDay}
+                          </div>
+                        )}
                     </div>
                   </div>
                 </div>
@@ -766,7 +793,13 @@ const JoinPage = () => {
                         className="MoreInfo_inputSmall"
                         maxLength={4}
                         value={formik.values.birthYear}
-                        onChange={formik.handleChange}
+                        onChange={(e) => {
+                          const onlyNums = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                          formik.setFieldValue("birthYear", onlyNums);
+                        }}
                       />
                       <span>/</span>
                       <input
@@ -776,7 +809,13 @@ const JoinPage = () => {
                         className="MoreInfo_inputSmall"
                         maxLength={2}
                         value={formik.values.birthMonth}
-                        onChange={formik.handleChange}
+                        onChange={(e) => {
+                          const onlyNums = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                          formik.setFieldValue("birthMonth", onlyNums);
+                        }}
                       />
                       <span>/</span>
                       <input
@@ -786,16 +825,33 @@ const JoinPage = () => {
                         className="MoreInfo_inputSmall"
                         maxLength={2}
                         value={formik.values.birthDay}
-                        onChange={formik.handleChange}
+                        onChange={(e) => {
+                          const onlyNums = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                          formik.setFieldValue("birthDay", onlyNums);
+                        }}
                       />
                     </div>
-                    {(formik.errors.birthYear ||
-                      formik.errors.birthMonth ||
-                      formik.errors.birthDay) && (
-                      <div className="Join_validation">
-                        생년월일을 올바르게 입력하세요
-                      </div>
-                    )}
+                    {(submitAttempted || formik.touched.birthYear) &&
+                      formik.errors.birthYear && (
+                        <div className="Join_validation">
+                          {formik.errors.birthYear}
+                        </div>
+                      )}
+                    {(submitAttempted || formik.touched.birthMonth) &&
+                      formik.errors.birthMonth && (
+                        <div className="Join_validation">
+                          {formik.errors.birthMonth}
+                        </div>
+                      )}
+                    {(submitAttempted || formik.touched.birthDay) &&
+                      formik.errors.birthDay && (
+                        <div className="Join_validation">
+                          {formik.errors.birthDay}
+                        </div>
+                      )}
                   </div>
                 </div>
 
@@ -837,9 +893,10 @@ const JoinPage = () => {
                     <textarea
                       name="experience"
                       className="MoreInfo_textarea"
-                      placeholder="관련 경력을 입력하세요"
+                      placeholder="관련 경력을 입력하세요(최대 500자)"
                       value={formik.values.experience || ""}
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       rows={4}
                     />
                     {formik.touched.experience && formik.errors.experience && (
@@ -861,8 +918,21 @@ const JoinPage = () => {
             <div className="MoreInfo_subBtn joinBtn">
               <button
                 type="submit"
-                onClick={() => {
-                  // console.log("formik.errors:", formik.errors);
+                onClick={async (e) => {
+                  e.preventDefault();
+                  setSubmitAttempted(true); // 생년월일 메시지 표시
+
+                  const isValid = await formik.validateForm().then((errors) => {
+                    return Object.keys(errors).length === 0;
+                  });
+
+                  if (!isValid) {
+                    message.error("회원가입 정보가 모두 입력되지 않았습니다.");
+                    return;
+                  }
+
+                  // 폼이 유효하면 직접 submit 실행
+                  formik.handleSubmit();
                 }}
               >
                 회원가입
