@@ -167,14 +167,15 @@ npm run dev
 
 <br />
 
-## API 명세서(추가필요)
-<img width="1066" alt="Image" src="https://github.com/user-attachments/assets/867d3d1f-a769-4e3d-b661-50a8356fcd8b" />
+## API 명세서
+<img width="600" alt="Image" src="https://github.com/user-attachments/assets/174fb9bc-dc48-4600-96d9-9763caec3348" />
+
 
 <br />
 
-## 기능 정의서(추가필요)
+## 기능 정의서
 
-<img width="700" alt="devs" src="https://github.com/user-attachments/assets/8484daff-5d18-45bd-a178-7a61a78d9116" />
+<img width="600" alt="devs" src="https://github.com/user-attachments/assets/76c34910-0f28-4280-ad6e-6d081a67351f" />
 
 <br />
 
