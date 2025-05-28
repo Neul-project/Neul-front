@@ -10,13 +10,14 @@ export const ProgramImgStyled = styled.div`
     cursor: pointer;
     //border: 1px solid black;
     .ProgramImg_main {
-      height: 400px;
+      height: 350px;
+
       //border: 1px solid black;
     }
     .ProgramImg_imgstyle {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
 
