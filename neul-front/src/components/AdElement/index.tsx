@@ -11,7 +11,7 @@ const AdElement = (props: { el: any; url: any }) => {
 
   const urlCick = () => {
     //console.log("url", url);
-    router.push(url);
+    window.open(url, "_blank");
   };
 
   return (
@@ -28,6 +28,3 @@ const AdElement = (props: { el: any; url: any }) => {
 };
 
 export default AdElement;
-function useRouer() {
-  throw new Error("Function not implemented.");
-}
