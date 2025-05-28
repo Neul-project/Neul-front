@@ -6,6 +6,7 @@ import * as S from "@/components/ModalCompo/ModalContent";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { refundValidation } from "@/utils/userValidation";
+import { isRefundAvailable } from "@/utils/getEndDate";
 
 import axiosInstance from "@/lib/axios";
 
@@ -13,10 +14,12 @@ interface Program {
   id: number;
   img: string;
   name: string;
-  payment_status: string;
   manager: string;
   price: number;
+  payment_status: string;
   refund_status: string;
+  cart_at: string;
+  recruitment: string;
 }
 
 // 프로그램 신청내역 컴포넌트
@@ -29,6 +32,8 @@ const ProgramHistory = () => {
   const [selectedProgramId, setSelectedProgramId] = useState<number | null>(
     null
   );
+  // 모달
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   console.log("프로그램 신청목록: ", programs);
 
@@ -119,7 +124,31 @@ const ProgramHistory = () => {
   return (
     <ProgramHistoryStyled>
       <div className="ProgramHistory_container">
-        <div className="ProgramHistory_title">프로그램 신청내역</div>
+        <div className="ProgramHistory_title">
+          <div>프로그램 신청내역</div>
+          <i
+            className="fa-solid fa-circle-info info"
+            onClick={() => setIsModalOpen((prev) => !prev)}
+            onMouseEnter={() => setIsModalOpen(true)}
+            onMouseLeave={() => setIsModalOpen(false)}
+          >
+            {/* 안내 모달 */}
+            {isModalOpen && (
+              <div className="custom_modal_container">
+                <div className="custom-modal">
+                  <div className="modal-title">
+                    <strong>※ 프로그램 환불안내</strong>
+                  </div>
+                  <div>
+                    <strong className="mainColor">'결제 완료'</strong> 후
+                    프로그램 환불은 프로그램 시작 1일전 까지만 가능합니다.
+                    <br />
+                  </div>
+                </div>
+              </div>
+            )}
+          </i>
+        </div>
 
         {/* 프로그램 목록 */}
         <div className="ProgramHistory_item_container">
@@ -159,7 +188,8 @@ const ProgramHistory = () => {
                     {data.payment_status !== "결제 대기" &&
                       !["환불 대기", "환불 완료"].includes(
                         data.refund_status
-                      ) && (
+                      ) &&
+                      isRefundAvailable(data.recruitment) && (
                         <Btn
                           onClick={() => {
                             setSelectedProgramId(data.id);
