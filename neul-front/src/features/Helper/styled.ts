@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const HelperStyled = styled.div`
   background-color: rgb(242, 245, 248);
   height: 100%;
+  min-height: calc(100vh - 155px);
 
   .Helper_S_container {
     padding: 30px 20px 40px 20px;

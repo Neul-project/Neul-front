@@ -10,6 +10,8 @@ export const ProgramListStyled = styled.div`
     text-align: center;
     margin: 0px auto;
     padding: 0px 20px;
+    height: 100%;
+    min-height: calc(100vh - 155px);
 
     .ProgramList_title {
       display: flex;
