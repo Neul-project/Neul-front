@@ -398,32 +398,19 @@ const HelperFeat = () => {
                     const from = dayjs(helperTime.startDate);
                     const to = dayjs(helperTime.endDate);
 
-                    const dayMap: { [key: number]: string } = {
-                      0: "sun",
-                      1: "mon",
-                      2: "tue",
-                      3: "wed",
-                      4: "thu",
-                      5: "fri",
-                      6: "sat",
-                    };
-
                     const currentDateStr = current.format("YYYY-MM-DD");
 
                     const isInRange =
                       !current.isBefore(from, "day") &&
                       !current.isAfter(to, "day");
 
-                    const isValidDay = helperTime.week.includes(
-                      dayMap[current.day()]
-                    );
-                    // 서버 응답으로 받은 날짜 비활성화
                     const isAlreadyDisabled =
                       disabledDatesMap[activeHelper.user.id]?.includes(
                         currentDateStr
                       ) ?? false;
 
-                    return !(isInRange && isValidDay) || isAlreadyDisabled;
+                    // 날짜 범위 내에 포함되고 예약된 날짜만 막음
+                    return !isInRange || isAlreadyDisabled;
                   }}
                   placeholder={["시작일", "종료일"]}
                 />
