@@ -550,11 +550,19 @@ const JoinPage = () => {
                           maxLength={2}
                         />
                       </div>
-                      {(formik.errors.birthYear ||
-                        formik.errors.birthMonth ||
-                        formik.errors.birthDay) && (
+                      {formik.errors.birthYear && (
                         <div className="Join_validation">
-                          생년월일을 올바르게 입력하세요
+                          {formik.errors.birthYear}
+                        </div>
+                      )}
+                      {formik.errors.birthMonth && (
+                        <div className="Join_validation">
+                          {formik.errors.birthMonth}
+                        </div>
+                      )}
+                      {formik.errors.birthDay && (
+                        <div className="Join_validation">
+                          {formik.errors.birthDay}
                         </div>
                       )}
                     </div>

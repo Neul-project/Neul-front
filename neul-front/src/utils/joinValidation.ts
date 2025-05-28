@@ -52,17 +52,47 @@ export const joinValidationSchema = Yup.object({
 
   birthYear: Yup.string().when("role", {
     is: (role: string) => role === "user" || role === "admin",
-    then: (schema) => schema.required("생년 입력").length(4, "4자리 연도"),
+    then: (schema) =>
+      schema
+        .required("생년 입력")
+        .length(4, "4자리 연도")
+        .test("is-valid-year", "1900년 이후만 입력 가능합니다.", (value) => {
+          return value ? parseInt(value) > 1900 : true;
+        })
+        .test(
+          "is-not-future-year",
+          "현재 연도 이하만 입력 가능합니다.",
+          (value) => {
+            const currentYear = new Date().getFullYear();
+            return value ? parseInt(value) <= currentYear : true;
+          }
+        ),
     otherwise: (schema) => schema.notRequired(),
   }),
+
   birthMonth: Yup.string().when("role", {
     is: (role: string) => role === "user" || role === "admin",
-    then: (schema) => schema.required("월 입력").length(2, "2자리 월"),
+    then: (schema) =>
+      schema
+        .required("월 입력")
+        .length(2, "2자리 월")
+        .test("is-valid-month", "1~12월만 입력 가능합니다.", (value) => {
+          const num = Number(value);
+          return !isNaN(num) && num >= 1 && num <= 12;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
+
   birthDay: Yup.string().when("role", {
     is: (role: string) => role === "user" || role === "admin",
-    then: (schema) => schema.required("일 입력").length(2, "2자리 일"),
+    then: (schema) =>
+      schema
+        .required("일 입력")
+        .length(2, "2자리 일")
+        .test("is-valid-day", "1~31일만 입력 가능합니다.", (value) => {
+          const num = Number(value);
+          return !isNaN(num) && num >= 1 && num <= 31;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
   // 도우미 조건 추가
