@@ -7,8 +7,13 @@ export const joinValidationSchema = Yup.object({
     is: "user",
     then: (schema) =>
       schema
-        .email("이메일 형식이 올바르지 않습니다.")
-        .required("이메일은 필수입니다."),
+        .required("이메일은 필수입니다.")
+        .min(4, "4자 이상 16자 이하로 입력해주세요.")
+        .max(16, "4자 이상 16자 이하로 입력해주세요.")
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "이메일 형식이 올바르지 않습니다."
+        ),
     otherwise: (schema) => schema.notRequired(),
   }),
 

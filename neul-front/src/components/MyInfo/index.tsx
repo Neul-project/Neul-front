@@ -93,7 +93,7 @@ const MyInfo = () => {
         data: { userId: user?.id },
       });
 
-      // console.log("회원탈퇴", res.data);
+      console.log("회원탈퇴", res.data);
 
       if (res.data) {
         // access_token, refresh_token 제거 및 zustand 상태 초기화

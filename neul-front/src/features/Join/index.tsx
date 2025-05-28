@@ -254,6 +254,20 @@ const JoinPage = () => {
     setIsPhoneChecked(false);
   }, [formik.values.phone]);
 
+  // 입력 제한 함수
+  const LimitedHandler = (
+    fieldName: string,
+    maxLength: number,
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
+  ) => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      if (val.length <= maxLength) {
+        setFieldValue(fieldName, val);
+      }
+    };
+  };
+
   return (
     <JoinStyled>
       <MoreInfoStyled>
@@ -303,9 +317,11 @@ const JoinPage = () => {
                       name="adminEmailPrefix"
                       className="MoreInfo_input"
                       value={formik.values.adminEmailPrefix || ""}
-                      onChange={(e) =>
-                        formik.setFieldValue("adminEmailPrefix", e.target.value)
-                      }
+                      onChange={LimitedHandler(
+                        "adminEmailPrefix",
+                        10,
+                        formik.setFieldValue
+                      )}
                       placeholder="아이디를 입력해주세요"
                     />
 
@@ -325,7 +341,11 @@ const JoinPage = () => {
                       type="email"
                       name="email"
                       className="MoreInfo_input"
-                      onChange={formik.handleChange}
+                      onChange={LimitedHandler(
+                        "email",
+                        16,
+                        formik.setFieldValue
+                      )}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
                       placeholder="이메일을 입력해 주세요"
@@ -365,7 +385,11 @@ const JoinPage = () => {
                     name="password"
                     placeholder="비밀번호를 입력해 주세요"
                     className="MoreInfo_input"
-                    onChange={formik.handleChange}
+                    onChange={LimitedHandler(
+                      "password",
+                      16,
+                      formik.setFieldValue
+                    )}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                   />
@@ -387,7 +411,11 @@ const JoinPage = () => {
                     name="passwordCheck"
                     placeholder="비밀번호를 한번 더 입력해주세요"
                     className="MoreInfo_input"
-                    onChange={formik.handleChange}
+                    onChange={LimitedHandler(
+                      "passwordCheck",
+                      16,
+                      formik.setFieldValue
+                    )}
                     onBlur={formik.handleBlur}
                     value={formik.values.passwordCheck}
                   />
@@ -410,7 +438,7 @@ const JoinPage = () => {
                     name="name"
                     placeholder="이름을 입력해 주세요"
                     className="MoreInfo_input"
-                    onChange={formik.handleChange}
+                    onChange={LimitedHandler("name", 10, formik.setFieldValue)}
                     onBlur={formik.handleBlur}
                     value={formik.values.name}
                   />
@@ -468,7 +496,11 @@ const JoinPage = () => {
                       type="text"
                       name="wardName"
                       className="MoreInfo_input"
-                      onChange={formik.handleChange}
+                      onChange={LimitedHandler(
+                        "wardName",
+                        10,
+                        formik.setFieldValue
+                      )}
                       onBlur={formik.handleBlur}
                       value={formik.values.wardName}
                       placeholder="피보호자명을 입력해 주세요"
