@@ -95,14 +95,16 @@ const MyInfo = () => {
 
       console.log("회원탈퇴", res.data);
 
-      if (res.data) {
+      if (res.data.ok) {
         // access_token, refresh_token 제거 및 zustand 상태 초기화
         useAuthStore.getState().logout();
 
         alert("탈퇴가 완료되었습니다.");
         router.push("/");
       } else {
-        alert("탈퇴에 실패했습니다. 다시 시도해주세요.");
+        alert(
+          "진행중인 매칭이 존재하여 탈퇴에 실패했습니다.\n매칭이 모두 종료된 후에 탈퇴를 시도해주세요."
+        );
       }
     } catch (err: any) {
       console.error("회원탈퇴 오류:", err);
