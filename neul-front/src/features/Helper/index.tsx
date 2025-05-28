@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { HelperStyled } from "./styled";
 import Image from "next/image";
 
-import { DatePicker, ConfigProvider } from "antd";
+import { DatePicker, ConfigProvider, message, notification } from "antd";
 import { GreenTheme } from "@/utils/antdtheme";
 const { RangePicker } = DatePicker;
 import dayjs from "dayjs";
@@ -124,9 +124,10 @@ const HelperFeat = () => {
 
       // 데이터가 없을 때 예외 처리
       if (!res.data || res.data.length === 0) {
-        alert(
-          "도우미의 근무 가능 일정이 아직 등록되지 않았습니다.\n자세한 내용은 도우미에게 문의해 주세요."
-        );
+        notification.info({
+          message: "도우미의 근무 가능 일정이 아직 등록되지 않았습니다.",
+          description: "자세한 내용은 도우미에게 문의해 주세요.",
+        });
         return;
       }
       // "sun","mon", "tue", "wed", "thu", "fri", "sat",
@@ -173,7 +174,11 @@ const HelperFeat = () => {
 
       // 2. 선택된 날짜가 하나도 없으면 중단
       if (validDates.length === 0) {
-        alert("도우미가 선택한 기간 내에서 근무 가능한 요일이 없습니다.");
+        notification.info({
+          message: "도우미 신청",
+          description:
+            "도우미가 선택한 기간 내에서 근무 가능한 요일이 없습니다.",
+        });
         return;
       }
 
@@ -208,9 +213,11 @@ const HelperFeat = () => {
           };
         });
 
-        alert(
-          "신청이 완료되었습니다!\n도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요."
-        );
+        notification.success({
+          message: "도우미 신청 완료",
+          description:
+            "도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요.",
+        });
 
         router.push("/");
 
@@ -221,7 +228,10 @@ const HelperFeat = () => {
       }
     } catch (error) {
       console.error("도우미 신청 중 오류 발생:", error);
-      alert("신청 중 오류가 발생했습니다. 다시 시도해주세요.");
+      notification.error({
+        message: "도우미 신청 실패",
+        description: "신청 중 오류가 발생했습니다. 다시 시도해주세요.",
+      });
     }
   };
 
@@ -427,7 +437,7 @@ const HelperFeat = () => {
                         selectedRange[1]
                       );
                     } else {
-                      alert("날짜를 선택해주세요.");
+                      message.info("날짜를 선택해주세요.");
                     }
                   }}
                 >

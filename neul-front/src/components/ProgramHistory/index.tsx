@@ -9,6 +9,7 @@ import { refundValidation } from "@/utils/userValidation";
 import { isRefundAvailable } from "@/utils/getEndDate";
 
 import axiosInstance from "@/lib/axios";
+import { message, notification } from "antd";
 
 interface Program {
   id: number;
@@ -78,7 +79,7 @@ const ProgramHistory = () => {
     validationSchema: refundValidation,
     onSubmit: async (values, { resetForm }) => {
       if (!selectedProgramId) {
-        alert("프로그램을 선택해주세요.");
+        message.info("프로그램을 선택해주세요.");
         return;
       }
 
@@ -96,7 +97,10 @@ const ProgramHistory = () => {
         const res = await axiosInstance.post("/program/refund", payload);
 
         if (res.data?.ok) {
-          alert("환불 신청이 완료되었습니다.");
+          notification.success({
+            message: "환불 신청 성공",
+            description: "환불 신청이 완료되었습니다.",
+          });
 
           // 상태 업데이트
           setPrograms((prevPrograms) =>
@@ -111,12 +115,18 @@ const ProgramHistory = () => {
           setSelectedProgramId(null);
           setRefundOpen(false);
         } else {
-          alert("환불 신청에 실패했습니다. 다시 시도해주세요.");
+          notification.error({
+            message: "환불 신청 실패",
+            description: "환불 신청에 실패했습니다. 다시 시도해주세요.",
+          });
           console.warn("환불 실패 응답:", res.data);
         }
       } catch (err) {
         console.error(err);
-        alert("환불 신청 중 오류가 발생했습니다.");
+        notification.error({
+          message: "환불 신청 실패",
+          description: "환불 신청 중 오류가 발생했습니다.",
+        });
       }
     },
   });

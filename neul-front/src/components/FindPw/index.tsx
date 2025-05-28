@@ -9,6 +9,7 @@ import {
 
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { message, notification } from "antd";
 
 const FindPw = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const FindPw = () => {
     // email에 에러가 있으면 전송 중단
     if (errors.email) {
       formik.setTouched({ email: true }); // 에러 표시를 위해 touch 처리
-      alert("올바른 이메일을 입력해주세요.");
+      message.info("올바른 이메일을 입력해주세요.");
       return;
     }
     console.log(formik.values.email);
@@ -46,12 +47,18 @@ const FindPw = () => {
       console.log("인증코드 응답", res.data);
 
       if (res.data.ok) {
-        alert("인증번호가 이메일로 전송되었습니다.");
+        notification.success({
+          message: "인증코드 전송 성공",
+          description: "인증번호가 이메일로 전송되었습니다.",
+        });
         setCodeSent(true);
       }
     } catch (error) {
       console.error(error);
-      alert("이메일 전송 중 오류가 발생했습니다.");
+      notification.error({
+        message: "인증코드 전송 실패",
+        description: "이메일 전송 중 오류가 발생했습니다.",
+      });
     }
   };
 
@@ -67,13 +74,22 @@ const FindPw = () => {
       );
 
       if (res.data.ok) {
-        alert("이메일 인증이 완료되었습니다.");
+        notification.success({
+          message: "이메일 인증 성공",
+          description: "이메일 인증이 완료되었습니다.",
+        });
         setCodeVerified(true);
       } else {
-        alert("인증번호가 올바르지 않습니다.");
+        notification.error({
+          message: "이메일 인증 실패",
+          description: "인증번호가 올바르지 않습니다.",
+        });
       }
     } catch (err) {
-      alert("인증 확인 중 오류가 발생했습니다.");
+      notification.error({
+        message: "이메일 인증 실패",
+        description: "인증 확인 중 오류가 발생했습니다.",
+      });
     }
   };
 
@@ -109,7 +125,10 @@ const FindPw = () => {
         }
       } catch (error) {
         console.error("비밀번호 찾기 실패:", error);
-        alert("서버 오류가 발생했습니다.");
+        notification.error({
+          message: "비밀번호 찾기 실패",
+          description: "서버 오류가 발생했습니다.",
+        });
       }
     },
   });
@@ -132,15 +151,20 @@ const FindPw = () => {
         );
 
         if (res.data.ok) {
-          alert(
-            "비밀번호가 성공적으로 변경되었습니다.\n로그인 페이지로 이동합니다."
-          );
+          notification.success({
+            message: "비밀번호 재설정 성공",
+            description:
+              "비밀번호가 성공적으로 변경되었습니다. 로그인 페이지로 이동합니다.",
+          });
           router.push("/login");
         } else {
         }
       } catch (err) {
         console.error("비밀번호 재설정 실패:", err);
-        alert("비밀번호 변경에 실패했습니다.");
+        notification.error({
+          message: "비밀번호 재설정 실패",
+          description: "비밀번호 변경에 실패했습니다.",
+        });
       }
     },
   });

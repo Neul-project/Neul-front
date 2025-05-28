@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AddressStyled } from "./styled";
 
 import axiosInstance from "@/lib/axios";
+import { message, notification } from "antd";
 
 declare global {
   interface Window {
@@ -46,12 +47,12 @@ const Address = ({ onClose, onAddressSaved, addressProps }: AddressProps) => {
   // 주소등록 요청
   const handleAddressSubmit = async () => {
     if (!address) {
-      alert("주소를 입력해주세요.");
+      message.info("주소를 입력해주세요.");
       return;
     }
 
     if (!addressDetail.trim()) {
-      alert("상세 주소를 입력해주세요.");
+      message.info("상세 주소를 입력해주세요.");
       return;
     }
 
@@ -65,15 +66,24 @@ const Address = ({ onClose, onAddressSaved, addressProps }: AddressProps) => {
       });
 
       if (res.data?.ok) {
-        alert("주소가 성공적으로 등록되었습니다.");
+        notification.success({
+          message: "주소 등록 성공",
+          description: "주소가 성공적으로 등록되었습니다.",
+        });
         onAddressSaved(); // 주소 등록 시 정보 갱신
         onClose();
       } else {
-        alert("주소 등록에 실패했습니다.");
+        notification.error({
+          message: "주소 등록 실패",
+          description: "주소 등록에 실패했습니다.",
+        });
       }
     } catch (error) {
       console.error("주소 등록 오류:", error);
-      alert("서버 오류가 발생했습니다.");
+      notification.error({
+        message: "주소 등록 실패",
+        description: "서버 오류가 발생했습니다.",
+      });
     }
   };
 

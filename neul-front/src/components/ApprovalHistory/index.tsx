@@ -6,6 +6,7 @@ import { formatPhoneNumber } from "@/utils/formatter";
 import { useFormik } from "formik";
 import { editHelperValidationSchema } from "@/utils/joinValidation";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { notification } from "antd";
 
 interface HelperInfo {
   id: number;
@@ -122,18 +123,27 @@ const ApprovalHistory = () => {
         // console.log("resdata", res.data);
 
         if (res.data?.ok) {
-          alert("재승인 요청이 완료되었습니다.");
+          notification.success({
+            message: "재승인 요청 성공",
+            description: "재승인 요청이 완료되었습니다.",
+          });
 
           // '승인 대기'로 프론트에서 임시 변경
           setHelper((prev) => (prev ? { ...prev, status: "승인 대기" } : prev));
 
           setShowEditForm(false);
         } else {
-          alert("재승인 요청이 실패했습니다.");
+          notification.error({
+            message: "재승인 요청 실패",
+            description: "재승인 요청이 실패했습니다.",
+          });
         }
       } catch (error) {
         console.error("재승인 요청 실패:", error);
-        alert("서버 오류가 발생했습니다.");
+        notification.error({
+          message: "재승인 요청 실패",
+          description: "서버 오류가 발생했습니다.",
+        });
       }
     },
   });

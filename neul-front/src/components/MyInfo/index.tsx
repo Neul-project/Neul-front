@@ -16,6 +16,7 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 import Script from "next/script";
+import { notification } from "antd";
 
 type UserInfoType = {
   name: string;
@@ -79,14 +80,23 @@ const MyInfo = () => {
         });
 
         if (res.data?.ok) {
-          alert("비밀번호가 성공적으로 변경되었습니다.");
+          notification.error({
+            message: "비밀번호 변경 성공",
+            description: "비밀번호가 성공적으로 변경되었습니다.",
+          });
           setPwOpen(false);
         } else {
-          alert("비밀번호 변경에 실패했습니다.");
+          notification.error({
+            message: "비밀번호 변경 실패",
+            description: "비밀번호 변경에 실패했습니다.",
+          });
         }
       } catch (error) {
         console.error("비밀번호 변경 오류:", error);
-        alert("서버 오류가 발생했습니다.");
+        notification.error({
+          message: "비밀번호 변경 실패",
+          description: "서버 오류가 발생했습니다.",
+        });
       }
     },
   });
@@ -107,12 +117,17 @@ const MyInfo = () => {
         // access_token, refresh_token 제거 및 zustand 상태 초기화
         useAuthStore.getState().logout();
 
-        alert("탈퇴가 완료되었습니다.");
+        notification.success({
+          message: "회원탈퇴 성공",
+          description: "그동안 이용해주셔서 감사합니다.",
+        });
         router.push("/");
       } else {
-        alert(
-          "진행중인 매칭이 존재하여 탈퇴에 실패했습니다.\n매칭이 모두 종료된 후에 탈퇴를 시도해주세요."
-        );
+        notification.error({
+          message: "회원탈퇴 실패",
+          description:
+            "진행중인 매칭이 존재하여 탈퇴에 실패했습니다.매칭이 모두 종료된 후에 탈퇴를 시도해주세요.",
+        });
       }
     } catch (err: any) {
       console.error("회원탈퇴 오류:", err);

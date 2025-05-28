@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuthStore } from "@/stores/useAuthStore";
 import Loading from "@/components/Loading";
+import { notification } from "antd";
 
 interface RoleGuardProps {
   blockedRoles: string[]; // 차단할 role, 예: ['admin']
@@ -29,9 +30,10 @@ const RoleGuard: React.FC<RoleGuardProps> = ({ blockedRoles, children }) => {
   useEffect(() => {
     if (!loading && isLoggedIn && user && blockedRoles.includes(user.role)) {
       if (!alertShown) {
-        alert(
-          "보호자만 이용 가능한 페이지입니다.\n도우미는 도우미 전용 페이지를 이용해주세요."
-        );
+        notification.info({
+          message: "보호자만 이용 가능한 페이지입니다.",
+          description: "도우미는 도우미 전용 페이지를 이용해주세요.",
+        });
         setAlertShown(true);
         router.push("/");
       }

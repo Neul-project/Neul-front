@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import axiosInstance from "@/lib/axios";
 
 import { formatAge } from "@/utils/formatter";
+import { notification } from "antd";
 
 type UserInfoType = {
   name: string;
@@ -59,7 +60,10 @@ const WardInfo = () => {
         });
 
         if (res.data?.ok) {
-          alert("피보호자 정보가 성공적으로 수정되었습니다.");
+          notification.success({
+            message: "피보호자 정보 수정 성공",
+            description: "피보호자 정보가 성공적으로 수정되었습니다.",
+          });
           setwardOpen(false);
           // 특이사항 즉시 반영
           setUserInfo((prev) =>
@@ -74,11 +78,17 @@ const WardInfo = () => {
               : prev
           );
         } else {
-          alert("피보호자 정보 수정에 실패했습니다.");
+          notification.error({
+            message: "피보호자 정보 수정 실패",
+            description: "피보호자 정보 수정에 실패했습니다.",
+          });
         }
       } catch (error) {
         console.error("피보호자 정보 수정 오류:", error);
-        alert("서버 오류가 발생했습니다.");
+        notification.error({
+          message: "피보호자 정보 수정 오류",
+          description: "서버 오류가 발생했습니다.",
+        });
       }
     },
   });

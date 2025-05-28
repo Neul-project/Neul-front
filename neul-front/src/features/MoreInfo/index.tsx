@@ -33,7 +33,7 @@ const MoreInfoCompo = () => {
     validationSchema: moreInfoValidation,
     onSubmit: async (values) => {
       if (!isPhoneChecked) {
-        alert("전화번호 중복 확인을 해주세요.");
+        message.info("전화번호 중복 확인을 해주세요.");
         return;
       }
 
@@ -64,7 +64,10 @@ const MoreInfoCompo = () => {
         // console.log("MoreInfo wardRes", wardRes.data);
 
         if (guardianRes.data?.ok === true && wardRes.data?.ok === true) {
-          alert("등록이 완료되었습니다.");
+          notification.success({
+            message: "등록 성공",
+            description: "등록이 완료되었습니다.",
+          });
 
           // 사용자가 입력한 이름 즉시 헤더에 반영
           const meRes = await axiosInstance.get("/auth/me");

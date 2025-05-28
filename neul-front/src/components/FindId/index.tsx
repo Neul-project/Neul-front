@@ -6,6 +6,7 @@ import { findIdValidationSchema } from "@/utils/userValidation";
 
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { notification } from "antd";
 
 const FindId = () => {
   const router = useRouter();
@@ -54,7 +55,10 @@ const FindId = () => {
         }
       } catch (error) {
         console.error("아이디 찾기 실패:", error);
-        alert("서버 오류가 발생했습니다.");
+        notification.error({
+          message: "아이디 찾기 실패",
+          description: "서버 오류가 발생했습니다.",
+        });
       }
     },
   });

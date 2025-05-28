@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Logo from "@/assets/images/logo_small.png";
 
-import { Select, message } from "antd";
+import { Select, message, notification } from "antd";
 import { useFormik } from "formik";
 
 // 회원가입 유효성 검사 yup
@@ -46,7 +46,7 @@ const JoinPage = () => {
     fieldValue: string
   ) => {
     if (!fieldName || !fieldValue) {
-      alert("값을 입력해주세요.");
+      message.info("값을 입력해주세요.");
       return;
     }
 
@@ -58,9 +58,9 @@ const JoinPage = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/auth/check?email=${fieldValue}`
         );
         if (response.data.isDuplicate) {
-          alert("이미 사용 중인 이메일입니다.");
+          message.error("이미 사용 중인 이메일입니다.");
         } else {
-          alert("사용 가능한 이메일입니다.");
+          message.success("사용 가능한 이메일입니다.");
           setIsEmailChecked(true);
         }
       } else if (fieldName === "phone") {
@@ -68,15 +68,15 @@ const JoinPage = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/auth/check?phone=${fieldValue}`
         );
         if (response.data.isDuplicate) {
-          alert("이미 등록된 전화번호입니다.");
+          message.error("이미 등록된 전화번호입니다.");
         } else {
-          alert("사용 가능한 전화번호입니다.");
+          message.success("사용 가능한 전화번호입니다.");
           setIsPhoneChecked(true);
         }
       }
     } catch (error) {
       console.error("중복 확인 오류", error);
-      alert("중복 확인 중 오류가 발생했습니다.");
+      message.error("중복 확인 중 오류가 발생했습니다.");
     }
   };
 
@@ -117,18 +117,18 @@ const JoinPage = () => {
 
       // 이용약관 필수 동의 항목 검사
       if (!agreements.terms || !agreements.privacy) {
-        alert("필수 약관에 모두 동의해주세요.");
+        message.info("필수 약관에 모두 동의해주세요.");
         return;
       }
 
       // 중복 검사 여부 체크
       if (!isEmailChecked) {
-        alert("이메일 중복 확인을 완료해주세요.");
+        message.info("이메일 중복 확인을 완료해주세요.");
         return;
       }
 
       if (!isPhoneChecked) {
-        alert("전화번호 중복 확인을 완료해주세요.");
+        message.info("전화번호 중복 확인을 완료해주세요.");
         return;
       }
 
@@ -149,7 +149,9 @@ const JoinPage = () => {
 
         const userId = signupRes.data?.userId;
         if (!userId) {
-          alert("회원가입 후 사용자 ID를 받아올 수 없습니다.");
+          notification.error({
+            message: "회원가입 후 사용자 ID를 받아올 수 없습니다.",
+          });
           return;
         }
 
@@ -231,19 +233,30 @@ const JoinPage = () => {
 
         if (agreementsRes.data?.ok) {
           if (values.role === "admin") {
-            alert(
-              "회원가입이 완료되었습니다.\n관리자의 최종 승인이 완료되면 서비스를 이용하실 수 있습니다."
-            );
+            notification.success({
+              message: "회원가입 완료",
+              description:
+                "관리자의 최종 승인이 완료되면 서비스를 이용하실 수 있습니다.",
+            });
           } else {
-            alert("회원가입이 완료되었습니다!");
+            notification.success({
+              message: "회원가입 완료",
+              description: "회원가입이 완료되었습니다!",
+            });
           }
           router.push("/");
         } else {
-          alert("약관 동의 처리 중 문제가 발생했습니다.");
+          notification.error({
+            message: "약관 동의 처리 실패",
+            description: "약관 동의 처리 중 문제가 발생했습니다.",
+          });
         }
       } catch (error) {
         console.error("회원가입 실패", error);
-        alert("회원가입 중 오류가 발생했습니다.");
+        notification.error({
+          message: "회원가입 실패",
+          description: "회원가입 중 오류가 발생했습니다.",
+        });
       }
     },
   });
