@@ -206,5 +206,6 @@ export const MyInfoStyled = styled.div`
     margin-top: 2px;
     font-size: 13px;
     color: red;
+    line-height: 20px;
   }
 `;
