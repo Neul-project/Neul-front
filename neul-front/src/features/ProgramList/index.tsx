@@ -46,7 +46,7 @@ const ProgramList = () => {
     //프로그램 전체 요청 리스트
     axiosInstance.get("/program/list").then((res: any) => {
       //console.log("program list res", res.data);
-      setList(res.data);
+      setList(res.data.reverse());
     });
   }, []);
 
@@ -71,7 +71,7 @@ const ProgramList = () => {
 
     axiosInstance.get("/program/list").then((res: any) => {
       //console.log("program list res", res.data);
-      setList(res.data);
+      setList(res.datareverse());
     });
 
     setFilterStatus(value);
