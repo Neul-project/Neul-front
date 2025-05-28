@@ -14,6 +14,7 @@ import { loginSchema } from "@/utils/joinValidation";
 // zustand
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useCartStore } from "@/stores/useCartStore";
+import { notification } from "antd";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -74,7 +75,10 @@ const LoginPage = () => {
         router.push("/");
       } catch (error) {
         console.error("로그인 실패:", error);
-        alert("로그인 정보가 일치하지 않습니다.");
+        notification.info({
+          message: "로그인 실패",
+          description: "로그인 정보가 일치하지 않습니다.",
+        });
       }
     },
   });

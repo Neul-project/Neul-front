@@ -12,6 +12,7 @@ import Advertising from "@/features/Advertising";
 
 // zustand
 import { useAuthStore } from "@/stores/useAuthStore";
+import { notification } from "antd";
 // import { useCartStore } from "@/stores/useCartStore";
 
 //main page component
@@ -52,9 +53,11 @@ const MainPage = () => {
 
           // 4. 추가정보 여부 판단
           if (!userData.name || userData.name.trim() === "") {
-            alert(
-              "소셜로그인 사용자는 추가 정보 등록 후 서비스를 이용하실 수 있습니다. 추가 정보 입력 페이지로 이동합니다."
-            );
+            notification.info({
+              message: "추가 정보 입력",
+              description:
+                "소셜로그인 사용자는 추가 정보 등록 후 서비스를 이용하실 수 있습니다. 추가 정보 입력 페이지로 이동합니다.",
+            });
             router.replace("/moreinfo", undefined, { shallow: true }); // 추가 정보 이동
           } else {
             router.replace("/", undefined, { shallow: true }); // 메인 이동

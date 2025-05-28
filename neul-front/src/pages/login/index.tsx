@@ -2,6 +2,7 @@ import LoginPage from "@/features/LoginPage";
 
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { notification } from "antd";
 
 const Login = () => {
   const hasRun = useRef(false);
@@ -15,7 +16,10 @@ const Login = () => {
     hasRun.current = true; // alert 한 번만 실행하기 위함
 
     if (reason === "auth") {
-      alert("로그인이 필요합니다.");
+      notification.error({
+        message: "로그인 실패",
+        description: "로그인이 필요합니다.",
+      });
     }
   }, [reason]);
 
