@@ -195,9 +195,9 @@ const JoinPage = () => {
             formData.append("certificate", values.certificate);
           }
 
-          for (const [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-          }
+          // for (const [key, value] of formData.entries()) {
+          //   console.log(`${key}:`, value);
+          // }
 
           // 도우미 프로필 정보 전송
           const helperRes = await axios.post(
@@ -822,7 +822,7 @@ const JoinPage = () => {
               <button
                 type="submit"
                 onClick={() => {
-                  console.log("formik.errors:", formik.errors);
+                  // console.log("formik.errors:", formik.errors);
                 }}
               >
                 회원가입

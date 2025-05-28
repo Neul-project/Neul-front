@@ -168,7 +168,7 @@ const PaymentFeature = () => {
         // 6. 장바구니 개수 동기화
         const prevCount = useCartStore.getState().cartCount;
         const newCount = Math.max(0, prevCount - deletableIds.length);
-        console.log("newCount", newCount);
+        // console.log("newCount", newCount);
         useCartStore.getState().setCartCount(newCount);
       }
     } catch (err) {

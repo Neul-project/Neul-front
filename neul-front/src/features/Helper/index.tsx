@@ -119,7 +119,7 @@ const HelperFeat = () => {
     setLoadingTime(true);
     try {
       const res = await axiosInstance.get(`/helper/time/${helperId}`);
-      console.log("도우미 일정 응답", res.data);
+      // console.log("도우미 일정 응답", res.data);
       // console.log(res.status);
 
       // 데이터가 없을 때 예외 처리

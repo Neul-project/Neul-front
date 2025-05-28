@@ -67,20 +67,10 @@ const MoreInfoCompo = () => {
 
           // 사용자가 입력한 이름 즉시 헤더에 반영
           const meRes = await axiosInstance.get("/auth/me");
-
-          console.log("소셜유저 정보:", meRes.data);
+          // console.log("소셜유저 정보:", meRes.data);
 
           // // 3. zustand에 로그인 상태 저장
           login(meRes.data);
-
-          // const { user, login } = useAuthStore.getState();
-
-          // if (user) {
-          //   login({
-          //     ...user,
-          //     name: guardian.name,
-          //   });
-          // }
 
           router.push("/");
         } else {
