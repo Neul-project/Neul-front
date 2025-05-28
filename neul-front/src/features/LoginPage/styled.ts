@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 export const LoginPageStyled = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  margin-top: 49px;
-  margin-bottom: 60px;
+  margin-top: -64px;
   color: rgb(136, 136, 136);
+  height: 100vh;
 
   @media (max-width: 632px) {
     margin-top: 0px;
