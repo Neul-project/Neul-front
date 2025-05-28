@@ -30,7 +30,7 @@ const ProgramHistory = () => {
     null
   );
 
-  // console.log("프로그램 신청목록: ", programs);
+  console.log("프로그램 신청목록: ", programs);
 
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
