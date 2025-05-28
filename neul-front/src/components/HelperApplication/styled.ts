@@ -26,7 +26,7 @@ export const HelperAppStyled = styled.div`
     align-items: center;
     gap: 4px;
     font-size: 19px;
-    padding-bottom: 20px;
+    padding-bottom: 17px;
     border-bottom: 2px solid rgb(51, 51, 51);
     line-height: 31px;
   }

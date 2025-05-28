@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PaymentStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
 import clsx from "clsx";
+import { formatPhoneNumber } from "@/utils/formatter";
 
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
@@ -189,7 +190,9 @@ const PaymentFeature = () => {
 
             <div className="Orderder_info_container">
               <div className="O_orderer">{userInfo?.name}</div>
-              <div className="O_phone">{userInfo?.phone}</div>
+              <div className="O_phone">
+                {formatPhoneNumber(userInfo?.phone ?? "")}
+              </div>
               <div className="O_email">{userInfo?.email}</div>
             </div>
           </div>
