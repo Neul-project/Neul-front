@@ -51,6 +51,10 @@ export const HelperStyled = styled.div`
     margin-bottom: 7px;
   }
 
+  .warn {
+    color: #d50000;
+  }
+
   .Helper_Btn {
     margin-top: 8px;
 

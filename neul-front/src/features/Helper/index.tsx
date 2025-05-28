@@ -258,6 +258,9 @@ const HelperFeat = () => {
                       <br />* 진행사항 및 결제는{" "}
                       <span>[마이페이지] → [도우미 신청내역]</span>에서 확인하실
                       수 있습니다.
+                      <br />* 도우미 신청은{" "}
+                      <span className="warn">결제 후 환불이 불가능</span>하므로
+                      신중하게 선택해주세요.
                     </div>
                   </div>
                 </div>
