@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FindPwStyled = styled.div`
-  height: 70vh;
+  height: 90vh;
   background-color: ${(props) => props.theme.colors.backColor};
 
   @media (max-width: 632px) {
@@ -106,6 +106,39 @@ export const FindPwStyled = styled.div`
     font-size: 14px;
   }
 
+  .FindPw_inputCont {
+    display: flex;
+    gap: 5px;
+  }
+
+  .FindPw_inputBtn {
+    width: 35%;
+    display: inline-flex;
+
+    @media (max-width: 415px) {
+      width: 42%;
+    }
+
+    button {
+      cursor: pointer;
+      width: 100%;
+      border: 1px solid ${(props) => props.theme.colors.pointGreen};
+      padding: 0 4px;
+      border-radius: 4px;
+      background-color: #fff;
+      color: ${(props) => props.theme.colors.pointGreen};
+      font-size: 13px;
+      font-weight: 500;
+      transition: 0.2s;
+
+      &:hover {
+        border: 1px solid #fff;
+        background-color: ${(props) => props.theme.colors.pointGreen};
+        color: #fff;
+      }
+    }
+  }
+
   .FindId_sub {
     width: 100%;
 
@@ -114,12 +147,19 @@ export const FindPwStyled = styled.div`
       width: 100%;
       height: 42px;
       margin-top: 10px;
-      border: 1px solid ${(props) => props.theme.colors.pointGreen};
+      border: 1px solid #fff;
       border-radius: 8px;
-      background-color: #fff;
-      color: ${(props) => props.theme.colors.pointGreen};
+      background-color: ${(props) => props.theme.colors.pointGreen};
+      color: #fff;
       font-weight: 700;
       font-size: 16px;
+      transition: 0.2s;
+
+      &:hover {
+        border: 1px solid ${(props) => props.theme.colors.pointGreen};
+        background-color: #fff;
+        color: ${(props) => props.theme.colors.pointGreen};
+      }
     }
   }
 

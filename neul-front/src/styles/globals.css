@@ -43,6 +43,13 @@ a {
   html {
     color-scheme: dark;
   }
+  body {
+    color: #333;
+    background: white;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
   input {
     background: white;

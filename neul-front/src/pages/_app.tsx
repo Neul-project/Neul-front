@@ -14,6 +14,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import Loading from "@/components/Loading";
 import Script from "next/script";
 import RoleGuard from "@/components/RoleGuard";
+import Head from "next/head";
 
 // _app.tsx
 export default function App({ Component, pageProps }: AppProps) {
@@ -96,6 +97,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <Head>
+          <title>Neul</title>
+        </Head>
         <Header />
 
         <div
