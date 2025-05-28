@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { HelperAppStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
+import { Modal } from "antd";
 
 import { formatAge } from "@/utils/formatter";
 
@@ -85,38 +86,52 @@ const HelperApplication = () => {
     helperId: number,
     applyId: number
   ) => {
-    // console.log("도우미 신청결제: ", amount, helperId, applyId);
+    console.log("도우미 신청결제: ", amount, helperId, applyId);
 
     if (!tossClientKey) {
       console.error("Toss client key가 없습니다.");
       return;
     }
 
-    try {
-      const orderId = `order-${Date.now()}`;
-      const orderName = "도우미 신청 결제";
+    Modal.confirm({
+      title: "도우미 신청 확인",
+      content: (
+        <>
+          도우미 신청은 결제가 완료되면 환불이 불가합니다.
+          <br />
+          결제 후 도우미를 확정하시겠습니까?
+        </>
+      ),
+      okText: "결제 진행",
+      cancelText: "취소",
+      onOk: async () => {
+        try {
+          const orderId = `order-${Date.now()}`;
+          const orderName = "도우미 신청 결제";
 
-      // 서버에 결제내역 전송
-      const res = await axiosInstance.post("/matching/create-payment", {
-        amount,
-        helperId: helperId,
-        orderId,
-        applyId,
-      });
+          // 서버에 결제내역 전송
+          const res = await axiosInstance.post("/matching/create-payment", {
+            amount,
+            helperId: helperId,
+            orderId,
+            applyId,
+          });
 
-      // 2. 받은 orderId로 토스 결제창 띄우기
-      const tossPayments = await loadTossPayments(tossClientKey);
+          // 2. 받은 orderId로 토스 결제창 띄우기
+          const tossPayments = await loadTossPayments(tossClientKey);
 
-      await tossPayments.requestPayment({
-        amount,
-        orderId,
-        orderName,
-        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/confirm?&helperId=${helperId}?&applyId=${applyId}`,
-        failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
-      });
-    } catch (error) {
-      console.error("결제 요청 중 오류:", error);
-    }
+          await tossPayments.requestPayment({
+            amount,
+            orderId,
+            orderName,
+            successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/confirm?&helperId=${helperId}?&applyId=${applyId}`,
+            failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail`,
+          });
+        } catch (error) {
+          console.error("결제 요청 중 오류:", error);
+        }
+      },
+    });
   };
 
   return (
