@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { useAuthStore } from "@/stores/useAuthStore";
 import clip from "@/assets/images/clip.png";
 import Image from "next/image";
+import { GreenTheme } from "@/utils/antdtheme";
 
 // 상태 타입
 interface StatusType {
@@ -77,11 +78,13 @@ const StatusCheck = () => {
 
           {/* 날짜 선택 */}
           <div className="statuscheck_date">
-            <DatePicker
-              size="large"
-              value={selectedDate}
-              onChange={handleDateChange}
-            />
+            <ConfigProvider theme={GreenTheme}>
+              <DatePicker
+                size="large"
+                value={selectedDate}
+                onChange={handleDateChange}
+              />
+            </ConfigProvider>
           </div>
 
           {/* 상태 */}

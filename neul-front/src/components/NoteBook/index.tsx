@@ -70,7 +70,6 @@ const NoteBook = () => {
             name={name}
             popoverContent={<ExplanationContent />}
           />
-
           {/* 오른쪽 페이지 */}
           <OnePage type="right" lineNum={lineNum}>
             <StatusCheck />

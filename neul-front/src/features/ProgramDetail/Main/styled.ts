@@ -9,6 +9,8 @@ export const ProgramDetailStyled = styled.div`
     justify-content: center;
     margin: 0px auto;
     padding: 0px 40px;
+    height: 100%;
+    min-height: calc(100vh - 155px);
 
     .ProgramDetail_share {
       display: flex;

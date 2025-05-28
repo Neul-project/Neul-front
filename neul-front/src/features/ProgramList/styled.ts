@@ -10,6 +10,8 @@ export const ProgramListStyled = styled.div`
     text-align: center;
     margin: 0px auto;
     padding: 0px 20px;
+    height: 100%;
+    min-height: calc(100vh - 155px);
 
     .ProgramList_title {
       display: flex;
@@ -35,6 +37,9 @@ export const ProgramListStyled = styled.div`
 
       .ProgramList_search {
         width: 280px;
+      }
+      .ant-select-selector .ant-input {
+        font-size: 14px;
       }
     }
 
@@ -112,6 +117,9 @@ export const ProgramListStyled = styled.div`
         .ProgramList_search {
           width: 240px;
         }
+        .ant-select-selector .ant-input {
+          font-size: 12px;
+        }
       }
 
       .ProgramList_grid_wrap {
@@ -148,7 +156,7 @@ export const ProgramListStyled = styled.div`
       }
       .ProgramList_subtitle {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: start;
         justify-content: end;
         gap: 5px;
