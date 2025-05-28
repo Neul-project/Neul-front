@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  KeyboardEvent,
+} from "react";
 import { ChatRoomStyled } from "./styled";
 import SendOutlined from "@ant-design/icons/SendOutlined";
 import io from "socket.io-client";
@@ -50,6 +56,8 @@ interface ChatRoomPreview {
 const ChatRoom = () => {
   // 입력한 채팅
   const [inputValue, setInputValue] = useState("");
+  // 한글 입력시 조합이 끝난 후에만 메시지 전송하도록(맥북)
+  const [isComposing, setIsComposing] = useState(false);
   const [chatRoomList, setChatRoomList] = useState<ChatRoomPreview[]>([]);
 
   // 무한스크롤에 필요한 것들
@@ -409,6 +417,12 @@ const ChatRoom = () => {
     });
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && !isComposing) {
+      sendMessage();
+    }
+  };
+
   const onClickDeleteChattingRoom = (
     e: React.MouseEvent<HTMLDivElement>,
     roomId: number
@@ -644,10 +658,12 @@ const ChatRoom = () => {
                           : "매칭이 끊겨 더 이상의 채팅은 불가능합니다."
                       }
                       value={inputValue}
-                      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                      onKeyDown={handleKeyDown}
                       onChange={(e) => {
                         setInputValue(e.target.value);
                       }}
+                      onCompositionStart={() => setIsComposing(true)}
+                      onCompositionEnd={() => setIsComposing(false)}
                       readOnly={!currentRoom?.isMatched}
                     />
                   </div>
