@@ -2,16 +2,19 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/theme";
+import Header from "@/components/Header";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
-import Head from "next/head";
+
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 import Loading from "@/components/Loading";
+import Script from "next/script";
 import RoleGuard from "@/components/RoleGuard";
+import Head from "next/head";
 
 // _app.tsx
 export default function App({ Component, pageProps }: AppProps) {
@@ -19,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const isChatPage = router.pathname === "/chat";
 
   // // 로딩중 컴포넌트 추가
-  //const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
@@ -97,6 +100,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Head>
           <title>Neul</title>
         </Head>
+        <Header />
 
         <div
           style={{
