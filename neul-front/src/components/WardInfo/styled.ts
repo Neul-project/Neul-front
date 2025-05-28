@@ -83,6 +83,14 @@ export const WardInfoStyled = styled.div`
     color: #ff5470;
   }
 
+  .WardInfo {
+    height: 100vh;
+
+    @media (max-width: 632px) {
+      height: 100%;
+    }
+  }
+
   .WardInfo_birth {
     display: flex;
     align-items: center;

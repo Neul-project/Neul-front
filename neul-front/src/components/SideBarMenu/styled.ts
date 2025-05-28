@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SideBarMenuStyled = styled.div`
   width: 375px;
-  height: 100vh;
+  /* height: 100%; */
   position: relative;
   background-color: #fff;
   padding: 20px 39px;

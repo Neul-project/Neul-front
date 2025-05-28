@@ -7,6 +7,7 @@ export const MyInfoStyled = styled.div`
 
   .MyInfo_container {
     /* width: 650px; */
+    height: 100vh;
     padding: 20px 29px;
     border-radius: 16px;
     border: none;
@@ -15,6 +16,7 @@ export const MyInfoStyled = styled.div`
 
     @media (max-width: 632px) {
       width: 100%;
+      height: 100%;
       font-size: 14px;
       padding: 14px 17px;
     }
