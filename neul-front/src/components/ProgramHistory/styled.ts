@@ -6,6 +6,7 @@ export const ProgramHistoryStyled = styled.div`
   }
 
   .ProgramHistory_container {
+    position: relative;
     /* width: 650px; */
     padding: 20px 20px;
     border-radius: 16px;
@@ -18,7 +19,42 @@ export const ProgramHistoryStyled = styled.div`
     }
   }
 
+  .info {
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    color: #c9c9c9;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  .custom_modal_container {
+    position: absolute;
+    z-index: 1;
+    left: -11px;
+    top: 21px;
+    width: 240px;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 20px;
+    line-height: 20px;
+    color: #333;
+    font-weight: 400;
+
+    @media (max-width: 785px) {
+      left: -100px;
+    }
+  }
+
+  .mainColor {
+    color: ${(props) => props.theme.colors.pointGreen};
+  }
+
   .ProgramHistory_title {
+    display: flex;
+    align-items: center;
     font-size: 19px;
     padding-bottom: 20px;
     border-bottom: 2px solid rgb(51, 51, 51);
