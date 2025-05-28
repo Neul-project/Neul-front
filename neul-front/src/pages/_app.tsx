@@ -15,11 +15,16 @@ import Loading from "@/components/Loading";
 import Script from "next/script";
 import RoleGuard from "@/components/RoleGuard";
 import Head from "next/head";
+import axios from "axios";
+import SystemDown from "@/components/SystemDown";
 
 // _app.tsx
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isChatPage = router.pathname === "/chat";
+
+  // 서버 상태 체크
+  const [isServerDown, setIsServerDown] = useState(false);
 
   // // 로딩중 컴포넌트 추가
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +44,30 @@ export default function App({ Component, pageProps }: AppProps) {
   //     router.events.off("routeChangeError", handleComplete);
   //   };
   // }, [router]);
+
+  // 서버 체크
+  const checkServer = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/health`
+      ); // 백엔드의 헬스 체크
+      // 응답이 200이고 ok가 true일 때만 서버 정상으로 판단
+      if (res.status === 200 && res.data.ok === true) {
+        setIsServerDown(false);
+      } else {
+        setIsServerDown(true);
+      }
+    } catch (error) {
+      setIsServerDown(true);
+    }
+  };
+
+  useEffect(() => {
+    checkServer();
+    // 30초마다 서버 상태 확인
+    const interval = setInterval(checkServer, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   // router가 변경될때 Loading 컴포넌트 표시
   useEffect(() => {
@@ -96,23 +125,27 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Head>
-          <title>Neul</title>
-        </Head>
-        <Header />
+      {isServerDown ? (
+        <SystemDown />
+      ) : (
+        <ThemeProvider theme={theme}>
+          <Head>
+            <title>Neul</title>
+          </Head>
+          <Header />
 
-        <div
-          style={{
-            paddingTop: isChatPage ? "0px" : "64px",
-          }}
-        >
-          {loading ? <Loading /> : guardedComponent}
-          {/* {guardedComponent} */}
-        </div>
+          <div
+            style={{
+              paddingTop: isChatPage ? "0px" : "64px",
+            }}
+          >
+            {loading ? <Loading /> : guardedComponent}
+            {/* {guardedComponent} */}
+          </div>
 
-        <Footer />
-      </ThemeProvider>
+          <Footer />
+        </ThemeProvider>
+      )}
     </>
   );
 }

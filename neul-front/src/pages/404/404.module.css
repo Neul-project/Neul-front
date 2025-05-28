@@ -32,4 +32,5 @@
 .buttons {
   display: flex;
   gap: 6px;
+  background-color: #5da487;
 }
