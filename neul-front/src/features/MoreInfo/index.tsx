@@ -9,6 +9,7 @@ import axiosInstance from "@/lib/axios";
 import axios from "axios";
 
 import { useAuthStore } from "@/stores/useAuthStore";
+import { message, notification } from "antd";
 
 const MoreInfoCompo = () => {
   const router = useRouter();
@@ -74,11 +75,17 @@ const MoreInfoCompo = () => {
 
           router.push("/");
         } else {
-          alert("등록에 실패했습니다. 다시 시도해주세요.");
+          notification.error({
+            message: "등록 실패",
+            description: "등록에 실패했습니다. 다시 시도해주세요.",
+          });
         }
       } catch (err) {
         console.error("등록 오류:", err);
-        alert("등록 중 오류가 발생했습니다.");
+        notification.error({
+          message: "중복 확인 실패",
+          description: "등록 중 오류가 발생했습니다.",
+        });
       }
     },
   });
@@ -86,7 +93,7 @@ const MoreInfoCompo = () => {
   // 전화번호 중복 검사
   const handleDuplicationCheck = async (fieldValue: string) => {
     if (!fieldValue) {
-      alert("휴대전화번호를 입력해주세요.");
+      message.info("휴대전화번호를 입력해주세요.");
       return;
     }
 
@@ -96,14 +103,20 @@ const MoreInfoCompo = () => {
       );
 
       if (res.data.isDuplicate) {
-        alert("이미 등록된 전화번호입니다.");
+        message.info("이미 등록된 전화번호입니다.");
       } else {
-        alert("사용 가능한 전화번호입니다.");
+        notification.success({
+          message: "중복 확인 성공",
+          description: "사용 가능한 전화번호입니다.",
+        });
         setIsPhoneChecked(true);
       }
     } catch (error) {
       console.error("중복 확인 오류", error);
-      alert("중복 확인 중 오류가 발생했습니다.");
+      notification.error({
+        message: "중복 확인 실패",
+        description: "중복 확인 중 오류가 발생했습니다.",
+      });
     }
   };
 

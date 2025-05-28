@@ -7,6 +7,7 @@ import { formatPhoneNumber } from "@/utils/formatter";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
 import { useCartStore } from "@/stores/useCartStore";
+import { message, notification } from "antd";
 
 interface UserInfo {
   name: string;
@@ -144,7 +145,7 @@ const PaymentFeature = () => {
   // 3. 삭제 실행
   const handleDeleteSelected = async () => {
     if (isDeleteDisabled) {
-      alert("삭제할 프로그램을 선택해주세요.");
+      message.info("삭제할 프로그램을 선택해주세요.");
       return;
     }
 
@@ -173,7 +174,10 @@ const PaymentFeature = () => {
       }
     } catch (err) {
       console.error("선택 삭제 실패:", err);
-      alert("삭제 중 오류가 발생했습니다.");
+      notification.error({
+        message: "선택 삭제 실패",
+        description: "삭제 중 오류가 발생했습니다.",
+      });
     }
   };
 
