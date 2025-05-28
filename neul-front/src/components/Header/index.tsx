@@ -86,6 +86,7 @@ const Header = () => {
   // zustand 로그인 유저 정보, admin 정보 가져오기
   const { setAdminId, user } = useAuthStore();
   const userId = user?.id;
+  const userRole = user?.role;
   // console.log(user); // {id, name, provider}
 
   // hover 드롭다운
@@ -286,6 +287,22 @@ const Header = () => {
                     >
                       마이페이지
                     </div>
+                    {userRole === "admin" && (
+                      <div
+                        className="Header_dropdown_item"
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+
+                          // 도우미 페이지 이동
+                          const helperUrl =
+                            process.env.NEXT_PUBLIC_HELPER_URL + "/login";
+                          window.location.href = helperUrl;
+                        }}
+                      >
+                        도우미 페이지
+                      </div>
+                    )}
+
                     <div
                       className="Header_dropdown_item"
                       onClick={() => {
@@ -318,6 +335,7 @@ const Header = () => {
             </div>
           ) : (
             // 로그인 X
+
             <div className="Header_login_container">
               <span
                 className="color"
