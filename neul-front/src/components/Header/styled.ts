@@ -3,9 +3,6 @@ import styled from "styled-components";
 export const HeaderStyled = styled.div`
   &.Header_main_wrap {
     /* 스크롤에 따른 헤더 CSS 변경 */
-    &.scrolled {
-      height: 64px;
-    }
 
     .header {
       width: 100%;

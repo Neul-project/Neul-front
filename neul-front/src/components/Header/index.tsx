@@ -257,9 +257,7 @@ const Header = () => {
   const isHiddenStyle = notPage.includes(router.pathname);
 
   return (
-    <HeaderStyled
-      className={clsx("Header_main_wrap", { scrolled: isScrolled })}
-    >
+    <HeaderStyled className={clsx("Header_main_wrap")}>
       <div className={isHiddenStyle ? "headerOff" : "header"}>
         <div className="Header_container">
           <div className="Header_logo_img" onClick={MoveMain}>
