@@ -4,20 +4,15 @@ export const SubImgStyled = styled.div`
   &.SubImg_main_wrap {
     display: flex;
     width: 100%;
-    gap: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
     text-align: center;
     align-items: center;
     justify-content: center;
 
     .SubImg_img {
-      display: flex;
-      width: 30%;
-      height: 120px;
-
       .SubImg_imgstyle {
-        width: 100%;
-        height: 100%;
+        width: 100px;
+        height: 100px;
         object-fit: contain;
       }
     }
@@ -27,17 +22,12 @@ export const SubImgStyled = styled.div`
     &.SubImg_main_wrap {
       display: flex;
       width: 100%;
-      gap: 10px;
       margin-top: 10px;
-      height: 110px;
-
+      justify-content: center;
       .SubImg_img {
-        width: 30%;
-        height: 100%;
-
         .SubImg_imgstyle {
-          width: 100%;
-          height: 100%;
+          width: 90px;
+          height: 90px;
           object-fit: contain;
         }
       }
@@ -48,17 +38,12 @@ export const SubImgStyled = styled.div`
     &.SubImg_main_wrap {
       display: flex;
       width: 100%;
-      gap: 10px;
       margin-top: 10px;
-      height: 110px;
 
       .SubImg_img {
-        width: 30%;
-        height: 100%;
-
         .SubImg_imgstyle {
-          width: 100%;
-          height: 100%;
+          width: 90px;
+          height: 90px;
           object-fit: contain;
         }
       }
