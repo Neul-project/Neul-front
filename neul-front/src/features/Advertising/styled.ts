@@ -18,7 +18,7 @@ export const AdvertisingStyled = styled.div`
     .Advertising_adimg {
       display: flex;
       width: 100%;
-      gap: 20px;
+      gap: 30px;
       margin-bottom: 20px;
 
       .Advertising_empty {
