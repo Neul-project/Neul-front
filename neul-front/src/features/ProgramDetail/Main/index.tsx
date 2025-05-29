@@ -148,20 +148,20 @@ const ProgramDetail = (props: { detailid: string }) => {
   };
 
   //바로 결제하기 모달
-  const showdirectModal = () => {
-    //console.log("de", detailid);
+  // const showdirectModal = () => {
+  //   //console.log("de", detailid);
 
-    //console.log("T", total, capacity);
-    if (total < capacity) {
-      setIsDirectModalOpen(true);
-    } else {
-      //console.log("실행되면 안됨");
-      notification.info({
-        message: `모집인원 마감`,
-        description: `모집 인원이 마감되어 신청하실 수 없습니다.`,
-      });
-    }
-  };
+  //   //console.log("T", total, capacity);
+  //   if (total < capacity) {
+  //     setIsDirectModalOpen(true);
+  //   } else {
+  //     //console.log("실행되면 안됨");
+  //     notification.info({
+  //       message: `모집인원 마감`,
+  //       description: `모집 인원이 마감되어 신청하실 수 없습니다.`,
+  //     });
+  //   }
+  // };
 
   const handleOk = () => {
     //장바구니에 있는 지 확인용
@@ -223,76 +223,76 @@ const ProgramDetail = (props: { detailid: string }) => {
   };
 
   //바로 결제 확인 버튼
-  const DirecthandleOk = () => {
-    //handleOk();
+  // const DirecthandleOk = () => {
+  //   //handleOk();
 
-    //결제 내역
-    axiosInstance.get("/program/histories").then((res) => {
-      const list = res.data;
-      //console.log("list", list);
+  //   //결제 내역
+  //   axiosInstance.get("/program/histories").then((res) => {
+  //     const list = res.data;
+  //     //console.log("list", list);
 
-      /*해당 프로그램 아이디와 같은 행을 찾아서 그 행에 해당하는 
-      list.payment_status가 결제 대기인 경우에는 장바구니로 이동할것
-      */
+  //     /*해당 프로그램 아이디와 같은 행을 찾아서 그 행에 해당하는
+  //     list.payment_status가 결제 대기인 경우에는 장바구니로 이동할것
+  //     */
 
-      //장바구니에 있는지 확인
-      const incart = list.filter((item: any) => {
-        return item.payment_status === "결제 대기";
-      });
+  //     //장바구니에 있는지 확인
+  //     const incart = list.filter((item: any) => {
+  //       return item.payment_status === "결제 대기";
+  //     });
 
-      //결제 완료
-      const endpay = list.filter((item: any) => {
-        return item.payment_status === "결제 완료";
-      });
+  //     //결제 완료
+  //     const endpay = list.filter((item: any) => {
+  //       return item.payment_status === "결제 완료";
+  //     });
 
-      //중복 신청 확인 - 결제 상태를 나타냄(결제 대기 || 결제 완료)
-      const alreadyApplied = list.some(
-        (element: any) => element.id === Number(detailid)
-      );
+  //     //중복 신청 확인 - 결제 상태를 나타냄(결제 대기 || 결제 완료)
+  //     const alreadyApplied = list.some(
+  //       (element: any) => element.id === Number(detailid)
+  //     );
 
-      //alreadyApplied가 true이면 이미 신청한거임
-      //console.log("incart", incart);
+  //     //alreadyApplied가 true이면 이미 신청한거임
+  //     //console.log("incart", incart);
 
-      if (alreadyApplied) {
-        //이미 결제한 경우
-        if (incart.length > 0 && incart[0].id === Number(detailid)) {
-          //장바구니에 있는 경우 - 결제 대기 상태
-          notification.info({
-            message: `신청 완료`,
-            description: `이미 신청한 프로그램 입니다. 결제를 진행해 주세요.`,
-          });
-          setIsModalOpen(false);
-          setIsDirectModalOpen(false);
-          router.push("/payment");
-        } else if (endpay.length > 0 && endpay[0].id === Number(detailid)) {
-          //이미 구매한 경우
-          notification.info({
-            message: `신청 완료`,
-            description: `이미 신청한 프로그램 입니다. `,
-          });
-          setIsModalOpen(false);
-          setIsDirectModalOpen(false);
-        }
-      } else {
-        //장바구니에도 없고 결제도 하지 않는 상태
-        axiosInstance
-          .post("/program/apply", { programId: Number(detailid) })
-          .then(async (res) => {
-            //console.log("신청 성공");
+  //     if (alreadyApplied) {
+  //       //이미 결제한 경우
+  //       if (incart.length > 0 && incart[0].id === Number(detailid)) {
+  //         //장바구니에 있는 경우 - 결제 대기 상태
+  //         notification.info({
+  //           message: `신청 완료`,
+  //           description: `이미 신청한 프로그램 입니다. 결제를 진행해 주세요.`,
+  //         });
+  //         setIsModalOpen(false);
+  //         setIsDirectModalOpen(false);
+  //         router.push("/payment");
+  //       } else if (endpay.length > 0 && endpay[0].id === Number(detailid)) {
+  //         //이미 구매한 경우
+  //         notification.info({
+  //           message: `신청 완료`,
+  //           description: `이미 신청한 프로그램 입니다. `,
+  //         });
+  //         setIsModalOpen(false);
+  //         setIsDirectModalOpen(false);
+  //       }
+  //     } else {
+  //       //장바구니에도 없고 결제도 하지 않는 상태
+  //       axiosInstance
+  //         .post("/program/apply", { programId: Number(detailid) })
+  //         .then(async (res) => {
+  //           //console.log("신청 성공");
 
-            await useCartStore.getState().fetchCartCount();
+  //           await useCartStore.getState().fetchCartCount();
 
-            notification.success({
-              message: `신청 완료`,
-              description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
-            });
-            setIsModalOpen(false);
-            router.push("/payment");
-            setIsDirectModalOpen(false);
-          });
-      }
-    });
-  };
+  //           notification.success({
+  //             message: `신청 완료`,
+  //             description: `성공적으로 신청 완료 되었습니다. 결제까지 진행하셔야 프로그램이 등록됩니다.`,
+  //           });
+  //           setIsModalOpen(false);
+  //           router.push("/payment");
+  //           setIsDirectModalOpen(false);
+  //         });
+  //     }
+  //   });
+  // };
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -340,33 +340,7 @@ const ProgramDetail = (props: { detailid: string }) => {
 
       <div className="ProgramDetail_btns">
         <button
-          onClick={showdirectModal}
-          className={`ProgramDetail_Dir ${
-            state === "모집완료" || state === "모집예정" ? "disabled" : ""
-          }`}
-          disabled={state === "모집완료"}
-        >
-          바로 결제하기
-        </button>
-        <Modal
-          title="바로 결제하기"
-          closable={{ "aria-label": "Custom Close Button" }}
-          open={isDirectModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          footer={
-            <ConfigProvider theme={GreenTheme}>
-              <Button key="link" type="primary" onClick={DirecthandleOk}>
-                결제하기
-              </Button>
-            </ConfigProvider>
-          }
-        >
-          <div>정말로 바로 결제하시겠습니까?</div>
-        </Modal>
-
-        <button
-          className={`ProgramDetail_show ${
+          className={`ProgramDetail_Dir  ${
             state === "모집완료" || state === "모집예정" ? "disabled" : ""
           }`}
           onClick={showModal}
