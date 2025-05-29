@@ -48,6 +48,7 @@ export const ProgramListStyled = styled.div`
       grid-template-columns: repeat(4, 1fr); /* 4열로 고정 */
       gap: 20px;
       padding: 20px 0;
+      min-height: 600px;
       //border-bottom: 1px solid #ccc;
       //border-top: 1px solid #ccc;
     }
