@@ -83,14 +83,6 @@ export const SubContentStyled = styled.div`
       }
 
       .SubContent_re_text_note {
-        /* width: 100%;
-        height: 350px;
-        overflow-y: auto;
-
-        overflow-x: hidden; 추가 
-        word-wrap: break-word; 줄바꿈 처리 
-        word-break: break-word;  긴 단어 줄바꿈 
-        white-space: pre-wrap;  줄바꿈과 공백 유지 */
         width: 100%;
         max-height: 4em;
         overflow-y: auto;
