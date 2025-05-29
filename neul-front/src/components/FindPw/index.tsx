@@ -44,13 +44,14 @@ const FindPw = () => {
           email: formik.values.email,
         }
       );
-      console.log("인증코드 응답", res.data);
+      // console.log("인증코드 응답", res.data);
 
       if (res.data.ok) {
         notification.success({
           message: "인증코드 전송 성공",
           description: "인증번호가 이메일로 전송되었습니다.",
         });
+        // 인증번호 작성란 표시
         setCodeSent(true);
       }
     } catch (error) {
@@ -69,9 +70,11 @@ const FindPw = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/mail/verify-code`,
         {
           email: formik.values.email,
-          code: authCode,
+          code: Number(authCode),
         }
       );
+
+      // console.log("인증코드 작성 후 응답", res.data);
 
       if (res.data.ok) {
         notification.success({
@@ -119,6 +122,12 @@ const FindPw = () => {
           setNotFound(false);
           setIsVerified(true);
         } else {
+          notification.error({
+            message: "기본정보가 일치하지 않습니다.",
+            description: "기본정보를 다시 확인해주세요.",
+          });
+
+          return;
           setIsVerified(false);
           setNotFound(true);
           setIsSearched(true);
@@ -181,7 +190,7 @@ const FindPw = () => {
               onSubmit={resetFormik.handleSubmit}
               className="FindPw_ResetContainer"
             >
-              <p className="guide1">입력하신 정보로 사용자가 확인되었습니다.</p>
+              <p className="guide1">유저 인증이 완료되었습니다.</p>
               <p className="guide2">새로운 비밀번호를 입력해주세요.</p>
 
               <div className="input_subContainer">
@@ -256,6 +265,28 @@ const FindPw = () => {
           >
             <div className="input_subContainer">
               <div className="FindId_name">
+                휴대전화번호<span>*</span>
+              </div>
+              <input
+                className="FindId_input"
+                type="text"
+                name="phone"
+                value={formik.values.phone}
+                onChange={(e) => {
+                  const numericValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 허용
+                  formik.setFieldValue("phone", numericValue);
+                }}
+                onBlur={formik.handleBlur}
+                placeholder="가입 시 입력한 휴대전화번호를 입력해주세요."
+                maxLength={11}
+              />
+              {formik.touched.phone && formik.errors.phone && (
+                <div className="error">{formik.errors.phone}</div>
+              )}
+            </div>
+
+            <div className="input_subContainer">
+              <div className="FindId_name">
                 이메일<span>*</span>
               </div>
               <div className="FindPw_inputCont">
@@ -306,29 +337,9 @@ const FindPw = () => {
               </>
             )}
 
-            {/* 기존 (노드메일 인증 전) */}
-            <div className="input_subContainer">
-              <div className="FindId_name">
-                휴대전화번호<span>*</span>
-              </div>
-              <input
-                className="FindId_input"
-                type="text"
-                name="phone"
-                value={formik.values.phone}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder="숫자만 입력해주세요."
-                maxLength={11}
-              />
-              {formik.touched.phone && formik.errors.phone && (
-                <div className="error">{formik.errors.phone}</div>
-              )}
-            </div>
-
-            {codeSent && (
+            {codeVerified && (
               <div className="FindId_sub">
-                <button type="submit">비밀번호 찾기</button>
+                <button type="submit">비밀번호 변경하기</button>
               </div>
             )}
           </form>
