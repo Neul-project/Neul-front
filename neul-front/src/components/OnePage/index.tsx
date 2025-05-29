@@ -78,28 +78,26 @@ const OnePage = ({
                   )}
 
                   {/* 활동기록 왼쪽 */}
-                  {type === "left" && activity === "swiper" && (
+                  {/* {type === "left" && activity === "swiper" && (
                     <SwiperImg
                       img={img}
                       title={title!}
                       patientname={patientname!}
                     />
-                  )}
+                  )} */}
 
                   {/* 활동기록 오른쪽 */}
-                  {type === "right" && activity === "subcontent" && (
-                    <>
-                      <SubContent
-                        img={img}
-                        title={title!}
-                        patientname={patientname!}
-                        type={activitytype!}
-                        rehabilitation={rehabilitation!}
-                        note={note!}
-                        id={id!}
-                      />
-                    </>
-                  )}
+                  {/* {type === "right" && activity === "subcontent" && (
+                    <SubContent
+                      img={img}
+                      title={title!}
+                      patientname={patientname!}
+                      type={activitytype!}
+                      rehabilitation={rehabilitation!}
+                      note={note!}
+                      id={id!}
+                    />
+                  )} */}
 
                   {/* children 자리 */}
                   {children}
