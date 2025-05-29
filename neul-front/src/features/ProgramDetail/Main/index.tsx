@@ -183,17 +183,24 @@ const ProgramDetail = (props: { detailid: string }) => {
         (element: any) => element.id === Number(detailid)
       );
 
+      const isInCart = incart.some((item: any) => item.id === Number(detailid));
+      const isInEndPay = endpay.some(
+        (item: any) => item.id === Number(detailid)
+      );
+
       if (alreadyApplied) {
+        //console.log("리스트에 있는경우");
         //이미 결제한 경우
-        //console.log("in", incart[0].id);
-        if (incart.length > 0 && incart[0].id === Number(detailid)) {
+        //console.log("in", incart, detailid, isInCart);
+        if (isInCart) {
+          //console.log("장바구니에 있음");
           notification.info({
             message: `신청 완료`,
             description: `이미 신청한 프로그램 입니다. 결제를 진행해 주세요.`,
           });
           setIsModalOpen(false);
           setIsDirectModalOpen(false);
-        } else if (endpay.length > 0 && endpay[0].id === Number(detailid)) {
+        } else if (isInEndPay) {
           //이미 구매한 경우
           notification.info({
             message: `신청 완료`,
@@ -204,7 +211,7 @@ const ProgramDetail = (props: { detailid: string }) => {
         }
       } else {
         //console.log("die", detailid);
-
+        //console.log("리스트에 없는경우");
         axiosInstance
           .post("/program/apply", { id: Number(detailid) })
           .then(async (res) => {
