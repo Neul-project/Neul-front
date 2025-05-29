@@ -5,6 +5,8 @@ export const MyPageStyled = styled.div`
 
   .MyPage_container {
     display: flex;
+    flex-direction: row;
+    min-height: 73vh;
     gap: 24px;
     max-width: 1050px;
     margin: 0 auto;
