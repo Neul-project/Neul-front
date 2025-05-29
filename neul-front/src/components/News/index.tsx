@@ -149,7 +149,7 @@ const News = () => {
                   className="cursor-pointer py-2 border-b"
                 >
                   <p>
-                    <a href={item.link}>
+                    <a href={item.link} target="_blank">
                       <span title={item.title}>{item.title}</span>
                     </a>
                   </p>
