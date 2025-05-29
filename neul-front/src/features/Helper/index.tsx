@@ -48,7 +48,7 @@ interface HelperInfo {
 interface HelperTime {
   startDate: string; // "2024-06-01"
   endDate: string; // "2024-06-30"
-  week: string[];
+  week: string;
 }
 
 const HelperFeat = () => {
@@ -119,7 +119,7 @@ const HelperFeat = () => {
     setLoadingTime(true);
     try {
       const res = await axiosInstance.get(`/helper/time/${helperId}`);
-      // console.log("도우미 일정 응답", res.data);
+      console.log("도우미 일정 응답", res.data);
       // console.log(res.status);
 
       // 데이터가 없을 때 예외 처리
@@ -374,13 +374,6 @@ const HelperFeat = () => {
           </Swiper>
         </div>
 
-        {/* 캘린더 로딩 */}
-        {loadingTime && (
-          <div className="modal-backdrop">
-            <div className="modal-content">근무 가능 날짜를 불러오는 중...</div>
-          </div>
-        )}
-
         {/* 선택된 도우미의 가능 날짜 표시 */}
         {activeHelper && helperTime && (
           <div className="Helper_select_container">
@@ -415,20 +408,41 @@ const HelperFeat = () => {
 
                     const from = dayjs(helperTime.startDate);
                     const to = dayjs(helperTime.endDate);
-
                     const currentDateStr = current.format("YYYY-MM-DD");
 
+                    // 범위 내인지 확인
                     const isInRange =
                       !current.isBefore(from, "day") &&
                       !current.isAfter(to, "day");
 
+                    // 이미 신청된 날짜인지 확인
                     const isAlreadyDisabled =
                       disabledDatesMap[activeHelper.user.id]?.includes(
                         currentDateStr
                       ) ?? false;
 
-                    // 날짜 범위 내에 포함되고 예약된 날짜만 막음
-                    return !isInRange || isAlreadyDisabled;
+                    // 요일 숫자로 비교
+                    const weekDayMap: Record<string, number> = {
+                      sun: 0,
+                      mon: 1,
+                      tue: 2,
+                      wed: 3,
+                      thu: 4,
+                      fri: 5,
+                      sat: 6,
+                    };
+
+                    // 문자열로 온 week를 배열로 변환
+                    const allowedDays = helperTime.week
+                      .split(",")
+                      .map((dayStr) => weekDayMap[dayStr.trim().toLowerCase()])
+                      .filter((n) => typeof n === "number");
+
+                    const currentDay = current.day(); // 0~6
+                    const isAllowedDay = allowedDays.includes(currentDay);
+
+                    // 선택 가능한 날짜는 범위 안이고, 예약 안 되었고, 가능한 요일일 때
+                    return !isInRange || isAlreadyDisabled || !isAllowedDay;
                   }}
                   placeholder={["시작일", "종료일"]}
                 />

@@ -7,13 +7,13 @@ export const IntroSectionStyled = styled.div<{}>`
     height: 100%;
     display: flex;
     padding: 0px 20px;
-    gap: 70px;
+    gap: 30px;
     //text-align: center;
     justify-content: center;
     margin-top: 40px;
 
     .IntroSection_banner {
-      width: 55%;
+      width: 605px;
       height: 100%;
       display: flex;
       justify-content: center;
@@ -26,7 +26,7 @@ export const IntroSectionStyled = styled.div<{}>`
       }
     }
     .IntroSection_Navigation {
-      width: 45%;
+      width: 605px;
       height: 100%;
     }
   }

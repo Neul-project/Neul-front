@@ -21,6 +21,7 @@ const FindPw = () => {
   const [isVerified, setIsVerified] = useState(false); // 사용자 인증 여부
   // 비번 변경 전 인증코드 관련
   const [codeSent, setCodeSent] = useState(false);
+  const [codeNext, setCodeNext] = useState(false);
   const [authCode, setAuthCode] = useState("");
   const [codeVerified, setCodeVerified] = useState(false);
 
@@ -81,6 +82,7 @@ const FindPw = () => {
           message: "이메일 인증 성공",
           description: "이메일 인증이 완료되었습니다.",
         });
+        setCodeNext(true);
         setCodeVerified(true);
       } else {
         notification.error({
@@ -105,7 +107,7 @@ const FindPw = () => {
     validationSchema: findPwValidationSchema,
     onSubmit: async (values) => {
       try {
-        // console.log("비밀번호찾기 데이터", values);
+        console.log("비밀번호찾기 데이터", values);
 
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/find`,
@@ -265,28 +267,6 @@ const FindPw = () => {
           >
             <div className="input_subContainer">
               <div className="FindId_name">
-                휴대전화번호<span>*</span>
-              </div>
-              <input
-                className="FindId_input"
-                type="text"
-                name="phone"
-                value={formik.values.phone}
-                onChange={(e) => {
-                  const numericValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 허용
-                  formik.setFieldValue("phone", numericValue);
-                }}
-                onBlur={formik.handleBlur}
-                placeholder="가입 시 입력한 휴대전화번호를 입력해주세요."
-                maxLength={11}
-              />
-              {formik.touched.phone && formik.errors.phone && (
-                <div className="error">{formik.errors.phone}</div>
-              )}
-            </div>
-
-            <div className="input_subContainer">
-              <div className="FindId_name">
                 이메일<span>*</span>
               </div>
               <div className="FindPw_inputCont">
@@ -300,7 +280,14 @@ const FindPw = () => {
                   placeholder="가입 시 등록한 이메일을 입력해주세요"
                 />
                 <div className="FindPw_inputBtn">
-                  <button onClick={sendCode}>인증번호 발송</button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      sendCode();
+                    }}
+                  >
+                    인증번호 발송
+                  </button>
                 </div>
               </div>
               {formik.touched.email && formik.errors.email && (
@@ -335,6 +322,30 @@ const FindPw = () => {
                   </div>
                 </div>
               </>
+            )}
+
+            {codeNext && (
+              <div className="input_subContainer">
+                <div className="FindId_name">
+                  휴대전화번호<span>*</span>
+                </div>
+                <input
+                  className="FindId_input"
+                  type="text"
+                  name="phone"
+                  value={formik.values.phone}
+                  onChange={(e) => {
+                    const numericValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 허용
+                    formik.setFieldValue("phone", numericValue);
+                  }}
+                  onBlur={formik.handleBlur}
+                  placeholder="가입 시 입력한 휴대전화번호를 입력해주세요."
+                  maxLength={11}
+                />
+                {formik.touched.phone && formik.errors.phone && (
+                  <div className="error">{formik.errors.phone}</div>
+                )}
+              </div>
             )}
 
             {codeVerified && (
