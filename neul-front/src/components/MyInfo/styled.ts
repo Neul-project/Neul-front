@@ -7,7 +7,7 @@ export const MyInfoStyled = styled.div`
 
   .MyInfo_container {
     /* width: 650px; */
-    height: 100vh;
+    /* height: 100vh; */
     padding: 20px 29px;
     border-radius: 16px;
     border: none;
