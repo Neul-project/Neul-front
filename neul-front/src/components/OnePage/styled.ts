@@ -70,7 +70,7 @@ export const OnePageStyled = styled.div`
     border-radius: 20px;
 
     .onepage_note {
-      min-height: 810px;
+      min-height: 817px;
       height: 100%;
       background-color: white;
       box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1);

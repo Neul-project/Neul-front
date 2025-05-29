@@ -143,7 +143,7 @@ export const SubContentStyled = styled.div`
       .SubContent_content {
         display: flex;
         flex-direction: column;
-        gap: 26px;
+        gap: 16px;
         padding-left: 30px;
       }
       .SubContent_row {
@@ -173,86 +173,6 @@ export const SubContentStyled = styled.div`
       }
     }
   }
-
-  /* @media (max-width: 768px) {
-    &.SubContent_main_wrap {
-      padding: 0px 30px 10px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-
-      .SubContent_clip_box {
-        display: block;
-        width: 130px;
-        position: absolute;
-        top: -25px;
-        left: -10px;
-        .SubContent_clip {
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .SubContent_left {
-        display: block;
-      }
-      .SubContent_type {
-        display: flex;
-        width: 100%;
-        gap: 30px;
-      }
-
-      .SubContent_option {
-        margin-top: 10px;
-      }
-
-      .SubContent_feedback {
-        .SubContent_feedback_btn {
-          font-family: "Gowun Batang", serif;
-          font-weight: 400;
-          font-style: normal;
-          cursor: pointer;
-          //border: none;
-          box-shadow: none;
-          font-size: 20px;
-          //width: 150px;
-          height: 45px;
-        }
-      }
-
-      .SubContent_content {
-        display: flex;
-        flex-direction: column;
-        gap: 26px;
-        padding-left: 30px;
-      }
-
-      .SubContent_row {
-        display: flex;
-        gap: 30px;
-        margin-bottom: 16px;
-        font-size: 22px;
-        font-weight: 500;
-
-        .SubContent_text {
-          min-width: 140px;
-          font-weight: bold;
-          font-size: 20px;
-          color: #999;
-        }
-
-        .SubContent_re_text {
-          min-width: 120px;
-          font-size: 20px;
-        }
-
-        .SubContent_re_text_note {
-          width: 100%;
-          height: 350px;
-          overflow-y: auto;
-        }
-      }
-    }
-  } */
 
   /* @media (max-width: 486px) {
     &.SubContent_main_wrap {

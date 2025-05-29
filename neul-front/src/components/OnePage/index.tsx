@@ -40,10 +40,11 @@ const OnePage = ({
   return (
     <OnePageStyled
       className={clsx(
-        `onepage_${type}`,
-        type === "right" &&
-          activity === "subcontent" &&
-          "onepage_right_activity"
+        `onepage_${type}`
+        // ,
+        // type === "right" &&
+        //   activity === "subcontent" &&
+        //   "onepage_right_activity"
       )}
     >
       <div className="onepage_note onepage_note1">

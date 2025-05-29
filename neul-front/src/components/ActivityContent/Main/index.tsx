@@ -70,7 +70,7 @@ const ActivityContent = (props: { id: string }) => {
           >
             <SwiperImg img={img} title={title!} patientname={patientname!} />
           </OnePage>
-          <OnePage type="right" lineNum={lineNumleft}>
+          <OnePage type="right" lineNum={lineNumright}>
             <SubContent
               img={img}
               title={title!}
