@@ -4,13 +4,13 @@ export const SubImgStyled = styled.div`
   &.SubImg_main_wrap {
     display: flex;
     width: 100%;
+    height: 120px;
     gap: 10px;
     margin-top: 10px;
 
     .SubImg_img {
       width: calc(100% / 3);
-      height: 135px;
-      object-fit: cover;
+      object-fit: contain;
 
       .SubImg_imgstyle {
         width: 100%;
@@ -25,11 +25,11 @@ export const SubImgStyled = styled.div`
       width: 100%;
       gap: 10px;
       margin-top: 10px;
+      height: 150px;
 
       .SubImg_img {
         width: calc(100% / 3);
-        height: 130px;
-        object-fit: cover;
+        object-fit: contain;
 
         .SubImg_imgstyle {
           width: 100%;
@@ -45,11 +45,11 @@ export const SubImgStyled = styled.div`
       width: 100%;
       gap: 10px;
       margin-top: 10px;
+      height: 90px;
 
       .SubImg_img {
         width: calc(100% / 3);
-        height: 80px;
-        object-fit: cover;
+        object-fit: contain;
 
         .SubImg_imgstyle {
           width: 100%;

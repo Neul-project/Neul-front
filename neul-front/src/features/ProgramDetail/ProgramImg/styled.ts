@@ -17,14 +17,14 @@ export const ProgramImgStyled = styled.div`
     .ProgramImg_imgstyle {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 
   @media (max-width: 768px) {
     &.ProgrmaImg_main_wrap {
       .ProgramImg_main {
-        height: 380px;
+        height: 300px;
         //border: 1px solid black;
       }
     }
