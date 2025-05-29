@@ -113,7 +113,7 @@ export const BannerStyled = styled.div`
 
       .Banner_slide {
         width: 100%;
-        height: 350px;
+        height: 450px;
         //border: 1px solid black;
         border-radius: 15px;
         overflow: hidden;
@@ -123,7 +123,7 @@ export const BannerStyled = styled.div`
           width: 100%;
           height: 100%;
           //background-color: #ccc;
-          object-fit: cover;
+          object-fit: contain;
         }
       }
     }
@@ -164,7 +164,7 @@ export const BannerStyled = styled.div`
 
       .Banner_slide {
         width: 100%;
-        height: 230px;
+        height: 300px;
         //border: 1px solid black;
         border-radius: 15px;
         overflow: hidden;
@@ -174,7 +174,7 @@ export const BannerStyled = styled.div`
           width: 100%;
           height: 100%;
           //background-color: #ccc;
-          object-fit: cover;
+          object-fit: contain;
         }
       }
     }
