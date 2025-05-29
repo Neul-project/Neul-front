@@ -14,6 +14,10 @@ export const AdvertisingStyled = styled.div`
       margin-bottom: 15px;
       margin-top: 70px;
       letter-spacing: -1.5px;
+
+      @media (max-width: 632px) {
+        font-size: 19px;
+      }
     }
     .Advertising_adimg {
       display: flex;
