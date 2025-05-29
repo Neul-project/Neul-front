@@ -40,7 +40,7 @@ export const SubContentStyled = styled.div`
 
     .SubContent_feedback {
       display: flex;
-      justify-content: left;
+      justify-content: right;
       margin-top: 10px;
 
       .SubContent_feedback_btn {
@@ -48,10 +48,11 @@ export const SubContentStyled = styled.div`
         font-weight: 400;
         font-style: normal;
         cursor: pointer;
-        border: none;
+        //border: none;
         box-shadow: none;
         font-size: 22px;
-        width: 150px;
+        //width: 150px;
+        height: 45px;
       }
     }
 
@@ -90,7 +91,7 @@ export const SubContentStyled = styled.div`
         word-wrap: break-word; 줄바꿈 처리 
         word-break: break-word;  긴 단어 줄바꿈 
         white-space: pre-wrap;  줄바꿈과 공백 유지 */
-
+        width: 100%;
         max-height: 4em;
         overflow-y: auto;
         white-space: pre-wrap;
@@ -154,21 +155,8 @@ export const SubContentStyled = styled.div`
 
       .SubContent_feedback {
         display: flex;
-        justify-content: left;
+        justify-content: right;
         margin-top: 10px;
-
-        .SubContent_feedback_btn {
-          font-family: "Gowun Batang", serif;
-          font-weight: 400;
-          font-style: normal;
-
-          border: none;
-          box-shadow: none;
-          font-size: 22px;
-          width: 150px;
-          text-align: left;
-          cursor: pointer;
-        }
       }
 
       .SubContent_content {
@@ -234,20 +222,16 @@ export const SubContentStyled = styled.div`
       }
 
       .SubContent_feedback {
-        display: flex;
-        justify-content: left;
-        margin-top: 10px;
-
         .SubContent_feedback_btn {
           font-family: "Gowun Batang", serif;
           font-weight: 400;
           font-style: normal;
-
-          border: none;
+          cursor: pointer;
+          //border: none;
           box-shadow: none;
-          text-align: left;
           font-size: 20px;
-          width: 150px;
+          //width: 150px;
+          height: 45px;
         }
       }
 
@@ -314,10 +298,6 @@ export const SubContentStyled = styled.div`
       }
 
       .SubContent_feedback {
-        display: flex;
-        justify-content: left;
-        margin-top: 10px;
-
         .SubContent_feedback_btn {
           font-family: "Gowun Batang", serif;
           font-weight: 400;
