@@ -17,7 +17,7 @@ export const joinValidationSchema = Yup.object({
     otherwise: (schema) => schema.notRequired(),
   }),
 
-  // 관리자용 이메일 앞부분
+  // 도우미용 이메일 앞부분
   adminEmailPrefix: Yup.string().when("role", {
     is: "admin",
     then: (schema) =>

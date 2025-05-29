@@ -82,6 +82,20 @@ export const NavigationElementStyled = styled.div`
         font-size: 16px;
       }
     }
+
+    .NavigationElement_container2 {
+      margin-top: 32px;
+    }
+
+    .NavigationElement_newsDiv {
+      height: 300px;
+    }
+
+    .NavigationElement_newsImg {
+      border-radius: 15px;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   @media (max-width: 1200px) {
