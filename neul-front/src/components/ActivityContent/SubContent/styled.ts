@@ -237,7 +237,7 @@ export const SubContentStyled = styled.div`
         display: flex;
         flex-direction: column;
         gap: 24px;
-        padding-top: 8px;
+        padding-top: 26px;
         padding-left: 30px;
       }
       .SubContent_row {

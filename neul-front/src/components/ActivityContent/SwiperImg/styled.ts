@@ -127,6 +127,7 @@ export const SwiperStyled = styled.div`
       .SwiperImg_title {
         font-size: 17px;
         font-weight: bolder;
+        margin-bottom: 10px;
       }
 
       .SwiperImg_swiper {
