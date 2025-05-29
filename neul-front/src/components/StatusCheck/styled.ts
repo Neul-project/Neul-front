@@ -105,7 +105,7 @@ export const StatusCheckStyled = styled.div`
 
       .statuscheck_row {
         display: flex;
-        gap: 10px;
+        gap: 30px;
         margin-bottom: 16px;
         font-size: 22px;
         font-weight: 500;
