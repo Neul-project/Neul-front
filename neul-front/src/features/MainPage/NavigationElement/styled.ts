@@ -38,25 +38,25 @@ export const NavigationElementStyled = styled.div`
       letter-spacing: -1.5px;
     }
     .NavigationElement_rows {
-      width: 100%;
+      /* width: 472px; */
       height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 30px;
     }
 
     .NavigationElement_row1,
     .NavigationElement_row2 {
       display: flex;
       width: 100%;
-      gap: 20px;
+      gap: 30px;
     }
 
     .NavigationElement_ele {
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 110px;
+      height: 125px;
       align-items: center;
       justify-content: center;
       border-radius: 15px;
@@ -70,7 +70,7 @@ export const NavigationElementStyled = styled.div`
       }
 
       .NavigationElement_img {
-        width: 47px;
+        width: 53px;
         margin-bottom: 5px;
       }
       .NavigationElement_imgstyle {
@@ -79,7 +79,7 @@ export const NavigationElementStyled = styled.div`
       }
 
       .NavigationElement_text {
-        font-size: 15px;
+        font-size: 16px;
       }
     }
   }

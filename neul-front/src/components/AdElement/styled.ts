@@ -10,7 +10,7 @@ export const AdElementStyled = styled.div`
 
     .AdElement_img {
       width: 100%;
-      height: 300px;
+      height: 355px;
       cursor: pointer;
 
       .AdElement_imgstyle {

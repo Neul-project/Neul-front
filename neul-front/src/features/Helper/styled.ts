@@ -220,4 +220,26 @@ export const HelperStyled = styled.div`
       font-size: 13px !important;
     }
   }
+
+  /* RangePicker 반응형 관련 */
+  @media (max-width: 768px) {
+    .Helper_datePicker.ant-picker {
+      width: 100%;
+    }
+
+    .Helper_datePicker.ant-picker .ant-picker-input {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+    }
+
+    .Helper_datePicker.ant-picker .ant-picker-input > input {
+      width: 100% !important;
+    }
+
+    .Helper_datePicker.ant-picker .ant-picker-separator {
+      display: none !important;
+    }
+  }
 `;

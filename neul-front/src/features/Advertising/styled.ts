@@ -14,13 +14,13 @@ export const AdvertisingStyled = styled.div`
       color: #333;
       margin-bottom: 15px;
       //margin-left: 20px;
-      margin-top: 60px;
+      margin-top: 70px;
       letter-spacing: -1.5px;
     }
     .Advertising_adimg {
       display: flex;
       width: 100%;
-      height: 250px;
+      height: 320px;
       gap: 30px;
       margin-bottom: 20px;
 
