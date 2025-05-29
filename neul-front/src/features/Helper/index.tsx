@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { HelperStyled } from "./styled";
 import Image from "next/image";
 
-import { DatePicker, ConfigProvider, message, notification } from "antd";
+import { DatePicker, ConfigProvider, message, notification, Modal } from "antd";
 import { GreenTheme } from "@/utils/antdtheme";
 const { RangePicker } = DatePicker;
 import dayjs from "dayjs";
@@ -183,49 +183,57 @@ const HelperFeat = () => {
       }
 
       // 신청 전 사용자 확인
-      const confirmMessage = `선택된 날짜 (${
-        validDates.length
-      }일):\n${validDates.join(
-        ", "
-      )}\n\n해당 일정으로 도우미를 신청하시겠습니까?`;
-      const isConfirmed = window.confirm(confirmMessage);
+      Modal.confirm({
+        title: `선택된 날짜 (${validDates.length}일):\n${validDates.join(
+          ", "
+        )}`,
+        content: "해당 일정으로 도우미를 신청하시겠습니까?",
+        okText: "네",
+        cancelText: "아니요",
+        centered: true, // 가운데 정렬
+        okButtonProps: {
+          style: { backgroundColor: "#5DA487" },
+        },
+        cancelButtonProps: {
+          style: { color: "#5DA487" },
+        },
+        async onOk() {
+          // console.log("validDates: ", helperId, validDates);
 
-      if (!isConfirmed) return;
+          // 3. 최종신청 서버 요청
+          const res = await axiosInstance.post("/matching/submit-request", {
+            helperId,
+            dates: validDates, // ['2025-05-12', '2025-05-13'...]
+          });
 
-      // console.log("validDates: ", helperId, validDates);
+          // console.log("도우미 신청 결과:", res.data);
 
-      // 3. 최종신청 서버 요청
-      const res = await axiosInstance.post("/matching/submit-request", {
-        helperId,
-        dates: validDates, // ['2025-05-12', '2025-05-13'...]
+          if (res.data.ok && res.data.confirmedDates) {
+            const confirmed = res.data.confirmedDates.split(","); // 문자열 → 배열
+
+            setDisabledDatesMap((prev) => {
+              const prevDates = prev[helperId] || [];
+              return {
+                ...prev,
+                [helperId]: [...new Set([...prevDates, ...confirmed])], // 중복 제거
+              };
+            });
+
+            notification.success({
+              message: "도우미 신청 완료",
+              description:
+                "도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요.",
+            });
+
+            router.push("/");
+
+            // 초기화 (선택)
+            setActiveHelper(null);
+            setHelperTime(null);
+            setSelectedRange(null);
+          }
+        },
       });
-
-      // console.log("도우미 신청 결과:", res.data);
-
-      if (res.data.ok && res.data.confirmedDates) {
-        const confirmed = res.data.confirmedDates.split(","); // 문자열 → 배열
-
-        setDisabledDatesMap((prev) => {
-          const prevDates = prev[helperId] || [];
-          return {
-            ...prev,
-            [helperId]: [...new Set([...prevDates, ...confirmed])], // 중복 제거
-          };
-        });
-
-        notification.success({
-          message: "도우미 신청 완료",
-          description:
-            "도우미 승인 후 [마이페이지] → [도우미 신청내역] 메뉴에서 결제를 진행해주세요.",
-        });
-
-        router.push("/");
-
-        // 초기화 (선택)
-        setActiveHelper(null);
-        setHelperTime(null);
-        setSelectedRange(null);
-      }
     } catch (error) {
       console.error("도우미 신청 중 오류 발생:", error);
       notification.error({

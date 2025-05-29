@@ -78,7 +78,7 @@ const SubContent = (props: {
         {/* 특이사항 */}
         <div className="SubContent_row  SubContent_row_note">
           <div className="SubContent_text">특이사항</div>
-          <div className="SubContent_re_text SubContent_re_text_note">
+          <div className="SubContent_re_text_note SubContent_re_text">
             {note}
           </div>
         </div>
