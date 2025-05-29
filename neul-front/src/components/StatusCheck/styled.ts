@@ -101,6 +101,10 @@ export const StatusCheckStyled = styled.div`
         display: flex;
         justify-content: flex-end;
         padding: 57px 18px 0 10px;
+        @media (max-width: 480px) {
+          /* 모바일 스타일 */
+          padding: 57px 0 0 10px;
+        }
       }
 
       .statuscheck_row {
@@ -113,6 +117,11 @@ export const StatusCheckStyled = styled.div`
           min-width: 120px;
           font-weight: bold;
           color: #999;
+        }
+        @media (max-width: 480px) {
+          /* 모바일 스타일 */
+          gap: 5px;
+          font-size: 17px;
         }
       }
 
@@ -131,6 +140,10 @@ export const StatusCheckStyled = styled.div`
 
     .statuscheck_title.statuscheck_margin {
       margin-bottom: 18px;
+      @media (max-width: 480px) {
+        /* 모바일 스타일 */
+        margin-bottom: 24px;
+      }
     }
     .statuscheck_value.scrollable {
       max-height: 4em;
