@@ -106,6 +106,7 @@ export const OnePageStyled = styled.div`
     width: 100%;
     max-width: 700px;
     border-radius: 20px;
+
     .onepage_note {
       min-height: 810px;
       height: 100%;
@@ -113,6 +114,7 @@ export const OnePageStyled = styled.div`
       box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1);
     }
   }
+
   //활동기록 오른쪽 한쪽 버전
   @media (max-width: 1330px) {
     &.onepage_left {
@@ -129,8 +131,9 @@ export const OnePageStyled = styled.div`
       width: 100%;
       max-width: 700px;
       border-radius: 20px;
+
       .onepage_note {
-        min-height: 1240px;
+        min-height: 810px;
         height: 100%;
         background-color: white;
         box-shadow: 2px 0 3px rgba(0, 0, 0, 0.1);
@@ -172,28 +175,28 @@ export const OnePageStyled = styled.div`
           z-index: 20;
 
           &.onepage_line1 {
-            top: 15%;
+            top: 21.5%;
           }
           &.onepage_line2 {
-            top: 50%;
+            top: 30%;
           }
           &.onepage_line3 {
-            top: 55%;
+            top: 38%;
           }
           &.onepage_line4 {
-            top: 60%;
+            top: 46%;
           }
           &.onepage_line5 {
-            top: 65%;
+            top: 54.5%;
           }
           &.onepage_line6 {
-            top: 70%;
+            top: 62.5%;
           }
           &.onepage_line7 {
-            top: 75%;
+            top: 70.5%;
           }
           &.onepage_line8 {
-            top: 80%;
+            top: 79%;
           }
         }
       }

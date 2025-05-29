@@ -6,16 +6,6 @@ export const ActivityContentStyled = styled.div`
     font-weight: 400;
     font-style: normal;
 
-    /* max-width: 1280px;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    //align-items: center;
-    margin: 40px auto;
-    padding: 0px 20px; */
-    //gap: 20px;
-
     max-width: 1280px;
     width: 100%;
     //min-height: 809.15px;
@@ -23,9 +13,7 @@ export const ActivityContentStyled = styled.div`
     height: 100%;
     min-height: calc(100vh - 155px);
 
-    .ActivityContent_sub {
-      width: 100%;
-      display: flex;
+    .notebook_box {
       display: flex;
       justify-content: center;
       width: 100%;
@@ -70,7 +58,7 @@ export const ActivityContentStyled = styled.div`
     }
   } */
 
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     .ActivityContent_title {
       font-size: 20px;
     }
@@ -100,7 +88,7 @@ export const ActivityContentStyled = styled.div`
     .ActivityContent_feedback_btn {
       width: 100%;
     }
-  }
+  } */
 `;
 
 export const theme = {

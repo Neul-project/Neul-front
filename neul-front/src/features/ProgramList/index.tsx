@@ -85,7 +85,7 @@ const ProgramList = () => {
   };
 
   useEffect(() => {
-    //window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
 
   // 필터링된 리스트 - 모집중 / 모집예정 / 모집완료 분리

@@ -65,7 +65,7 @@ const SubContent = (props: {
         {/* 활동종류 */}
         <div className="SubContent_row">
           <span className="SubContent_text">활동 종류</span>
-          <div className="SubContent_re_text">{getActivityLabel(type)}</div>
+          <span className="SubContent_re_text">{getActivityLabel(type)}</span>
         </div>
 
         {/* 재활치료 */}

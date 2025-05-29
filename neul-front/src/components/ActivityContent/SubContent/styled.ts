@@ -9,7 +9,7 @@ export const SubContentStyled = styled.div`
     position: absolute;
     z-index: 25;
     padding: 0 32px;
-    padding: 135px 60px 10px 60px;
+    padding: 132px 60px 10px 60px;
     position: relative;
 
     .SubContent_clip_box {
@@ -27,15 +27,6 @@ export const SubContentStyled = styled.div`
 
     .SubContent_left {
       display: none;
-    }
-    .SubContent_type {
-      display: flex;
-      width: 100%;
-      gap: 30px;
-    }
-
-    .SubContent_option {
-      margin-top: 10px;
     }
 
     .SubContent_feedback {
@@ -59,12 +50,12 @@ export const SubContentStyled = styled.div`
     .SubContent_content {
       display: flex;
       flex-direction: column;
-      //gap: 10px;
+      gap: 18px;
       margin-bottom: 16px;
     }
     .SubContent_row {
       display: flex;
-      gap: 10px;
+      gap: 30px;
       margin-bottom: 16px;
       font-size: 22px;
       font-weight: 500;
@@ -73,12 +64,10 @@ export const SubContentStyled = styled.div`
         min-width: 120px;
         font-weight: bold;
         color: #999;
-        margin-bottom: 18px;
       }
 
       .SubContent_re_text {
         min-width: 120px;
-        //font-weight: bold;
         font-size: 22px;
       }
 
@@ -159,6 +148,10 @@ export const SubContentStyled = styled.div`
       }
       .SubContent_row {
         display: flex;
+        gap: 30px;
+        margin-bottom: 16px;
+        font-size: 22px;
+        font-weight: 500;
 
         .SubContent_text {
           min-width: 140px;
@@ -169,7 +162,6 @@ export const SubContentStyled = styled.div`
 
         .SubContent_re_text {
           min-width: 120px;
-          font-weight: bold;
           font-size: 22px;
         }
 
@@ -182,7 +174,7 @@ export const SubContentStyled = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     &.SubContent_main_wrap {
       padding: 0px 30px 10px 30px;
       display: flex;
@@ -236,6 +228,10 @@ export const SubContentStyled = styled.div`
 
       .SubContent_row {
         display: flex;
+        gap: 30px;
+        margin-bottom: 16px;
+        font-size: 22px;
+        font-weight: 500;
 
         .SubContent_text {
           min-width: 140px;
@@ -246,7 +242,6 @@ export const SubContentStyled = styled.div`
 
         .SubContent_re_text {
           min-width: 120px;
-          font-weight: bold;
           font-size: 20px;
         }
 
@@ -257,8 +252,9 @@ export const SubContentStyled = styled.div`
         }
       }
     }
-  }
-  @media (max-width: 486px) {
+  } */
+
+  /* @media (max-width: 486px) {
     &.SubContent_main_wrap {
       padding: 0px 10px 10px 10px;
       display: flex;
@@ -316,17 +312,20 @@ export const SubContentStyled = styled.div`
       }
       .SubContent_row {
         display: flex;
+        gap: 5px;
+        margin-bottom: 16px;
+        font-size: 17px;
+        font-weight: 500;
 
         .SubContent_text {
           min-width: 140px;
           font-weight: bold;
-          font-size: 20px;
+          font-size: 17px;
           color: #999;
         }
 
         .SubContent_re_text {
           min-width: 120px;
-          font-weight: bold;
           font-size: 20px;
         }
 
@@ -335,14 +334,11 @@ export const SubContentStyled = styled.div`
           height: 350px;
           overflow-y: auto;
 
-          /* word-break: break-word; // 긴 단어 잘라주기
-          overflow-wrap: break-word; // 줄 바꿈 가능한 위치에서 줄바꿈
-          white-space: pre-wrap; // 줄바꿈 + 공백 유지
-         // 수평 스크롤 제거 */
+       
         }
       }
     }
-  }
+  } */
 `;
 
 export const theme = {
