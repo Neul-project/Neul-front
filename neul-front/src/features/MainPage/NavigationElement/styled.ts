@@ -83,12 +83,8 @@ export const NavigationElementStyled = styled.div`
       }
     }
 
-    .NavigationElement_container2 {
-      margin-top: 32px;
-    }
-
     .NavigationElement_newsDiv {
-      height: 300px;
+      /* height: 300px; */
     }
 
     .NavigationElement_newsImg {
@@ -233,6 +229,14 @@ export const NavigationElementStyled = styled.div`
           font-size: 13px;
         }
       }
+    }
+  }
+
+  .NavigationElement_container2 {
+    margin-top: 41px;
+
+    @media (max-width: 768px) {
+      width: 100%;
     }
   }
 `;

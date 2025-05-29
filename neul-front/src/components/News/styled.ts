@@ -11,6 +11,11 @@ export const NewsStyled = styled.div`
     font-size: 22px;
     color: #111;
 
+    @media (max-width: 768px) {
+      font-size: 21px;
+      margin-bottom: 11px;
+    }
+
     button {
       position: relative;
       background: none;
@@ -20,6 +25,14 @@ export const NewsStyled = styled.div`
       color: #333;
       cursor: pointer;
       transition: 0.2s;
+
+      @media (max-width: 768px) {
+        font-size: 21px;
+      }
+
+      @media (max-width: 486px) {
+        font-size: 19px;
+      }
 
       &:hover {
         text-decoration: underline;
@@ -42,6 +55,16 @@ export const NewsStyled = styled.div`
         z-index: -1;
         transition: 0.2s;
         opacity: 0;
+
+        @media (max-width: 768px) {
+          left: 39px;
+        }
+
+        @media (max-width: 486px) {
+          width: 80px;
+          left: 36px;
+          bottom: 0;
+        }
       }
 
       &.active::before {
@@ -64,27 +87,40 @@ export const NewsStyled = styled.div`
     li {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
-      padding: 6px 0;
+      padding: 7px 0;
       cursor: pointer;
       transition: background-color 0.2s;
 
+      @media (max-width: 486px) {
+        padding: 5px 0;
+      }
+
       p {
+        display: inline-block;
         margin: 0;
         font-size: 1rem;
+        max-width: 473px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         a {
           color: #333;
           text-decoration: none;
 
           span {
-            display: inline-block;
-            max-width: 500px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             font-size: 17px;
             transition: 0.1s;
+
+            @media (max-width: 768px) {
+              font-size: 15px;
+            }
+
+            @media (max-width: 486px) {
+              font-size: 14px;
+            }
 
             &:hover {
               font-weight: 600;
@@ -96,7 +132,7 @@ export const NewsStyled = styled.div`
 
       > span {
         display: inline-block;
-        margin-top: 0.25rem;
+        /* margin-top: 0.25rem; */
         font-size: 0.875rem;
         color: #767676;
       }
@@ -111,6 +147,10 @@ export const NewsStyled = styled.div`
 
       .text-sm {
         font-size: 0.875rem;
+
+        @media (max-width: 486px) {
+          font-size: 12px;
+        }
       }
     }
   }
