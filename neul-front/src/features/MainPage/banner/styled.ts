@@ -35,8 +35,8 @@ export const BannerStyled = styled.div`
     }
 
     .Banner_slide {
-      width: 100%;
-      height: 400px;
+      width: 605px;
+      height: 540px;
       //border: 1px solid black;
       border-radius: 15px;
       overflow: hidden;
@@ -47,7 +47,7 @@ export const BannerStyled = styled.div`
         width: 100%;
         height: 100%;
         //background-color: #ccc;
-        object-fit: cover;
+        /* object-fit: cover; */
       }
     }
 
@@ -69,6 +69,14 @@ export const BannerStyled = styled.div`
     .Banner_ing {
     }
   }
+
+  /* .aaa {
+    height: 500px;
+  }
+
+  .swiper-slide {
+    height: 600px;
+  } */
 
   @media (max-width: 768px) {
     &.Banner_main_wrap {

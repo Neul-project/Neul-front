@@ -42,36 +42,40 @@ const Banner = () => {
   return (
     <BannerStyled className={clsx("Banner_main_wrap")}>
       <div className="Banner_text">새로운 프로그램</div>
+
       {bannerItems.length > 0 ? (
-        <Swiper
-          modules={[Pagination, Autoplay]}
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          loop={true}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {bannerItems.map((element: any, index: number) => (
-            <SwiperSlide key={index}>
-              <div
-                className="Banner_slide"
-                onClick={() => handleClick(element.id)}
-              >
-                <img
-                  className="Banner_imgstyle"
-                  src={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    "/uploads/image/" +
-                    element.img
-                  }
-                  alt={`banner-${index}`}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div className="aaa">
+          <Swiper
+            className="aaa"
+            modules={[Pagination, Autoplay]}
+            slidesPerView={1}
+            pagination={{ clickable: true }}
+            loop={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+          >
+            {bannerItems.map((element: any, index: number) => (
+              <SwiperSlide key={index}>
+                <div
+                  className="Banner_slide"
+                  onClick={() => handleClick(element.id)}
+                >
+                  <img
+                    className="Banner_imgstyle"
+                    src={
+                      process.env.NEXT_PUBLIC_API_URL +
+                      "/uploads/image/" +
+                      element.img
+                    }
+                    alt={`banner-${index}`}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       ) : (
         <div className="Banner_empty">
           <div className="empty_img">

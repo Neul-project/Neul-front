@@ -177,6 +177,7 @@ export const MyInfoStyled = styled.div`
 
   .MyInfo_address2 {
     display: flex;
+    align-items: center;
   }
 
   .MyInfo_address_exist {
