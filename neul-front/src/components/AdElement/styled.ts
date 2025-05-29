@@ -3,67 +3,29 @@ import styled from "styled-components";
 export const AdElementStyled = styled.div`
   &.AdElement_main_wrap {
     width: 100%;
-    height: 100%;
     overflow: hidden;
-    //border: 1px solid black;
     border-radius: 15px;
 
     .AdElement_img {
+      position: relative;
       width: 100%;
-      height: 355px;
+      padding-top: 56.25%;
       cursor: pointer;
+      border-radius: 15px;
+      overflow: hidden;
+
+      @media (max-width: 884px) {
+        padding-top: 56.25%;
+      }
 
       .AdElement_imgstyle {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 83%;
-        /* object-fit: cover; */
+        height: 100%;
+        object-fit: cover;
         border-radius: 15px;
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    &.AdElement_main_wrap {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      //border: 1px solid black;
-      border-radius: 15px;
-
-      .AdElement_img {
-        width: 100%;
-        height: 300px;
-        cursor: pointer;
-
-        .AdElement_imgstyle {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 15px;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 486px) {
-    &.AdElement_main_wrap {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      //border: 1px solid black;
-      border-radius: 15px;
-
-      .AdElement_img {
-        width: 100%;
-        height: 200px;
-        cursor: pointer;
-
-        .AdElement_imgstyle {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 15px;
-        }
       }
     }
   }
