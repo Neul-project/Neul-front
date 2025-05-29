@@ -63,7 +63,7 @@ const SubContent = (props: {
       <div className="SubContent_content">
         {/* 활동종류 */}
         <div className="SubContent_row">
-          <div className="SubContent_text">활동 종류</div>
+          <span className="SubContent_text">활동 종류</span>
           <div className="SubContent_re_text">{getActivityLabel(type)}</div>
         </div>
 

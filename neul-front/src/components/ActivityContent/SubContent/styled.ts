@@ -2,10 +2,15 @@ import styled from "styled-components";
 
 export const SubContentStyled = styled.div`
   &.SubContent_main_wrap {
-    padding: 125px 60px 10px 60px;
-    display: flex;
+    /*display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 45px; */
+    width: 100%;
+    position: absolute;
+    z-index: 25;
+    padding: 0 32px;
+    padding: 135px 60px 10px 60px;
+    position: relative;
 
     .SubContent_clip_box {
       display: none;
@@ -13,6 +18,7 @@ export const SubContentStyled = styled.div`
       position: absolute;
       top: -25px;
       left: -10px;
+
       .SubContent_clip {
         width: 100%;
         height: 100%;
@@ -52,21 +58,26 @@ export const SubContentStyled = styled.div`
     .SubContent_content {
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      //gap: 10px;
+      margin-bottom: 16px;
     }
     .SubContent_row {
       display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 22px;
+      font-weight: 500;
 
       .SubContent_text {
-        min-width: 140px;
+        min-width: 120px;
         font-weight: bold;
-        font-size: 22px;
         color: #999;
+        margin-bottom: 18px;
       }
 
       .SubContent_re_text {
         min-width: 120px;
-        font-weight: bold;
+        //font-weight: bold;
         font-size: 22px;
       }
 

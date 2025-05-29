@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 export const SwiperStyled = styled.div`
   &.SwiperImg_main_wrap {
-    padding: 125px 40px 10px 40px;
-
+    padding: 125px 10px 10px 60px;
     .SwiperImg_title {
       font-size: 30px;
       font-weight: bolder;
-      padding-left: 20px;
+      //padding-left: 20px;
       margin-bottom: 15px;
     }
 
