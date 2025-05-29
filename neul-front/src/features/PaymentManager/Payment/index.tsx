@@ -341,8 +341,11 @@ const PaymentFeature = () => {
                 onClick={() => {
                   handlePayment(totalSelectedPrice);
                 }}
+                disabled={selectedProgramIds.length === 0}
               >
-                결제하기
+                {selectedProgramIds.length === 0
+                  ? "프로그램을 선택해주세요"
+                  : "결제하기"}
               </button>
             </div>
           </div>

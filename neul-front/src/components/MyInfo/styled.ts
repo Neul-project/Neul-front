@@ -16,7 +16,7 @@ export const MyInfoStyled = styled.div`
 
     @media (max-width: 632px) {
       width: 100%;
-      height: 100%;
+      /* height: 100%; */
       font-size: 14px;
       padding: 14px 17px;
     }
@@ -173,6 +173,10 @@ export const MyInfoStyled = styled.div`
     @media (max-width: 632px) {
       padding: 6px 0;
     }
+  }
+
+  .MyInfo_address2 {
+    display: flex;
   }
 
   .MyInfo_address_exist {

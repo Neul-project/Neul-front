@@ -87,7 +87,7 @@ export const WardInfoStyled = styled.div`
     height: 100vh;
 
     @media (max-width: 632px) {
-      height: 100%;
+      height: 65vh;
     }
   }
 

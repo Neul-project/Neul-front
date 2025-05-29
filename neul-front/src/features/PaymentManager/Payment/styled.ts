@@ -279,12 +279,17 @@ export const PaymentStyled = styled.div`
           cursor: pointer;
           width: 100%;
           padding: 14px;
-          background-color: #8cc2a9;
+          background-color: #83c1a8;
           color: #fff;
           border: none;
           border-radius: 12px;
           font-size: 19px;
           font-weight: 700;
+
+          &:disabled {
+            cursor: default;
+            background-color: #c5cbc9;
+          }
         }
       }
     }

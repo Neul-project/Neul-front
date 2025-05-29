@@ -215,7 +215,7 @@ const MyInfo = () => {
 
           <div className="MyInfo_flex MyInfo_address">
             <div>
-              <div>
+              <div className="MyInfo_address2">
                 주소 관리
                 <span className="MyInfo_address_exist">
                   {userInfo?.address

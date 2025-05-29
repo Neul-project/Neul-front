@@ -12,7 +12,6 @@ import Cookies from "js-cookie";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 import Loading from "@/components/Loading";
-import Script from "next/script";
 import RoleGuard from "@/components/RoleGuard";
 import Head from "next/head";
 import axios from "axios";
@@ -27,23 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isServerDown, setIsServerDown] = useState(false);
 
   // // 로딩중 컴포넌트 추가
-  const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const handleStart = () => setIsLoading(true);
-  //   const handleComplete = () => setIsLoading(false);
-
-  //   router.events.on("routeChangeStart", handleStart);
-  //   router.events.on("routeChangeComplete", handleComplete);
-  //   router.events.on("routeChangeError", handleComplete);
-
-  //   return () => {
-  //     router.events.off("routeChangeStart", handleStart);
-  //     router.events.off("routeChangeComplete", handleComplete);
-  //     router.events.off("routeChangeError", handleComplete);
-  //   };
-  // }, [router]);
 
   // 서버 체크
   const checkServer = async () => {
@@ -132,18 +115,20 @@ export default function App({ Component, pageProps }: AppProps) {
           <Head>
             <title>Neul</title>
           </Head>
-          <Header />
 
-          <div
-            style={{
-              paddingTop: isChatPage ? "0px" : "64px",
-            }}
-          >
-            {loading ? <Loading /> : guardedComponent}
-            {/* {guardedComponent} */}
+          <div className="layout-wrapper">
+            <Header />
+
+            <div
+              style={{
+                paddingTop: isChatPage ? "0px" : "64px",
+              }}
+            >
+              {loading ? <Loading /> : guardedComponent}
+            </div>
+
+            <Footer />
           </div>
-
-          <Footer />
         </ThemeProvider>
       )}
     </>
