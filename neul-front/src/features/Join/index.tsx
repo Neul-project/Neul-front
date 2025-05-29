@@ -953,9 +953,15 @@ const JoinPage = () => {
                   e.preventDefault();
                   setSubmitAttempted(true); // 생년월일 메시지 표시
 
+                  const errors = await formik.validateForm();
+
+                  console.log("유효성 검사 오류:", errors);
+
                   const isValid = await formik.validateForm().then((errors) => {
                     return Object.keys(errors).length === 0;
                   });
+
+                  console.log(isValid);
 
                   if (!isValid) {
                     message.error(
