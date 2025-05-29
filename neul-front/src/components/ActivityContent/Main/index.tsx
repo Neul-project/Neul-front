@@ -17,7 +17,7 @@ const ActivityContent = (props: { id: string }) => {
   const [type, setType] = useState(""); //재활치료
   const [note, setNote] = useState("");
   const [patientname, setPatientName] = useState("");
-  const lineNumleft = Array(1).fill(0);
+  const lineNumleft = Array(8).fill(0);
   const lineNumright = Array(8).fill(0);
 
   //useEffect
