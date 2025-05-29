@@ -374,13 +374,6 @@ const HelperFeat = () => {
           </Swiper>
         </div>
 
-        {/* 캘린더 로딩 */}
-        {loadingTime && (
-          <div className="modal-backdrop">
-            <div className="modal-content">근무 가능 날짜를 불러오는 중...</div>
-          </div>
-        )}
-
         {/* 선택된 도우미의 가능 날짜 표시 */}
         {activeHelper && helperTime && (
           <div className="Helper_select_container">
