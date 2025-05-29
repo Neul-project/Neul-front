@@ -8,6 +8,7 @@ export const SwiperStyled = styled.div`
       font-size: 30px;
       font-weight: bolder;
       padding-left: 20px;
+      margin-bottom: 15px;
     }
 
     .SwiperImg_swiper {
@@ -18,7 +19,7 @@ export const SwiperStyled = styled.div`
       .SwiperImg_swperimg {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
 
@@ -39,6 +40,7 @@ export const SwiperStyled = styled.div`
       .SwiperImg_title {
         font-size: 25px;
         font-weight: bolder;
+        padding-left: 0px;
       }
 
       .SwiperImg_swiper {
@@ -49,7 +51,7 @@ export const SwiperStyled = styled.div`
         .SwiperImg_swperimg {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
         }
       }
 
@@ -68,7 +70,7 @@ export const SwiperStyled = styled.div`
 
   @media (max-width: 768px) {
     &.SwiperImg_main_wrap {
-      padding: 125px 10px 10px 30px;
+      padding: 125px 30px 10px 30px;
 
       .SwiperImg_title {
         font-size: 20px;
@@ -83,7 +85,41 @@ export const SwiperStyled = styled.div`
         .SwiperImg_swperimg {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
+        }
+      }
+
+      .swiper-pagination-bullet {
+        background: transparent;
+        border: 1px solid #5da487;
+        opacity: 1;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: #5da487;
+        opacity: 1;
+      }
+    }
+  }
+
+  @media (max-width: 486px) {
+    &.SwiperImg_main_wrap {
+      padding: 125px 10px 10px 10px;
+
+      .SwiperImg_title {
+        font-size: 20px;
+        font-weight: bolder;
+      }
+
+      .SwiperImg_swiper {
+        width: 100%;
+        height: 340px;
+        z-index: 50;
+
+        .SwiperImg_swperimg {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
         }
       }
 

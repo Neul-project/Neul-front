@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SubContentStyled = styled.div`
   &.SubContent_main_wrap {
-    padding: 125px 10px 10px 60px;
+    padding: 125px 60px 10px 60px;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -74,13 +74,18 @@ export const SubContentStyled = styled.div`
         width: 100%;
         height: 350px;
         overflow-y: auto;
+
+        overflow-x: hidden; /* 추가 */
+        word-wrap: break-word; /* 줄바꿈 처리 */
+        word-break: break-word; /* 긴 단어 줄바꿈 */
+        white-space: pre-wrap; /* 줄바꿈과 공백 유지 */
       }
     }
   }
 
   @media (max-width: 1330px) {
     &.SubContent_main_wrap {
-      padding: 0px 10px 10px 30px;
+      padding: 0px 30px 10px 30px;
       display: flex;
       flex-direction: column;
       gap: 60px;
@@ -131,7 +136,7 @@ export const SubContentStyled = styled.div`
       .SubContent_content {
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 26px;
         padding-left: 30px;
       }
       .SubContent_row {
@@ -161,7 +166,7 @@ export const SubContentStyled = styled.div`
 
   @media (max-width: 768px) {
     &.SubContent_main_wrap {
-      padding: 0px 10px 10px 30px;
+      padding: 0px 30px 10px 30px;
       display: flex;
       flex-direction: column;
       gap: 40px;
@@ -211,7 +216,7 @@ export const SubContentStyled = styled.div`
       .SubContent_content {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 26px;
         padding-left: 30px;
       }
 
@@ -241,17 +246,17 @@ export const SubContentStyled = styled.div`
   }
   @media (max-width: 486px) {
     &.SubContent_main_wrap {
-      padding: 0px 10px 10px 0px;
+      padding: 0px 10px 10px 10px;
       display: flex;
       flex-direction: column;
       gap: 40px;
-
       .SubContent_clip_box {
         display: block;
         width: 130px;
         position: absolute;
         top: -25px;
         left: -10px;
+
         .SubContent_clip {
           width: 100%;
           height: 100%;
@@ -291,8 +296,8 @@ export const SubContentStyled = styled.div`
       .SubContent_content {
         display: flex;
         flex-direction: column;
-        gap: 30px;
-        padding-left: 30px;
+        gap: 28px;
+        padding-left: 10px;
       }
       .SubContent_row_note {
         display: flex;
@@ -323,7 +328,7 @@ export const SubContentStyled = styled.div`
           /* word-break: break-word; // 긴 단어 잘라주기
           overflow-wrap: break-word; // 줄 바꿈 가능한 위치에서 줄바꿈
           white-space: pre-wrap; // 줄바꿈 + 공백 유지
-          overflow-x: hidden; // 수평 스크롤 제거 */
+         // 수평 스크롤 제거 */
         }
       }
     }
