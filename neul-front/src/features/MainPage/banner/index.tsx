@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import axiosInstance from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { getRecruitmentState } from "@/utils/getrecruitmentstate";
 
 //banner
 const Banner = () => {
@@ -21,9 +22,16 @@ const Banner = () => {
 
   useEffect(() => {
     axiosInstance.get("/program/list").then((res) => {
-      const data = res.data.reverse().slice(0, 5);
-      //console.log("data", data);
-      const items = data.map((element: any) => ({
+      const recruitmentItems = res.data
+        .filter(
+          (item: any) => getRecruitmentState(item.recruitment) === "모집중"
+        )
+        .reverse()
+        .slice(0, 5);
+      //console.log("data", res.data);
+      //console.log("recruitmentItems", recruitmentItems);
+
+      const items = recruitmentItems.map((element: any) => ({
         id: element.id,
         img: element.img.split(",")[0], // 첫 번째 이미지
       }));

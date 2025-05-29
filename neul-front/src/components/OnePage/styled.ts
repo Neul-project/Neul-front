@@ -68,6 +68,7 @@ export const OnePageStyled = styled.div`
     width: 100%;
     max-width: 700px;
     border-radius: 20px;
+
     .onepage_note {
       min-height: 810px;
       height: 100%;

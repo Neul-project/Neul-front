@@ -7,12 +7,13 @@ import clip from "@/assets/images/clip.png";
 import Image from "next/image";
 
 //antd
-import { Input, Modal } from "antd";
+import { Button, Input, Modal } from "antd";
 import type { CheckboxGroupProps } from "antd/es/checkbox";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import clsx from "clsx";
 import SwiperImg from "../SwiperImg";
+
 const FeedBackModal = dynamic(() => import("@/features/FeedBackModal"), {
   ssr: false,
 });
@@ -63,7 +64,7 @@ const SubContent = (props: {
       <div className="SubContent_content">
         {/* 활동종류 */}
         <div className="SubContent_row">
-          <div className="SubContent_text">활동 종류</div>
+          <span className="SubContent_text">활동 종류</span>
           <div className="SubContent_re_text">{getActivityLabel(type)}</div>
         </div>
 
@@ -85,9 +86,9 @@ const SubContent = (props: {
 
         {/* 피드백 작성 */}
         <div className="SubContent_feedback">
-          <div className="SubContent_feedback_btn" onClick={feedback}>
+          <Button className="SubContent_feedback_btn" onClick={feedback}>
             피드백 작성
-          </div>
+          </Button>
         </div>
         <Modal
           title="피드백 제출"
