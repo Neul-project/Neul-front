@@ -4,17 +4,21 @@ export const SubImgStyled = styled.div`
   &.SubImg_main_wrap {
     display: flex;
     width: 100%;
-    height: 120px;
     gap: 10px;
     margin-top: 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 
     .SubImg_img {
-      width: calc(100% / 3);
-      object-fit: contain;
+      display: flex;
+      width: 30%;
+      height: 120px;
 
       .SubImg_imgstyle {
         width: 100%;
         height: 100%;
+        object-fit: contain;
       }
     }
   }
@@ -25,15 +29,16 @@ export const SubImgStyled = styled.div`
       width: 100%;
       gap: 10px;
       margin-top: 10px;
-      height: 150px;
+      height: 110px;
 
       .SubImg_img {
-        width: calc(100% / 3);
-        object-fit: contain;
+        width: 30%;
+        height: 100%;
 
         .SubImg_imgstyle {
           width: 100%;
           height: 100%;
+          object-fit: contain;
         }
       }
     }
@@ -45,15 +50,16 @@ export const SubImgStyled = styled.div`
       width: 100%;
       gap: 10px;
       margin-top: 10px;
-      height: 90px;
+      height: 110px;
 
       .SubImg_img {
-        width: calc(100% / 3);
-        object-fit: contain;
+        width: 30%;
+        height: 100%;
 
         .SubImg_imgstyle {
           width: 100%;
           height: 100%;
+          object-fit: contain;
         }
       }
     }

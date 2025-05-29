@@ -24,7 +24,7 @@ export const ProgramImgStyled = styled.div`
   @media (max-width: 768px) {
     &.ProgrmaImg_main_wrap {
       .ProgramImg_main {
-        height: 300px;
+        height: 330px;
         //border: 1px solid black;
       }
     }
