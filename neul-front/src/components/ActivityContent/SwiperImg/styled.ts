@@ -7,13 +7,14 @@ export const SwiperStyled = styled.div`
       font-size: 30px;
       font-weight: bolder;
       //padding-left: 20px;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
     }
 
     .SwiperImg_swiper {
       width: 90%;
-      height: 400px;
+      height: 500px;
       z-index: 50;
+      padding-right: 50px;
 
       .SwiperImg_swperimg {
         width: 100%;

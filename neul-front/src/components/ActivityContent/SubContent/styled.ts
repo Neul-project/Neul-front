@@ -82,24 +82,49 @@ export const SubContentStyled = styled.div`
       }
 
       .SubContent_re_text_note {
-        width: 100%;
+        /* width: 100%;
         height: 350px;
         overflow-y: auto;
 
-        overflow-x: hidden; /* 추가 */
-        word-wrap: break-word; /* 줄바꿈 처리 */
-        word-break: break-word; /* 긴 단어 줄바꿈 */
-        white-space: pre-wrap; /* 줄바꿈과 공백 유지 */
+        overflow-x: hidden; 추가 
+        word-wrap: break-word; 줄바꿈 처리 
+        word-break: break-word;  긴 단어 줄바꿈 
+        white-space: pre-wrap;  줄바꿈과 공백 유지 */
+
+        max-height: 4em;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        margin-bottom: 18px;
+
+        &::-webkit-scrollbar {
+          width: 20px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: ${(props) => props.theme.colors.softGreen};
+          border-radius: 10px;
+
+          border: 7px solid white; /* 스크롤을 적용할 영역 색깔과 border 색상을 똑같이 맞춘다 */
+        }
+        &::-webkit-scrollbar-track {
+          background-color: rgba(
+            0,
+            0,
+            0,
+            0
+          ); /* 스크롤바 뒷 배경을 투명 처리한다 */
+        }
       }
     }
   }
 
   @media (max-width: 1330px) {
     &.SubContent_main_wrap {
-      padding: 0px 30px 10px 30px;
+      padding: 0px 32px;
       display: flex;
       flex-direction: column;
-      gap: 60px;
+      //gap: 60px;
+      position: relative;
 
       .SubContent_clip_box {
         display: block;
@@ -107,11 +132,13 @@ export const SubContentStyled = styled.div`
         position: absolute;
         top: -25px;
         left: -10px;
+
         .SubContent_clip {
           width: 100%;
           height: 100%;
         }
       }
+
       .SubContent_left {
         display: block;
       }
