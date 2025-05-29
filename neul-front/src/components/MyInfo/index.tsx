@@ -33,7 +33,7 @@ const MyInfo = () => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [pwOpen, setPwOpen] = useState(false);
+  const [showOpen, setShowOpen] = useState(false);
 
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
@@ -41,9 +41,8 @@ const MyInfo = () => {
 
   // 모달 DOM 참조용
   const modalRef = useRef<HTMLDivElement>(null);
-
   // 외부 클릭 시 닫기
-  useOutsideClick(modalRef, () => setPwOpen(false));
+  useOutsideClick(modalRef, () => setShowOpen(false));
 
   // 내 정보 요청
   const fetchMyInfo = async () => {
@@ -84,7 +83,7 @@ const MyInfo = () => {
             message: "비밀번호 변경 성공",
             description: "비밀번호가 성공적으로 변경되었습니다.",
           });
-          setPwOpen(false);
+          setShowOpen(false);
         } else {
           notification.error({
             message: "비밀번호 변경 실패",
@@ -154,7 +153,7 @@ const MyInfo = () => {
             {/* 로컬로그인일 경우만 보임 */}
             {user?.provider === "local" && (
               <div className="MyInfo_changePw">
-                <button type="button" onClick={() => setPwOpen(true)}>
+                <button type="button" onClick={() => setShowOpen(true)}>
                   비밀번호 변경
                 </button>
               </div>
@@ -162,8 +161,8 @@ const MyInfo = () => {
           </div>
 
           {/* 비밀번호 변경 모달 */}
-          {pwOpen && (
-            <ModalCompo onClose={() => setPwOpen(false)}>
+          {showOpen && (
+            <ModalCompo onClose={() => setShowOpen(false)}>
               <div ref={modalRef}>
                 <S.ModalFormWrap onSubmit={formik.handleSubmit}>
                   <S.ModalTitle>비밀번호 변경</S.ModalTitle>

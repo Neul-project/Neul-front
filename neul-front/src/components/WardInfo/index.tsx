@@ -9,6 +9,9 @@ import axiosInstance from "@/lib/axios";
 import { formatAge } from "@/utils/formatter";
 import { notification } from "antd";
 
+import { useRef } from "react";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+
 type UserInfoType = {
   name: string;
   email: string;
@@ -28,7 +31,12 @@ const WardInfo = () => {
 
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
-  // console.log("보호자+피보호자 : ", userInfo);
+  console.log("보호자+피보호자 : ", userInfo);
+
+  // 모달 DOM 참조용
+  const modalRef = useRef<HTMLDivElement>(null);
+  // 외부 클릭 시 닫기
+  useOutsideClick(modalRef, () => setwardOpen(false));
 
   // 보호자 + 피보호자 정보 요청
   useEffect(() => {
@@ -159,46 +167,48 @@ const WardInfo = () => {
       {/* 피보호자 정보 수정 모달 */}
       {wardOpen && (
         <ModalCompo onClose={() => setwardOpen(false)}>
-          <S.ModalFormWrap
-            onSubmit={formik.handleSubmit}
-            className="WardInfo_EditForm"
-          >
-            <S.ModalTitle>피보호자 정보 수정</S.ModalTitle>
-
-            <S.ModalInputDiv>
-              <S.ModalCont>피보호자명</S.ModalCont>
-              <div className="readonly">{formik.values.name}</div>
-            </S.ModalInputDiv>
-
-            <div className="flex">
-              <S.ModalInputDiv>
-                <S.ModalCont>성별</S.ModalCont>
-                <div className="readonly">
-                  {formik.values.gender === "male" ? "남성" : "여성"}
-                </div>
-              </S.ModalInputDiv>
+          <div ref={modalRef}>
+            <S.ModalFormWrap
+              onSubmit={formik.handleSubmit}
+              className="WardInfo_EditForm"
+            >
+              <S.ModalTitle>피보호자 정보 수정</S.ModalTitle>
 
               <S.ModalInputDiv>
-                <S.ModalCont>생년월일</S.ModalCont>
-                <div className="readonly">{formik.values.birth}</div>
+                <S.ModalCont>피보호자명</S.ModalCont>
+                <div className="readonly">{formik.values.name}</div>
               </S.ModalInputDiv>
-            </div>
 
-            <S.ModalInputDiv>
-              <S.ModalCont>특이사항</S.ModalCont>
-              <S.ModalTextarea
-                name="note"
-                placeholder="특이사항"
-                value={formik.values.note}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </S.ModalInputDiv>
+              <div className="flex">
+                <S.ModalInputDiv>
+                  <S.ModalCont>성별</S.ModalCont>
+                  <div className="readonly">
+                    {formik.values.gender === "male" ? "남성" : "여성"}
+                  </div>
+                </S.ModalInputDiv>
 
-            <div className="MyInfo_CngPWSub">
-              <S.ModalButton type="submit">수정하기</S.ModalButton>
-            </div>
-          </S.ModalFormWrap>
+                <S.ModalInputDiv>
+                  <S.ModalCont>생년월일</S.ModalCont>
+                  <div className="readonly">{formik.values.birth}</div>
+                </S.ModalInputDiv>
+              </div>
+
+              <S.ModalInputDiv>
+                <S.ModalCont>특이사항</S.ModalCont>
+                <S.ModalTextarea
+                  name="note"
+                  placeholder="특이사항"
+                  value={formik.values.note}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+              </S.ModalInputDiv>
+
+              <div className="MyInfo_CngPWSub">
+                <S.ModalButton type="submit">수정하기</S.ModalButton>
+              </div>
+            </S.ModalFormWrap>
+          </div>
         </ModalCompo>
       )}
     </WardInfoStyled>

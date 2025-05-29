@@ -11,6 +11,9 @@ import { isRefundAvailable } from "@/utils/getEndDate";
 import axiosInstance from "@/lib/axios";
 import { message, notification } from "antd";
 
+import { useRef } from "react";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+
 interface Program {
   id: number;
   img: string;
@@ -35,6 +38,11 @@ const ProgramHistory = () => {
   );
   // 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // 모달 DOM 참조용
+  const modalRef = useRef<HTMLDivElement>(null);
+  // 외부 클릭 시 닫기
+  useOutsideClick(modalRef, () => setRefundOpen(false));
 
   console.log("프로그램 신청목록: ", programs);
 
@@ -267,92 +275,95 @@ const ProgramHistory = () => {
       {/* 환불 모달 */}
       {refundOpen && (
         <ModalCompo onClose={() => setRefundOpen(false)}>
-          <S.ModalFormWrap onSubmit={formik.handleSubmit}>
-            <S.ModalTitle>환불정보 작성</S.ModalTitle>
+          <div ref={modalRef}>
+            <S.ModalFormWrap onSubmit={formik.handleSubmit}>
+              <S.ModalTitle>환불정보 작성</S.ModalTitle>
 
-            {/* 환불 계좌번호 */}
-            <S.ModalInputDiv>
-              <S.ModalCont>
-                환불 계좌번호<span>*</span>
-              </S.ModalCont>
-              <S.ModalInput
-                type="text"
-                name="accountNumber"
-                placeholder="환불 계좌번호를 입력해주세요"
-                value={formik.values.accountNumber}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.accountNumber && formik.errors.accountNumber && (
-                <div className="error">{formik.errors.accountNumber}</div>
-              )}
-            </S.ModalInputDiv>
-
-            <div className="flex">
-              {/* 예금자명 */}
+              {/* 환불 계좌번호 */}
               <S.ModalInputDiv>
                 <S.ModalCont>
-                  예금자명<span>*</span>
+                  환불 계좌번호<span>*</span>
                 </S.ModalCont>
                 <S.ModalInput
                   type="text"
-                  name="accountHolder"
-                  placeholder="예금자명을 입력해주세요"
-                  value={formik.values.accountHolder}
+                  name="accountNumber"
+                  placeholder="환불 계좌번호를 입력해주세요"
+                  value={formik.values.accountNumber}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.accountHolder &&
-                  formik.errors.accountHolder && (
-                    <div className="error">{formik.errors.accountHolder}</div>
+                {formik.touched.accountNumber &&
+                  formik.errors.accountNumber && (
+                    <div className="error">{formik.errors.accountNumber}</div>
                   )}
               </S.ModalInputDiv>
 
-              {/* 은행명 */}
+              <div className="flex">
+                {/* 예금자명 */}
+                <S.ModalInputDiv>
+                  <S.ModalCont>
+                    예금자명<span>*</span>
+                  </S.ModalCont>
+                  <S.ModalInput
+                    type="text"
+                    name="accountHolder"
+                    placeholder="예금자명을 입력해주세요"
+                    value={formik.values.accountHolder}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.accountHolder &&
+                    formik.errors.accountHolder && (
+                      <div className="error">{formik.errors.accountHolder}</div>
+                    )}
+                </S.ModalInputDiv>
+
+                {/* 은행명 */}
+                <S.ModalInputDiv>
+                  <S.ModalCont>
+                    은행명<span>*</span>
+                  </S.ModalCont>
+                  <S.ModalSelect
+                    name="bankName"
+                    value={formik.values.bankName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">은행을 선택해주세요</option>
+                    <option value="국민은행">국민은행</option>
+                    <option value="신한은행">신한은행</option>
+                    <option value="우리은행">우리은행</option>
+                    <option value="하나은행">하나은행</option>
+                    <option value="농협은행">농협은행</option>
+                  </S.ModalSelect>
+                  {formik.touched.bankName && formik.errors.bankName && (
+                    <div className="error">{formik.errors.bankName}</div>
+                  )}
+                </S.ModalInputDiv>
+              </div>
+
+              {/* 환불사유 */}
               <S.ModalInputDiv>
                 <S.ModalCont>
-                  은행명<span>*</span>
+                  환불 사유<span>*</span>
                 </S.ModalCont>
-                <S.ModalSelect
-                  name="bankName"
-                  value={formik.values.bankName}
+                <S.ModalTextarea
+                  name="refundReason"
+                  placeholder="환불 사유를 입력해주세요"
+                  value={formik.values.refundReason}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                >
-                  <option value="">은행을 선택해주세요</option>
-                  <option value="국민은행">국민은행</option>
-                  <option value="신한은행">신한은행</option>
-                  <option value="우리은행">우리은행</option>
-                  <option value="하나은행">하나은행</option>
-                  <option value="농협은행">농협은행</option>
-                </S.ModalSelect>
-                {formik.touched.bankName && formik.errors.bankName && (
-                  <div className="error">{formik.errors.bankName}</div>
+                />
+                {formik.touched.refundReason && formik.errors.refundReason && (
+                  <div className="error">{formik.errors.refundReason}</div>
                 )}
               </S.ModalInputDiv>
-            </div>
 
-            {/* 환불사유 */}
-            <S.ModalInputDiv>
-              <S.ModalCont>
-                환불 사유<span>*</span>
-              </S.ModalCont>
-              <S.ModalTextarea
-                name="refundReason"
-                placeholder="환불 사유를 입력해주세요"
-                value={formik.values.refundReason}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.refundReason && formik.errors.refundReason && (
-                <div className="error">{formik.errors.refundReason}</div>
-              )}
-            </S.ModalInputDiv>
-
-            <div className="MyInfo_CngPWSub">
-              <S.ModalButton type="submit">환불신청</S.ModalButton>
-            </div>
-          </S.ModalFormWrap>
+              <div className="MyInfo_CngPWSub">
+                <S.ModalButton type="submit">환불신청</S.ModalButton>
+              </div>
+            </S.ModalFormWrap>
+          </div>
         </ModalCompo>
       )}
     </ProgramHistoryStyled>

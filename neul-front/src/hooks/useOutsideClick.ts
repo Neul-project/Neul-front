@@ -1,19 +1,26 @@
 import { useEffect } from "react";
 
-export function useOutsideClick(
-  ref: React.RefObject<HTMLElement>,
-  onOutsideClick: () => void
-) {
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onOutsideClick();
-      }
-    }
+type Handler = () => void;
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+export const useOutsideClick = (
+  ref: React.RefObject<HTMLElement | null>,
+  handler: Handler
+) => {
+  useEffect(() => {
+    const listener = (e: MouseEvent) => {
+      // console.log("ref.current:", ref.current);
+      // console.log("e.target:", e.target);
+      // console.log("contains?", ref.current?.contains(e.target as Node));
+      // ref가 존재하고 클릭한 곳이 ref 내부가 아니라면 handler 실행
+      if (!ref.current || ref.current.contains(e.target as Node)) {
+        return;
+      }
+      handler();
     };
-  }, [ref, onOutsideClick]);
-}
+
+    document.addEventListener("mousedown", listener);
+    return () => {
+      document.removeEventListener("mousedown", listener);
+    };
+  }, [ref, handler]);
+};

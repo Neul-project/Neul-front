@@ -4,6 +4,9 @@ import { AddressStyled } from "./styled";
 import axiosInstance from "@/lib/axios";
 import { message, notification } from "antd";
 
+import { useRef } from "react";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+
 declare global {
   interface Window {
     daum: any;
@@ -21,18 +24,14 @@ const Address = ({ onClose, onAddressSaved, addressProps }: AddressProps) => {
   // 상위 컴포넌트에 주소가 등록되어있는지 체크
   const isEditing = Boolean(addressProps?.trim());
 
+  // 모달 DOM 참조용
+  const modalRef = useRef<HTMLDivElement>(null);
+  // 외부 클릭 시 닫기
+  useOutsideClick(modalRef, onClose);
+
   // 주소 상태 관리
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
-
-  // 카카오 주소 API 스크립트 load
-  // useEffect(() => {
-  //   const script = document.createElement("script");
-  //   script.src =
-  //     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-  //   script.async = true;
-  //   document.body.appendChild(script);
-  // }, []);
 
   // 주소 검색 핸들러
   const handleAddressSearch = () => {
@@ -94,7 +93,7 @@ const Address = ({ onClose, onAddressSaved, addressProps }: AddressProps) => {
         <i className="fa-solid fa-xmark "></i>
       </div>
 
-      <div className="Address_container">
+      <div className="Address_container" ref={modalRef}>
         <div className="Address_wrap">
           <label>{isEditing ? "주소 수정" : "주소 등록"}</label>
 
