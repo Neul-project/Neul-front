@@ -359,7 +359,7 @@ const JoinPage = () => {
                       className="MoreInfo_input"
                       onChange={LimitedHandler(
                         "email",
-                        16,
+                        30,
                         formik.setFieldValue
                       )}
                       onBlur={formik.handleBlur}
@@ -647,6 +647,7 @@ const JoinPage = () => {
                       value={formik.values.note}
                       onChange={formik.handleChange}
                       rows={4}
+                      maxLength={500}
                     />
                   </div>
                 </div>
@@ -728,7 +729,11 @@ const JoinPage = () => {
                       name="certificateName_01"
                       placeholder="(필수) 자격증 이름을 입력하세요"
                       className="MoreInfo_input"
-                      onChange={formik.handleChange}
+                      onChange={LimitedHandler(
+                        "certificateName_01",
+                        30,
+                        formik.setFieldValue
+                      )}
                       value={formik.values.certificateName_01}
                     />
                     {formik.touched.certificateName_01 &&
@@ -749,7 +754,11 @@ const JoinPage = () => {
                       name="certificateName_02"
                       placeholder="(선택) 자격증 이름을 입력하세요"
                       className="MoreInfo_input"
-                      onChange={formik.handleChange}
+                      onChange={LimitedHandler(
+                        "certificateName_02",
+                        30,
+                        formik.setFieldValue
+                      )}
                       value={formik.values.certificateName_02}
                     />
                   </div>
@@ -764,7 +773,11 @@ const JoinPage = () => {
                       name="certificateName_03"
                       placeholder="(선택) 자격증 이름을 입력하세요"
                       className="MoreInfo_input"
-                      onChange={formik.handleChange}
+                      onChange={LimitedHandler(
+                        "certificateName_03",
+                        30,
+                        formik.setFieldValue
+                      )}
                       value={formik.values.certificateName_03}
                     />
                   </div>
@@ -777,11 +790,15 @@ const JoinPage = () => {
                   </label>
                   <div className="Join_width">
                     <input
-                      type="number"
+                      type="text"
                       name="desiredPay"
                       placeholder="숫자만 입력하세요"
                       className="MoreInfo_input"
-                      onChange={formik.handleChange}
+                      onChange={(e) => {
+                        const onlyNums = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 남김
+                        const limitedNums = onlyNums.slice(0, 7); // 8자리로 자르기
+                        formik.setFieldValue("desiredPay", limitedNums);
+                      }}
                       value={formik.values.desiredPay || ""}
                     />
                     {formik.touched.desiredPay && formik.errors.desiredPay && (
@@ -909,6 +926,7 @@ const JoinPage = () => {
                       placeholder="관련 경력을 입력하세요(최대 500자)"
                       value={formik.values.experience || ""}
                       onChange={formik.handleChange}
+                      maxLength={500}
                       onBlur={formik.handleBlur}
                       rows={4}
                     />
@@ -940,7 +958,9 @@ const JoinPage = () => {
                   });
 
                   if (!isValid) {
-                    message.error("회원가입 정보가 모두 입력되지 않았습니다.");
+                    message.error(
+                      "회원가입 정보가 유효하지 않습니다. 회원가입 정보를 확인해주세요."
+                    );
                     return;
                   }
 
