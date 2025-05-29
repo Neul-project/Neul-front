@@ -11,6 +11,7 @@ export const LoginPageStyled = styled.div`
   height: 100vh;
 
   @media (max-width: 632px) {
+    display: block;
     margin-top: 0px;
   }
 
@@ -26,6 +27,7 @@ export const LoginPageStyled = styled.div`
 
     @media (max-width: 632px) {
       border: none;
+      margin: 0 auto;
     }
   }
 
