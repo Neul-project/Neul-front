@@ -34,7 +34,7 @@ export default function middleware(req: NextRequest) {
   const access_token = req.cookies.get("access_token")?.value;
 
   // 토큰 없어도 접근 허용
-  const isPublic = PUBLIC_PATHS.some((path) => pathname === path);
+  const isPublic = PUBLIC_PATHS.some((path) => pathname.startsWith(path));
 
   // 토큰 없으면 로그인 페이지로 리다이렉트
   if (!isPublic && !access_token) {
