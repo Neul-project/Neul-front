@@ -79,26 +79,25 @@ const SubContent = (props: {
         {/* 특이사항 */}
         <div className="SubContent_row  SubContent_row_note">
           <div className="SubContent_text">특이사항</div>
-          <div className="SubContent_re_text_note SubContent_re_text">
+          <span className="SubContent_re_text_note SubContent_re_text">
             {note}
-          </div>
+          </span>
         </div>
-
-        {/* 피드백 작성 */}
-        <div className="SubContent_feedback">
-          <Button className="SubContent_feedback_btn" onClick={feedback}>
-            피드백 작성
-          </Button>
-        </div>
-        <Modal
-          title="피드백 제출"
-          open={isModalOpen}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <FeedBackModal activityid={id} onClose={handleCancel} />
-        </Modal>
       </div>
+      {/* 피드백 작성 */}
+      <div className="SubContent_feedback">
+        <Button className="SubContent_feedback_btn" onClick={feedback}>
+          피드백 작성
+        </Button>
+      </div>
+      <Modal
+        title="피드백 제출"
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <FeedBackModal activityid={id} onClose={handleCancel} />
+      </Modal>
     </SubContentStyled>
   );
 };

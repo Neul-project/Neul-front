@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SwiperStyled = styled.div`
   &.SwiperImg_main_wrap {
     padding: 125px 10px 10px 60px;
-
+    max-width: 605.08px;
     .SwiperImg_title {
       font-size: 30px;
       font-weight: bolder;
@@ -122,10 +122,10 @@ export const SwiperStyled = styled.div`
 
   @media (max-width: 486px) {
     &.SwiperImg_main_wrap {
-      padding: 137px 10px 10px 10px;
+      padding: 143px 10px 10px 10px;
 
       .SwiperImg_title {
-        font-size: 22px;
+        font-size: 17px;
         font-weight: bolder;
       }
 
