@@ -33,6 +33,18 @@ export const SwiperStyled = styled.div`
       background: #5da487;
       opacity: 1;
     }
+    .SwiperImg_swiper {
+      position: relative;
+      padding-bottom: 40px; /* 페이지네이션 영역 확보 */
+    }
+    .swiper-pagination {
+      position: absolute !important;
+      bottom: 0px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+      padding-right: 50px;
+    }
   }
   @media (max-width: 1330px) {
     &.SwiperImg_main_wrap {

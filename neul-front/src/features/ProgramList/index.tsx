@@ -79,10 +79,14 @@ const ProgramList = () => {
   };
 
   //페이지네이션 페이지 변경 되었을 때 실행 함수
-  const handlePageChange = (page: number) => {
+  const handlePageChange = (page: number, pageSize: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    //window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    //window.scrollTo({ top: 0 });
+  }, [currentPage]);
 
   // 필터링된 리스트 - 모집중 / 모집예정 / 모집완료 분리
   const filteredList = list?.filter((item) => {
@@ -148,21 +152,23 @@ const ProgramList = () => {
           </div>
         </div>
       )}
-      <Pagination
-        align="center"
-        style={{
-          textAlign: "center",
-          marginTop: "30px",
-          marginBottom: "30px",
-        }}
-        simple
-        current={currentPage}
-        pageSize={itemsPerPage}
-        total={filteredList?.length}
-        onChange={handlePageChange}
-        showSizeChanger={false}
-        className="ProgramList_pagination"
-      />
+      <ConfigProvider theme={GreenTheme}>
+        <Pagination
+          align="center"
+          style={{
+            textAlign: "center",
+            marginTop: "30px",
+            marginBottom: "30px",
+          }}
+          simple
+          current={currentPage}
+          pageSize={itemsPerPage}
+          total={filteredList?.length}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+          className="ProgramList_pagination"
+        />
+      </ConfigProvider>
     </ProgramListStyled>
   );
 };
