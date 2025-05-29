@@ -25,8 +25,8 @@ export const joinValidationSchema = Yup.object({
         .required("아이디는 필수입니다.")
         .max(15, "아이디는 15자 이하로 입력해주세요.")
         .matches(
-          /^(?=[a-zA-Z0-9]*[a-zA-Z])[a-zA-Z0-9]+$/,
-          "영문자와 숫자를 포함한 조합만 입력해주세요 (특수문자 제외)"
+          /^[a-zA-Z0-9]{4,}$/,
+          "영문자, 숫자 또는 조합으로 4자 이상 입력해주세요 (특수문자 제외)"
         ),
     otherwise: (schema) => schema.notRequired(),
   }),
