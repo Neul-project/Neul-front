@@ -17,8 +17,7 @@ const Login = () => {
 
     if (reason === "auth") {
       notification.error({
-        message: "로그인 실패",
-        description: "로그인이 필요합니다.",
+        message: "로그인이 필요합니다.",
       });
     }
   }, [reason]);
