@@ -3,6 +3,7 @@ import { NavigationElementStyled } from "./styled";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
 //component
+import News from "@/components/News";
 
 //image
 import search from "@/assets/images/search.png";
@@ -173,6 +174,11 @@ const NavigationElement = () => {
             <div className="NavigationElement_text">마이페이지</div>
           </div>
         </div>
+      </div>
+
+      {/* 보도자료, 공지사항 */}
+      <div className="NavigationElement_container2">
+        <News />
       </div>
       {/* <div className="NavigationElement_backimg">
         <img className="NavigationElement_imgstyle" src={back.src} alt="back" />
