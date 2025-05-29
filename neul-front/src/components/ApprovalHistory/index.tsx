@@ -6,7 +6,7 @@ import { formatPhoneNumber } from "@/utils/formatter";
 import { useFormik } from "formik";
 import { editHelperValidationSchema } from "@/utils/joinValidation";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { notification } from "antd";
+import { Modal, notification } from "antd";
 
 interface HelperInfo {
   id: number;
@@ -81,70 +81,85 @@ const ApprovalHistory = () => {
     },
     validationSchema: editHelperValidationSchema,
     onSubmit: async (values) => {
-      const confirm = window.confirm(
-        "입력하신 내용을 다시 한 번 확인해주세요.\n재승인 요청을 하시겠습니까?"
-      );
-      if (!confirm) return;
+      Modal.confirm({
+        title: "입력하신 내용을 다시 한 번 확인해주세요.",
+        content: "재승인 요청을 하시겠습니까?",
+        okText: "네",
+        cancelText: "아니요",
+        centered: true, // 가운데 정렬
+        okButtonProps: {
+          style: { backgroundColor: "#5DA487" },
+        },
+        cancelButtonProps: {
+          style: { color: "#5DA487" },
+        },
+        async onOk() {
+          try {
+            const formData = new FormData();
 
-      try {
-        const formData = new FormData();
+            Object.entries(values).forEach(([key, val]: [string, unknown]) => {
+              if (typeof val === "object" && val instanceof File) {
+                formData.append(key, val);
+              } else if (val !== undefined && val !== null && val !== "") {
+                formData.append(key, String(val));
+              }
+            });
 
-        Object.entries(values).forEach(([key, val]: [string, unknown]) => {
-          if (typeof val === "object" && val instanceof File) {
-            formData.append(key, val);
-          } else if (val !== undefined && val !== null && val !== "") {
-            formData.append(key, String(val));
+            // 사용자 id같이 전송
+            if (helper?.user?.id) {
+              formData.append("userId", String(helper.user.id));
+            }
+
+            // type추가 (승인 반려 -> 승인 대기로 변경 요청)
+            formData.append("type", "reject");
+
+            // 파일을 새로 업로드하지 않은 경우 기존 파일명 유지
+            if (!values.profileImage && helper?.profileImage) {
+              formData.append("existingProfileImage", helper.profileImage);
+            }
+            if (!values.certificate && helper?.certificate) {
+              formData.append("existingCertificate", helper.certificate);
+            }
+
+            // for (const [key, value] of formData.entries()) {
+            //   console.log(`${key}:`, value);
+            // }
+
+            // 재승인 요청 전송
+            const res = await axiosInstance.patch(
+              "/helper/edit-profile",
+              formData
+            );
+
+            // console.log("resdata", res.data);
+
+            if (res.data?.ok) {
+              notification.success({
+                message: "재승인 요청 성공",
+                description: "재승인 요청이 완료되었습니다.",
+              });
+
+              // '승인 대기'로 프론트에서 임시 변경
+              setHelper((prev) =>
+                prev ? { ...prev, status: "승인 대기" } : prev
+              );
+
+              setShowEditForm(false);
+            } else {
+              notification.error({
+                message: "재승인 요청 실패",
+                description: "재승인 요청이 실패했습니다.",
+              });
+            }
+          } catch (error) {
+            console.error("재승인 요청 실패:", error);
+            notification.error({
+              message: "재승인 요청 실패",
+              description: "서버 오류가 발생했습니다.",
+            });
           }
-        });
-
-        // 사용자 id같이 전송
-        if (helper?.user?.id) {
-          formData.append("userId", String(helper.user.id));
-        }
-
-        // type추가 (승인 반려 -> 승인 대기로 변경 요청)
-        formData.append("type", "reject");
-
-        // 파일을 새로 업로드하지 않은 경우 기존 파일명 유지
-        if (!values.profileImage && helper?.profileImage) {
-          formData.append("existingProfileImage", helper.profileImage);
-        }
-        if (!values.certificate && helper?.certificate) {
-          formData.append("existingCertificate", helper.certificate);
-        }
-
-        // for (const [key, value] of formData.entries()) {
-        //   console.log(`${key}:`, value);
-        // }
-
-        // 재승인 요청 전송
-        const res = await axiosInstance.patch("/helper/edit-profile", formData);
-
-        // console.log("resdata", res.data);
-
-        if (res.data?.ok) {
-          notification.success({
-            message: "재승인 요청 성공",
-            description: "재승인 요청이 완료되었습니다.",
-          });
-
-          // '승인 대기'로 프론트에서 임시 변경
-          setHelper((prev) => (prev ? { ...prev, status: "승인 대기" } : prev));
-
-          setShowEditForm(false);
-        } else {
-          notification.error({
-            message: "재승인 요청 실패",
-            description: "재승인 요청이 실패했습니다.",
-          });
-        }
-      } catch (error) {
-        console.error("재승인 요청 실패:", error);
-        notification.error({
-          message: "재승인 요청 실패",
-          description: "서버 오류가 발생했습니다.",
-        });
-      }
+        },
+      });
     },
   });
 

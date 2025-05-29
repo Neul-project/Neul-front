@@ -16,7 +16,7 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 import Script from "next/script";
-import { notification } from "antd";
+import { Modal, notification } from "antd";
 
 type UserInfoType = {
   name: string;
@@ -102,35 +102,47 @@ const MyInfo = () => {
 
   // 회원탈퇴 요청
   const handleWithdraw = async () => {
-    const confirmed = confirm("정말 회원을 탈퇴하시겠습니까?");
-    if (!confirmed) return;
+    Modal.confirm({
+      title: "정말 회원을 탈퇴하시겠습니까?",
+      content: "삭제시 이용중 기록된 모든 내용은 복구할 수 없습니다.",
+      okText: "네",
+      cancelText: "아니요",
+      centered: true, // 가운데 정렬
+      okButtonProps: {
+        style: { backgroundColor: "#5DA487" },
+      },
+      cancelButtonProps: {
+        style: { color: "#5DA487" },
+      },
+      async onOk() {
+        try {
+          const res = await axiosInstance.delete("/user/withdraw", {
+            data: { userId: user?.id },
+          });
 
-    try {
-      const res = await axiosInstance.delete("/user/withdraw", {
-        data: { userId: user?.id },
-      });
+          console.log("회원탈퇴", res.data);
 
-      console.log("회원탈퇴", res.data);
+          if (res.data.ok) {
+            // access_token, refresh_token 제거 및 zustand 상태 초기화
+            useAuthStore.getState().logout();
 
-      if (res.data.ok) {
-        // access_token, refresh_token 제거 및 zustand 상태 초기화
-        useAuthStore.getState().logout();
-
-        notification.success({
-          message: "회원탈퇴 성공",
-          description: "그동안 이용해주셔서 감사합니다.",
-        });
-        router.push("/");
-      } else {
-        notification.error({
-          message: "회원탈퇴 실패",
-          description:
-            "진행중인 매칭이 존재하여 탈퇴에 실패했습니다.매칭이 모두 종료된 후에 탈퇴를 시도해주세요.",
-        });
-      }
-    } catch (err: any) {
-      console.error("회원탈퇴 오류:", err);
-    }
+            notification.success({
+              message: "회원탈퇴 성공",
+              description: "그동안 이용해주셔서 감사합니다.",
+            });
+            router.push("/");
+          } else {
+            notification.error({
+              message: "회원탈퇴 실패",
+              description:
+                "진행중인 매칭이 존재하여 탈퇴에 실패했습니다.매칭이 모두 종료된 후에 탈퇴를 시도해주세요.",
+            });
+          }
+        } catch (err: any) {
+          console.error("회원탈퇴 오류:", err);
+        }
+      },
+    });
   };
 
   return (
