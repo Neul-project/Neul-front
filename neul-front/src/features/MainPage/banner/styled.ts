@@ -78,7 +78,7 @@ export const BannerStyled = styled.div`
     height: 600px;
   } */
 
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     &.Banner_main_wrap {
       width: 100%;
       height: 100%;

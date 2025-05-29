@@ -31,7 +31,7 @@ export const IntroSectionStyled = styled.div<{}>`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     &.IntroSection_main_wrap {
       max-width: 1280px;
       width: 100%;
