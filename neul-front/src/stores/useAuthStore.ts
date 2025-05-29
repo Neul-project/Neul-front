@@ -48,9 +48,9 @@ export const useAuthStore = create<AuthState>()(
 
       checkToken: () => {
         const token = Cookies.get("access_token");
-        const { isLoggedIn } = get();
+        // const { isLoggedIn } = get();
 
-        if (!token && isLoggedIn) {
+        if (!token) {
           get().logout(); // 자동 로그아웃
         }
       },
