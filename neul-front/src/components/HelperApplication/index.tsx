@@ -86,7 +86,7 @@ const HelperApplication = () => {
     helperId: number,
     applyId: number
   ) => {
-    console.log("도우미 신청결제: ", amount, helperId, applyId);
+    // console.log("도우미 신청결제: ", amount, helperId, applyId);
 
     if (!tossClientKey) {
       console.error("Toss client key가 없습니다.");

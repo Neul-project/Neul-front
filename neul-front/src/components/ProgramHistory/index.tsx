@@ -44,7 +44,7 @@ const ProgramHistory = () => {
   // 외부 클릭 시 닫기
   useOutsideClick(modalRef, () => setRefundOpen(false));
 
-  console.log("프로그램 신청목록: ", programs);
+  // console.log("프로그램 신청목록: ", programs);
 
   // 페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
