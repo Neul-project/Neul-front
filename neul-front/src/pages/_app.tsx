@@ -96,7 +96,7 @@ export default function App({ Component, pageProps }: AppProps) {
     "/status",
     "/chat",
     // "/program",
-    "/mypage",
+    // "/mypage",
   ];
 
   // 현재 경로가 보호 대상인지 확인
