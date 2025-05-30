@@ -166,7 +166,7 @@ const HelperApplication = () => {
         {/* 도우미 신청내역 */}
         <div className="ProgramHistory_item_container">
           {helpers.length === 0 ? (
-            <div className="ProgramHistory_empty">
+            <div className="ProgramHistory_empty empty">
               <div className="empty_img">
                 <img src="/empty.svg" alt="emptyImage" />
               </div>
