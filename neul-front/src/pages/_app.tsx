@@ -90,7 +90,14 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [isLoggedIn, logout]);
 
   // 도우미 접근 불가 경로
-  const protectedPathsForHelper = ["/activity", "/helper", "/status"];
+  const protectedPathsForHelper = [
+    "/activity",
+    "/helper",
+    "/status",
+    "/chat",
+    "/program",
+    "/mypage",
+  ];
 
   // 현재 경로가 보호 대상인지 확인
   const isProtected = protectedPathsForHelper.some((path) =>

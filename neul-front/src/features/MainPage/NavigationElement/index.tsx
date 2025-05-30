@@ -84,7 +84,8 @@ const NavigationElement = () => {
 
   //마이페이지 이동
   const MyPage = () => {
-    router.push("/mypage");
+    // router.push("/mypage");
+    window.location.href = "/mypage";
   };
 
   //프로그램 페이지 이동

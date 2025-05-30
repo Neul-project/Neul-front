@@ -20,7 +20,8 @@ const Login = () => {
         message: "로그인이 필요합니다.",
       });
     }
-  }, [reason]);
+    console.log("router.query", router.query);
+  }, [router.isReady, reason]);
 
   return <LoginPage />; // UI만 담당
 };

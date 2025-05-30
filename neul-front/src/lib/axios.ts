@@ -22,14 +22,20 @@ axiosInstance.interceptors.request.use((config) => {
 
 // 응답 인터셉터 - 401 발생 시 로그인 페이지로 리디렉션
 // axiosInstance.interceptors.response.use(
-//   (response) => response,
+//   (response) => response, // 성공 응답은 그대로 반환
 //   (error) => {
 //     if (
 //       error.response?.status === 401 &&
+//       typeof window !== "undefined" && // 브라우저 환경인지 확인
 //       !error.config.url.includes("/check-temp-token")
 //     ) {
-//       Router.push("/login");
+//       // access_token 쿠키 삭제 (선택적)
+//       Cookies.remove("access_token");
+
+//       // 로그인 페이지로 이동
+//       Router.replace("/login?reason=auth");
 //     }
+
 //     return Promise.reject(error);
 //   }
 // );
