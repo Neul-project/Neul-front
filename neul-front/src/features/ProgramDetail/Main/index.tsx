@@ -12,6 +12,7 @@ import { GreenTheme } from "@/utils/antdtheme";
 
 //image
 import share from "@/assets/images/share.png";
+import { useAuthStore } from "@/stores/useAuthStore";
 declare global {
   interface Window {
     Kakao: any;
@@ -162,8 +163,19 @@ const ProgramDetail = (props: { detailid: string }) => {
   //     });
   //   }
   // };
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const handleOk = () => {
+    // 로그인 했는지 안했는지 체크
+    if (!isLoggedIn) {
+      notification.error({
+        message: "로그인이 필요합니다.",
+        description: "로그인 페이지로 이동합니다.",
+      });
+      router.push("/login");
+      return;
+    }
+
     //장바구니에 있는 지 확인용
     axiosInstance.get("/program/histories").then((res: any) => {
       const list = res.data;

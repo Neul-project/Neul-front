@@ -95,7 +95,7 @@ export default function App({ Component, pageProps }: AppProps) {
     "/helper",
     "/status",
     "/chat",
-    "/program",
+    // "/program",
     "/mypage",
   ];
 
