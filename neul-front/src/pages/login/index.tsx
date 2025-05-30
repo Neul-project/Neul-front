@@ -18,6 +18,7 @@ const Login = () => {
     if (reason === "auth") {
       notification.error({
         message: "로그인이 필요합니다.",
+        description: "로그인 페이지로 이동합니다.",
       });
     }
     // console.log("router.query", router.query);
