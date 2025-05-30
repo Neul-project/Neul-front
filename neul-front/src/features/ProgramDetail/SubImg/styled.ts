@@ -8,6 +8,7 @@ export const SubImgStyled = styled.div`
     text-align: center;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 
     .SubImg_img {
       .SubImg_imgstyle {
