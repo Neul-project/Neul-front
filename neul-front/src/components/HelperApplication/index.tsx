@@ -86,7 +86,7 @@ const HelperApplication = () => {
     helperId: number,
     applyId: number
   ) => {
-    console.log("도우미 신청결제: ", amount, helperId, applyId);
+    // console.log("도우미 신청결제: ", amount, helperId, applyId);
 
     if (!tossClientKey) {
       console.error("Toss client key가 없습니다.");
@@ -166,7 +166,7 @@ const HelperApplication = () => {
         {/* 도우미 신청내역 */}
         <div className="ProgramHistory_item_container">
           {helpers.length === 0 ? (
-            <div className="ProgramHistory_empty">
+            <div className="ProgramHistory_empty empty">
               <div className="empty_img">
                 <img src="/empty.svg" alt="emptyImage" />
               </div>

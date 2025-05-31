@@ -77,6 +77,10 @@ export const HelperAppStyled = styled.div`
     }
   }
 
+  .empty {
+    padding: 20px 0;
+  }
+
   .HelperApp_Content {
     margin-top: 12px;
     border: 1px solid #ddd;

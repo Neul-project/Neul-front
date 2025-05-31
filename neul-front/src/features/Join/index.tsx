@@ -107,7 +107,7 @@ const JoinPage = () => {
     },
     validationSchema: joinValidationSchema,
     onSubmit: async (values) => {
-      console.log("회원가입 데이터:", values);
+      // console.log("회원가입 데이터:", values);
 
       // 요청 전 관리자 이메일 값 구성
       const emailToSend =
@@ -214,7 +214,7 @@ const JoinPage = () => {
               },
             }
           );
-          console.log("도우미 회원가입 응답", helperRes.data);
+          // console.log("도우미 회원가입 응답", helperRes.data);
         }
 
         // 약관 동의 항목 추출
@@ -955,13 +955,13 @@ const JoinPage = () => {
 
                   const errors = await formik.validateForm();
 
-                  console.log("유효성 검사 오류:", errors);
+                  // console.log("유효성 검사 오류:", errors);
 
                   const isValid = await formik.validateForm().then((errors) => {
                     return Object.keys(errors).length === 0;
                   });
 
-                  console.log(isValid);
+                  // console.log(isValid);
 
                   if (!isValid) {
                     message.error(

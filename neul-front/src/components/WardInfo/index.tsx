@@ -31,7 +31,7 @@ const WardInfo = () => {
 
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
-  console.log("보호자+피보호자 : ", userInfo);
+  // console.log("보호자+피보호자 : ", userInfo);
 
   // 모달 DOM 참조용
   const modalRef = useRef<HTMLDivElement>(null);

@@ -49,7 +49,7 @@ const MyInfo = () => {
     try {
       const res = await axiosInstance.get("/user/info");
 
-      console.log("내 정보 : ", res.data);
+      // console.log("내 정보 : ", res.data);
 
       const { name, email, phone, address } = res.data;
       setUserInfo({ name, email, phone, address });
@@ -120,7 +120,7 @@ const MyInfo = () => {
             data: { userId: user?.id },
           });
 
-          console.log("회원탈퇴", res.data);
+          // console.log("회원탈퇴", res.data);
 
           if (res.data.ok) {
             // access_token, refresh_token 제거 및 zustand 상태 초기화

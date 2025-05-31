@@ -12,7 +12,7 @@ const PaymentSucessFeat = () => {
   const [orderInfo, setOrderInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  console.log("결제성공, 주문정보: ", orderInfo);
+  // console.log("결제성공, 주문정보: ", orderInfo);
 
   // 최종 결제승인 요청
   useEffect(() => {

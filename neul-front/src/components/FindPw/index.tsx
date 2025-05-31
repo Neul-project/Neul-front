@@ -36,7 +36,7 @@ const FindPw = () => {
       message.info("올바른 이메일을 입력해주세요.");
       return;
     }
-    console.log(formik.values.email);
+    // console.log(formik.values.email);
 
     try {
       const res = await axios.post(
@@ -107,7 +107,7 @@ const FindPw = () => {
     validationSchema: findPwValidationSchema,
     onSubmit: async (values) => {
       try {
-        console.log("비밀번호찾기 데이터", values);
+        // console.log("비밀번호찾기 데이터", values);
 
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/find`,
