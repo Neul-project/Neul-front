@@ -5,7 +5,7 @@
 ## 프로젝트 소개
 
 - 기록 관리 서비스 'Neul'은 장애인 보호자와 장애인 돌봄 기관 간의 원활한 연결 및 기록 관리 시스템을 구축하여 장애인 복지의 효율성과 신뢰성을 높이기 위해 기획된 **장애인 기록관리 통합 서비스**입니다.<br/>
-- 배포: [Neul](http://3.38.125.252) <a href="http://3.38.125.252" target="_blank" rel="noopener noreferrer">Neul</a>
+- 배포: [Neul](http://3.38.125.252)
 <br/>
 
 - 'Neul' 프로젝트를 시작하게 된 이유는 장애인 보호자들이 도우미와의 소통과 피보호자의 상태 관리를 수기로 진행하거나 비체계적으로 관리하고 있다는 문제를 발견했기 때문입니다. 이로 인해 돌봄 서비스의 신뢰성과 효율성이 낮아지는 상황이 자주 발생하였고 이를 디지털화된 시스템으로 개선할 필요가 있다고 판단했습니다.
@@ -84,72 +84,25 @@
 <br />
 
 ## 기능구현
-
 <table>
-  <th>도우미</th>
-  <th>보호자</th>
-  
+  <th>상태기록</th>
   <tr>
     <td align="center">
-      <strong>회원가입</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/9ee8d7db-5647-4c46-92b0-14316b3d3949" alt="mainpage" width="500" height="500">
-    </td>
-    <td align="center">
-      <strong>로그인</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="all-post" width="500" height="500">
+      <img src="https://github.com/user-attachments/assets/dd97ab61-3125-4824-8ace-09c35ebd1019" alt="status" width=100%>
     </td>
   </tr>
   
+  <th>활동기록</th>
   <tr>
     <td align="center">
-      <strong>도우미 신청승인<br><br>
-      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="chat" width="500" height="500">
-    </td>
-    <td align="center">
-      <strong>도우미 신청</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/6288bde7-1dcf-485b-9c98-f0d051e8786e" alt="my-profile" width="500" height="500">
-    </td>
-  </tr>
-  
-   <tr>
-    <td align="center">
-      <strong>소셜 로그인</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/6fb5ec66-3a87-4909-a2a3-7988230765a6" alt="login" width="250" height="250">
-    </td>
-    <td align="center">
-      <strong>결제하기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/c4f46d4d-906a-4c81-b165-a230cb200dd6" alt="pay-page" width="250" height="250">
+      <img src="https://github.com/user-attachments/assets/c3b90911-12e1-4c4c-824e-29f42183a5af" alt="active" width=100%>
     </td>
   </tr>
 
+  <th>피드백</th>
    <tr>
     <td align="center">
-      <strong>상태기록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/18880832-74b8-41d0-a8e7-a871c981a595" alt="status" width="500" height="250">
-    </td>
-    <td align="center">
-      <strong>상태확인</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/6e2273a8-c8c7-477b-96ad-9970e82ae72d" alt="status-check" width="500" height="250">
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <strong>활동기록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/2c0c60c2-1506-40b9-85ba-44417e9c740b" alt="active" width="500" height="250">
-    </td>
-    <td align="center">
-      <strong>활동열람</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/0ceda075-5e48-4f68-acdc-5533bf99e0dd" alt="active-check" width="500" height="250">
-    </td>
-  </tr>
-    <tr>
-    <td align="center">
-      <strong>피드백 확인</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/78d77e18-a547-4692-a54e-fa5179eeee31" alt="feed-check" width="500" height="250">
-    </td>
-    <td align="center">
-      <strong>피드백 작성</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/2ec7c56b-d589-4704-bc08-c5f500e5bfdb" alt="feed" width="500" height="250">
+      <img src="https://github.com/user-attachments/assets/0d45503a-589b-428a-b570-9277bc7cdf86" alt="feed" width=100%>
     </td>
   </tr>
 </table>
