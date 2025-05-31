@@ -89,6 +89,22 @@
   <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/dd97ab61-3125-4824-8ace-09c35ebd1019" alt="status" width=100%>
+      <br />
+        <table>
+        <th>도우미</th>
+        <th>보호자</th>
+        <tr>
+          <td width=50%>
+            - 담당하고 있는 피보호자의 하루 상태 등록<br />
+            - 등록된 상태 수정<br />
+            - 등록된 상태 삭제
+          </td>
+          <td width=50%>
+            - 날짜를 선택하여 피보호자의 하루 상태 확인
+          </td>
+        </tr>
+      </table>
+      <br />
     </td>
   </tr>
   
@@ -96,6 +112,23 @@
   <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/c3b90911-12e1-4c4c-824e-29f42183a5af" alt="active" width=100%>
+      <br />
+      <table>
+        <th>도우미</th>
+        <th>보호자</th>
+        <tr>
+          <td width=50%>
+            - 담당하고 있는 피보호자의 활동 등록<br />
+            - 등록된 활동 수정<br />
+            - 등록된 활동 삭제
+          </td>
+          <td width=50%>
+            - 피보호자의 활동 확인<br />
+            - 개수 제한 없음
+          </td>
+        </tr>
+      </table>
+      <br />
     </td>
   </tr>
 
@@ -103,6 +136,21 @@
    <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/0d45503a-589b-428a-b570-9277bc7cdf86" alt="feed" width=100%>
+      <br />
+      <table>
+        <th>도우미</th>
+        <th>보호자</th>
+        <tr>
+          <td width=50%>
+            - 보호자가 작성한 피드백 확인<br />
+            - 활동기록명으로 검색 가능
+          </td>
+          <td width=50%>
+            - 해당 활동에 피드백 가능
+          </td>
+        </tr>
+      </table>
+      <br />
     </td>
   </tr>
 
@@ -114,6 +162,30 @@
       <img src="https://github.com/user-attachments/assets/3dfc4377-5c0f-4ecf-ab0d-5c27cc99f4c6" alt="content" width=100%><br />
       <img src="https://github.com/user-attachments/assets/7b35c72f-5cf8-4f4b-b0d7-20d91874d6f6" alt="infinite" width=100%><br />
       <img src="https://github.com/user-attachments/assets/9b6b485f-a87c-4e42-8a72-587f98b07d93" alt="room" width=100%><br />
+      <br />
+       <table>
+        <th>도우미</th>
+        <th>보호자</th>
+        <tr>
+          <td width=50%>
+            - 매칭된 보호자들의 채팅방 생성<br />
+            - 각 채팅방의 안 읽은 채팅 개수 확인 가능<br />
+            - 선택한 보호자와의 실시간 채팅 가능<br />
+            - 매칭 종료시 해당 채팅방의 채팅 비활성화 및 채팅방 나가기 가능
+          </td>
+          <td width=50%>
+            - 소켓 이벤트로 메인에서 안 읽은 전체 채팅 개수 확인 가능<br />
+            - 메인 이동 가능<br />
+            - 선택한 도우미와의 실시간 채팅 가능<br />
+            - 해당 채팅방의 내용 전체 삭제<br />
+            - 채팅방 선택으로 이동<br />
+            - 매칭된 도우미들의 채팅방 생성<br />
+            - 채팅방, 채팅창 무한스크롤<br />
+            - 매칭 종료시 해당 채팅방의 채팅 비활성화 및 채팅방 나가기 가능
+          </td>
+        </tr>
+      </table>
+      <br />
     </td>
   </tr>
 </table>
@@ -141,30 +213,16 @@
 <table>
   <tr>
     <td align="center">
-      <strong>내 정보 페이지</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/0a20e780-7e39-409c-8cfe-3ca5064a79ca" alt="main-page" width="280" height="400">
+      <strong>상태&활동기록</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=100%>
     </td>
     <td align="center">
-      <strong>게시물 상세보기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/e4e35581-abc5-4665-9bc5-a9527a23c891" alt="all-post" width="270" height="400">
+      <strong>상태&활동기록</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=100%>
     </td>
     <td align="center">
-       <strong>채팅하기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/b9a92580-7204-48b8-ae39-f863ffcaefe7" width="280" height="400">
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <strong>상태확인</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width="310" height="400">
-    </td>
-    <td align="center">
-      <strong>활동기록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/e4e35581-abc5-4665-9bc5-a9527a23c891" alt="all-post" width="270" height="400">
-    </td>
-    <td align="center">
-       <strong>채팅</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/b9a92580-7204-48b8-ae39-f863ffcaefe7" width="280" height="400">
+      <strong>상태&활동기록</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=100%>
     </td>
   </tr>
 </table>
