@@ -105,6 +105,35 @@
       <img src="https://github.com/user-attachments/assets/0d45503a-589b-428a-b570-9277bc7cdf86" alt="feed" width=100%>
     </td>
   </tr>
+
+    <th>채팅</th>
+   <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/d4568af9-14a9-4eb8-b348-dc11a3f3a71b" alt="chat" width=100%><br />
+
+      
+      <strong>실시간 1:1 채팅</strong>
+      
+      ![Image](https://github.com/user-attachments/assets/88c82f5c-c8f5-41f1-95c4-eaf6803cc3f8)
+      
+      <br />
+      <strong>채팅방 내용 전체 삭제</strong>
+
+      ![Image](https://github.com/user-attachments/assets/3dfc4377-5c0f-4ecf-ab0d-5c27cc99f4c6)
+
+       <br />
+      <strong>무한스크롤</strong>
+
+      ![Image](https://github.com/user-attachments/assets/7b35c72f-5cf8-4f4b-b0d7-20d91874d6f6)
+
+        <br />
+      <strong>채팅방 나가기</strong>
+
+      ![Image](https://github.com/user-attachments/assets/9b6b485f-a87c-4e42-8a72-587f98b07d93)
+
+
+    </td>
+  </tr>
 </table>
 
 <br />
