@@ -372,29 +372,29 @@
   <tr>
     <td align="center">
       <strong>메인페이지</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/a52e6570-2846-45e7-aa8f-7e45774fd41f" alt="status-check" width=250px height=300px>
+      <img src="https://github.com/user-attachments/assets/a52e6570-2846-45e7-aa8f-7e45774fd41f" alt="status-check" width=250px height=400px>
     </td>
     <td align="center">
       <strong>도우미 신청</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/f3413ae8-7a41-4d55-b0e9-7f65dc97ad87" alt="status-check" width=250px height=300px>
+      <img src="https://github.com/user-attachments/assets/f3413ae8-7a41-4d55-b0e9-7f65dc97ad87" alt="status-check" width=250px height=400px>
     </td>
     <td align="center">
       <strong>상태&활동기록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=250px height=300px>
+      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=250px height=400px>
     </td>
   </tr>
   <tr>
     <td align="center">
       <strong>마이페이지</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/a52e6570-2846-45e7-aa8f-7e45774fd41f" alt="status-check" width=250px height=300px>
+      <img src="https://github.com/user-attachments/assets/69b8f5fc-82d6-40a6-bcb8-4bbf7272bfc8" alt="status-check" width=250px height=400px>
     </td>
     <td align="center">
       <strong>프로그램 목록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/f3413ae8-7a41-4d55-b0e9-7f65dc97ad87" alt="status-check" width=250px height=300px>
+      <img src="https://github.com/user-attachments/assets/4c453097-2d83-4fe3-962f-a53544dfc193" alt="status-check" width=250px height=400px>
     </td>
     <td align="center">
       <strong>결제페이지</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=250px height=300px>
+      <img src="https://github.com/user-attachments/assets/1892b589-9a58-4329-938a-9ee464a62dfc" alt="status-check" width=250px height=400px>
     </td>
   </tr>
 </table>
