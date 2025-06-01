@@ -113,6 +113,20 @@
 <br />
 
 ## 기능구현
+
+
+<table>
+  <th>메인페이지</th>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/b0678130-e0de-4839-808b-7c89ec109b1a" width=100%>
+    </td>
+  </tr>
+</table>
+
+
+<br />
+
 <table>
   <th>회원가입(보호자)</th>
   <tr>
@@ -221,7 +235,7 @@
 
 | 도우미 | 보호자 |
 |--------|--------|
-| <ul><li>담당하고 있는 피보호자의 하루 상태 등록</li><li>등록된 상태 수정</li><li>등록된 상태 삭제</li></ul> | <ul><li>날짜를 선택하여 피보호자의 하루 상태 확인</li></ul> |
+| <ul><li>도우미 매칭완료 후 담당하고 있는 피보호자의 하루 상태 등록</li><li>등록된 상태 수정</li><li>등록된 상태 삭제</li></ul> | <ul><li>날짜를 선택하여 피보호자의 하루 상태 확인</li></ul> |
 
 <br />
 
