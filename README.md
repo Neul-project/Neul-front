@@ -157,6 +157,62 @@
 <br />
 
 <table>
+  <th>매칭신청</th>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/d25d8410-1cf7-41b4-9801-f7750980c96a" width=100%>
+    </td>
+  </tr>
+</table>
+
+| 도우미 | 보호자 |
+|--------|--------|
+| <ul><li>회원가입 승인 후 도우미의 근무가능 날짜 지정</li></ul> | <ul><li>보호자는 근무가능 날짜가 지정된 도우미들의 리스트만 확인 가능</li><li>보호자의 조건에 맞는 도우미를 선택하여 원하는 날짜 범위 지정 후 신청</li><li>신청 후 알림 → 도우미의 승인 후 결제 가능</li></ul> |
+
+<br />
+
+<table>
+  <th>매칭신청(승인)</th>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9e16532d-2927-450c-a015-745b44244b21" width=100%>
+    </td>
+  </tr>
+</table>
+
+| 도우미 | 보호자 |
+|--------|--------|
+| <ul><li>도우미가 매칭을 수락하면 사용자는 '결제 대기' 상태로 변경</li></ul> | <ul><li>도우미 수락 시 사용자의 결제 버튼 활성화</li></ul> |
+
+<br />
+
+<table>
+  <th>매칭신청(결제)</th>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/e007e1e7-c5cc-464f-a5a6-8132c77068e8" width=100%>
+    </td>
+  </tr>
+</table>
+
+- 사용자가 결제를 완료하면 도우미의 담당회원으로 등록 & 도우미 일정표에 해당날짜 표시
+
+<br />
+
+<table>
+  <th>매칭신청(반려)</th>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9fc150a7-39e8-4b63-9d79-10c5a3fdf8e9" width=100%>
+    </td>
+  </tr>
+</table>
+
+- 도우미가 매칭 거절 시 보호자에게 알림
+
+<br />
+
+<table>
   <th>활동기록</th>
   <tr>
     <td align="center">
