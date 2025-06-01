@@ -152,7 +152,7 @@
   </tr>
 </table>
 
-- 승인 반려 시 반려사유 확인 후 승인 재요청 가능
+- 시스템관리자의 승인 반려 시 도우미는 반려사유 확인 후 승인 재요청 가능
 
 <br />
 
@@ -209,6 +209,21 @@
 </table>
 
 - 도우미가 매칭 거절 시 보호자에게 알림
+
+<br />
+
+<table>
+  <th>상태기록</th>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/dd97ab61-3125-4824-8ace-09c35ebd1019" alt="active" width=100%>
+    </td>
+  </tr>
+</table>
+
+| 도우미 | 보호자 |
+|--------|--------|
+| <ul><li>담당하고 있는 피보호자의 하루 상태 등록</li><li>등록된 상태 수정</li><li>등록된 상태 삭제</li></ul> | <ul><li>날짜를 선택하여 피보호자의 하루 상태 확인</li></ul> |
 
 <br />
 
