@@ -372,16 +372,16 @@
 <table>
   <tr>
     <td align="center">
-      <strong>상태&활동기록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=100%>
+      <strong>메인페이지</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/a52e6570-2846-45e7-aa8f-7e45774fd41f" alt="status-check" width=250px>
+    </td>
+    <td align="center">
+      <strong>도우미 신청</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/f3413ae8-7a41-4d55-b0e9-7f65dc97ad87" alt="status-check" width=250px>
     </td>
     <td align="center">
       <strong>상태&활동기록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=100%>
-    </td>
-    <td align="center">
-      <strong>상태&활동기록</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=100%>
+      <img src="https://github.com/user-attachments/assets/16b509ce-b2c0-4f4c-b84a-39093f59da1d" alt="status-check" width=250px>
     </td>
   </tr>
 </table>
