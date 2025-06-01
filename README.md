@@ -124,7 +124,7 @@
   </tr>
 </table>
 
-- 사용자는 가입 즉시 서비스 이용 가능
+- 보호자는 가입 즉시 서비스 이용 가능
 
 <br />
 
@@ -273,6 +273,68 @@
 | 도우미 | 보호자 |
 |--------|--------|
 | <ul><li>매칭된 보호자들의 채팅방 생성</li><li>각 채팅방의 안 읽은 채팅 개수 확인 가능</li><li>선택한 보호자와의 실시간 채팅 가능</li><li>매칭 종료시 해당 채팅방의 채팅 비활성화 및 채팅방 나가기 가능</li></ul>| <ul><li>소켓 이벤트로 메인에서 안 읽은 전체 채팅 개수 확인 가능</li><li>메인 이동 가능</li><li>선택한 도우미와의 실시간 채팅 가능</li><li>해당 채팅방의 내용 전체 삭제</li><li>채팅방 선택으로 이동</li><li>매칭된 도우미들의 채팅방 생성</li><li>채팅방, 채팅창 무한스크롤</li><li>매칭 종료시 해당 채팅방의 채팅 비활성화 및 채팅방 나가기 가능</li></ul> |
+
+<br />
+
+<table>
+  <th>프로그램 신청</th>
+   <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/238ea237-4cdc-4131-b1c3-00d54f4621b0" alt="feed" width=100%>
+    </td>
+  </tr>
+</table>
+
+- 프로그램은 도우미 신청여부와 상관없이 이용 가능
+- 모집기간이 아직 시작되지 않은 경우 ‘모집예정’ 표시, 신청하기 버튼 비활성화
+- 프로그램 장바구니에 담긴 후 다른 프로그램 복수 신청 가능
+- 신청완료 후 장바구니 결제 필요를 알림으로 안내
+
+
+<br />
+
+<table>
+  <th>프로그램 결제</th>
+   <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/ee532867-e25f-4277-a005-332a7f45c424" alt="feed" width=100%>
+    </td>
+  </tr>
+</table>
+
+- 결제가 완료되면 [마이페이지] - [프로그램 신청내역]에서 신청내역 확인 가능
+- 시스템 관리자 페이지에서도 사용자의 결제 목록 확인 가능
+
+
+<br />
+
+<table>
+  <th>프로그램 환불</th>
+   <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/4b367427-2d41-4838-8ebb-ed40547c6d04" alt="feed" width=100%>
+    </td>
+  </tr>
+</table>
+
+| 보호자 | 시스템관리자 |
+|--------|--------|
+| <ul><li>환불 신청 후 '환불 대기' 상태로 변경</li></ul>| <ul><li>시스템 관리자 페이지 [프로그램] → [환불 목록]에서 확인</li><li>처리 후 버튼 클릭 시 사용자에게 환불 완료 안내</li></ul> |
+
+<br />
+
+<table>
+  <th>비밀번호 찾기</th>
+   <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/e0263aa4-8b47-4005-96ae-345326704bb0" alt="feed" width=100%>
+    </td>
+  </tr>
+</table>
+
+- nodemailer를 이용하여 인증번호 발송
+- 발송된 인증번호가 일치하면 비밀번호 재설정 가능
+
 
 <br />
 <br />
