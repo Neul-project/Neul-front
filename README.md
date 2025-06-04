@@ -346,6 +346,22 @@
 - 발송된 인증번호가 일치하면 비밀번호 재설정 가능
 
 <br />
+
+<table>
+  <th>관리자 페이지</th>
+   <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/cdc72fe5-b463-4592-9bde-a519945c3c09" alt="feed" width=100%>
+    </td>
+  </tr>
+</table>
+
+- 대시보드
+- 회원관리 - 도우미 관리, 사용자 관리
+- 프로그램 - 프로그램 등록, 결제 목록, 환불 목록
+- 광고관리 표시
+
+<br />
 <br />
 
 ## DB 설계도
