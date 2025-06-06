@@ -227,6 +227,9 @@ const Header = () => {
   };
 
   useEffect(() => {
+    // 로그인 상태가 아닐 경우 요청 X
+    if (!user || !isLoggedIn) return;
+
     getAlert();
 
     const interval = setInterval(() => {
@@ -242,6 +245,9 @@ const Header = () => {
 
   // 알림이 match에 관한 내용이라면 담당 adminId 불러오기
   useEffect(() => {
+    // 로그인 상태 확인
+    if (!userId || !isLoggedIn) return;
+
     if (!userId) return;
     getAdminId();
   }, [matchAlertNum, userId]);

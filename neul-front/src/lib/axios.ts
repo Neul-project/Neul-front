@@ -14,6 +14,8 @@ const axiosInstance = axios.create({
 // 요청 인터셉터 - access_token을 동적으로 헤더에 추가
 axiosInstance.interceptors.request.use((config) => {
   const token = Cookies.get("access_token");
+  console.log("token:", token);
+
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
