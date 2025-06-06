@@ -60,7 +60,6 @@ const HelperFeat = () => {
   const [helperTime, setHelperTime] = useState<HelperTime | null>(null);
   // 유저가 도우미 신청하는 날짜 범위
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
-  const [loadingTime, setLoadingTime] = useState(false);
   // 도우미 신청하기 hover 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 도우미별로 비활성화된 날짜 관리
@@ -116,7 +115,6 @@ const HelperFeat = () => {
 
   // 선택한 도우미의 일정 요청
   const fetchHelperTime = async (helperId: number) => {
-    setLoadingTime(true);
     try {
       const res = await axiosInstance.get(`/helper/time/${helperId}`);
       // console.log("도우미 일정 응답", res.data);
@@ -136,8 +134,6 @@ const HelperFeat = () => {
     } catch (error) {
       console.error("근무 가능 날짜 불러오기 실패:", error);
       setHelperTime(null);
-    } finally {
-      setLoadingTime(false);
     }
   };
 

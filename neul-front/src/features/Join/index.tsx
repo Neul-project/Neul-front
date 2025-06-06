@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 
 // 이미지 최적화
 import Image from "next/image";
-import Logo from "@/assets/images/logo_small.png";
 
 import { Select, message, notification } from "antd";
 import { useFormik } from "formik";

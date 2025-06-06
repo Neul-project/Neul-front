@@ -24,7 +24,7 @@ function isPublicFile(pathname: string) {
 
 //PUBLIC_PATHS 내 경로를 제외한 모든 경로에 로그인 시 발급되는 토큰의 유무를 검사
 export default function middleware(req: NextRequest) {
-  // console.log("✅ middleware 실행됨");
+  // console.log("middleware 실행됨");
 
   const { pathname } = req.nextUrl;
   const access_token = req.cookies.get("access_token")?.value;

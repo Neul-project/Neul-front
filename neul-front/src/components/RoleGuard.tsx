@@ -47,7 +47,7 @@ const RoleGuard: React.FC<RoleGuardProps> = ({ blockedRoles, children }) => {
   if (!isLoggedIn || !user) {
     if (!alertShown) {
       notification.error({
-        message: "로그인이 필요합니다.",
+        message: "로그인이 필요합니다",
         description: "로그인 페이지로 이동합니다.",
       });
       setAlertShown(true);
