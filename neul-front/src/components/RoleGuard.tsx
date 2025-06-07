@@ -40,25 +40,27 @@ const RoleGuard: React.FC<RoleGuardProps> = ({ blockedRoles, children }) => {
     }
   }, [loading, isLoggedIn, user, alertShown, blockedRoles]);
 
+  // 로그인 안된 경우 로그인 페이지로 이동
+  useEffect(() => {
+    if (!isLoggedIn || !user) {
+      if (!alertShown) {
+        notification.error({
+          message: "로그인이 필요합니다",
+          description: "로그인 페이지로 이동합니다.",
+        });
+        setAlertShown(true);
+      }
+
+      router.replace("/login");
+      // return null;
+    }
+  }, [loading, isLoggedIn, user, alertShown]);
+
   // 로딩 중일 때 로딩 컴포넌트
   if (loading) return <Loading />;
 
-  // 로그인 안된 경우 로그인 페이지로 이동
-  if (!isLoggedIn || !user) {
-    if (!alertShown) {
-      notification.error({
-        message: "로그인이 필요합니다",
-        description: "로그인 페이지로 이동합니다.",
-      });
-      setAlertShown(true);
-    }
-
-    router.replace("/login");
-    return null;
-  }
-
   // 차단된 역할은 렌더링 차단
-  if (blockedRoles.includes(user.role)) return null;
+  if (user && blockedRoles.includes(user.role)) return null;
 
   // 정상 접근일 때 하위 컴포넌트 렌더링
   return <>{children}</>;
