@@ -79,7 +79,7 @@ const MyInfo = () => {
         });
 
         if (res.data?.ok) {
-          notification.error({
+          notification.success({
             message: "비밀번호 변경 성공",
             description: "비밀번호가 성공적으로 변경되었습니다.",
           });
